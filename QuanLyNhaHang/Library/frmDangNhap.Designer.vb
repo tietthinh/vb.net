@@ -83,7 +83,7 @@ Partial Class frmDangNhap
         Me.lblSeePW.BackColor = System.Drawing.SystemColors.Window
         Me.lblSeePW.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.lblSeePW.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSeePW.Image = Global.QuanLyNhaHang.My.Resources.Resources.eye
+        Me.lblSeePW.Image = Global.Library.My.Resources.Resources.eye
         Me.lblSeePW.Location = New System.Drawing.Point(224, 108)
         Me.lblSeePW.Margin = New System.Windows.Forms.Padding(3)
         Me.lblSeePW.Name = "lblSeePW"
