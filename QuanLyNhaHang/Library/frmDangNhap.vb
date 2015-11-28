@@ -1,4 +1,7 @@
-﻿Public Class frmDangNhap
+﻿Imports System.Drawing
+Imports System.Windows.Forms
+
+Public Class frmDangNhap
 
     Private isPWNull As Boolean
     Private isIDNull As Boolean
@@ -60,14 +63,14 @@
     End Sub
 
     Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
-        Dim account As DataTable = db.Query()
-        For Each row As DataRow In account.Rows
-            If txtID.Text = row("Username") And GetMd5Hash(txtPW.Text) = row("Password") Then
-                MessageBox.Show("Đăng nhập thành công", "", MessageBoxButtons.OK)
-                Me.DialogResult = Windows.Forms.DialogResult.OK
-                Me.Close()
-            End If
-        Next
+        'Dim account As DataTable = db.Query()
+        'For Each row As DataRow In account.Rows
+        '    If txtID.Text = row("Username") And GetMd5Hash(txtPW.Text) = row("Password") Then
+        '        MessageBox.Show("Đăng nhập thành công", "", MessageBoxButtons.OK)
+        '        Me.DialogResult = Windows.Forms.DialogResult.OK
+        '        Me.Close()
+        '    End If
+        'Next
     End Sub
 
     Private Sub lblClear_MouseHover(sender As Object, e As EventArgs) Handles lblSeePW.MouseHover, lblClearID.MouseHover
