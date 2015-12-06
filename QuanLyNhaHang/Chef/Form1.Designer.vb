@@ -23,13 +23,12 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column3 = New System.Windows.Forms.DataGridViewButtonColumn()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button4 = New System.Windows.Forms.Button()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Me.dgvCookList = New System.Windows.Forms.DataGridView()
+        Me.btnCook = New System.Windows.Forms.Button()
+        Me.btnSendWarehouse = New System.Windows.Forms.Button()
+        Me.btnSendWaitor = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -51,126 +50,126 @@ Partial Class Form1
         Me.ltbMessage = New System.Windows.Forms.ListBox()
         Me.txtTotalAmount = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.dtpMaterialList = New System.Windows.Forms.DataGridView()
-        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column5 = New System.Windows.Forms.DataGridViewButtonColumn()
-        Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column7 = New System.Windows.Forms.DataGridViewButtonColumn()
-        Me.Column8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dtpMaterialList, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.dgvMaterialList = New System.Windows.Forms.DataGridView()
+        Me.CookListDishName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CookListAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CookListDone = New System.Windows.Forms.DataGridViewButtonColumn()
+        Me.MaterialName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Decrease = New System.Windows.Forms.DataGridViewButtonColumn()
+        Me.MaterialAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Increase = New System.Windows.Forms.DataGridViewButtonColumn()
+        Me.MaterialUnit = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        CType(Me.dgvCookList, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvMaterialList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'DataGridView1
+        'dgvCookList
         '
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3})
+        Me.dgvCookList.AllowUserToAddRows = False
+        Me.dgvCookList.AllowUserToDeleteRows = False
+        Me.dgvCookList.AllowUserToResizeColumns = False
+        Me.dgvCookList.AllowUserToResizeRows = False
+        Me.dgvCookList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
+        Me.dgvCookList.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
+        Me.dgvCookList.BackgroundColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Courier New", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle1
-        Me.DataGridView1.Location = New System.Drawing.Point(932, 37)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(410, 515)
-        Me.DataGridView1.TabIndex = 2
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvCookList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvCookList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvCookList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.CookListDishName, Me.CookListAmount, Me.CookListDone})
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvCookList.DefaultCellStyle = DataGridViewCellStyle2
+        Me.dgvCookList.Location = New System.Drawing.Point(932, 37)
+        Me.dgvCookList.Name = "dgvCookList"
+        Me.dgvCookList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvCookList.Size = New System.Drawing.Size(410, 515)
+        Me.dgvCookList.TabIndex = 2
         '
-        'Column1
+        'btnCook
         '
-        Me.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.Column1.HeaderText = "Tên món"
-        Me.Column1.Name = "Column1"
+        Me.btnCook.Font = New System.Drawing.Font("Courier New", 20.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnCook.Location = New System.Drawing.Point(543, 449)
+        Me.btnCook.Name = "btnCook"
+        Me.btnCook.Size = New System.Drawing.Size(201, 76)
+        Me.btnCook.TabIndex = 4
+        Me.btnCook.Text = "Làm"
+        Me.btnCook.UseVisualStyleBackColor = True
         '
-        'Column2
+        'btnSendWarehouse
         '
-        Me.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.Column2.HeaderText = "Số lượng"
-        Me.Column2.Name = "Column2"
-        Me.Column2.Width = 74
+        Me.btnSendWarehouse.Font = New System.Drawing.Font("Courier New", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnSendWarehouse.Location = New System.Drawing.Point(763, 490)
+        Me.btnSendWarehouse.Name = "btnSendWarehouse"
+        Me.btnSendWarehouse.Size = New System.Drawing.Size(147, 35)
+        Me.btnSendWarehouse.TabIndex = 6
+        Me.btnSendWarehouse.Text = "Gửi thủ kho"
+        Me.btnSendWarehouse.UseVisualStyleBackColor = True
         '
-        'Column3
+        'btnSendWaitor
         '
-        Me.Column3.HeaderText = "Tình trạng"
-        Me.Column3.Name = "Column3"
-        Me.Column3.Text = "Xong"
-        '
-        'Button1
-        '
-        Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.Location = New System.Drawing.Point(543, 449)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(201, 76)
-        Me.Button1.TabIndex = 4
-        Me.Button1.Text = "Làm"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'Button3
-        '
-        Me.Button3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button3.Location = New System.Drawing.Point(781, 490)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(127, 35)
-        Me.Button3.TabIndex = 6
-        Me.Button3.Text = "Gửi thủ kho"
-        Me.Button3.UseVisualStyleBackColor = True
-        '
-        'Button4
-        '
-        Me.Button4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button4.Location = New System.Drawing.Point(781, 449)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(127, 35)
-        Me.Button4.TabIndex = 7
-        Me.Button4.Text = "Gửi nhân viên"
-        Me.Button4.UseVisualStyleBackColor = True
+        Me.btnSendWaitor.Font = New System.Drawing.Font("Courier New", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnSendWaitor.Location = New System.Drawing.Point(763, 449)
+        Me.btnSendWaitor.Name = "btnSendWaitor"
+        Me.btnSendWaitor.Size = New System.Drawing.Size(147, 35)
+        Me.btnSendWaitor.TabIndex = 7
+        Me.btnSendWaitor.Text = "Gửi nhân viên"
+        Me.btnSendWaitor.UseVisualStyleBackColor = True
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Font = New System.Drawing.Font("Courier New", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.Location = New System.Drawing.Point(16, 9)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(245, 25)
+        Me.Label1.Size = New System.Drawing.Size(214, 23)
         Me.Label1.TabIndex = 8
         Me.Label1.Text = "DANH SÁCH ĐẶT MÓN"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(117, 487)
+        Me.Label2.Font = New System.Drawing.Font("Courier New", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(136, 487)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(234, 25)
+        Me.Label2.Size = New System.Drawing.Size(214, 23)
         Me.Label2.TabIndex = 9
         Me.Label2.Text = "DANH SÁCH GHI CHÚ"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(555, 530)
+        Me.Label3.Font = New System.Drawing.Font("Courier New", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(572, 530)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(343, 25)
+        Me.Label3.Size = New System.Drawing.Size(298, 23)
         Me.Label3.TabIndex = 10
         Me.Label3.Text = "DANH SÁCH KHÔNG LÀM ĐƯỢC"
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(977, 9)
+        Me.Label4.Font = New System.Drawing.Font("Courier New", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(1003, 9)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(313, 25)
+        Me.Label4.Size = New System.Drawing.Size(274, 23)
         Me.Label4.TabIndex = 11
         Me.Label4.Text = "DANH SÁCH MÓN ĐANG LÀM"
         '
         'ltvOrderList
         '
         Me.ltvOrderList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.Index, Me.OrderDishName, Me.TimeOrder, Me.OrderAmount})
-        Me.ltvOrderList.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ltvOrderList.Font = New System.Drawing.Font("Courier New", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ltvOrderList.FullRowSelect = True
         Me.ltvOrderList.Location = New System.Drawing.Point(12, 37)
         Me.ltvOrderList.Name = "ltvOrderList"
@@ -201,7 +200,7 @@ Partial Class Form1
         'ltvExceptionList
         '
         Me.ltvExceptionList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ExceptionDishName, Me.Exception, Me.ExceptionAmount})
-        Me.ltvExceptionList.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ltvExceptionList.Font = New System.Drawing.Font("Courier New", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ltvExceptionList.FullRowSelect = True
         Me.ltvExceptionList.Location = New System.Drawing.Point(12, 518)
         Me.ltvExceptionList.Name = "ltvExceptionList"
@@ -228,7 +227,7 @@ Partial Class Form1
         'ltvCantServeList
         '
         Me.ltvCantServeList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.CantServeDishName, Me.CantServeAmount, Me.Flag})
-        Me.ltvCantServeList.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ltvCantServeList.Font = New System.Drawing.Font("Courier New", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ltvCantServeList.FullRowSelect = True
         Me.ltvCantServeList.Location = New System.Drawing.Point(520, 558)
         Me.ltvCantServeList.Name = "ltvCantServeList"
@@ -254,19 +253,21 @@ Partial Class Form1
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(575, 9)
+        Me.Label5.Font = New System.Drawing.Font("Courier New", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(591, 9)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(287, 25)
+        Me.Label5.Size = New System.Drawing.Size(262, 23)
         Me.Label5.TabIndex = 37
         Me.Label5.Text = "DANH SÁCH NGUYÊN LIỆU"
         '
         'ltbMessage
         '
+        Me.ltbMessage.Font = New System.Drawing.Font("Courier New", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ltbMessage.FormattingEnabled = True
-        Me.ltbMessage.Location = New System.Drawing.Point(986, 568)
+        Me.ltbMessage.ItemHeight = 14
+        Me.ltbMessage.Location = New System.Drawing.Point(986, 558)
         Me.ltbMessage.Name = "ltbMessage"
-        Me.ltbMessage.Size = New System.Drawing.Size(356, 134)
+        Me.ltbMessage.Size = New System.Drawing.Size(356, 144)
         Me.ltbMessage.TabIndex = 38
         '
         'txtTotalAmount
@@ -280,54 +281,107 @@ Partial Class Form1
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(311, 9)
+        Me.Label6.Font = New System.Drawing.Font("Courier New", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(302, 9)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(145, 25)
+        Me.Label6.Size = New System.Drawing.Size(154, 23)
         Me.Label6.TabIndex = 40
         Me.Label6.Text = "Số lượng món"
         '
-        'dtpMaterialList
+        'dgvMaterialList
         '
-        Me.dtpMaterialList.BackgroundColor = System.Drawing.SystemColors.Window
-        Me.dtpMaterialList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dtpMaterialList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column4, Me.Column5, Me.Column6, Me.Column7, Me.Column8})
-        Me.dtpMaterialList.Location = New System.Drawing.Point(520, 37)
-        Me.dtpMaterialList.Name = "dtpMaterialList"
-        Me.dtpMaterialList.Size = New System.Drawing.Size(406, 406)
-        Me.dtpMaterialList.TabIndex = 41
+        Me.dgvMaterialList.AllowUserToAddRows = False
+        Me.dgvMaterialList.AllowUserToDeleteRows = False
+        Me.dgvMaterialList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
+        Me.dgvMaterialList.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
+        Me.dgvMaterialList.BackgroundColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Courier New", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvMaterialList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
+        Me.dgvMaterialList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvMaterialList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.MaterialName, Me.Decrease, Me.MaterialAmount, Me.Increase, Me.MaterialUnit})
+        Me.dgvMaterialList.Location = New System.Drawing.Point(520, 37)
+        Me.dgvMaterialList.Name = "dgvMaterialList"
+        Me.dgvMaterialList.ReadOnly = True
+        Me.dgvMaterialList.Size = New System.Drawing.Size(406, 406)
+        Me.dgvMaterialList.TabIndex = 41
         '
-        'Column4
+        'CookListDishName
         '
-        Me.Column4.HeaderText = "Nguyên liệu"
-        Me.Column4.Name = "Column4"
+        Me.CookListDishName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.CookListDishName.HeaderText = "Tên món"
+        Me.CookListDishName.Name = "CookListDishName"
         '
-        'Column5
+        'CookListAmount
         '
-        Me.Column5.HeaderText = ""
-        Me.Column5.Name = "Column5"
+        Me.CookListAmount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.CookListAmount.HeaderText = "Số lượng"
+        Me.CookListAmount.Name = "CookListAmount"
+        Me.CookListAmount.Width = 113
         '
-        'Column6
+        'CookListDone
         '
-        Me.Column6.HeaderText = "Số lượng"
-        Me.Column6.Name = "Column6"
+        Me.CookListDone.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.CookListDone.HeaderText = ""
+        Me.CookListDone.Name = "CookListDone"
+        Me.CookListDone.Text = "Xong"
+        Me.CookListDone.UseColumnTextForButtonValue = True
+        Me.CookListDone.Width = 5
         '
-        'Column7
+        'MaterialName
         '
-        Me.Column7.HeaderText = ""
-        Me.Column7.Name = "Column7"
+        Me.MaterialName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.MaterialName.HeaderText = "Nguyên liệu"
+        Me.MaterialName.Name = "MaterialName"
+        Me.MaterialName.ReadOnly = True
         '
-        'Column8
+        'Decrease
         '
-        Me.Column8.HeaderText = "Đơn vị"
-        Me.Column8.Name = "Column8"
+        Me.Decrease.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.Decrease.HeaderText = ""
+        Me.Decrease.Name = "Decrease"
+        Me.Decrease.ReadOnly = True
+        Me.Decrease.Text = "-"
+        Me.Decrease.UseColumnTextForButtonValue = True
+        Me.Decrease.Width = 5
+        '
+        'MaterialAmount
+        '
+        Me.MaterialAmount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.MaterialAmount.HeaderText = "Số lượng"
+        Me.MaterialAmount.Name = "MaterialAmount"
+        Me.MaterialAmount.ReadOnly = True
+        Me.MaterialAmount.Width = 113
+        '
+        'Increase
+        '
+        Me.Increase.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.Increase.HeaderText = ""
+        Me.Increase.Name = "Increase"
+        Me.Increase.ReadOnly = True
+        Me.Increase.Text = "+"
+        Me.Increase.UseColumnTextForButtonValue = True
+        Me.Increase.Width = 5
+        '
+        'MaterialUnit
+        '
+        Me.MaterialUnit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.MaterialUnit.HeaderText = "Đơn vị"
+        Me.MaterialUnit.Name = "MaterialUnit"
+        Me.MaterialUnit.ReadOnly = True
+        Me.MaterialUnit.Width = 93
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1354, 705)
-        Me.Controls.Add(Me.dtpMaterialList)
+        Me.Controls.Add(Me.dgvMaterialList)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.txtTotalAmount)
         Me.Controls.Add(Me.ltbMessage)
@@ -339,23 +393,23 @@ Partial Class Form1
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.Button4)
-        Me.Controls.Add(Me.Button3)
-        Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.DataGridView1)
+        Me.Controls.Add(Me.btnSendWaitor)
+        Me.Controls.Add(Me.btnSendWarehouse)
+        Me.Controls.Add(Me.btnCook)
+        Me.Controls.Add(Me.dgvCookList)
         Me.Name = "Form1"
         Me.Text = "Form1"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dtpMaterialList, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvCookList, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvMaterialList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents DataGridView1 As System.Windows.Forms.DataGridView
-    Friend WithEvents Button1 As System.Windows.Forms.Button
-    Friend WithEvents Button3 As System.Windows.Forms.Button
-    Friend WithEvents Button4 As System.Windows.Forms.Button
+    Friend WithEvents dgvCookList As System.Windows.Forms.DataGridView
+    Friend WithEvents btnCook As System.Windows.Forms.Button
+    Friend WithEvents btnSendWarehouse As System.Windows.Forms.Button
+    Friend WithEvents btnSendWaitor As System.Windows.Forms.Button
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
@@ -369,9 +423,6 @@ Partial Class Form1
     Friend WithEvents ExceptionDishName As System.Windows.Forms.ColumnHeader
     Friend WithEvents Exception As System.Windows.Forms.ColumnHeader
     Friend WithEvents ExceptionAmount As System.Windows.Forms.ColumnHeader
-    Friend WithEvents Column1 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Column2 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Column3 As System.Windows.Forms.DataGridViewButtonColumn
     Friend WithEvents ltvCantServeList As System.Windows.Forms.ListView
     Friend WithEvents CantServeDishName As System.Windows.Forms.ColumnHeader
     Friend WithEvents CantServeAmount As System.Windows.Forms.ColumnHeader
@@ -380,10 +431,13 @@ Partial Class Form1
     Friend WithEvents ltbMessage As System.Windows.Forms.ListBox
     Friend WithEvents txtTotalAmount As System.Windows.Forms.TextBox
     Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents dtpMaterialList As System.Windows.Forms.DataGridView
-    Friend WithEvents Column4 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Column5 As System.Windows.Forms.DataGridViewButtonColumn
-    Friend WithEvents Column6 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Column7 As System.Windows.Forms.DataGridViewButtonColumn
-    Friend WithEvents Column8 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents dgvMaterialList As System.Windows.Forms.DataGridView
+    Friend WithEvents CookListDishName As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents CookListAmount As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents CookListDone As System.Windows.Forms.DataGridViewButtonColumn
+    Friend WithEvents MaterialName As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Decrease As System.Windows.Forms.DataGridViewButtonColumn
+    Friend WithEvents MaterialAmount As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Increase As System.Windows.Forms.DataGridViewButtonColumn
+    Friend WithEvents MaterialUnit As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class
