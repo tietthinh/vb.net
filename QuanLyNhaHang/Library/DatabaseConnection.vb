@@ -206,7 +206,7 @@ Public Class DatabaseConnection
     ''' <returns>True if match, else false.</returns>
     ''' <remarks></remarks>
     Public Function CheckInvalidAccount(ByVal username As String, ByVal password As String, _
-                                        ByRef returnID As String, ByRef returnName As String) As Boolean
+                                        ByRef user As User) As Boolean
         Dim accountList As New DataTable()
 
         Try
@@ -222,8 +222,7 @@ Public Class DatabaseConnection
 
         For Each row As DataRow In accountList.Rows
             If username = row("TenDN") And GetMd5Hash(password, row("cmnd")) = row("MatKhau") Then
-                returnID = row("MaNV")
-                returnName = row("HoTen")
+                user = New User(row("MaNV"), row("HoTen"))
                 accountList.Dispose()
                 accountList = Nothing
                 Return True
@@ -232,8 +231,7 @@ Public Class DatabaseConnection
 
         accountList.Dispose()
         accountList = Nothing
-        returnID = Nothing
-        returnName = Nothing
+        user = Nothing
         Return False
     End Function
 End Class
