@@ -11,7 +11,6 @@ Imports System.Drawing
 Imports System.Windows.Forms
 
 Public Class frmDangNhap
-
     'Fields:
     ''' <summary>
     ''' If Password Textbox is null then true, else false.
@@ -25,9 +24,7 @@ Public Class frmDangNhap
     ''' <remarks></remarks>
     Private _IsIDNull As Boolean
 
-    Private _ReturnID As String
-
-    Private _ReturnName As String
+    Private _ReturnUser As User
 
     ''' <summary>
     ''' Create a connected object for this form.
@@ -37,15 +34,14 @@ Public Class frmDangNhap
 
     'Constructors:
     ''' <summary>
-    ''' Constructor that gets two parameters and returns value for these parameters when successes.
+    ''' 
     ''' </summary>
-    ''' <param name="employeeID">Employee's identity.</param>
-    ''' <param name="employeeName">Employee's name.</param>
+    ''' <param name="user"></param>
     ''' <remarks></remarks>
-    Public Sub New(ByRef employeeID As String, ByRef employeeName As String)
+    Public Sub New(ByRef user As User)
         Me.InitializeComponent()
-        _ReturnID = employeeID
-        _ReturnName = employeeName
+
+        _ReturnUser = user
     End Sub
 
     'Events:
@@ -157,7 +153,7 @@ Public Class frmDangNhap
     '
     'Click: Occur when the btnLogin is clicked
     Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
-        If db.CheckInvalidAccount(txtID.Text, txtPW.Text, _ReturnID, _ReturnName) Then
+        If db.CheckInvalidAccount(txtID.Text, txtPW.Text, _ReturnUser) Then
             MessageBox.Show("Đăng nhập thành công", "", MessageBoxButtons.OK)
             Me.DialogResult = Windows.Forms.DialogResult.OK
             Me.Close()
