@@ -74,6 +74,12 @@
     <Compile Include="frmDangNhap.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmNumPad.designer.vb">
+      <DependentUpon>frmNumPad.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmNumPad.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MD5_Hash.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -94,6 +100,9 @@
   <ItemGroup>
     <EmbeddedResource Include="frmDangNhap.resx">
       <DependentUpon>frmDangNhap.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmNumPad.resx">
+      <DependentUpon>frmNumPad.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

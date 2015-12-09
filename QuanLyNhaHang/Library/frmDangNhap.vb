@@ -37,7 +37,7 @@ Public Class frmDangNhap
 
     'Constructors:
     ''' <summary>
-    ''' Constructor that receives two parameters and returns value for these parameters when successes.
+    ''' Constructor that gets two parameters and returns value for these parameters when successes.
     ''' </summary>
     ''' <param name="employeeID">Employee's identity.</param>
     ''' <param name="employeeName">Employee's name.</param>
