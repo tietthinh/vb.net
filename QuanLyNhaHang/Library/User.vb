@@ -1,7 +1,8 @@
 ﻿'=====================================================================
 'Name:      Dương Tấn Huỳnh Phong
 'Project:   Restaurant Management
-'Purpose:   Provides class User for Employee's Form
+'Purpose:   Provides class User for Employee's Form to store 
+'           necessary information.
 '=====================================================================
 
 Public Class User

@@ -34,9 +34,9 @@ Public Class frmDangNhap
 
     'Constructors:
     ''' <summary>
-    ''' 
+    ''' Constructor gets a parameter to set value for this parameter.
     ''' </summary>
-    ''' <param name="user"></param>
+    ''' <param name="user">Employee's account information.</param>
     ''' <remarks></remarks>
     Public Sub New(ByRef user As User)
         Me.InitializeComponent()

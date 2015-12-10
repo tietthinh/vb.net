@@ -17,7 +17,8 @@ Public Class DatabaseConnection
     ''' Address of Database in Sql Server.
     ''' </summary>
     ''' <remarks></remarks>
-    Private Shared _Address As String = "Data Source=(LocalDB)\v11.0;AttachDbFilename=" + Environment.CurrentDirectory + "\QuanLyQuanAn.mdf;Integrated Security=True"
+    Private Shared _Address As String = "Data Source=(LocalDB)\v11.0;AttachDbFilename=" + _
+        Environment.CurrentDirectory + "\QuanLyNhaHang.mdf;Integrated Security=True"
 
     ''' <summary>
     ''' Gets or Sets the current connecter of Library.DatabaseConnection.
