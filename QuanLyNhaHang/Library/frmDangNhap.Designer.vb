@@ -35,7 +35,7 @@ Partial Class frmDangNhap
         '
         'btnLogin
         '
-        Me.btnLogin.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnLogin.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnLogin.Location = New System.Drawing.Point(5, 143)
         Me.btnLogin.Name = "btnLogin"
         Me.btnLogin.Size = New System.Drawing.Size(127, 35)
@@ -46,7 +46,7 @@ Partial Class frmDangNhap
         'btnCancel
         '
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnCancel.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnCancel.Location = New System.Drawing.Point(134, 143)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(127, 35)
@@ -57,35 +57,35 @@ Partial Class frmDangNhap
         'lblTitle
         '
         Me.lblTitle.AutoSize = True
-        Me.lblTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTitle.Location = New System.Drawing.Point(40, 9)
+        Me.lblTitle.Font = New System.Drawing.Font("Roboto Condensed", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTitle.Location = New System.Drawing.Point(61, 9)
         Me.lblTitle.Name = "lblTitle"
-        Me.lblTitle.Size = New System.Drawing.Size(185, 31)
+        Me.lblTitle.Size = New System.Drawing.Size(151, 33)
         Me.lblTitle.TabIndex = 2
         Me.lblTitle.Text = "ĐĂNG NHẬP"
         '
         'txtID
         '
-        Me.txtID.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtID.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtID.Location = New System.Drawing.Point(28, 63)
         Me.txtID.Name = "txtID"
-        Me.txtID.Size = New System.Drawing.Size(197, 26)
+        Me.txtID.Size = New System.Drawing.Size(197, 27)
         Me.txtID.TabIndex = 3
         '
         'txtPW
         '
-        Me.txtPW.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtPW.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtPW.Location = New System.Drawing.Point(28, 105)
         Me.txtPW.Name = "txtPW"
-        Me.txtPW.Size = New System.Drawing.Size(197, 26)
+        Me.txtPW.Size = New System.Drawing.Size(197, 27)
         Me.txtPW.TabIndex = 4
         '
         'txtSubID
         '
-        Me.txtSubID.Font = New System.Drawing.Font("Courier New", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtSubID.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtSubID.Location = New System.Drawing.Point(224, 63)
         Me.txtSubID.Name = "txtSubID"
-        Me.txtSubID.Size = New System.Drawing.Size(17, 26)
+        Me.txtSubID.Size = New System.Drawing.Size(17, 27)
         Me.txtSubID.TabIndex = 3
         Me.txtSubID.TabStop = False
         '
@@ -93,7 +93,7 @@ Partial Class frmDangNhap
         '
         Me.lblClearID.BackColor = System.Drawing.SystemColors.Window
         Me.lblClearID.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.lblClearID.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblClearID.Font = New System.Drawing.Font("Roboto Condensed", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblClearID.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblClearID.Location = New System.Drawing.Point(223, 64)
         Me.lblClearID.Margin = New System.Windows.Forms.Padding(3)
@@ -106,10 +106,10 @@ Partial Class frmDangNhap
         '
         'txtSubPW
         '
-        Me.txtSubPW.Font = New System.Drawing.Font("Courier New", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtSubPW.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtSubPW.Location = New System.Drawing.Point(224, 105)
         Me.txtSubPW.Name = "txtSubPW"
-        Me.txtSubPW.Size = New System.Drawing.Size(17, 26)
+        Me.txtSubPW.Size = New System.Drawing.Size(17, 27)
         Me.txtSubPW.TabIndex = 10
         Me.txtSubPW.TabStop = False
         '
@@ -117,7 +117,7 @@ Partial Class frmDangNhap
         '
         Me.lblSeePW.BackColor = System.Drawing.SystemColors.Window
         Me.lblSeePW.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.lblSeePW.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblSeePW.Font = New System.Drawing.Font("Roboto Condensed", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblSeePW.Location = New System.Drawing.Point(221, 106)
         Me.lblSeePW.Margin = New System.Windows.Forms.Padding(3)
         Me.lblSeePW.Name = "lblSeePW"
