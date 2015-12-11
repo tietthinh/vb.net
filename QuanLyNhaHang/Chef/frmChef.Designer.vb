@@ -22,13 +22,10 @@ Partial Class frmChef
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.dgvCookList = New System.Windows.Forms.DataGridView()
-        Me.CookListDishName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CookListAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CookListDone = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.btnCook = New System.Windows.Forms.Button()
         Me.btnSendWarehouse = New System.Windows.Forms.Button()
         Me.btnSendWaitor = New System.Windows.Forms.Button()
@@ -48,7 +45,7 @@ Partial Class frmChef
         Me.ltvCantServeList = New System.Windows.Forms.ListView()
         Me.CantServeDishName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.CantServeAmount = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.Flag = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.WaitorFlag = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.Label5 = New System.Windows.Forms.Label()
         Me.ltbMessage = New System.Windows.Forms.ListBox()
         Me.txtTotalAmount = New System.Windows.Forms.TextBox()
@@ -59,6 +56,14 @@ Partial Class frmChef
         Me.MaterialAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Increase = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.MaterialUnit = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.OrderIP = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ExceptionIP = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.CantServeIP = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.WarehouseFlag = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.CookListDishName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CookListAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CookListDone = New System.Windows.Forms.DataGridViewButtonColumn()
+        Me.MachineIP = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dgvCookList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvMaterialList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -72,51 +77,29 @@ Partial Class frmChef
         Me.dgvCookList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.dgvCookList.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvCookList.BackgroundColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvCookList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvCookList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvCookList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvCookList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.CookListDishName, Me.CookListAmount, Me.CookListDone})
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvCookList.DefaultCellStyle = DataGridViewCellStyle5
+        Me.dgvCookList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.CookListDishName, Me.CookListAmount, Me.CookListDone, Me.MachineIP})
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvCookList.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvCookList.Location = New System.Drawing.Point(932, 37)
         Me.dgvCookList.Name = "dgvCookList"
         Me.dgvCookList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvCookList.Size = New System.Drawing.Size(410, 515)
         Me.dgvCookList.TabIndex = 2
-        '
-        'CookListDishName
-        '
-        Me.CookListDishName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.CookListDishName.HeaderText = "Tên món"
-        Me.CookListDishName.Name = "CookListDishName"
-        '
-        'CookListAmount
-        '
-        Me.CookListAmount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.CookListAmount.HeaderText = "Số lượng"
-        Me.CookListAmount.Name = "CookListAmount"
-        Me.CookListAmount.Width = 91
-        '
-        'CookListDone
-        '
-        Me.CookListDone.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.CookListDone.HeaderText = ""
-        Me.CookListDone.Name = "CookListDone"
-        Me.CookListDone.Text = "Xong"
-        Me.CookListDone.UseColumnTextForButtonValue = True
-        Me.CookListDone.Width = 5
         '
         'btnCook
         '
@@ -190,7 +173,7 @@ Partial Class frmChef
         '
         'ltvOrderList
         '
-        Me.ltvOrderList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.Index, Me.OrderDishName, Me.TimeOrder, Me.OrderAmount})
+        Me.ltvOrderList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.Index, Me.OrderDishName, Me.TimeOrder, Me.OrderAmount, Me.OrderIP})
         Me.ltvOrderList.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ltvOrderList.FullRowSelect = True
         Me.ltvOrderList.Location = New System.Drawing.Point(12, 37)
@@ -207,7 +190,7 @@ Partial Class frmChef
         'OrderDishName
         '
         Me.OrderDishName.Text = "Tên món"
-        Me.OrderDishName.Width = 134
+        Me.OrderDishName.Width = 158
         '
         'TimeOrder
         '
@@ -221,7 +204,7 @@ Partial Class frmChef
         '
         'ltvExceptionList
         '
-        Me.ltvExceptionList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ExceptionDishName, Me.Exception, Me.ExceptionAmount})
+        Me.ltvExceptionList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ExceptionDishName, Me.Exception, Me.ExceptionAmount, Me.ExceptionIP})
         Me.ltvExceptionList.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ltvExceptionList.FullRowSelect = True
         Me.ltvExceptionList.Location = New System.Drawing.Point(12, 518)
@@ -244,11 +227,11 @@ Partial Class frmChef
         'ExceptionAmount
         '
         Me.ExceptionAmount.Text = "Số lượng"
-        Me.ExceptionAmount.Width = 114
+        Me.ExceptionAmount.Width = 232
         '
         'ltvCantServeList
         '
-        Me.ltvCantServeList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.CantServeDishName, Me.CantServeAmount, Me.Flag})
+        Me.ltvCantServeList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.CantServeDishName, Me.CantServeAmount, Me.WaitorFlag, Me.WarehouseFlag, Me.CantServeIP})
         Me.ltvCantServeList.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ltvCantServeList.FullRowSelect = True
         Me.ltvCantServeList.Location = New System.Drawing.Point(520, 558)
@@ -261,16 +244,17 @@ Partial Class frmChef
         'CantServeDishName
         '
         Me.CantServeDishName.Text = "Tên món"
-        Me.CantServeDishName.Width = 172
+        Me.CantServeDishName.Width = 272
         '
         'CantServeAmount
         '
         Me.CantServeAmount.Text = "Số lượng"
         Me.CantServeAmount.Width = 184
         '
-        'Flag
+        'WaitorFlag
         '
-        Me.Flag.Text = ""
+        Me.WaitorFlag.Text = ""
+        Me.WaitorFlag.Width = 0
         '
         'Label5
         '
@@ -317,14 +301,14 @@ Partial Class frmChef
         Me.dgvMaterialList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.dgvMaterialList.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvMaterialList.BackgroundColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvMaterialList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvMaterialList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvMaterialList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvMaterialList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.MaterialName, Me.Decrease, Me.MaterialAmount, Me.Increase, Me.MaterialUnit})
         Me.dgvMaterialList.Location = New System.Drawing.Point(520, 37)
@@ -375,6 +359,55 @@ Partial Class frmChef
         Me.MaterialUnit.Name = "MaterialUnit"
         Me.MaterialUnit.ReadOnly = True
         Me.MaterialUnit.Width = 59
+        '
+        'OrderIP
+        '
+        Me.OrderIP.Text = ""
+        Me.OrderIP.Width = 0
+        '
+        'ExceptionIP
+        '
+        Me.ExceptionIP.Text = ""
+        Me.ExceptionIP.Width = 0
+        '
+        'CantServeIP
+        '
+        Me.CantServeIP.Text = ""
+        Me.CantServeIP.Width = 0
+        '
+        'WarehouseFlag
+        '
+        Me.WarehouseFlag.Text = ""
+        Me.WarehouseFlag.Width = 0
+        '
+        'CookListDishName
+        '
+        Me.CookListDishName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.CookListDishName.HeaderText = "Tên món"
+        Me.CookListDishName.Name = "CookListDishName"
+        '
+        'CookListAmount
+        '
+        Me.CookListAmount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.CookListAmount.HeaderText = "Số lượng"
+        Me.CookListAmount.Name = "CookListAmount"
+        Me.CookListAmount.Width = 91
+        '
+        'CookListDone
+        '
+        Me.CookListDone.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.CookListDone.HeaderText = ""
+        Me.CookListDone.Name = "CookListDone"
+        Me.CookListDone.Text = "Xong"
+        Me.CookListDone.UseColumnTextForButtonValue = True
+        Me.CookListDone.Width = 5
+        '
+        'MachineIP
+        '
+        Me.MachineIP.HeaderText = ""
+        Me.MachineIP.Name = "MachineIP"
+        Me.MachineIP.Visible = False
+        Me.MachineIP.Width = 19
         '
         'frmChef
         '
@@ -427,17 +460,22 @@ Partial Class frmChef
     Friend WithEvents CantServeDishName As System.Windows.Forms.ColumnHeader
     Friend WithEvents CantServeAmount As System.Windows.Forms.ColumnHeader
     Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents Flag As System.Windows.Forms.ColumnHeader
+    Friend WithEvents WaitorFlag As System.Windows.Forms.ColumnHeader
     Friend WithEvents ltbMessage As System.Windows.Forms.ListBox
     Friend WithEvents txtTotalAmount As System.Windows.Forms.TextBox
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents dgvMaterialList As System.Windows.Forms.DataGridView
-    Friend WithEvents CookListDishName As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents CookListAmount As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents CookListDone As System.Windows.Forms.DataGridViewButtonColumn
     Friend WithEvents MaterialName As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Decrease As System.Windows.Forms.DataGridViewButtonColumn
     Friend WithEvents MaterialAmount As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Increase As System.Windows.Forms.DataGridViewButtonColumn
     Friend WithEvents MaterialUnit As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents OrderIP As System.Windows.Forms.ColumnHeader
+    Friend WithEvents ExceptionIP As System.Windows.Forms.ColumnHeader
+    Friend WithEvents CantServeIP As System.Windows.Forms.ColumnHeader
+    Friend WithEvents WarehouseFlag As System.Windows.Forms.ColumnHeader
+    Friend WithEvents CookListDishName As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents CookListAmount As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents CookListDone As System.Windows.Forms.DataGridViewButtonColumn
+    Friend WithEvents MachineIP As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class
