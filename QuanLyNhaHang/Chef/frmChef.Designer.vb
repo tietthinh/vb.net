@@ -35,36 +35,36 @@ Partial Class frmChef
         Me.Label4 = New System.Windows.Forms.Label()
         Me.ltvOrderList = New System.Windows.Forms.ListView()
         Me.Index = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.TransID = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.DishID = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.OrderDishName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.TimeOrder = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.OrderQuantity = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.OrderID = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.TransID = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.OrderNote = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ltvCantServeList = New System.Windows.Forms.ListView()
+        Me.CantServeTransID = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.CantServeDishID = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.CantServeDishName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.CantServeQuantity = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.CantServeTimeOrder = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.CantServeNote = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.WaitorFlag = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.WarehouseFlag = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.CantServeOrderID = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.Label5 = New System.Windows.Forms.Label()
         Me.ltbMessage = New System.Windows.Forms.ListBox()
         Me.txtTotalQuantity = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.dgvMaterialList = New System.Windows.Forms.DataGridView()
         Me.ltbException = New System.Windows.Forms.ListBox()
-        Me.DetailOrderID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DetailDishID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.MaterialID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.MaterialName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Decrease = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.MaterialQuantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Increase = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.MaterialUnit = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CantServeTimeOrder = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.CantServeTransID = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.CantServeNote = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.CookListTransID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CookListOrderID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CookListDishID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CookListDishName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CookListTimeOrder = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CookListQuantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -91,7 +91,7 @@ Partial Class frmChef
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvCookList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvCookList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvCookList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.CookListTransID, Me.CookListOrderID, Me.CookListDishName, Me.CookListTimeOrder, Me.CookListQuantity, Me.CookListDone})
+        Me.dgvCookList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.CookListTransID, Me.CookListDishID, Me.CookListDishName, Me.CookListTimeOrder, Me.CookListQuantity, Me.CookListDone})
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
@@ -178,7 +178,7 @@ Partial Class frmChef
         '
         'ltvOrderList
         '
-        Me.ltvOrderList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.Index, Me.TransID, Me.OrderID, Me.OrderDishName, Me.TimeOrder, Me.OrderQuantity, Me.OrderNote})
+        Me.ltvOrderList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.Index, Me.TransID, Me.DishID, Me.OrderDishName, Me.TimeOrder, Me.OrderQuantity, Me.OrderNote})
         Me.ltvOrderList.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ltvOrderList.FullRowSelect = True
         Me.ltvOrderList.Location = New System.Drawing.Point(12, 37)
@@ -191,6 +191,16 @@ Partial Class frmChef
         'Index
         '
         Me.Index.Text = "STT"
+        '
+        'TransID
+        '
+        Me.TransID.Text = "Mã chuyển"
+        Me.TransID.Width = 0
+        '
+        'DishID
+        '
+        Me.DishID.Text = "Mã đặt món"
+        Me.DishID.Width = 0
         '
         'OrderDishName
         '
@@ -207,16 +217,6 @@ Partial Class frmChef
         Me.OrderQuantity.Text = "Số lượng"
         Me.OrderQuantity.Width = 140
         '
-        'OrderID
-        '
-        Me.OrderID.Text = "Mã đặt món"
-        Me.OrderID.Width = 0
-        '
-        'TransID
-        '
-        Me.TransID.Text = "Mã chuyển"
-        Me.TransID.Width = 0
-        '
         'OrderNote
         '
         Me.OrderNote.Text = "Ghi chú"
@@ -224,7 +224,7 @@ Partial Class frmChef
         '
         'ltvCantServeList
         '
-        Me.ltvCantServeList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.CantServeTransID, Me.CantServeOrderID, Me.CantServeDishName, Me.CantServeQuantity, Me.CantServeTimeOrder, Me.CantServeNote, Me.WaitorFlag, Me.WarehouseFlag})
+        Me.ltvCantServeList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.CantServeTransID, Me.CantServeDishID, Me.CantServeDishName, Me.CantServeQuantity, Me.CantServeTimeOrder, Me.CantServeNote, Me.WaitorFlag, Me.WarehouseFlag})
         Me.ltvCantServeList.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ltvCantServeList.FullRowSelect = True
         Me.ltvCantServeList.Location = New System.Drawing.Point(520, 558)
@@ -233,6 +233,16 @@ Partial Class frmChef
         Me.ltvCantServeList.TabIndex = 36
         Me.ltvCantServeList.UseCompatibleStateImageBehavior = False
         Me.ltvCantServeList.View = System.Windows.Forms.View.Details
+        '
+        'CantServeTransID
+        '
+        Me.CantServeTransID.Text = "Mã chuyển"
+        Me.CantServeTransID.Width = 0
+        '
+        'CantServeDishID
+        '
+        Me.CantServeDishID.Text = "Mã đặt món"
+        Me.CantServeDishID.Width = 0
         '
         'CantServeDishName
         '
@@ -244,6 +254,15 @@ Partial Class frmChef
         Me.CantServeQuantity.Text = "Số lượng"
         Me.CantServeQuantity.Width = 184
         '
+        'CantServeTimeOrder
+        '
+        Me.CantServeTimeOrder.Text = "Giờ đặt"
+        Me.CantServeTimeOrder.Width = 0
+        '
+        'CantServeNote
+        '
+        Me.CantServeNote.Text = "Ghi chú"
+        '
         'WaitorFlag
         '
         Me.WaitorFlag.Text = "Tín hiệu phục vụ"
@@ -253,11 +272,6 @@ Partial Class frmChef
         '
         Me.WarehouseFlag.Text = "Tín hiệu thủ kho"
         Me.WarehouseFlag.Width = 0
-        '
-        'CantServeOrderID
-        '
-        Me.CantServeOrderID.Text = "Mã đặt món"
-        Me.CantServeOrderID.Width = 0
         '
         'Label5
         '
@@ -314,7 +328,7 @@ Partial Class frmChef
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvMaterialList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvMaterialList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvMaterialList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DetailOrderID, Me.MaterialID, Me.MaterialName, Me.Decrease, Me.MaterialQuantity, Me.Increase, Me.MaterialUnit})
+        Me.dgvMaterialList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DetailDishID, Me.MaterialID, Me.MaterialName, Me.Decrease, Me.MaterialQuantity, Me.Increase, Me.MaterialUnit})
         Me.dgvMaterialList.Location = New System.Drawing.Point(520, 37)
         Me.dgvMaterialList.Name = "dgvMaterialList"
         Me.dgvMaterialList.ReadOnly = True
@@ -331,13 +345,13 @@ Partial Class frmChef
         Me.ltbException.Size = New System.Drawing.Size(502, 164)
         Me.ltbException.TabIndex = 42
         '
-        'DetailOrderID
+        'DetailDishID
         '
-        Me.DetailOrderID.HeaderText = "Mã món"
-        Me.DetailOrderID.Name = "DetailOrderID"
-        Me.DetailOrderID.ReadOnly = True
-        Me.DetailOrderID.Visible = False
-        Me.DetailOrderID.Width = 86
+        Me.DetailDishID.HeaderText = "Mã món"
+        Me.DetailDishID.Name = "DetailDishID"
+        Me.DetailDishID.ReadOnly = True
+        Me.DetailDishID.Visible = False
+        Me.DetailDishID.Width = 86
         '
         'MaterialID
         '
@@ -390,20 +404,6 @@ Partial Class frmChef
         Me.MaterialUnit.ReadOnly = True
         Me.MaterialUnit.Width = 74
         '
-        'CantServeTimeOrder
-        '
-        Me.CantServeTimeOrder.Text = "Giờ đặt"
-        Me.CantServeTimeOrder.Width = 0
-        '
-        'CantServeTransID
-        '
-        Me.CantServeTransID.Text = "Mã chuyển"
-        Me.CantServeTransID.Width = 0
-        '
-        'CantServeNote
-        '
-        Me.CantServeNote.Text = "Ghi chú"
-        '
         'CookListTransID
         '
         Me.CookListTransID.HeaderText = "Mã chuyển"
@@ -411,12 +411,12 @@ Partial Class frmChef
         Me.CookListTransID.Visible = False
         Me.CookListTransID.Width = 103
         '
-        'CookListOrderID
+        'CookListDishID
         '
-        Me.CookListOrderID.HeaderText = "Mã món"
-        Me.CookListOrderID.Name = "CookListOrderID"
-        Me.CookListOrderID.Visible = False
-        Me.CookListOrderID.Width = 86
+        Me.CookListDishID.HeaderText = "Mã món"
+        Me.CookListDishID.Name = "CookListDishID"
+        Me.CookListDishID.Visible = False
+        Me.CookListDishID.Width = 86
         '
         'CookListDishName
         '
@@ -499,26 +499,26 @@ Partial Class frmChef
     Friend WithEvents txtTotalQuantity As System.Windows.Forms.TextBox
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents dgvMaterialList As System.Windows.Forms.DataGridView
-    Friend WithEvents OrderID As System.Windows.Forms.ColumnHeader
-    Friend WithEvents CantServeOrderID As System.Windows.Forms.ColumnHeader
+    Friend WithEvents DishID As System.Windows.Forms.ColumnHeader
+    Friend WithEvents CantServeDishID As System.Windows.Forms.ColumnHeader
     Friend WithEvents WarehouseFlag As System.Windows.Forms.ColumnHeader
     Friend WithEvents TransID As System.Windows.Forms.ColumnHeader
     Friend WithEvents OrderNote As System.Windows.Forms.ColumnHeader
     Friend WithEvents ltbException As System.Windows.Forms.ListBox
-    Friend WithEvents DetailOrderID As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents CantServeTimeOrder As System.Windows.Forms.ColumnHeader
+    Friend WithEvents CantServeTransID As System.Windows.Forms.ColumnHeader
+    Friend WithEvents CantServeNote As System.Windows.Forms.ColumnHeader
+    Friend WithEvents CookListTransID As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents CookListDishID As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents CookListDishName As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents CookListTimeOrder As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents CookListQuantity As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents CookListDone As System.Windows.Forms.DataGridViewButtonColumn
+    Friend WithEvents DetailDishID As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents MaterialID As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents MaterialName As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Decrease As System.Windows.Forms.DataGridViewButtonColumn
     Friend WithEvents MaterialQuantity As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Increase As System.Windows.Forms.DataGridViewButtonColumn
     Friend WithEvents MaterialUnit As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents CantServeTimeOrder As System.Windows.Forms.ColumnHeader
-    Friend WithEvents CantServeTransID As System.Windows.Forms.ColumnHeader
-    Friend WithEvents CantServeNote As System.Windows.Forms.ColumnHeader
-    Friend WithEvents CookListTransID As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents CookListOrderID As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents CookListDishName As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents CookListTimeOrder As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents CookListQuantity As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents CookListDone As System.Windows.Forms.DataGridViewButtonColumn
 End Class
