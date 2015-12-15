@@ -17,8 +17,7 @@ Public Class DatabaseConnection
     ''' Address of Database in Sql Server.
     ''' </summary>
     ''' <remarks></remarks>
-    Private Shared _Address As String = "Data Source=(LocalDB)\v11.0;AttachDbFilename=" + _
-        Environment.CurrentDirectory + "\QuanLyNhaHang.mdf;Integrated Security=True"
+    Private Shared _Address As String = "Data Source=.;Initial Catalog=QuanLyNhaHang;Integrated Security=True"
 
     ''' <summary>
     ''' Gets or Sets the current connecter of Library.DatabaseConnection.
@@ -73,9 +72,44 @@ Public Class DatabaseConnection
     ''' <param name="_Query">Query command for getting data. Default query command gets Account information.</param>
     ''' <returns>A table in Database with data match the query command.</returns>
     ''' <remarks></remarks>
-    Public Function Query(Optional _Query = "Select TenDN, MatKhau From LoginNhanVien") As DataTable
+    Public Function Query(ByVal _Query As String) As DataTable
+        ' = "Select TenDN, MatKhau From TaiKhoanNhanVien"
         Dim result As New DataTable()
         Dim cmd As New SqlCommand(_Query, Connecter)
+        Dim adt As New SqlDataAdapter(cmd)
+
+        Try
+            adt.Fill(result)
+            Return result
+        Catch ex As Exception
+            result.Dispose()
+            result = Nothing
+            Throw ex
+        Finally
+            cmd.Dispose()
+            cmd = Nothing
+            adt.Dispose()
+            adt = Nothing
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' Gets data from Database throught _Query and list of parameters.
+    ''' </summary>
+    ''' <param name="_Query">Query command for execute Stored Procedure.</param>
+    ''' <param name="parameter">List of parameters matching Stored Procedure's paremeters.</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function Query(ByVal _Query As String, ByVal ParamArray parameter() As SqlParameter) As DataTable
+        Dim result As New DataTable()
+        Dim cmd As SqlCommand = _Connecter.CreateCommand()
+        cmd.CommandText = _Query
+        cmd.CommandType = CommandType.StoredProcedure
+
+        If parameter IsNot Nothing And parameter.Length > 0 Then
+            cmd.Parameters.AddRange(parameter)
+        End If
+
         Dim adt As New SqlDataAdapter(cmd)
 
         Try
@@ -235,4 +269,9 @@ Public Class DatabaseConnection
         user = Nothing
         Return False
     End Function
+
+    Private Function Query() As DataTable
+        Throw New NotImplementedException
+    End Function
+
 End Class
