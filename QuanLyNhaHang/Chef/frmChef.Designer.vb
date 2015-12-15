@@ -22,10 +22,16 @@ Partial Class frmChef
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.dgvCookList = New System.Windows.Forms.DataGridView()
+        Me.CookListTransID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CookListDishID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CookListDishName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CookListTimeOrder = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CookListQuantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CookListDone = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.btnCook = New System.Windows.Forms.Button()
         Me.btnSendWarehouse = New System.Windows.Forms.Button()
         Me.btnSendWaitor = New System.Windows.Forms.Button()
@@ -63,12 +69,7 @@ Partial Class frmChef
         Me.MaterialQuantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Increase = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.MaterialUnit = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CookListTransID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CookListDishID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CookListDishName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CookListTimeOrder = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CookListQuantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CookListDone = New System.Windows.Forms.DataGridViewButtonColumn()
+        Me.DefaultIncrease = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dgvCookList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvMaterialList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -82,29 +83,72 @@ Partial Class frmChef
         Me.dgvCookList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.dgvCookList.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvCookList.BackgroundColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvCookList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvCookList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvCookList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvCookList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.CookListTransID, Me.CookListDishID, Me.CookListDishName, Me.CookListTimeOrder, Me.CookListQuantity, Me.CookListDone})
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvCookList.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvCookList.DefaultCellStyle = DataGridViewCellStyle5
         Me.dgvCookList.Location = New System.Drawing.Point(932, 37)
         Me.dgvCookList.Name = "dgvCookList"
         Me.dgvCookList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvCookList.Size = New System.Drawing.Size(410, 515)
         Me.dgvCookList.TabIndex = 2
+        '
+        'CookListTransID
+        '
+        Me.CookListTransID.HeaderText = "Mã chuyển"
+        Me.CookListTransID.Name = "CookListTransID"
+        Me.CookListTransID.Visible = False
+        Me.CookListTransID.Width = 103
+        '
+        'CookListDishID
+        '
+        Me.CookListDishID.HeaderText = "Mã món"
+        Me.CookListDishID.Name = "CookListDishID"
+        Me.CookListDishID.Visible = False
+        Me.CookListDishID.Width = 86
+        '
+        'CookListDishName
+        '
+        Me.CookListDishName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.CookListDishName.HeaderText = "Tên món"
+        Me.CookListDishName.Name = "CookListDishName"
+        '
+        'CookListTimeOrder
+        '
+        Me.CookListTimeOrder.HeaderText = "Giờ đặt"
+        Me.CookListTimeOrder.Name = "CookListTimeOrder"
+        Me.CookListTimeOrder.Visible = False
+        Me.CookListTimeOrder.Width = 80
+        '
+        'CookListQuantity
+        '
+        Me.CookListQuantity.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.CookListQuantity.HeaderText = "Số lượng"
+        Me.CookListQuantity.Name = "CookListQuantity"
+        Me.CookListQuantity.Width = 91
+        '
+        'CookListDone
+        '
+        Me.CookListDone.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.CookListDone.HeaderText = ""
+        Me.CookListDone.Name = "CookListDone"
+        Me.CookListDone.Text = "Xong"
+        Me.CookListDone.UseColumnTextForButtonValue = True
+        Me.CookListDone.Width = 5
         '
         'btnCook
         '
@@ -319,16 +363,16 @@ Partial Class frmChef
         Me.dgvMaterialList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.dgvMaterialList.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvMaterialList.BackgroundColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvMaterialList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvMaterialList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.dgvMaterialList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvMaterialList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DetailDishID, Me.MaterialID, Me.MaterialName, Me.Decrease, Me.MaterialQuantity, Me.Increase, Me.MaterialUnit})
+        Me.dgvMaterialList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DetailDishID, Me.MaterialID, Me.MaterialName, Me.Decrease, Me.MaterialQuantity, Me.Increase, Me.MaterialUnit, Me.DefaultIncrease})
         Me.dgvMaterialList.Location = New System.Drawing.Point(520, 37)
         Me.dgvMaterialList.Name = "dgvMaterialList"
         Me.dgvMaterialList.ReadOnly = True
@@ -404,48 +448,13 @@ Partial Class frmChef
         Me.MaterialUnit.ReadOnly = True
         Me.MaterialUnit.Width = 74
         '
-        'CookListTransID
+        'DefaultIncrease
         '
-        Me.CookListTransID.HeaderText = "Mã chuyển"
-        Me.CookListTransID.Name = "CookListTransID"
-        Me.CookListTransID.Visible = False
-        Me.CookListTransID.Width = 103
-        '
-        'CookListDishID
-        '
-        Me.CookListDishID.HeaderText = "Mã món"
-        Me.CookListDishID.Name = "CookListDishID"
-        Me.CookListDishID.Visible = False
-        Me.CookListDishID.Width = 86
-        '
-        'CookListDishName
-        '
-        Me.CookListDishName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.CookListDishName.HeaderText = "Tên món"
-        Me.CookListDishName.Name = "CookListDishName"
-        '
-        'CookListTimeOrder
-        '
-        Me.CookListTimeOrder.HeaderText = "Giờ đặt"
-        Me.CookListTimeOrder.Name = "CookListTimeOrder"
-        Me.CookListTimeOrder.Visible = False
-        Me.CookListTimeOrder.Width = 80
-        '
-        'CookListQuantity
-        '
-        Me.CookListQuantity.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.CookListQuantity.HeaderText = "Số lượng"
-        Me.CookListQuantity.Name = "CookListQuantity"
-        Me.CookListQuantity.Width = 91
-        '
-        'CookListDone
-        '
-        Me.CookListDone.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.CookListDone.HeaderText = ""
-        Me.CookListDone.Name = "CookListDone"
-        Me.CookListDone.Text = "Xong"
-        Me.CookListDone.UseColumnTextForButtonValue = True
-        Me.CookListDone.Width = 5
+        Me.DefaultIncrease.HeaderText = "Giá trị tăng mặc định"
+        Me.DefaultIncrease.Name = "DefaultIncrease"
+        Me.DefaultIncrease.ReadOnly = True
+        Me.DefaultIncrease.Visible = False
+        Me.DefaultIncrease.Width = 169
         '
         'frmChef
         '
@@ -521,4 +530,5 @@ Partial Class frmChef
     Friend WithEvents MaterialQuantity As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Increase As System.Windows.Forms.DataGridViewButtonColumn
     Friend WithEvents MaterialUnit As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DefaultIncrease As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class
