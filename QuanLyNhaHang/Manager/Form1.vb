@@ -1,8 +1,20 @@
-﻿Public Class Form1
+﻿Imports System.Data.SqlClient
+Imports System.Data
+Imports System.Text
+Public Class Form1
     Private _connect As New Library.DatabaseConnection
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         _connect.Open()
-        _connect.Query()
+        '_connect.Query("Select MaNV, ")
+        '_ParameterInput = {New SqlParameter("@MaMon", a), New SqlParameter("@SoLuong", b),_
+        '                   New SqlParameter("@TinhTrang", c), New SqlParameter("@GhiChu", d), New SqlParameter("@SoBan", e1)}
+
+        'Dim Connection As New Library.DatabaseConnection
+        'Connection.Open()
+        Dim Table As New DataTable
+        Table = _connect.Query("Select NV.MaNV, NV.HoTen, NV.TGBatDau, NV.cmnd, NV.TinhTrang, NV.NgaySinh, NV.GioiTinh, NV.LoaiNhanVien, CV.TenChucVu  From  NhanVien NV, ChucVuNhanVien CV Where CV.MaChucVu = NV.MaChucVu ")
+        dgvNhanVien.DataSource = Table
+        _connect.Close()
     End Sub
 
     Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
@@ -13,11 +25,11 @@
 
     End Sub
 
-    Private Sub TextBox3_TextChanged(sender As Object, e As EventArgs) Handles txtTongTien.TextChanged, TextBox4.TextChanged
+    Private Sub TextBox3_TextChanged(sender As Object, e As EventArgs) Handles txtTongTien_HoaDon.TextChanged, txtTongTien_CTHD.TextChanged
 
     End Sub
 
-    Private Sub DateTimePicker2_ValueChanged(sender As Object, e As EventArgs) Handles dtpThoiGian.ValueChanged, DateTimePicker1.ValueChanged
+    Private Sub DateTimePicker2_ValueChanged(sender As Object, e As EventArgs) Handles dtpThoiGian_HoaDon.ValueChanged
 
     End Sub
 
@@ -37,19 +49,19 @@
 
     End Sub
 
-    Private Sub Label11_Click(sender As Object, e As EventArgs) Handles lblMaDatMon.Click
+    Private Sub Label11_Click(sender As Object, e As EventArgs) Handles lblMaDatMon.Click, Label7.Click
 
     End Sub
 
-    Private Sub btnXoaDM_Click(sender As Object, e As EventArgs) Handles btnXoaDM.Click, btnTimKiemDatMon.Click, Button3.Click, Button2.Click
+    Private Sub btnXoaDM_Click(sender As Object, e As EventArgs) Handles btnXoa_HoaDon.Click, btnTimKiem_HoaDon.Click, btnTimKiem_CTHD.Click, btnXoa_CTHD.Click
 
     End Sub
 
-    Private Sub lblThoiGian_Click(sender As Object, e As EventArgs) Handles lblThoiGian.Click, Label3.Click
+    Private Sub lblThoiGian_Click(sender As Object, e As EventArgs) Handles lblThoiGian.Click
 
     End Sub
 
-    Private Sub lblSoBanChung_Click(sender As Object, e As EventArgs) Handles lblSoBanChung.Click
+    Private Sub lblSoBanChung_Click(sender As Object, e As EventArgs) Handles lblSoBan.Click
 
     End Sub
 
@@ -61,7 +73,7 @@
 
     End Sub
 
-    Private Sub lblGhiChu_Click(sender As Object, e As EventArgs) Handles lblGhiChu.Click, Label5.Click
+    Private Sub lblGhiChu_Click(sender As Object, e As EventArgs) Handles lblGhiChu.Click, Label5.Click, Label9.Click, Label8.Click, Label3.Click
 
     End Sub
 
@@ -69,35 +81,46 @@
 
     End Sub
 
-    Private Sub txtMaDatMon_TextChanged(sender As Object, e As EventArgs) Handles txtMaDatMon.TextChanged
+    Private Sub txtMaDatMon_TextChanged(sender As Object, e As EventArgs)
 
     End Sub
 
-    Private Sub txtSoBanChung_TextChanged(sender As Object, e As EventArgs) Handles txtSoBanChung.TextChanged
+    Private Sub txtSoBanChung_TextChanged(sender As Object, e As EventArgs) Handles txtSoBanChung_HoaDon.TextChanged, txtMaHoaDon_HoaDon.TextChanged
 
     End Sub
 
-    Private Sub txtSoLuongKhach_TextChanged(sender As Object, e As EventArgs) Handles txtSoLuongKhach.TextChanged, TextBox2.TextChanged
+    Private Sub txtSoLuongKhach_TextChanged(sender As Object, e As EventArgs) Handles txtSoLuongKhach_HoaDon.TextChanged, MaHoaDon_CTHD.TextChanged, txtMaHoaDonChung_HoaDon.TextChanged
 
     End Sub
 
-    Private Sub txtTenNV_TextChanged(sender As Object, e As EventArgs) Handles txtTenNV.TextChanged, TextBox3.TextChanged
+    Private Sub txtTenNV_TextChanged(sender As Object, e As EventArgs) Handles txtTenNV_HoaDon.TextChanged, txtMaMon_CTHD.TextChanged
 
     End Sub
 
-    Private Sub txtGhiChu_TextChanged(sender As Object, e As EventArgs) Handles txtGhiChu.TextChanged, txtTimKiemDatMon.TextChanged, TextBox1.TextChanged
+    Private Sub txtGhiChu_TextChanged(sender As Object, e As EventArgs) Handles txtGhiChu_HoaDon.TextChanged, txtTimKiem_HoaDon.TextChanged, txtSoLuong_CTHD.TextChanged, txtMaCT_CTHoaDon.TextChanged, txtGhiChuCTHoaDon.TextChanged, txtTimKiem_CTHD.TextChanged, txtGiaMotMon_CTHD.TextChanged
 
     End Sub
 
-    Private Sub DataGridView2_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dtgDatMon.CellContentClick, DataGridView1.CellContentClick
+    Private Sub DataGridView2_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvHoaDon.CellContentClick, dgvCTHoaDon.CellContentClick
 
     End Sub
 
-    Private Sub TabPage2_Click(sender As Object, e As EventArgs) Handles TabPage2.Click
+    Private Sub TabPage2_Click(sender As Object, e As EventArgs) Handles DatMon.Click
+        _connect.Open()
+        Dim Table As New DataTable
+        Table = _connect.Query("Select HD.MaHDChung, HD.SoBan, HD.SoLuongKhach, NV.TenNV, HD.GhiChu, HD.TinhTrang, HD.ThoiGian, HD.TongTien From HoaDon HD, NhanVien NV Where NV.MaNV = HD.MaNV ")
+        dgvHoaDon.DataSource = Table
+        dgvHoaDon.Columns("TongTien").DefaultCellStyle.Format = "#,###"
 
+        Dim Table1 As New DataTable
+        Table1 = _connect.Query("Select HD.MaHDChung, HD.SoBan, HD.SoLuongKhach, NV.TenNV, HD.GhiChu, HD.TinhTrang, HD.ThoiGian, HD.TongTien From HoaDon HD, NhanVien NV Where NV.MaNV = HD.MaNV")
+        dgvCTHoaDon.DataSource = Table1
+        dgvCTHoaDon.Columns("TongTien").DefaultCellStyle.Format = "#,###"
+
+        _connect.Close()
     End Sub
 
-    Private Sub dtgNhanVien_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dtgNhanVien.CellContentClick
+    Private Sub dtgNhanVien_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvNhanVien.CellContentClick
 
     End Sub
 
@@ -118,14 +141,18 @@
     End Sub
 
     Private Sub btnTimKiem_Click(sender As Object, e As EventArgs) Handles btnTimKiemNV.Click
+        If txtTimKiem_NhanVien.Text.Length = 0 Then
+
+            ErrorProvider1.SetError(txtMaNV, "Bạn chưa nhập Mã Nhân Viên.")
+
+        End If
+    End Sub
+
+    Private Sub txtMaNV_TextChanged(sender As Object, e As EventArgs)
 
     End Sub
 
-    Private Sub txtMaNV_TextChanged(sender As Object, e As EventArgs) Handles txtMaNV.TextChanged
-
-    End Sub
-
-    Private Sub txtTen_TextChanged(sender As Object, e As EventArgs) Handles txtTen.TextChanged
+    Private Sub txtTen_TextChanged(sender As Object, e As EventArgs) Handles txtTen.TextChanged, txtMaNV.TextChanged
 
     End Sub
 
@@ -133,7 +160,7 @@
 
     End Sub
 
-    Private Sub txtTimKiem_TextChanged(sender As Object, e As EventArgs) Handles txtTimKiem.TextChanged
+    Private Sub txtTimKiem_TextChanged(sender As Object, e As EventArgs) Handles txtTimKiem_NhanVien.TextChanged
 
     End Sub
 
@@ -161,11 +188,11 @@
 
     End Sub
 
-    Private Sub TabPage1_Click(sender As Object, e As EventArgs) Handles TabPage1.Click
+    Private Sub TabPage1_Click(sender As Object, e As EventArgs) Handles NhanVien.Click
 
     End Sub
 
-    Private Sub TbCtrNhanVien_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TbCtrNhanVien.SelectedIndexChanged
+    Private Sub TbCtrNhanVien_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TbCtrQuanLy.SelectedIndexChanged
 
     End Sub
 
@@ -178,6 +205,23 @@
     End Sub
 
     Private Sub btnThemNV_Click(sender As Object, e As EventArgs) Handles btnThemNV.Click
+        If txtMaNV.Text.Length = 0 Then
+
+            ErrorProvider1.SetError(txtMaNV, "Bạn chưa nhập Mã Nhân Viên.")
+
+        End If
+
+        If txtTen.Text.Length = 0 Then
+
+            ErrorProvider1.SetError(txtMaNV, "Bạn chưa nhập Tên Nhân Viên.")
+
+        End If
+
+        If txtcmnd.Text.Length = 0 Then
+
+            ErrorProvider1.SetError(txtMaNV, "Bạn chưa nhập CMND của Nhân Viên.")
+
+        End If
 
     End Sub
 
@@ -189,7 +233,91 @@
 
     End Sub
 
-    Private Sub GroupBox5_Enter(sender As Object, e As EventArgs) Handles GroupBox5.Enter
+    Private Sub GroupBox5_Enter(sender As Object, e As EventArgs) Handles gbxChiTietHoaDon.Enter
 
+    End Sub
+
+    Private Sub GroupBox4_Enter(sender As Object, e As EventArgs) Handles gbxHoaDon.Enter
+
+    End Sub
+
+    Private Sub GroupBox6_Enter(sender As Object, e As EventArgs) Handles gbxThongTinChiTietHoaDon.Enter, gbxThongTinChiTietMon.Enter
+
+    End Sub
+
+    Private Sub dgvMonAnDoUong_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvMonAnDoUong.CellContentClick, DataGridView3.CellContentClick
+        
+
+       
+    End Sub
+
+    Private Sub btnThem_Click(sender As Object, e As EventArgs) Handles btnThem_Mon.Click
+        If txtTenMon_Mon.Text.Length = 0 Then
+
+            ErrorProvider1.SetError(txtMaNV, "Bạn chưa nhập Mã Nhân Viên.")
+
+        End If
+
+        If txtGiaHienTai_Mon.Text.Length = 0 Then
+
+            ErrorProvider1.SetError(txtMaNV, "Bạn chưa nhập Tên Nhân Viên.")
+
+        End If
+
+        If txtThucDonMon_Mon.Text.Length = 0 Then
+
+            ErrorProvider1.SetError(txtMaNV, "Bạn chưa nhập CMND của Nhân Viên.")
+
+        End If
+    End Sub
+
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles btnThem_CTMon.Click
+        If txtTenMon_Mon.Text.Length = 0 Then
+
+            ErrorProvider1.SetError(txtMaNV, "Bạn chưa nhập Mã Nhân Viên.")
+
+        End If
+
+        If txtGiaHienTai_Mon.Text.Length = 0 Then
+
+            ErrorProvider1.SetError(txtMaNV, "Bạn chưa nhập Tên Nhân Viên.")
+
+        End If
+
+        If txtThucDonMon_Mon.Text.Length = 0 Then
+
+            ErrorProvider1.SetError(txtMaNV, "Bạn chưa nhập CMND của Nhân Viên.")
+
+        End If
+    End Sub
+
+    Private Sub MonAnDoUong_Click(sender As Object, e As EventArgs) Handles MonAnDoUong.Click
+        _connect.Open()
+
+        Dim Table As New DataTable
+        Table = _connect.Query("Select MADU.TenMon, MADU.GiaTienHienTai, MADU.ThucDonMon  From MonAnDoUong MADU")
+        dgvHoaDon.DataSource = Table
+
+        'Dim Table2 As New DataTable
+        'Table2 = Connection.Query("Select MaNCC, TenNCC, ChietKhau, DiaChi, GhiChu From NhaCungCap NCC")
+        'dgvDSNhaCungCap.DataSource = Table2
+        'Email.DataSource = Connection.Query("Select NCC.MaNCC, NE.Email From NhaCungCap NCC, NhaCungCap_Email NE where NCC.MaNCC = NE.MaNCC")
+        'Email.DisplayMember = "Email"
+        'Email.ValueMember = "MaNCC"
+
+        Dim Table1 As New DataTable
+        Table1 = _connect.Query("Select MADU.TenMon, SP.TenSP, CTLM.SoLuong, LDV.TenDV  From ChiTietLamMon CTLM, MonAnDoUong MADU, SanPham SP, LoaiDonVi LDV Where MADU.MaMon = CTLM.MaMon AND SP.MaSP = CTLM.MaSP AND LDV.MaDV = CTLM.MaDV")
+        dgvHoaDon.DataSource = Table1
+
+        Dim Table2 As New DataTable
+        Table1 = _connect.Query("Select MADU.TenMon, MHT.SoLuongMon, MHT.NgayLamMon  From LuuTruDanhSachMonAnNhaBepHoanThanh MHT, MonAnDoUong MADU Where MADU.MaMon = MHT.MaMon")
+        dgvHoaDon.DataSource = Table1
+
+
+        Dim Table3 As New DataTable
+        Table1 = _connect.Query("Select MADU.TenMon, MKHT.SoLuongMon, MKHT.NgayLamMon From LuuTruDanhSachMonAnSoLuongKHoanThanh MKHT, MonAnDoUong MADU Where MADU.MaMon = MKHT.MaMon")
+        dgvHoaDon.DataSource = Table1
+
+        _connect.Close()
     End Sub
 End Class
