@@ -14,6 +14,7 @@ Public Class frmChef
     Dim cantServeList As DataTable
     Dim materialList As DataTable
     Dim currentDish As String
+    Dim currentIndex As Integer
 
     Private Sub frmChef_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim parameter As SqlClient.SqlParameter = New SqlClient.SqlParameter("@ThoiGian", SqlDbType.Time, 10, "TimeOrder")
@@ -49,6 +50,8 @@ Public Class frmChef
         ltvOrderList.AutoResizeColumn(3, ColumnHeaderAutoResizeStyle.ColumnContent)
         ltvOrderList.AutoResizeColumn(4, ColumnHeaderAutoResizeStyle.ColumnContent)
         ltvOrderList.AutoResizeColumn(5, ColumnHeaderAutoResizeStyle.HeaderSize)
+        cookList = orderList.Clone()
+        cantServeList = orderList.Clone()
     End Sub
 
     Private Sub ltvOrderList_Click(sender As Object, e As EventArgs) Handles ltvOrderList.Click
@@ -71,11 +74,15 @@ Public Class frmChef
 
     Private Sub ltvOrderList_DoubleClick(sender As Object, e As EventArgs) Handles ltvOrderList.DoubleClick
         ltbException.Items.Clear()
-        Dim index = ltvOrderList.SelectedItems(0).Index
         ltvOrderList.SelectedItems.Clear()
-        ltvOrderList.Items(index).Selected = True
+        currentIndex = ltvOrderList.InsertionMark.NearestIndex(New Point(MousePosition.X, MousePosition.Y - 55))
+        ltvOrderList.Items(currentIndex).Selected = True
         If ltvOrderList.SelectedItems.Count > 0 Then
             ltbException.Items.Add(ltvOrderList.SelectedItems(0).SubItems("GhiChu").Text)
         End If
+    End Sub
+
+    Private Sub btnCook_Click(sender As Object, e As EventArgs) Handles btnCook.Click
+
     End Sub
 End Class
