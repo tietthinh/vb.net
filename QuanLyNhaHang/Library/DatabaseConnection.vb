@@ -141,8 +141,15 @@ Public Class DatabaseConnection
         cmd.CommandText = _Query
         cmd.CommandType = CommandType.StoredProcedure
 
+        If outParameter.Length > 0 Then
+            For i As Integer = 0 To outParameter.Length - 1 Step 1
+                outParameter(i).Direction = ParameterDirection.Output
+            Next
+        End If
+
         If parameter IsNot Nothing And parameter.Length > 0 Then
             cmd.Parameters.AddRange(parameter)
+            cmd.Parameters.AddRange(outParameter)
         End If
 
         Dim adt As New SqlDataAdapter(cmd)
