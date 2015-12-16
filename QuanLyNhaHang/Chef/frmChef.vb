@@ -11,17 +11,17 @@ Public Class frmChef
     Dim db As New DatabaseConnection()
     Dim orderList As DataTable
     Dim cookList As New DataTable()
-    Dim cantServeList As DataTable
-    Dim materialList As DataTable
+    Dim cantServeList As New DataTable()
+    Dim materialList As New DataTable()
     Dim currentDish As String
     Dim currentIndex As Integer
 
     Private Sub frmChef_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim parameter As SqlClient.SqlParameter = New SqlClient.SqlParameter("@ThoiGian", SqlDbType.Time, 10, "TimeOrder")
-        parameter.Value = "12:25:31.4409220"
+        Dim parameter As SqlClient.SqlParameter = New SqlClient.SqlParameter("@Time", SqlDbType.Char, 20)
+        parameter.Value = "12:09:00"
         Try
             db.Open()
-            orderList = db.Query("Select DSDMTN.MaChuyen, DSDMTN.MaMon, MADU.TenMon, DSDMTN.ThoiGian, DSDMTN.SoLuong, DSDMTN.GhiChu From DanhSachDatMonTrongNgay DSDMTN, MonAnDoUong MADU Where DSDMTN.MaMon = MADU.MaMon")
+            orderList = db.Query("spDSDatMonTrongNgaySelect", parameter)
         Catch ex As Exception
             Throw ex
         Finally
@@ -57,6 +57,7 @@ Public Class frmChef
         cookList.Columns.Add(New DataColumn(orderList.Columns("SoLuong").ColumnName, orderList.Columns("SoLuong").DataType))
 
         cantServeList = orderList.Clone()
+
     End Sub
 
     Private Sub ltvOrderList_Click(sender As Object, e As EventArgs) Handles ltvOrderList.Click
@@ -105,6 +106,37 @@ Public Class frmChef
             Next
 
             txtTotalQuantity.Text = ""
+        End If
+    End Sub
+
+    Private Sub frmChef_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        db.Dispose()
+        orderList.Dispose()
+        orderList = Nothing
+        cookList.Dispose()
+        cookList = Nothing
+        cantServeList.Dispose()
+        cantServeList = Nothing
+        materialList.Dispose()
+        materialList = Nothing
+        currentDish = ""
+        currentDish = Nothing
+        currentIndex = Nothing
+    End Sub
+
+    Private Sub dgvCookList_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCookList.CellContentClick
+        Dim dgv As DataGridView = DirectCast(sender, DataGridView)
+        Dim column As DataGridViewColumn = dgv.Columns(e.ColumnIndex)
+
+        If TypeOf column Is DataGridViewButtonColumn AndAlso e.RowIndex >= 0 Then
+            Dim parameter(1) As SqlClient.SqlParameter
+            parameter(0) = New SqlClient.SqlParameter("@MaChuyen", SqlDbType.Char, 10)
+            parameter(0).Value = dgv.Rows(e.RowIndex).Cells("CookListTransID").Value
+            parameter(1) = New SqlClient.SqlParameter("@TinhTrang", SqlDbType.Int, 2)
+            parameter(1).Value = 3
+            MessageBox.Show(dgv.Rows(e.RowIndex).Cells("CookListTransID").Value)
+            db.Query("spDSDatMonTrongNgayUpdateTinhTrang", parameter)
+            dgv.Rows.RemoveAt(e.RowIndex)
         End If
     End Sub
 End Class

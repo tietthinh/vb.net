@@ -240,7 +240,7 @@ Public Class DatabaseConnection
 
         Try
             Open()
-            accountList = Query()
+            accountList = Query("Select TenDN, MatKhau From TaiKhoanNhanVien")
         Catch ex As SqlException
             accountList.Dispose()
             accountList = Nothing
@@ -312,8 +312,13 @@ Public Class DatabaseConnection
         Return False
     End Function
 
-    Private Function Query() As DataTable
-        Throw New NotImplementedException
-    End Function
+    ''' <summary>
+    ''' Release memory of DatabaseConnection.
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Sub Dispose()
+        _Connecter.Dispose()
+        _Connecter = Nothing
+    End Sub
 
 End Class
