@@ -101,6 +101,7 @@ Partial Class frmChef
         Me.dgvCookList.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvCookList.Location = New System.Drawing.Point(932, 37)
         Me.dgvCookList.Name = "dgvCookList"
+        Me.dgvCookList.ReadOnly = True
         Me.dgvCookList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvCookList.Size = New System.Drawing.Size(410, 515)
         Me.dgvCookList.TabIndex = 2
@@ -110,6 +111,7 @@ Partial Class frmChef
         Me.CookListTransID.DataPropertyName = "MaChuyen"
         Me.CookListTransID.HeaderText = "Mã chuyển"
         Me.CookListTransID.Name = "CookListTransID"
+        Me.CookListTransID.ReadOnly = True
         Me.CookListTransID.Visible = False
         Me.CookListTransID.Width = 103
         '
@@ -119,6 +121,7 @@ Partial Class frmChef
         Me.CookListDishName.DataPropertyName = "TenMon"
         Me.CookListDishName.HeaderText = "Tên món"
         Me.CookListDishName.Name = "CookListDishName"
+        Me.CookListDishName.ReadOnly = True
         '
         'CookListQuantity
         '
@@ -126,6 +129,7 @@ Partial Class frmChef
         Me.CookListQuantity.DataPropertyName = "SoLuong"
         Me.CookListQuantity.HeaderText = "Số lượng"
         Me.CookListQuantity.Name = "CookListQuantity"
+        Me.CookListQuantity.ReadOnly = True
         Me.CookListQuantity.Width = 91
         '
         'CookListDone
@@ -133,6 +137,7 @@ Partial Class frmChef
         Me.CookListDone.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.CookListDone.HeaderText = ""
         Me.CookListDone.Name = "CookListDone"
+        Me.CookListDone.ReadOnly = True
         Me.CookListDone.Text = "Xong"
         Me.CookListDone.UseColumnTextForButtonValue = True
         Me.CookListDone.Width = 5
