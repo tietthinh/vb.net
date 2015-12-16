@@ -17,7 +17,7 @@ Public Class DatabaseConnection
     ''' Address of Database in Sql Server.
     ''' </summary>
     ''' <remarks></remarks>
-    Private Shared _Address As String = "Data Source=.;Initial Catalog=QuanLyNhaHang;Integrated Security=True"
+    Private Shared _Address As String = "Data Source=.\SQLEXPRESS;Initial Catalog=QuanLyNhaHang;Integrated Security=True"
 
     ''' <summary>
     ''' Gets or Sets the current connecter of Library.DatabaseConnection.
