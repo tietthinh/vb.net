@@ -98,7 +98,7 @@ Public Class DatabaseConnection
     ''' </summary>
     ''' <param name="_Query">Query command for execute Stored Procedure.</param>
     ''' <param name="parameter">List of parameters matching Stored Procedure's paremeters.</param>
-    ''' <returns></returns>
+    ''' <returns>A table in Database with data match the query command.</returns>
     ''' <remarks></remarks>
     Public Function Query(ByVal _Query As String, ByVal ParamArray parameter() As SqlParameter) As DataTable
         Dim result As New DataTable()
@@ -108,6 +108,48 @@ Public Class DatabaseConnection
 
         If parameter IsNot Nothing And parameter.Length > 0 Then
             cmd.Parameters.AddRange(parameter)
+        End If
+
+        Dim adt As New SqlDataAdapter(cmd)
+
+        Try
+            adt.Fill(result)
+            Return result
+        Catch ex As Exception
+            result.Dispose()
+            result = Nothing
+            Throw ex
+        Finally
+            cmd.Dispose()
+            cmd = Nothing
+            adt.Dispose()
+            adt = Nothing
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' Gets data from Database throught _Query and list of parameters.
+    ''' </summary>
+    ''' <param name="_Query">Query command for execute Stored Procedure.</param>
+    ''' <param name="outParameter">List of output parameters from Stored Procedure.</param>
+    ''' <param name="parameter">List of parameters matching Stored Procedure's paremeters.</param>
+    ''' <returns>A table in Database with data match the query command.</returns>
+    ''' <remarks></remarks>
+    Public Function Query(ByVal _Query As String, ByRef outParameter() As SqlParameter, ByVal ParamArray parameter() As SqlParameter) As DataTable
+        Dim result As New DataTable()
+        Dim cmd As SqlCommand = _Connecter.CreateCommand()
+        cmd.CommandText = _Query
+        cmd.CommandType = CommandType.StoredProcedure
+
+        If outParameter.Length > 0 Then
+            For i As Integer = 0 To outParameter.Length - 1 Step 1
+                outParameter(i).Direction = ParameterDirection.Output
+            Next
+        End If
+
+        If parameter IsNot Nothing And parameter.Length > 0 Then
+            cmd.Parameters.AddRange(parameter)
+            cmd.Parameters.AddRange(outParameter)
         End If
 
         Dim adt As New SqlDataAdapter(cmd)
