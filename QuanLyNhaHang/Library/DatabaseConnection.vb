@@ -227,6 +227,21 @@ Public Class DatabaseConnection
     End Sub
 
     ''' <summary>
+    ''' Create a list of parameters for Query command.
+    ''' </summary>
+    ''' <param name="listParameterName">List of parameters' name.</param>
+    ''' <param name="listParameterValue">List of parameters' value.</param>
+    ''' <returns>List of parameters.</returns>
+    ''' <remarks></remarks>
+    Public Function CreateParameter(ByVal listParameterName() As String, ByVal listParameterValue() As Object) As SqlParameter()
+        Dim parameter(listParameterName.Length - 1) As SqlClient.SqlParameter
+        For i As Integer = 0 To parameter.Length - 1 Step 1
+            parameter(i) = New SqlParameter(listParameterName(i), listParameterValue(i))
+        Next
+        Return parameter
+    End Function
+
+    ''' <summary>
     ''' Check employee's information in form.
     ''' </summary>
     ''' <param name="username">Employee's Username.</param>
