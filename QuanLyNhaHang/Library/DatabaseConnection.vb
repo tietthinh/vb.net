@@ -5,6 +5,9 @@
 '=====================================================================
 
 Imports System.Data.SqlClient
+Imports System.Data
+Imports System.Configuration
+Imports System.Data.Common
 
 Public Class DatabaseConnection
     ''' <summary>
@@ -17,7 +20,8 @@ Public Class DatabaseConnection
     ''' Address of Database in Sql Server.
     ''' </summary>
     ''' <remarks></remarks>
-    Private Shared _Address As String = "Data Source=.\SQLEXPRESS;Initial Catalog=QuanLyNhaHang;Integrated Security=True"
+    Private Shared _Address As ConnectionStringSettings = _
+        ConfigurationManager.ConnectionStrings("Restaurant Management")
 
     ''' <summary>
     ''' Gets or Sets the current connecter of Library.DatabaseConnection.
@@ -39,7 +43,7 @@ Public Class DatabaseConnection
     ''' </summary>
     ''' <remarks></remarks>
     Public Sub New()
-        _Connecter.ConnectionString = _Address
+        _Connecter.ConnectionString = _Address.ConnectionString
     End Sub
 
     ''' <summary>
@@ -240,7 +244,7 @@ Public Class DatabaseConnection
 
         Try
             Open()
-            accountList = Query()
+            accountList = Query("Select TenDN, MatKhau From TaiKhoanNhanVien")
         Catch ex As SqlException
             accountList.Dispose()
             accountList = Nothing
@@ -312,8 +316,13 @@ Public Class DatabaseConnection
         Return False
     End Function
 
-    Private Function Query() As DataTable
-        Throw New NotImplementedException
-    End Function
+    ''' <summary>
+    ''' Release memory of DatabaseConnection.
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Sub Dispose()
+        _Connecter.Dispose()
+        _Connecter = Nothing
+    End Sub
 
 End Class
