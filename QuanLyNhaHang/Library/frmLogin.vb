@@ -10,7 +10,7 @@
 Imports System.Drawing
 Imports System.Windows.Forms
 
-Public Class frmDangNhap
+Public Class frmLogin
     'Fields:
     ''' <summary>
     ''' If Password Textbox is null then true, else false.
@@ -49,7 +49,7 @@ Public Class frmDangNhap
     'Form's Events
     '
     'Load: Occur when the form loads
-    Private Sub frmDangNhap_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub frmLogin_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Sets Username/Password for txtID's and txtPW's text when form loads.
         txtID.Text = "Username"
         txtPW.Text = "Password"
@@ -157,8 +157,9 @@ Public Class frmDangNhap
             MessageBox.Show("Đăng nhập thành công", "", MessageBoxButtons.OK)
             Me.DialogResult = Windows.Forms.DialogResult.OK
             Me.Close()
+        Else
+            MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu", "", MessageBoxButtons.OK)
         End If
-        MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu", "", MessageBoxButtons.OK)
     End Sub
     '
     'lblClearID/lblSeePW's Events
@@ -221,6 +222,8 @@ Public Class frmDangNhap
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         'Sets this form's dialog by Dialog Cancel
         Me.DialogResult = Windows.Forms.DialogResult.Cancel
+        db.Dispose()
+        db = Nothing
     End Sub
     '
     'txtSubID's Events

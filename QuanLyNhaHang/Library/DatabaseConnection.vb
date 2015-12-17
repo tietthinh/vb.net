@@ -85,7 +85,7 @@ Public Class DatabaseConnection
         Try
             adt.Fill(result)
             Return result
-        Catch ex As Exception
+        Catch ex As SqlException
             result.Dispose()
             result = Nothing
             Throw ex
@@ -119,7 +119,7 @@ Public Class DatabaseConnection
         Try
             adt.Fill(result)
             Return result
-        Catch ex As Exception
+        Catch ex As SqlException
             result.Dispose()
             result = Nothing
             Throw ex
@@ -161,7 +161,7 @@ Public Class DatabaseConnection
         Try
             adt.Fill(result)
             Return result
-        Catch ex As Exception
+        Catch ex As SqlException
             result.Dispose()
             result = Nothing
             Throw ex
@@ -190,7 +190,7 @@ Public Class DatabaseConnection
 
         Try
             cmd.ExecuteNonQuery()
-        Catch ex As Exception
+        Catch ex As SqlException
             Throw ex
         Finally
             cmd.Dispose()
@@ -214,7 +214,7 @@ Public Class DatabaseConnection
 
         Try
             adt.Update(table)
-        Catch ex As Exception
+        Catch ex As SqlException
             Throw ex
         Finally
             cmd.Dispose()
@@ -292,17 +292,17 @@ Public Class DatabaseConnection
 
         Try
             Open()
-            accountList = Query("Select LNV.TenDN, LNV.MatKhau, NV.cmnd, NV.MaNV, NV.HoTen " + _
-                                "From LoginNhanVien LNV, NhanVien NV " + _
-                                "Where NV.MaNV = LNV.MaNV")
-        Catch ex As Exception
+            accountList = Query("Select TKNV.TenDN, TKNV.MatKhau, NV.cmnd, NV.MaNV, NV.HoTen " + _
+                                "From TaiKhoanNhanVien TKNV, NhanVien NV " + _
+                                "Where NV.MaNV = TKNV.MaNV")
+        Catch ex As SqlException
             Throw ex
         Finally
             Close()
         End Try
 
         For Each row As DataRow In accountList.Rows
-            If username = row("TenDN") And GetMd5Hash(password, row("cmnd")) = row("MatKhau") Then
+            If username = row("TenDN") And GetMd5Hash(password, row("cmnd").ToString().Trim()) = row("MatKhau") Then
                 user = New User(row("MaNV"), row("HoTen"))
                 accountList.Dispose()
                 accountList = Nothing

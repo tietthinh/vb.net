@@ -69,10 +69,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseConnection.vb" />
-    <Compile Include="frmDangNhap.Designer.vb">
-      <DependentUpon>frmDangNhap.vb</DependentUpon>
+    <Compile Include="frmLogin.Designer.vb">
+      <DependentUpon>frmLogin.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmDangNhap.vb">
+    <Compile Include="frmLogin.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmNumPad.designer.vb">
@@ -100,8 +100,8 @@
     <Compile Include="User.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="frmDangNhap.resx">
-      <DependentUpon>frmDangNhap.vb</DependentUpon>
+    <EmbeddedResource Include="frmLogin.resx">
+      <DependentUpon>frmLogin.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmNumPad.resx">
       <DependentUpon>frmNumPad.vb</DependentUpon>
