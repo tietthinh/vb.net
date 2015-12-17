@@ -85,10 +85,6 @@ Public Class frmChef
         End If
     End Sub
 
-    Private Sub ltvOrderList_DoubleClick(sender As Object, e As EventArgs)
-
-    End Sub
-
     Private Sub btnCook_Click(sender As Object, e As EventArgs) Handles btnCook.Click
         If ltvOrderList.SelectedItems.Count > 0 Then
             For Each item As ListViewItem In ltvOrderList.SelectedItems
