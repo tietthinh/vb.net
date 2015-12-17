@@ -5,6 +5,9 @@
 '=====================================================================
 
 Imports System.Data.SqlClient
+Imports System.Data
+Imports System.Configuration
+Imports System.Data.Common
 
 Public Class DatabaseConnection
     ''' <summary>
@@ -17,7 +20,8 @@ Public Class DatabaseConnection
     ''' Address of Database in Sql Server.
     ''' </summary>
     ''' <remarks></remarks>
-    Private Shared _Address As String = "Data Source=.;Initial Catalog=QuanLyNhaHang;Integrated Security=True"
+    Private Shared _Address As ConnectionStringSettings = _
+        ConfigurationManager.ConnectionStrings("Restaurant Management")
 
     ''' <summary>
     ''' Gets or Sets the current connecter of Library.DatabaseConnection.
@@ -39,7 +43,7 @@ Public Class DatabaseConnection
     ''' </summary>
     ''' <remarks></remarks>
     Public Sub New()
-        _Connecter.ConnectionString = _Address
+        _Connecter.ConnectionString = _Address.ConnectionString
     End Sub
 
     ''' <summary>

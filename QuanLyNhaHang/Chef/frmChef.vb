@@ -143,7 +143,7 @@ Public Class frmChef
     Private Sub ltvOrderList_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles ltvOrderList.MouseDoubleClick
         ltbException.Items.Clear()
         ltvOrderList.SelectedItems.Clear()
-        currentIndex = ltvOrderList.InsertionMark.NearestIndex(New Point(MousePosition.X, MousePosition.Y - 62))
+        currentIndex = ltvOrderList.InsertionMark.NearestIndex(New Point(e.X, e.Y))
         ltvOrderList.Items(currentIndex).Selected = True
         If ltvOrderList.SelectedItems.Count > 0 Then
             ltbException.Items.Add(ltvOrderList.SelectedItems(0).SubItems("GhiChu").Text)
