@@ -5,6 +5,7 @@
 '=====================================================================
 
 Imports Library
+Imports System.Data.SqlClient
 
 Public Class frmChef
 
@@ -18,16 +19,17 @@ Public Class frmChef
     Dim exceptionList As New List(Of Integer)
 
     Private Sub frmChef_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim parameter As SqlClient.SqlParameter = New SqlClient.SqlParameter("@Time", SqlDbType.Char, 20)
-        parameter.Value = "12:09:00"
+        Dim parameter() As SqlClient.SqlParameter = db.CreateParameter(New String() {"@Time"}, New Object() {"12:09:00"})
+
         Try
             db.Open()
             orderList = db.Query("spDSDatMonTrongNgaySelect", parameter)
-        Catch ex As Exception
+        Catch ex As SqlException
             Throw ex
         Finally
             db.Close()
         End Try
+
         Dim index As Integer = 1
         For Each row As DataRow In orderList.Rows
             Dim item As New ListViewItem(index)
@@ -58,7 +60,6 @@ Public Class frmChef
         cookList.Columns.Add(New DataColumn(orderList.Columns("SoLuong").ColumnName, orderList.Columns("SoLuong").DataType))
 
         cantServeList = orderList.Clone()
-
     End Sub
 
     Private Sub ltvOrderList_Click(sender As Object, e As EventArgs) Handles ltvOrderList.Click
@@ -66,13 +67,17 @@ Public Class frmChef
             ltvOrderList.Items(exceptionList(i)).BackColor = SystemColors.Window
             exceptionList.RemoveAt(i)
         Next
+
         Dim quantity As Integer = 0
         If ltvOrderList.SelectedItems.Count > 0 Then
             currentDish = ltvOrderList.SelectedItems(0).SubItems("MaMon").Text
+
             For Each item As ListViewItem In ltvOrderList.Items
                 If item.SubItems("MaMon").Text = currentDish Then
                     quantity += item.SubItems("SoLuong").Text
+
                     If item.SubItems("GhiChu").Text <> "" Then
+                        item.Selected = False
                         item.BackColor = Color.Red
                         exceptionList.Add(item.Index)
                     Else
@@ -80,7 +85,9 @@ Public Class frmChef
                     End If
                 End If
             Next
+
             exceptionList.Reverse()
+
             txtTotalQuantity.Text = quantity.ToString()
         End If
     End Sub
@@ -126,11 +133,9 @@ Public Class frmChef
         Dim column As DataGridViewColumn = dgv.Columns(e.ColumnIndex)
 
         If TypeOf column Is DataGridViewButtonColumn AndAlso e.RowIndex >= 0 Then
-            Dim parameter(1) As SqlClient.SqlParameter
-            parameter(0) = New SqlClient.SqlParameter("@MaChuyen", SqlDbType.Char, 10)
-            parameter(0).Value = dgv.Rows(e.RowIndex).Cells("CookListTransID").Value
-            parameter(1) = New SqlClient.SqlParameter("@TinhTrang", SqlDbType.Int, 2)
-            parameter(1).Value = 3
+            Dim parameterName() As String = New String() {"@MaChuyen", "@TinhTrang"}
+            Dim parameterValue() As Object = New Object() {dgv.Rows(e.RowIndex).Cells("CookListTransID").Value, 3}
+            Dim parameter() As SqlClient.SqlParameter = db.CreateParameter(parameterName, parameterValue)
             db.Query("spDSDatMonTrongNgayUpdateTinhTrang", parameter)
             dgv.Rows.RemoveAt(e.RowIndex)
         End If
@@ -148,10 +153,12 @@ Public Class frmChef
 
     Private Sub ltvOrderList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ltvOrderList.SelectedIndexChanged
         If ltvOrderList.SelectedItems.Count <= 0 Then
-            For i As Integer = 0 To exceptionList.Count - 1 Step 1
-                ltvOrderList.Items(exceptionList(i)).BackColor = SystemColors.Window
-                exceptionList.RemoveAt(i)
-            Next
+            'For i As Integer = 0 To exceptionList.Count - 1 Step 1
+            '    ltvOrderList.Items(exceptionList(i)).BackColor = SystemColors.Window
+            '    exceptionList.RemoveAt(i)
+            'Next
+            ClearListViewItemBackColor(exceptionList, ltvOrderList)
+
             ltbException.Items.Clear()
         End If
     End Sub
