@@ -1,5 +1,4 @@
-﻿Imports System.Data.SqlClient
-Imports Library
+﻿Imports Library
 
 Public Class NhanVien
 
@@ -10,7 +9,6 @@ Public Class NhanVien
     Dim _IsCommitted As Boolean = False
     Dim _PictureBoxEffect As PictureBox
     Dim _SelectedTable As PictureBox
-    Dim _TransferCode() As String
     'Show content
     'Hiển thị nội dung
     Private Sub picTable01_Click(sender As Object, e As EventArgs) Handles picTable01.Click, picTable02.Click, picTable03.Click, picTable04.Click,
@@ -70,15 +68,12 @@ Public Class NhanVien
             Dim _Row As DataRow = Nothing
             Dim _Id As String = Nothing
             Dim _IdTemp() As String = Nothing
-            ''Stored Procedure
-            Dim _Query As String = "spMonAnDoUongSelect"
+            Dim _Query As String = "Select MaMon,TenMon from MonAnDoUong"
             Dim _Data As DataTable = Nothing
             Dim index As Integer = 0
-            Dim _Parameter As New SqlClient.SqlParameter("@TinhTrang", 1)
-            _Data = _Connection.Query(_Query, _Parameter)
+            _Data = _Connection.Query(_Query)
             For Each _Row In _Data.Rows
                 listMenu.Items.Add(_Row(1).ToString())
-                listMenu.Items(index).SubItems.Add(_Row(0).ToString())
                 If (_Row(0).ToString().Substring(0, 2) = "DA") Then
                     ''Set image
                     listMenu.Items(index).ImageIndex = 0
@@ -88,16 +83,15 @@ Public Class NhanVien
                 End If
                 index = index + 1
             Next
-            _Parameter = New SqlClient.SqlParameter("@TinhTrang", 0)
+            _Query = "Select MaMon,TenMon from MonAnDoUong"
             _Data = Nothing
             index = 0
-            _Data = _Connection.Query(_Query, _Parameter)
+            _Data = _Connection.Query(_Query)
             For Each _Row In _Data.Rows
                 lstNotAvailable.Items.Add(_Row(1).ToString())
             Next
             _Connection.Close()
-        Catch ex As Exception
-            MessageBox.Show(ex.Message)
+        Catch
         End Try
     End Sub
     Private Sub listMenu_Click(sender As Object, e As EventArgs) Handles listMenu.Click
@@ -124,40 +118,9 @@ Public Class NhanVien
     End Sub
 
     Private Sub btnLamMon_Click(sender As Object, e As EventArgs) Handles btnLamMon.Click
+        MessageBox.Show("Gửi danh sách thành công!", "Thông báo", MessageBoxButtons.OK)
         ''Commit the list to Chef
-
-        If (dgvList.Rows.Count <> 0) Then
-            Dim index As Integer = 0
-            MessageBox.Show("Gửi danh sách thành công!", "Thông báo", MessageBoxButtons.OK)
-            Dim _Row As DataGridViewRow
-            Dim _Query As String = "spDSDatMonTrongNgayInsert"
-            Dim _Parameter() As SqlParameter
-            ''Insert
-            For Each _Row In dgvList.Rows
-                Dim a As String = listMenu.Items(index).SubItems(1).Text
-                Dim b As Integer = dgvList.Item(2, index).Value
-                Dim c As Integer = 1
-                Dim d As String = dgvList.Item(3, index).Value
-                Dim e1 As Integer = Integer.Parse(_SelectedTable.Name.Last())
-                _Parameter = {New SqlParameter("@MaMon", a), New SqlParameter("@SoLuong", b), New SqlParameter("@TinhTrang", c), New SqlParameter("@GhiChu", d), New SqlParameter("@SoBan", e1), New SqlParameter("@MaMoi", AppProvider._TransferCode)}
-                _Connection.Query(_Query, _Parameter)
-                index += 1
-                ''Return the _TransferCode
-                ''_TransferCode(index) = _TransferCode
-                ''
-            Next
-            ''
-            '' Reload datagridview
-            index = 0
-            For Each _Row In dgvList.Rows
-                dgvList.Item(5, index).Value = _TransferCode(index)
-                index += 1
-            Next
-            ''
-            _IsCommitted = True
-        Else
-            MessageBox.Show("Danh sách món ăn trống!", "Thông báo")
-        End If
+        _IsCommitted = True
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click

@@ -23,6 +23,11 @@ Partial Class NhanVien
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.dgvList = New System.Windows.Forms.DataGridView()
+        Me.colNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colFood = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colQuantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colNote = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colStatus = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.lblTittle = New System.Windows.Forms.Label()
         Me.listMenu = New System.Windows.Forms.ListView()
         Me.colName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -43,12 +48,6 @@ Partial Class NhanVien
         Me.btnDelete = New System.Windows.Forms.Button()
         Me.lstNotAvailable = New System.Windows.Forms.ListView()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.colNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colFood = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colQuantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colNote = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colStatus = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.MaMon = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dgvList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picTable09, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picTable08, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -67,7 +66,7 @@ Partial Class NhanVien
         Me.dgvList.AllowUserToAddRows = False
         Me.dgvList.AllowUserToDeleteRows = False
         Me.dgvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colNumber, Me.colFood, Me.colQuantity, Me.colNote, Me.colStatus, Me.MaMon})
+        Me.dgvList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colNumber, Me.colFood, Me.colQuantity, Me.colNote, Me.colStatus})
         Me.dgvList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvList.Location = New System.Drawing.Point(708, 68)
         Me.dgvList.MultiSelect = False
@@ -75,6 +74,37 @@ Partial Class NhanVien
         Me.dgvList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvList.Size = New System.Drawing.Size(424, 538)
         Me.dgvList.TabIndex = 19
+        '
+        'colNumber
+        '
+        Me.colNumber.HeaderText = "STT"
+        Me.colNumber.Name = "colNumber"
+        Me.colNumber.Width = 20
+        '
+        'colFood
+        '
+        Me.colFood.HeaderText = "Tên Món"
+        Me.colFood.Name = "colFood"
+        Me.colFood.Width = 125
+        '
+        'colQuantity
+        '
+        Me.colQuantity.HeaderText = "SL"
+        Me.colQuantity.Name = "colQuantity"
+        Me.colQuantity.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.colQuantity.Width = 30
+        '
+        'colNote
+        '
+        Me.colNote.HeaderText = "Ghi Chú"
+        Me.colNote.Name = "colNote"
+        Me.colNote.Width = 125
+        '
+        'colStatus
+        '
+        Me.colStatus.HeaderText = "Tình Trạng"
+        Me.colStatus.Name = "colStatus"
+        Me.colStatus.Width = 80
         '
         'lblTittle
         '
@@ -282,42 +312,6 @@ Partial Class NhanVien
         Me.Label1.Text = "MÓN CHƯA LÀM ĐƯỢC"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'colNumber
-        '
-        Me.colNumber.HeaderText = "STT"
-        Me.colNumber.Name = "colNumber"
-        Me.colNumber.Width = 20
-        '
-        'colFood
-        '
-        Me.colFood.HeaderText = "Tên Món"
-        Me.colFood.Name = "colFood"
-        Me.colFood.Width = 125
-        '
-        'colQuantity
-        '
-        Me.colQuantity.HeaderText = "SL"
-        Me.colQuantity.Name = "colQuantity"
-        Me.colQuantity.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.colQuantity.Width = 30
-        '
-        'colNote
-        '
-        Me.colNote.HeaderText = "Ghi Chú"
-        Me.colNote.Name = "colNote"
-        Me.colNote.Width = 125
-        '
-        'colStatus
-        '
-        Me.colStatus.HeaderText = "Tình Trạng"
-        Me.colStatus.Name = "colStatus"
-        Me.colStatus.Width = 80
-        '
-        'MaMon
-        '
-        Me.MaMon.HeaderText = "MaMon"
-        Me.MaMon.Name = "MaMon"
-        '
         'NhanVien
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -378,12 +372,11 @@ Partial Class NhanVien
     Friend WithEvents Button2 As Button
     Friend WithEvents lblMenu As Label
     Friend WithEvents btnDelete As Button
-    Friend WithEvents lstNotAvailable As ListView
-    Friend WithEvents Label1 As Label
     Friend WithEvents colNumber As DataGridViewTextBoxColumn
     Friend WithEvents colFood As DataGridViewTextBoxColumn
     Friend WithEvents colQuantity As DataGridViewTextBoxColumn
     Friend WithEvents colNote As DataGridViewTextBoxColumn
     Friend WithEvents colStatus As DataGridViewTextBoxColumn
-    Friend WithEvents MaMon As DataGridViewTextBoxColumn
+    Friend WithEvents lstNotAvailable As ListView
+    Friend WithEvents Label1 As Label
 End Class

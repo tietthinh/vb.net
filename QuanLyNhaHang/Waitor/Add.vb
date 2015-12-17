@@ -1,6 +1,5 @@
 ﻿Imports Waitor.NhanVien
 Imports Library
-Imports System.Data.SqlClient
 
 Public Class Add
     Dim a As frmNumPad
@@ -43,23 +42,23 @@ Public Class Add
             Dim name As String = NhanVien.listMenu.SelectedItems(0).Text
             _Id = NhanVien.dgvList.Rows.Count + 1
             _Name = name
-            NhanVien.dgvList.Rows.Add(_Id, _Name, _Quantity, _Note, 1)
+            NhanVien.dgvList.Rows.Add(_Id, _Name, _Quantity, _Note, "Chưa làm")
+
         Else
-            Dim index As Integer = NhanVien.dgvList.SelectedRows.Item(0).Index
+                ''Code failed!
+                Dim index As Integer = NhanVien.dgvList.SelectedRows.Item(0).Index
             Dim row As DataGridViewRow = NhanVien.dgvList.SelectedRows.Item(0)
-            Dim id As String = row.Cells(0).Value.ToString
-            Dim name As String = row.Cells(1).Value.ToString
-            Dim _Query As String = "spDSDatMonTrongNgayInsert"
             nudQuantity.Value = row.Cells(2).Value
             txtNote.Text = row.Cells(3).Value
-            Dim _Parameter() As SqlParameter = {New SqlParameter("@MaChuyen", AppProvider._TransferCode), New SqlParameter("@SoLuong", nudQuantity.Value), New SqlParameter("@GhiChu", txtNote.Text)}
-            NhanVien.dgvList.Rows(index).SetValues(id, name, _Quantity, _Note, 1)
+            Dim id As String = row.Cells(0).Value.ToString
+            Dim name As String = row.Cells(1).Value.ToString
+            NhanVien.dgvList.Rows(index).SetValues(id, name, _Quantity, _Note, "Đang Làm")
             _Id = id
             _Name = name
         End If
         _Order.Id = _Id
         _Order.Name = _Name
-        _Order.Note = _Note.Trim.ToLower
+        _Order.Note = _Note
         _Order.Quantity = _Quantity
         _ActiveTable.AddOrder(_Order)
         Close()
