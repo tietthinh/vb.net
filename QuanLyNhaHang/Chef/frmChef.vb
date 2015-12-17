@@ -15,6 +15,7 @@ Public Class frmChef
     Dim materialList As New DataTable()
     Dim currentDish As String
     Dim currentIndex As Integer
+    Dim exceptionList As New List(Of Integer)
 
     Private Sub frmChef_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim parameter As SqlClient.SqlParameter = New SqlClient.SqlParameter("@Time", SqlDbType.Char, 20)
@@ -61,6 +62,10 @@ Public Class frmChef
     End Sub
 
     Private Sub ltvOrderList_Click(sender As Object, e As EventArgs) Handles ltvOrderList.Click
+        For i As Integer = 0 To exceptionList.Count - 1 Step 1
+            ltvOrderList.Items(exceptionList(i)).BackColor = SystemColors.Window
+            exceptionList.RemoveAt(i)
+        Next
         Dim quantity As Integer = 0
         If ltvOrderList.SelectedItems.Count > 0 Then
             currentDish = ltvOrderList.SelectedItems(0).SubItems("MaMon").Text
@@ -69,23 +74,19 @@ Public Class frmChef
                     quantity += item.SubItems("SoLuong").Text
                     If item.SubItems("GhiChu").Text <> "" Then
                         item.BackColor = Color.Red
+                        exceptionList.Add(item.Index)
                     Else
                         item.Selected = True
                     End If
                 End If
             Next
+            exceptionList.Reverse()
             txtTotalQuantity.Text = quantity.ToString()
         End If
     End Sub
 
-    Private Sub ltvOrderList_DoubleClick(sender As Object, e As EventArgs) Handles ltvOrderList.DoubleClick
-        ltbException.Items.Clear()
-        ltvOrderList.SelectedItems.Clear()
-        currentIndex = ltvOrderList.InsertionMark.NearestIndex(New Point(MousePosition.X, MousePosition.Y - 55))
-        ltvOrderList.Items(currentIndex).Selected = True
-        If ltvOrderList.SelectedItems.Count > 0 Then
-            ltbException.Items.Add(ltvOrderList.SelectedItems(0).SubItems("GhiChu").Text)
-        End If
+    Private Sub ltvOrderList_DoubleClick(sender As Object, e As EventArgs)
+
     End Sub
 
     Private Sub btnCook_Click(sender As Object, e As EventArgs) Handles btnCook.Click
@@ -134,9 +135,28 @@ Public Class frmChef
             parameter(0).Value = dgv.Rows(e.RowIndex).Cells("CookListTransID").Value
             parameter(1) = New SqlClient.SqlParameter("@TinhTrang", SqlDbType.Int, 2)
             parameter(1).Value = 3
-            MessageBox.Show(dgv.Rows(e.RowIndex).Cells("CookListTransID").Value)
             db.Query("spDSDatMonTrongNgayUpdateTinhTrang", parameter)
             dgv.Rows.RemoveAt(e.RowIndex)
+        End If
+    End Sub
+
+    Private Sub ltvOrderList_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles ltvOrderList.MouseDoubleClick
+        ltbException.Items.Clear()
+        ltvOrderList.SelectedItems.Clear()
+        currentIndex = ltvOrderList.InsertionMark.NearestIndex(New Point(MousePosition.X, MousePosition.Y - 62))
+        ltvOrderList.Items(currentIndex).Selected = True
+        If ltvOrderList.SelectedItems.Count > 0 Then
+            ltbException.Items.Add(ltvOrderList.SelectedItems(0).SubItems("GhiChu").Text)
+        End If
+    End Sub
+
+    Private Sub ltvOrderList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ltvOrderList.SelectedIndexChanged
+        If ltvOrderList.SelectedItems.Count <= 0 Then
+            For i As Integer = 0 To exceptionList.Count - 1 Step 1
+                ltvOrderList.Items(exceptionList(i)).BackColor = SystemColors.Window
+                exceptionList.RemoveAt(i)
+            Next
+            ltbException.Items.Clear()
         End If
     End Sub
 End Class
