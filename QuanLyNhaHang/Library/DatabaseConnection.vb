@@ -5,6 +5,9 @@
 '=====================================================================
 
 Imports System.Data.SqlClient
+Imports System.Data
+Imports System.Configuration
+Imports System.Data.Common
 
 Public Class DatabaseConnection
     ''' <summary>
@@ -17,7 +20,8 @@ Public Class DatabaseConnection
     ''' Address of Database in Sql Server.
     ''' </summary>
     ''' <remarks></remarks>
-    Private Shared _Address As String = "Data Source=.\SQLEXPRESS;Initial Catalog=QuanLyNhaHang;Integrated Security=True"
+    Private Shared _Address As ConnectionStringSettings = _
+        ConfigurationManager.ConnectionStrings("Restaurant Management")
 
     ''' <summary>
     ''' Gets or Sets the current connecter of Library.DatabaseConnection.
@@ -39,7 +43,7 @@ Public Class DatabaseConnection
     ''' </summary>
     ''' <remarks></remarks>
     Public Sub New()
-        _Connecter.ConnectionString = _Address
+        _Connecter.ConnectionString = _Address.ConnectionString
     End Sub
 
     ''' <summary>
@@ -81,7 +85,7 @@ Public Class DatabaseConnection
         Try
             adt.Fill(result)
             Return result
-        Catch ex As Exception
+        Catch ex As SqlException
             result.Dispose()
             result = Nothing
             Throw ex
@@ -115,7 +119,7 @@ Public Class DatabaseConnection
         Try
             adt.Fill(result)
             Return result
-        Catch ex As Exception
+        Catch ex As SqlException
             result.Dispose()
             result = Nothing
             Throw ex
@@ -157,7 +161,7 @@ Public Class DatabaseConnection
         Try
             adt.Fill(result)
             Return result
-        Catch ex As Exception
+        Catch ex As SqlException
             result.Dispose()
             result = Nothing
             Throw ex
@@ -186,7 +190,7 @@ Public Class DatabaseConnection
 
         Try
             cmd.ExecuteNonQuery()
-        Catch ex As Exception
+        Catch ex As SqlException
             Throw ex
         Finally
             cmd.Dispose()
@@ -210,7 +214,7 @@ Public Class DatabaseConnection
 
         Try
             adt.Update(table)
-        Catch ex As Exception
+        Catch ex As SqlException
             Throw ex
         Finally
             cmd.Dispose()
@@ -240,7 +244,7 @@ Public Class DatabaseConnection
 
         Try
             Open()
-            accountList = Query()
+            accountList = Query("Select TenDN, MatKhau From TaiKhoanNhanVien")
         Catch ex As SqlException
             accountList.Dispose()
             accountList = Nothing
@@ -288,17 +292,17 @@ Public Class DatabaseConnection
 
         Try
             Open()
-            accountList = Query("Select LNV.TenDN, LNV.MatKhau, NV.cmnd, NV.MaNV, NV.HoTen " + _
-                                "From LoginNhanVien LNV, NhanVien NV " + _
-                                "Where NV.MaNV = LNV.MaNV")
-        Catch ex As Exception
+            accountList = Query("Select TKNV.TenDN, TKNV.MatKhau, NV.cmnd, NV.MaNV, NV.HoTen " + _
+                                "From TaiKhoanNhanVien TKNV, NhanVien NV " + _
+                                "Where NV.MaNV = TKNV.MaNV")
+        Catch ex As SqlException
             Throw ex
         Finally
             Close()
         End Try
 
         For Each row As DataRow In accountList.Rows
-            If username = row("TenDN") And GetMd5Hash(password, row("cmnd")) = row("MatKhau") Then
+            If username = row("TenDN") And GetMd5Hash(password, row("cmnd").ToString().Trim()) = row("MatKhau") Then
                 user = New User(row("MaNV"), row("HoTen"))
                 accountList.Dispose()
                 accountList = Nothing
@@ -312,8 +316,13 @@ Public Class DatabaseConnection
         Return False
     End Function
 
-    Private Function Query() As DataTable
-        Throw New NotImplementedException
-    End Function
+    ''' <summary>
+    ''' Release memory of DatabaseConnection.
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Sub Dispose()
+        _Connecter.Dispose()
+        _Connecter = Nothing
+    End Sub
 
 End Class
