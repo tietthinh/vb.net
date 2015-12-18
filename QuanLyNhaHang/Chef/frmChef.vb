@@ -16,7 +16,7 @@ Public Class frmChef
     Dim materialList As New DataTable()
     Dim currentDish As String
     Dim currentIndex As Integer
-    Dim exceptionList As New List(Of Integer)
+    Dim exceptionList As New List(Of ListViewItem)
 
     Private Sub frmChef_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim parameter() As SqlClient.SqlParameter = db.CreateParameter(New String() {"@Time"}, New Object() {"12:09:00"})
@@ -63,10 +63,7 @@ Public Class frmChef
     End Sub
 
     Private Sub ltvOrderList_Click(sender As Object, e As EventArgs) Handles ltvOrderList.Click
-        For i As Integer = 0 To exceptionList.Count - 1 Step 1
-            ltvOrderList.Items(exceptionList(i)).BackColor = SystemColors.Window
-            exceptionList.RemoveAt(i)
-        Next
+        ClearListViewItemBackColor(exceptionList, ltvOrderList)
 
         Dim quantity As Integer = 0
         If ltvOrderList.SelectedItems.Count > 0 Then
@@ -79,7 +76,7 @@ Public Class frmChef
                     If item.SubItems("GhiChu").Text <> "" Then
                         item.Selected = False
                         item.BackColor = Color.Red
-                        exceptionList.Add(item.Index)
+                        exceptionList.Add(item)
                     Else
                         item.Selected = True
                     End If
@@ -153,10 +150,6 @@ Public Class frmChef
 
     Private Sub ltvOrderList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ltvOrderList.SelectedIndexChanged
         If ltvOrderList.SelectedItems.Count <= 0 Then
-            'For i As Integer = 0 To exceptionList.Count - 1 Step 1
-            '    ltvOrderList.Items(exceptionList(i)).BackColor = SystemColors.Window
-            '    exceptionList.RemoveAt(i)
-            'Next
             ClearListViewItemBackColor(exceptionList, ltvOrderList)
 
             ltbException.Items.Clear()

@@ -4,7 +4,6 @@
 'Purpose:   Numpad Form for Employee
 '=====================================================================
 
-Imports System.Windows.Forms.SendKeys
 Imports System.Windows.Forms
 
 Public Class frmNumPad
