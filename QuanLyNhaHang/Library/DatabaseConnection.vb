@@ -5,6 +5,9 @@
 '=====================================================================
 
 Imports System.Data.SqlClient
+Imports System.Data
+Imports System.Configuration
+Imports System.Data.Common
 
 Public Class DatabaseConnection
     ''' <summary>
@@ -17,7 +20,8 @@ Public Class DatabaseConnection
     ''' Address of Database in Sql Server.
     ''' </summary>
     ''' <remarks></remarks>
-    Private Shared _Address As String = "Data Source=.;Initial Catalog=QuanLyNhaHang;Integrated Security=True"
+    Private Shared _Address As ConnectionStringSettings = _
+        ConfigurationManager.ConnectionStrings("Restaurant Management")
 
     ''' <summary>
     ''' Gets or Sets the current connecter of Library.DatabaseConnection.
@@ -39,7 +43,7 @@ Public Class DatabaseConnection
     ''' </summary>
     ''' <remarks></remarks>
     Public Sub New()
-        _Connecter.ConnectionString = _Address
+        _Connecter.ConnectionString = _Address.ConnectionString
     End Sub
 
     ''' <summary>
@@ -81,7 +85,7 @@ Public Class DatabaseConnection
         Try
             adt.Fill(result)
             Return result
-        Catch ex As Exception
+        Catch ex As SqlException
             result.Dispose()
             result = Nothing
             Throw ex
@@ -98,7 +102,7 @@ Public Class DatabaseConnection
     ''' </summary>
     ''' <param name="_Query">Query command for execute Stored Procedure.</param>
     ''' <param name="parameter">List of parameters matching Stored Procedure's paremeters.</param>
-    ''' <returns></returns>
+    ''' <returns>A table in Database with data match the query command.</returns>
     ''' <remarks></remarks>
     Public Function Query(ByVal _Query As String, ByVal ParamArray parameter() As SqlParameter) As DataTable
         Dim result As New DataTable()
@@ -115,7 +119,49 @@ Public Class DatabaseConnection
         Try
             adt.Fill(result)
             Return result
-        Catch ex As Exception
+        Catch ex As SqlException
+            result.Dispose()
+            result = Nothing
+            Throw ex
+        Finally
+            cmd.Dispose()
+            cmd = Nothing
+            adt.Dispose()
+            adt = Nothing
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' Gets data from Database throught _Query and list of parameters.
+    ''' </summary>
+    ''' <param name="_Query">Query command for execute Stored Procedure.</param>
+    ''' <param name="outParameter">List of output parameters from Stored Procedure.</param>
+    ''' <param name="parameter">List of parameters matching Stored Procedure's paremeters.</param>
+    ''' <returns>A table in Database with data match the query command.</returns>
+    ''' <remarks></remarks>
+    Public Function Query(ByVal _Query As String, ByRef outParameter() As SqlParameter, ByVal ParamArray parameter() As SqlParameter) As DataTable
+        Dim result As New DataTable()
+        Dim cmd As SqlCommand = _Connecter.CreateCommand()
+        cmd.CommandText = _Query
+        cmd.CommandType = CommandType.StoredProcedure
+
+        If outParameter.Length > 0 Then
+            For i As Integer = 0 To outParameter.Length - 1 Step 1
+                outParameter(i).Direction = ParameterDirection.Output
+            Next
+        End If
+
+        If parameter IsNot Nothing And parameter.Length > 0 Then
+            cmd.Parameters.AddRange(parameter)
+            cmd.Parameters.AddRange(outParameter)
+        End If
+
+        Dim adt As New SqlDataAdapter(cmd)
+
+        Try
+            adt.Fill(result)
+            Return result
+        Catch ex As SqlException
             result.Dispose()
             result = Nothing
             Throw ex
@@ -144,7 +190,7 @@ Public Class DatabaseConnection
 
         Try
             cmd.ExecuteNonQuery()
-        Catch ex As Exception
+        Catch ex As SqlException
             Throw ex
         Finally
             cmd.Dispose()
@@ -168,7 +214,7 @@ Public Class DatabaseConnection
 
         Try
             adt.Update(table)
-        Catch ex As Exception
+        Catch ex As SqlException
             Throw ex
         Finally
             cmd.Dispose()
@@ -179,6 +225,21 @@ Public Class DatabaseConnection
             builder = Nothing
         End Try
     End Sub
+
+    ''' <summary>
+    ''' Create a list of parameters for Query command.
+    ''' </summary>
+    ''' <param name="listParameterName">List of parameters' name.</param>
+    ''' <param name="listParameterValue">List of parameters' value.</param>
+    ''' <returns>List of parameters.</returns>
+    ''' <remarks></remarks>
+    Public Function CreateParameter(ByVal listParameterName() As String, ByVal listParameterValue() As Object) As SqlParameter()
+        Dim parameter(listParameterName.Length - 1) As SqlClient.SqlParameter
+        For i As Integer = 0 To parameter.Length - 1 Step 1
+            parameter(i) = New SqlParameter(listParameterName(i), listParameterValue(i))
+        Next
+        Return parameter
+    End Function
 
     ''' <summary>
     ''' Check employee's information in form.
@@ -198,7 +259,7 @@ Public Class DatabaseConnection
 
         Try
             Open()
-            accountList = Query()
+            accountList = Query("Select TenDN, MatKhau From TaiKhoanNhanVien")
         Catch ex As SqlException
             accountList.Dispose()
             accountList = Nothing
@@ -246,17 +307,17 @@ Public Class DatabaseConnection
 
         Try
             Open()
-            accountList = Query("Select LNV.TenDN, LNV.MatKhau, NV.cmnd, NV.MaNV, NV.HoTen " + _
-                                "From LoginNhanVien LNV, NhanVien NV " + _
-                                "Where NV.MaNV = LNV.MaNV")
-        Catch ex As Exception
+            accountList = Query("Select TKNV.TenDN, TKNV.MatKhau, NV.cmnd, NV.MaNV, NV.HoTen " + _
+                                "From TaiKhoanNhanVien TKNV, NhanVien NV " + _
+                                "Where NV.MaNV = TKNV.MaNV")
+        Catch ex As SqlException
             Throw ex
         Finally
             Close()
         End Try
 
         For Each row As DataRow In accountList.Rows
-            If username = row("TenDN") And GetMd5Hash(password, row("cmnd")) = row("MatKhau") Then
+            If username = row("TenDN") And GetMd5Hash(password, row("cmnd").ToString().Trim()) = row("MatKhau") Then
                 user = New User(row("MaNV"), row("HoTen"))
                 accountList.Dispose()
                 accountList = Nothing
@@ -270,8 +331,13 @@ Public Class DatabaseConnection
         Return False
     End Function
 
-    Private Function Query() As DataTable
-        Throw New NotImplementedException
-    End Function
+    ''' <summary>
+    ''' Release memory of DatabaseConnection.
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Sub Dispose()
+        _Connecter.Dispose()
+        _Connecter = Nothing
+    End Sub
 
 End Class
