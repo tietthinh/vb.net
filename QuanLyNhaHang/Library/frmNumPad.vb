@@ -7,6 +7,7 @@
 Imports System.Windows.Forms
 
 Public Class frmNumPad
+
     'Fields:
     ''' <summary>
     ''' Last clicked Button.
