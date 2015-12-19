@@ -16,7 +16,8 @@ Public Class frmChef
     Dim materialList As New DataTable()
     Dim currentDish As String
     Dim currentIndex As Integer
-    Dim exceptionList As New List(Of Integer)
+    Dim currentTotalQuantity As Integer
+    Dim exceptionList As New List(Of ListViewItem)
 
     Private Sub frmChef_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim parameter() As SqlClient.SqlParameter = db.CreateParameter(New String() {"@Time"}, New Object() {"12:09:00"})
@@ -63,10 +64,8 @@ Public Class frmChef
     End Sub
 
     Private Sub ltvOrderList_Click(sender As Object, e As EventArgs) Handles ltvOrderList.Click
-        For i As Integer = 0 To exceptionList.Count - 1 Step 1
-            ltvOrderList.Items(exceptionList(i)).BackColor = SystemColors.Window
-            exceptionList.RemoveAt(i)
-        Next
+        ClearListViewItemBackColor(exceptionList, ltvOrderList)
+        currentTotalQuantity = 0
 
         Dim quantity As Integer = 0
         If ltvOrderList.SelectedItems.Count > 0 Then
@@ -75,16 +74,19 @@ Public Class frmChef
             For Each item As ListViewItem In ltvOrderList.Items
                 If item.SubItems("MaMon").Text = currentDish Then
                     quantity += item.SubItems("SoLuong").Text
+                    currentTotalQuantity += Integer.Parse(item.SubItems("SoLuong").Text)
 
                     If item.SubItems("GhiChu").Text <> "" Then
                         item.Selected = False
                         item.BackColor = Color.Red
-                        exceptionList.Add(item.Index)
+                        exceptionList.Add(item)
                     Else
                         item.Selected = True
                     End If
                 End If
             Next
+
+
 
             exceptionList.Reverse()
 
@@ -126,6 +128,7 @@ Public Class frmChef
         currentDish = ""
         currentDish = Nothing
         currentIndex = Nothing
+        currentTotalQuantity = Nothing
     End Sub
 
     Private Sub dgvCookList_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCookList.CellContentClick
@@ -144,19 +147,18 @@ Public Class frmChef
     Private Sub ltvOrderList_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles ltvOrderList.MouseDoubleClick
         ltbException.Items.Clear()
         ltvOrderList.SelectedItems.Clear()
+        currentTotalQuantity = 0
+
         currentIndex = ltvOrderList.InsertionMark.NearestIndex(New Point(e.X, e.Y))
         ltvOrderList.Items(currentIndex).Selected = True
         If ltvOrderList.SelectedItems.Count > 0 Then
             ltbException.Items.Add(ltvOrderList.SelectedItems(0).SubItems("GhiChu").Text)
+            currentTotalQuantity = Integer.Parse(ltvOrderList.SelectedItems(0).SubItems("SoLuong").Text)
         End If
     End Sub
 
     Private Sub ltvOrderList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ltvOrderList.SelectedIndexChanged
         If ltvOrderList.SelectedItems.Count <= 0 Then
-            'For i As Integer = 0 To exceptionList.Count - 1 Step 1
-            '    ltvOrderList.Items(exceptionList(i)).BackColor = SystemColors.Window
-            '    exceptionList.RemoveAt(i)
-            'Next
             ClearListViewItemBackColor(exceptionList, ltvOrderList)
 
             ltbException.Items.Clear()

@@ -5,10 +5,12 @@
 '=====================================================================
 
 Module Chef_Process
-    Public Sub ClearListViewItemBackColor(ByRef listIndex As List(Of Integer), ByRef listView As ListView)
-        For i As Integer = 0 To listIndex.Count - 1 Step 1
-            listView.Items(listIndex(i)).BackColor = SystemColors.Window
-            listIndex.RemoveAt(i)
+    Public Sub ClearListViewItemBackColor(ByRef listItem As List(Of ListViewItem), ByRef listView As ListView)
+        For i As Integer = 0 To listItem.Count - 1 Step 1
+            listItem(i).BackColor = SystemColors.Window
+            listItem.RemoveAt(i)
         Next
     End Sub
+
+
 End Module
