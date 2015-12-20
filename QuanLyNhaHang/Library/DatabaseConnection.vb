@@ -178,9 +178,12 @@ Public Class DatabaseConnection
     ''' </summary>
     ''' <param name="_Query">Command for executing Stored Procedure.</param>
     ''' <param name="Parameter">List of parameters matching Stored Procedure's parameters.</param>
+    ''' <returns>The number of inserted/deleted/updated rows.</returns>
     ''' <remarks></remarks>
-    Public Sub Update(ByVal _Query As String, ByVal ParamArray parameter() As SqlParameter)
+    Public Function Update(ByVal _Query As String, ByVal ParamArray parameter() As SqlParameter) As Integer
         Dim cmd As SqlCommand = _Connecter.CreateCommand()
+        Dim rowCount As Integer
+
         cmd.CommandText = _Query
         cmd.CommandType = CommandType.StoredProcedure
 
@@ -189,14 +192,16 @@ Public Class DatabaseConnection
         End If
 
         Try
-            cmd.ExecuteNonQuery()
+            rowCount = cmd.ExecuteNonQuery()
         Catch ex As SqlException
             Throw ex
         Finally
             cmd.Dispose()
             cmd = Nothing
         End Try
-    End Sub
+
+        Return rowCount
+    End Function
 
     ''' <summary>
     ''' Insert/Delete/Update Database from DataTable into Table in Database.
