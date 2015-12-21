@@ -47,7 +47,6 @@ Partial Class Add
         'btnCancel
         '
         Me.btnCancel.BackColor = System.Drawing.Color.Blue
-        Me.btnCancel.Enabled = False
         Me.btnCancel.Font = New System.Drawing.Font("Roboto Black", 15.75!, System.Drawing.FontStyle.Bold)
         Me.btnCancel.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.btnCancel.Location = New System.Drawing.Point(142, 179)
