@@ -156,7 +156,6 @@ Partial Class Form1
         Me.Label13 = New System.Windows.Forms.Label()
         Me.btnXoa_Mon = New System.Windows.Forms.Button()
         Me.btnSua_Mon = New System.Windows.Forms.Button()
-        Me.txtLoai = New System.Windows.Forms.TextBox()
         Me.btnThem_Mon = New System.Windows.Forms.Button()
         Me.txtTenMon_Mon = New System.Windows.Forms.TextBox()
         Me.txtGiaHienTai_Mon = New System.Windows.Forms.TextBox()
@@ -164,6 +163,8 @@ Partial Class Form1
         Me.ErrorProvider2 = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.ErrorProvider3 = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.ErrorProvider4 = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.MaMon_MADU = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TenMon = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GiaTienHienTai = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ThucDonMon = New System.Windows.Forms.DataGridViewComboBoxColumn()
@@ -1282,6 +1283,7 @@ Partial Class Form1
         '
         'gbxThongTinChiTietHoaDon
         '
+        Me.gbxThongTinChiTietHoaDon.Controls.Add(Me.ComboBox1)
         Me.gbxThongTinChiTietHoaDon.Controls.Add(Me.cboThucDonMon_Mon)
         Me.gbxThongTinChiTietHoaDon.Controls.Add(Me.dgvMonAnDoUong)
         Me.gbxThongTinChiTietHoaDon.Controls.Add(Me.txtTimKiem_Mon)
@@ -1292,7 +1294,6 @@ Partial Class Form1
         Me.gbxThongTinChiTietHoaDon.Controls.Add(Me.Label13)
         Me.gbxThongTinChiTietHoaDon.Controls.Add(Me.btnXoa_Mon)
         Me.gbxThongTinChiTietHoaDon.Controls.Add(Me.btnSua_Mon)
-        Me.gbxThongTinChiTietHoaDon.Controls.Add(Me.txtLoai)
         Me.gbxThongTinChiTietHoaDon.Controls.Add(Me.btnThem_Mon)
         Me.gbxThongTinChiTietHoaDon.Controls.Add(Me.txtTenMon_Mon)
         Me.gbxThongTinChiTietHoaDon.Controls.Add(Me.txtGiaHienTai_Mon)
@@ -1316,7 +1317,7 @@ Partial Class Form1
         '
         Me.dgvMonAnDoUong.AllowUserToOrderColumns = True
         Me.dgvMonAnDoUong.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvMonAnDoUong.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.TenMon, Me.GiaTienHienTai, Me.ThucDonMon, Me.Loai})
+        Me.dgvMonAnDoUong.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.MaMon_MADU, Me.TenMon, Me.GiaTienHienTai, Me.ThucDonMon, Me.Loai})
         Me.dgvMonAnDoUong.Location = New System.Drawing.Point(647, 44)
         Me.dgvMonAnDoUong.Name = "dgvMonAnDoUong"
         Me.dgvMonAnDoUong.RowTemplate.Height = 24
@@ -1363,7 +1364,7 @@ Partial Class Form1
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(291, 65)
+        Me.Label12.Location = New System.Drawing.Point(291, 63)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(54, 15)
         Me.Label12.TabIndex = 0
@@ -1395,13 +1396,6 @@ Partial Class Form1
         Me.btnSua_Mon.TabIndex = 4
         Me.btnSua_Mon.Text = "Sửa"
         Me.btnSua_Mon.UseVisualStyleBackColor = True
-        '
-        'txtLoai
-        '
-        Me.txtLoai.Location = New System.Drawing.Point(400, 96)
-        Me.txtLoai.Name = "txtLoai"
-        Me.txtLoai.Size = New System.Drawing.Size(179, 22)
-        Me.txtLoai.TabIndex = 0
         '
         'btnThem_Mon
         '
@@ -1441,6 +1435,20 @@ Partial Class Form1
         'ErrorProvider4
         '
         Me.ErrorProvider4.ContainerControl = Me
+        '
+        'ComboBox1
+        '
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Location = New System.Drawing.Point(401, 94)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(121, 23)
+        Me.ComboBox1.TabIndex = 10
+        '
+        'MaMon_MADU
+        '
+        Me.MaMon_MADU.HeaderText = "Mã Món"
+        Me.MaMon_MADU.Name = "MaMon_MADU"
+        Me.MaMon_MADU.Visible = False
         '
         'TenMon
         '
@@ -1637,7 +1645,6 @@ Partial Class Form1
     Friend WithEvents ErrorProvider3 As System.Windows.Forms.ErrorProvider
     Friend WithEvents ErrorProvider4 As System.Windows.Forms.ErrorProvider
     Friend WithEvents Label18 As System.Windows.Forms.Label
-    Friend WithEvents txtLoai As System.Windows.Forms.TextBox
     Friend WithEvents MaNV As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents HoTen As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents ThoiGianBatDau As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -1656,6 +1663,8 @@ Partial Class Form1
     Friend WithEvents SoLuong As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents TongTien_CTHD As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents MaMon_CTHD As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents ComboBox1 As System.Windows.Forms.ComboBox
+    Friend WithEvents MaMon_MADU As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents TenMon As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents GiaTienHienTai As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents ThucDonMon As System.Windows.Forms.DataGridViewComboBoxColumn

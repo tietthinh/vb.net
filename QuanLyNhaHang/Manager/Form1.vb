@@ -13,7 +13,6 @@ Imports System.Exception
 Public Class Form1
 
     Dim _location As Integer
-
     Private _connect As New Library.DatabaseConnection
     ''' <summary>
     '''  Load Dữ Liệu Bảng Nhân Viên
@@ -262,17 +261,36 @@ Public Class Form1
     End Sub
 
 
+
     Private Sub MonAnDoUong_Enter(sender As Object, e As EventArgs) Handles MonAnDoUong.Enter
         _connect.Open()
 
+        ThucDonMon.Items.Add("Có")
+        ThucDonMon.Items.Add("Không")
         Dim _Table As New DataTable
-        _Table = _connect.Query("Select TenMon, GiaTienHienTai From MonAnDoUong ")
-        'dgvMonAnDoUong.DataSource = Table
+        _Table = _connect.Query("Select MaMon, TenMon, GiaTienHienTai, ThucDonMon From MonAnDoUong ")
+        ' dgvMonAnDoUong.DataSource = _Table
         For Each dt As DataRow In _Table.Rows
-            If dt(0).ToString = "" Then
-
+            Dim arrayString() As String = New String(1) {}
+            arrayString = Library.StringSplit(dt(0).ToString.Trim, 3)
+            Dim _Loai As String = ""
+            Dim _TinhTrang As String = ""
+            If arrayString(0) = "DA" Then
+                _Loai = "Đồ Ăn"
+            Else
+                _Loai = "Đồ Uống"
             End If
-            dgvMonAnDoUong.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString})
+
+            If dt(3).ToString.Trim = "True" Then
+                _TinhTrang = "Có"
+
+            Else
+                _TinhTrang = "Không"
+            End If
+
+
+            dgvMonAnDoUong.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString, dt(2).ToString(), _TinhTrang, _Loai})
+
         Next
 
 
@@ -603,4 +621,5 @@ Public Class Form1
         txtGhiChuCTHoaDon.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("GhiChu_CTHD").Value.ToString()
         txtTongTien_CTHD.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("TongTien_CTHD").Value.ToString()
     End Sub
+
 End Class
