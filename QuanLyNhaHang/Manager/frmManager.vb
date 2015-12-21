@@ -8,19 +8,20 @@
 Imports System.Data.SqlClient
 Imports System.Data
 Imports System.Text
-Imports System.Exception
+Imports Library
+Imports System.Globalization
 
-Public Class Form1
+Public Class frmManager
 
     Dim _location As Integer
-    Private _connect As New Library.DatabaseConnection
+    Private _connect As New Library.DatabaseConnection()
+
     ''' <summary>
-    '''  Load Dữ Liệu Bảng Nhân Viên
+    '''  Load dữ liệu bảng nhân viên
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub LoadNV()
         dgvNhanVien.Rows.Clear()
-        _connect.Open()
         '_connect.query("Select MaNV, ")
         '_ParameterInput = {New SqlParameter("@MaMon", a), New SqlParameter("@SoLuong", b),_
         '                   New SqlParameter("@TinhTrang", c), New SqlParameter("@GhiChu", d), New SqlParameter("@SoBan", e1)}
@@ -28,7 +29,7 @@ Public Class Form1
         'Dim Connection As New Library.DatabaseConnection
         'Connection.Open()
         Dim Table As New DataTable
-        Table = _connect.query("Select NV.MaNV, NV.HoTen, NV.TGBatDau, NV.cmnd, NV.TinhTrang, NV.NgaySinh, NV.GioiTinh, NV.LoaiNhanVien, CV.TenChucVu, CV.MaChucVu  From  NhanVien NV, ChucVuNhanVien CV Where CV.MaChucVu = NV.MaChucVu ")
+        Table = _connect.Query("Select NV.MaNV, NV.HoTen, NV.TGBatDau, NV.cmnd, NV.TinhTrang, NV.NgaySinh, NV.GioiTinh, NV.LoaiNhanVien, CV.TenChucVu, CV.MaChucVu  From  NhanVien NV, ChucVuNhanVien CV Where CV.MaChucVu = NV.MaChucVu ")
         'dgvNhanVien.DataSource = Table
         For Each dt As DataRow In Table.Rows
             Dim LoaiNV As String = ""
@@ -48,7 +49,7 @@ Public Class Form1
         Next
 
         Dim table1 As New DataTable
-        table1 = _connect.query("Select distinct NV.LoaiNhanVien, NV.MaNV From  NhanVien NV, ChucVuNhanVien CV Where CV.MaChucVu = NV.MaChucVu")
+        table1 = _connect.Query("Select distinct NV.LoaiNhanVien, NV.MaNV From  NhanVien NV, ChucVuNhanVien CV Where CV.MaChucVu = NV.MaChucVu")
         'cboLoaiNV.DataSource = table1
         'cboLoaiNV.DisplayMember = "LoaiNhanVien"
         'cboLoaiNV.ValueMember = "MaNV"
@@ -59,16 +60,21 @@ Public Class Form1
 
 
         Dim table2 As New DataTable
-        table2 = _connect.query("Select distinct CV.TenChucVu, CV.MaChucVu From  NhanVien NV, ChucVuNhanVien CV Where CV.MaChucVu = NV.MaChucVu")
+        table2 = _connect.Query("Select distinct CV.TenChucVu, CV.MaChucVu From  NhanVien NV, ChucVuNhanVien CV Where CV.MaChucVu = NV.MaChucVu")
         cboTenChucVu.DataSource = table2
         cboTenChucVu.DisplayMember = "TenChucVu"
         cboTenChucVu.ValueMember = "MaChucVu"
 
-        _connect.Close()
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        LoadNV()
+        Try
+            _connect.Open()
+            LoadNV()
+        Catch ex As SqlException
+            _connect.Close()
+            Throw ex
+        End Try
     End Sub
 
 
@@ -117,6 +123,7 @@ Public Class Form1
 
         _connect.Close()
     End Sub
+
     ''' <summary>
     ''' Load du lieu bang CT Hoa Don
     ''' </summary>
@@ -135,31 +142,6 @@ Public Class Form1
         LoadHoaDon()
         LoadCTHoaDon()
     End Sub
-    ' ''' <summary>
-    ' ''' Kiểm tra mã cmnd trùng (True Không trùng mã cmnd, False Trùng mã cmnd)
-    ' ''' </summary>
-    ' ''' <param name="_cmnd"></param>
-    ' ''' <returns>
-    ' ''' 
-    ' ''' </returns>
-    ' ''' <remarks>cmnd</remarks>
-    'Function Initcmnd(ByVal _cmnd) As Boolean
-    '    Dim Table As New DataTable
-    '    Table = _connect.query("Select NV.cmnd From  NhanVien NV")
-    '    For Each dt As DataRow In Table.Rows
-    '        Table.Rows.Add(dt(0).ToString)
-    '    Next
-
-    '    For _i As Integer = 0 To Table.Rows.Count Step 1
-    '        If _cmnd = Table(_i).ToString Then
-    '            Return False
-    '        Else
-    '            Return True
-    '        End If
-
-    '    Next
-
-    'End Function
 
     Private Sub btnThemNV_Click(sender As Object, e As EventArgs) Handles btnThemNV.Click
 
@@ -263,76 +245,24 @@ Public Class Form1
 
 
     Private Sub MonAnDoUong_Enter(sender As Object, e As EventArgs) Handles MonAnDoUong.Enter
-        _connect.Open()
+        Dim dsMonAnDoUong As DataTable
 
-        ThucDonMon.Items.Add("Có")
-        ThucDonMon.Items.Add("Không")
-        Dim _Table As New DataTable
-        _Table = _connect.Query("Select MaMon, TenMon, GiaTienHienTai, ThucDonMon From MonAnDoUong ")
-        ' dgvMonAnDoUong.DataSource = _Table
-        For Each dt As DataRow In _Table.Rows
-            Dim arrayString() As String = New String(1) {}
-            arrayString = Library.StringSplit(dt(0).ToString.Trim, 3)
-            Dim _Loai As String = ""
-            Dim _TinhTrang As String = ""
-            If arrayString(0) = "DA" Then
-                _Loai = "Đồ Ăn"
-            Else
-                _Loai = "Đồ Uống"
-            End If
+        dsMonAnDoUong = _connect.Query("Select MaMon, TenMon, GiaTienHienTai From MonAnDoUong")
 
-            If dt(3).ToString.Trim = "True" Then
-                _TinhTrang = "Có"
-
-            Else
-                _TinhTrang = "Không"
-            End If
-
-
-            dgvMonAnDoUong.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString, dt(2).ToString(), _TinhTrang, _Loai})
-
+        For Each row As DataRow In dsMonAnDoUong.Rows
+            row("GiaTienHienTai") = String.Format(CultureInfo.InvariantCulture, "{0:#,#}", row("GiaTienHienTai"))
         Next
 
-
-        'Table = _connect.query("Select MaNCC, TenNCC, ChietKhau, DiaChi, GhiChu From NhaCungCap NCC")
-        'dgvMonAnDoUong.DataSource = Table
-        'Email.DataSource = _connect.query("Select NCC.MaNCC, NE.Email From NhaCungCap NCC, NhaCungCap_Email NE where NCC.MaNCC = NE.MaNCC")
-        'Email.DisplayMember = "Email"
-        'Email.ValueMember = "MaNCC"
-
-        ThucDonMon.DataSource = _connect.query("Select distinct ThucDonMon From MonAnDoUong ")
-        'Dim ThucDonMon As DataGridViewComboBoxColumn = dgvMonAnDoUong.Columns("ThucDonMon")
-        ThucDonMon.DisplayMember = "ThucDonMon"
-        ThucDonMon.ValueMember = "ThucDonMon"
-
-        Dim Table1 As New DataTable
-        Table1 = _connect.query("Select MADU.MaMon, MADU.TenMon, SP.MaSP, SP.TenSP, CTLM.SoLuong, LDV.TenDV, CTLM.MaDV  From ChiTietLamMon CTLM, MonAnDoUong MADU, SanPham SP, LoaiDonViTinh LDV Where MADU.MaMon = CTLM.MaMon AND SP.MaSP = CTLM.MaSP AND LDV.MaDV = CTLM.MaDV")
-        'dgvCTMon.DataSource = Table1
-        For Each dt As DataRow In Table1.Rows
-            dgvCTMon.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString, dt(2).ToString, dt(3).ToString, dt(4).ToString, dt(5).ToString, dt(6).ToString})
-        Next
-
-        'Dim Table2 As New DataTable
-        'Table2 = _connect.query("Select MADU.TenMon, MHT.SoLuongMon, MHT.NgayLamMon, MHT.MaMon  From LuuTruDanhSachMonAnNhaBepHoanThanh MHT, MonAnDoUong MADU Where MADU.MaMon = MHT.MaMon")
-        ''dgvMonAnNhaBepHoanThanh.DataSource = Table2
-        'For Each dt As DataRow In Table2.Rows
-        '    dgvCTMon.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString, dt(2).ToString, dt(3).ToString})
-        'Next
-
-        'Dim Table3 As New DataTable
-        'Table3 = _connect.query("Select MADU.TenMon, MKHT.SoLuongMon, MKHT.NgayLamMon, MADU.MaMon From LuuTruDanhSachMonAnSoLuongKHoanThanh MKHT, MonAnDoUong MADU Where MADU.MaMon = MKHT.MaMon")
-        'dgvMonAnNhaBepKhongHoanThanh.DataSource = Table3
-
-        _connect.Close()
+        dgvMonAnDoUong.DataSource = dsMonAnDoUong
     End Sub
 
 
     Private Sub dgvMonAnDoUong_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvMonAnDoUong.CellClick
-        If e.RowIndex = dgvMonAnDoUong.Rows.Count - 1 Then
-            Return
-        End If
-        txtTenMon_Mon.Text = dgvMonAnDoUong.Rows(e.RowIndex).Cells("TenMon").Value.ToString()
-        txtGiaHienTai_Mon.Text = dgvMonAnDoUong.Rows(e.RowIndex).Cells("GiaTienHienTai").Value
+        'If e.RowIndex = dgvMonAnDoUong.Rows.Count - 1 Then
+        '    Return
+        'End If
+        'txtTenMon_Mon.Text = dgvMonAnDoUong.Rows(e.RowIndex).Cells("TenMon").Value.ToString()
+        'txtGiaHienTai_Mon.Text = dgvMonAnDoUong.Rows(e.RowIndex).Cells("GiaTienHienTai").Value
         'cboThucDonMon_Mon.Text = dgvMonAnDoUong.Rows(e.RowIndex).Cells("ThucDonMon").Value.ToString()
 
     End Sub
@@ -341,79 +271,79 @@ Public Class Form1
     Private Sub dgvNhanVien_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvNhanVien.CellClick
         'Dim ds As DataTable
         'Dim row As DataRow = ds.Select("HoTen = " + dgvNhanVien(0, dgvNhanVien.CurrentCell.RowIndex).Value)(0)
-        _location = e.RowIndex
-        If e.RowIndex = dgvNhanVien.Rows.Count - 1 Then
-            Return
-        End If
+        '_location = e.RowIndex
+        'If e.RowIndex = dgvNhanVien.Rows.Count - 1 Then
+        '    Return
+        'End If
 
-        txtMaNV.Text = dgvNhanVien.Rows(e.RowIndex).Cells("MaNV").Value.ToString()
-        txtcmnd.Text = dgvNhanVien.Rows(e.RowIndex).Cells("CMND").Value.ToString()
-        dtpNgaySinh.Text = dgvNhanVien.Rows(e.RowIndex).Cells("NgaySinh").Value.ToString()
-        Dim LoaiNV As String = ""
-        cboLoaiNV.Text = dgvNhanVien.Rows(e.RowIndex).Cells("LoaiNhanVien").Value.ToString
+        'txtMaNV.Text = dgvNhanVien.Rows(e.RowIndex).Cells("MaNV").Value.ToString()
+        'txtcmnd.Text = dgvNhanVien.Rows(e.RowIndex).Cells("CMND").Value.ToString()
+        'dtpNgaySinh.Text = dgvNhanVien.Rows(e.RowIndex).Cells("NgaySinh").Value.ToString()
+        'Dim LoaiNV As String = ""
+        'cboLoaiNV.Text = dgvNhanVien.Rows(e.RowIndex).Cells("LoaiNhanVien").Value.ToString
         'If LoaiNV = "True" Then
         '    cboLoaiNV.SelectedIndex = 1
         'Else
         '    cboLoaiNV.SelectedIndex = 0
         'End If
-        txtTen.Text = dgvNhanVien.Rows(e.RowIndex).Cells("HoTen").Value.ToString()
+        'txtTen.Text = dgvNhanVien.Rows(e.RowIndex).Cells("HoTen").Value.ToString()
 
-        If GioiTinh.ToString = "Nam" Then
-            rdoNam.Checked = True
-        Else
-            rdoNu.Checked = True
-        End If
+        'If GioiTinh.ToString = "Nam" Then
+        '    rdoNam.Checked = True
+        'Else
+        '    rdoNu.Checked = True
+        'End If
 
-        If TinhTrang.ToString = "Đã Nghỉ" Then
-            rdoDaNghi.Checked = True
-        Else
-            rdoDangLam.Checked = True
-        End If
+        'If TinhTrang.ToString = "Đã Nghỉ" Then
+        '    rdoDaNghi.Checked = True
+        'Else
+        '    rdoDangLam.Checked = True
+        'End If
 
-        cboLoaiNV.SelectedValue = dgvNhanVien.Rows(e.RowIndex).Cells("LoaiNhanVien").Value
-        cboTenChucVu.SelectedValue = dgvNhanVien.Rows(e.RowIndex).Cells("MaChucVu").Value
-        dtpNgaySinh.Value = dgvNhanVien.Rows(e.RowIndex).Cells("NgaySinh").Value.ToString
+        'cboLoaiNV.SelectedValue = dgvNhanVien.Rows(e.RowIndex).Cells("LoaiNhanVien").Value
+        'cboTenChucVu.SelectedValue = dgvNhanVien.Rows(e.RowIndex).Cells("MaChucVu").Value
+        'dtpNgaySinh.Value = dgvNhanVien.Rows(e.RowIndex).Cells("NgaySinh").Value.ToString
 
-        If dgvNhanVien.Rows(e.RowIndex).Cells("GioiTinh").Value.ToString = "Nam" Then
-            rdoNam.Checked = True
+        'If dgvNhanVien.Rows(e.RowIndex).Cells("GioiTinh").Value.ToString = "Nam" Then
+        '    rdoNam.Checked = True
 
-        Else
-            rdoNu.Checked = True
-        End If
+        'Else
+        '    rdoNu.Checked = True
+        'End If
 
-        If dgvNhanVien.Rows(e.RowIndex).Cells("TinhTrang").Value.ToString = "Đã Nghỉ" Then
-            rdoDaNghi.Checked = True
+        'If dgvNhanVien.Rows(e.RowIndex).Cells("TinhTrang").Value.ToString = "Đã Nghỉ" Then
+        '    rdoDaNghi.Checked = True
 
-        Else
-            rdoDangLam.Checked = True
-        End If
+        'Else
+        '    rdoDangLam.Checked = True
+        'End If
 
     End Sub
 
     Private Sub dgvHoaDon_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvHoaDon.CellClick
-        If e.RowIndex = dgvHoaDon.Rows.Count - 1 Then
-            Return
-        End If
-        txtSoBan_HoaDon.Text = dgvHoaDon.Rows(e.RowIndex).Cells("SoBan").Value.ToString()
-        txtSoLuongKhach_HoaDon.Text = dgvHoaDon.Rows(e.RowIndex).Cells("SoLuongKhach").Value.ToString()
-        txtMaHoaDon_HoaDon.Text = dgvHoaDon.Rows(e.RowIndex).Cells("MaHoaDon_HD").Value.ToString()
-        txtMaHoaDonChung_HoaDon.Text = dgvHoaDon.Rows(e.RowIndex).Cells("MaHoaDonChung_HD").Value.ToString()
-        txtTenNV_HoaDon.Text = dgvHoaDon.Rows(e.RowIndex).Cells("TenNhanVien").Value.ToString()
-        txtGhiChu_HoaDon.Text = dgvHoaDon.Rows(e.RowIndex).Cells("GhiChu").Value.ToString()
-        cboDaThanhToan_HoaDon.Text = dgvHoaDon.Rows(e.RowIndex).Cells("DaThanhToan_HD").Value.ToString()
-        dtpThoiGian_HoaDon.Value = dgvHoaDon.Rows(e.RowIndex).Cells("ThoiGian").Value.ToString()
-        txtTongTien_HoaDon.Text = dgvHoaDon.Rows(e.RowIndex).Cells("TongTien").Value.ToString()
+        'If e.RowIndex = dgvHoaDon.Rows.Count - 1 Then
+        '    Return
+        'End If
+        'txtSoBan_HoaDon.Text = dgvHoaDon.Rows(e.RowIndex).Cells("SoBan").Value.ToString()
+        'txtSoLuongKhach_HoaDon.Text = dgvHoaDon.Rows(e.RowIndex).Cells("SoLuongKhach").Value.ToString()
+        'txtMaHoaDon_HoaDon.Text = dgvHoaDon.Rows(e.RowIndex).Cells("MaHoaDon_HD").Value.ToString()
+        'txtMaHoaDonChung_HoaDon.Text = dgvHoaDon.Rows(e.RowIndex).Cells("MaHoaDonChung_HD").Value.ToString()
+        'txtTenNV_HoaDon.Text = dgvHoaDon.Rows(e.RowIndex).Cells("TenNhanVien").Value.ToString()
+        'txtGhiChu_HoaDon.Text = dgvHoaDon.Rows(e.RowIndex).Cells("GhiChu").Value.ToString()
+        'cboDaThanhToan_HoaDon.Text = dgvHoaDon.Rows(e.RowIndex).Cells("DaThanhToan_HD").Value.ToString()
+        'dtpThoiGian_HoaDon.Value = dgvHoaDon.Rows(e.RowIndex).Cells("ThoiGian").Value.ToString()
+        'txtTongTien_HoaDon.Text = dgvHoaDon.Rows(e.RowIndex).Cells("TongTien").Value.ToString()
 
     End Sub
 
     Private Sub dgvCTMon_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCTMon.CellClick
-        If e.RowIndex = dgvCTMon.Rows.Count - 1 Then
-            Return
-        End If
-        txtTenMon_CTMon.Text = dgvCTMon.Rows(e.RowIndex).Cells("TenMon_CTMon").Value.ToString()
-        txtTenSP_CTMon.Text = dgvCTMon.Rows(e.RowIndex).Cells("TenSP_CTMon").Value.ToString()
-        txtSoLuong_CTMon.Text = dgvCTMon.Rows(e.RowIndex).Cells("SoLuong_CTMon").Value.ToString()
-        cboDonVi_CTMon.Text = dgvCTMon.Rows(e.RowIndex).Cells("DonVi_CTMon").Value.ToString()
+        'If e.RowIndex = dgvCTMon.Rows.Count - 1 Then
+        '    Return
+        'End If
+        'txtTenMon_CTMon.Text = dgvCTMon.Rows(e.RowIndex).Cells("TenMon_CTMon").Value.ToString()
+        'txtTenSP_CTMon.Text = dgvCTMon.Rows(e.RowIndex).Cells("TenSP_CTMon").Value.ToString()
+        'txtSoLuong_CTMon.Text = dgvCTMon.Rows(e.RowIndex).Cells("SoLuong_CTMon").Value.ToString()
+        'cboDonVi_CTMon.Text = dgvCTMon.Rows(e.RowIndex).Cells("DonVi_CTMon").Value.ToString()
     End Sub
 
     Private Sub btnTimKiem_HoaDon_Click(sender As Object, e As EventArgs) Handles btnTimKiem_HoaDon.Click
@@ -611,15 +541,34 @@ Public Class Form1
     End Sub
 
     Private Sub dgvCTHoaDon_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCTHoaDon.CellClick
-        If e.RowIndex = dgvCTHoaDon.Rows.Count - 1 Then
-            Return
-        End If
-        MaHoaDon_CTHD.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("MaHoaDon").Value.ToString()
-        txtTenMon_CTHD.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("TenMon_CTHD").Value.ToString()
-        txtSoLuong_CTHD.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("SoLuong").Value.ToString()
-        txtGiaMotMon_CTHD.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("GiaMotMon_CTHD").Value.ToString()
-        txtGhiChuCTHoaDon.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("GhiChu_CTHD").Value.ToString()
-        txtTongTien_CTHD.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("TongTien_CTHD").Value.ToString()
+        'If e.RowIndex = dgvCTHoaDon.Rows.Count - 1 Then
+        '    Return
+        'End If
+        'MaHoaDon_CTHD.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("MaHoaDon").Value.ToString()
+        'txtTenMon_CTHD.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("TenMon_CTHD").Value.ToString()
+        'txtSoLuong_CTHD.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("SoLuong").Value.ToString()
+        'txtGiaMotMon_CTHD.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("GiaMotMon_CTHD").Value.ToString()
+        'txtGhiChuCTHoaDon.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("GhiChu_CTHD").Value.ToString()
+        'txtTongTien_CTHD.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("TongTien_CTHD").Value.ToString()
     End Sub
 
+    Private Sub frmManager_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        _connect.Close()
+        _connect.Dispose()
+    End Sub
+
+    Private Sub TextBoxSearch_Enter(sender As Object, e As EventArgs) Handles txtTimKiem_Mon.Enter, txtTimKiem_CTHD.Enter, _
+        txtTimKiem_CTMon.Enter
+        Dim textBox As TextBox = DirectCast(sender, TextBox)
+
+        textBox.Text = ""
+    End Sub
+
+    Private Sub TextBoxSearch_Leave(sender As Object, e As EventArgs) Handles txtTimKiem_Mon.Leave
+        Dim textBox As TextBox = DirectCast(sender, TextBox)
+
+        If textBox.Text = "" Then
+            textBox.Text = "Nhập thông tin cần tìm vào đây"
+        End If
+    End Sub
 End Class

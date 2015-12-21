@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class Form1
+Partial Class frmManager
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -146,6 +146,7 @@ Partial Class Form1
         Me.txtTenMon_CTMon = New System.Windows.Forms.TextBox()
         Me.txtTenSP_CTMon = New System.Windows.Forms.TextBox()
         Me.gbxThongTinChiTietHoaDon = New System.Windows.Forms.GroupBox()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.cboThucDonMon_Mon = New System.Windows.Forms.ComboBox()
         Me.dgvMonAnDoUong = New System.Windows.Forms.DataGridView()
         Me.txtTimKiem_Mon = New System.Windows.Forms.TextBox()
@@ -163,7 +164,6 @@ Partial Class Form1
         Me.ErrorProvider2 = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.ErrorProvider3 = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.ErrorProvider4 = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.MaMon_MADU = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TenMon = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GiaTienHienTai = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -197,7 +197,7 @@ Partial Class Form1
         Me.Label1.Font = New System.Drawing.Font("Roboto", 28.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.Location = New System.Drawing.Point(589, 9)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(175, 47)
+        Me.Label1.Size = New System.Drawing.Size(178, 47)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "QUẢN LÝ"
         '
@@ -206,7 +206,7 @@ Partial Class Form1
         Me.lblMaNV.AutoSize = True
         Me.lblMaNV.Location = New System.Drawing.Point(21, 29)
         Me.lblMaNV.Name = "lblMaNV"
-        Me.lblMaNV.Size = New System.Drawing.Size(41, 15)
+        Me.lblMaNV.Size = New System.Drawing.Size(40, 15)
         Me.lblMaNV.TabIndex = 1
         Me.lblMaNV.Text = "MaNV"
         '
@@ -215,7 +215,7 @@ Partial Class Form1
         Me.lblHoTen.AutoSize = True
         Me.lblHoTen.Location = New System.Drawing.Point(21, 65)
         Me.lblHoTen.Name = "lblHoTen"
-        Me.lblHoTen.Size = New System.Drawing.Size(46, 15)
+        Me.lblHoTen.Size = New System.Drawing.Size(47, 15)
         Me.lblHoTen.TabIndex = 1
         Me.lblHoTen.Text = "Họ Tên"
         '
@@ -224,7 +224,7 @@ Partial Class Form1
         Me.lblThoiGianBD.AutoSize = True
         Me.lblThoiGianBD.Location = New System.Drawing.Point(363, 130)
         Me.lblThoiGianBD.Name = "lblThoiGianBD"
-        Me.lblThoiGianBD.Size = New System.Drawing.Size(105, 15)
+        Me.lblThoiGianBD.Size = New System.Drawing.Size(104, 15)
         Me.lblThoiGianBD.TabIndex = 1
         Me.lblThoiGianBD.Text = "Thời Gian Bắt Đầu"
         '
@@ -343,7 +343,7 @@ Partial Class Form1
         Me.rdoDangLam.AutoSize = True
         Me.rdoDangLam.Location = New System.Drawing.Point(98, 20)
         Me.rdoDangLam.Name = "rdoDangLam"
-        Me.rdoDangLam.Size = New System.Drawing.Size(81, 19)
+        Me.rdoDangLam.Size = New System.Drawing.Size(79, 19)
         Me.rdoDangLam.TabIndex = 1
         Me.rdoDangLam.Text = "Đang Làm"
         Me.rdoDangLam.UseVisualStyleBackColor = True
@@ -354,7 +354,7 @@ Partial Class Form1
         Me.rdoDaNghi.Checked = True
         Me.rdoDaNghi.Location = New System.Drawing.Point(13, 20)
         Me.rdoDaNghi.Name = "rdoDaNghi"
-        Me.rdoDaNghi.Size = New System.Drawing.Size(69, 19)
+        Me.rdoDaNghi.Size = New System.Drawing.Size(67, 19)
         Me.rdoDaNghi.TabIndex = 0
         Me.rdoDaNghi.TabStop = True
         Me.rdoDaNghi.Text = "Đã Nghỉ"
@@ -376,7 +376,7 @@ Partial Class Form1
         Me.rdoNu.AutoSize = True
         Me.rdoNu.Location = New System.Drawing.Point(98, 20)
         Me.rdoNu.Name = "rdoNu"
-        Me.rdoNu.Size = New System.Drawing.Size(41, 19)
+        Me.rdoNu.Size = New System.Drawing.Size(40, 19)
         Me.rdoNu.TabIndex = 1
         Me.rdoNu.Text = "Nữ"
         Me.rdoNu.UseVisualStyleBackColor = True
@@ -387,7 +387,7 @@ Partial Class Form1
         Me.rdoNam.Checked = True
         Me.rdoNam.Location = New System.Drawing.Point(13, 20)
         Me.rdoNam.Name = "rdoNam"
-        Me.rdoNam.Size = New System.Drawing.Size(52, 19)
+        Me.rdoNam.Size = New System.Drawing.Size(49, 19)
         Me.rdoNam.TabIndex = 0
         Me.rdoNam.TabStop = True
         Me.rdoNam.Text = "Nam"
@@ -454,7 +454,7 @@ Partial Class Form1
         Me.lblNgaySinh.AutoSize = True
         Me.lblNgaySinh.Location = New System.Drawing.Point(23, 137)
         Me.lblNgaySinh.Name = "lblNgaySinh"
-        Me.lblNgaySinh.Size = New System.Drawing.Size(63, 15)
+        Me.lblNgaySinh.Size = New System.Drawing.Size(62, 15)
         Me.lblNgaySinh.TabIndex = 1
         Me.lblNgaySinh.Text = "Ngày Sinh"
         '
@@ -463,7 +463,7 @@ Partial Class Form1
         Me.lblTenChucVu.AutoSize = True
         Me.lblTenChucVu.Location = New System.Drawing.Point(581, 94)
         Me.lblTenChucVu.Name = "lblTenChucVu"
-        Me.lblTenChucVu.Size = New System.Drawing.Size(76, 15)
+        Me.lblTenChucVu.Size = New System.Drawing.Size(78, 15)
         Me.lblTenChucVu.TabIndex = 1
         Me.lblTenChucVu.Text = "Tên Chức Vụ"
         '
@@ -472,7 +472,7 @@ Partial Class Form1
         Me.lblLoaiNV.AutoSize = True
         Me.lblLoaiNV.Location = New System.Drawing.Point(363, 94)
         Me.lblLoaiNV.Name = "lblLoaiNV"
-        Me.lblLoaiNV.Size = New System.Drawing.Size(50, 15)
+        Me.lblLoaiNV.Size = New System.Drawing.Size(49, 15)
         Me.lblLoaiNV.TabIndex = 1
         Me.lblLoaiNV.Text = "Loại NV"
         '
@@ -930,7 +930,7 @@ Partial Class Form1
         '
         'btnTimKiem_HoaDon
         '
-        Me.btnTimKiem_HoaDon.Font = New System.Drawing.Font("Rod", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnTimKiem_HoaDon.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnTimKiem_HoaDon.Location = New System.Drawing.Point(353, 22)
         Me.btnTimKiem_HoaDon.Name = "btnTimKiem_HoaDon"
         Me.btnTimKiem_HoaDon.Size = New System.Drawing.Size(122, 38)
@@ -1189,7 +1189,7 @@ Partial Class Form1
         '
         'btnTim_CTMon
         '
-        Me.btnTim_CTMon.Font = New System.Drawing.Font("Rod", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnTim_CTMon.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnTim_CTMon.Location = New System.Drawing.Point(259, 218)
         Me.btnTim_CTMon.Name = "btnTim_CTMon"
         Me.btnTim_CTMon.Size = New System.Drawing.Size(104, 32)
@@ -1211,7 +1211,7 @@ Partial Class Form1
         Me.Label10.AutoSize = True
         Me.Label10.Location = New System.Drawing.Point(291, 127)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(58, 15)
+        Me.Label10.Size = New System.Drawing.Size(60, 15)
         Me.Label10.TabIndex = 0
         Me.Label10.Text = "Số Lượng"
         '
@@ -1220,7 +1220,7 @@ Partial Class Form1
         Me.Label14.AutoSize = True
         Me.Label14.Location = New System.Drawing.Point(291, 51)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(54, 15)
+        Me.Label14.Size = New System.Drawing.Size(57, 15)
         Me.Label14.TabIndex = 0
         Me.Label14.Text = "Tên Món"
         '
@@ -1305,6 +1305,14 @@ Partial Class Form1
         Me.gbxThongTinChiTietHoaDon.TabStop = False
         Me.gbxThongTinChiTietHoaDon.Text = "Thông Tin Món"
         '
+        'ComboBox1
+        '
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Location = New System.Drawing.Point(401, 94)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(121, 23)
+        Me.ComboBox1.TabIndex = 10
+        '
         'cboThucDonMon_Mon
         '
         Me.cboThucDonMon_Mon.FormattingEnabled = True
@@ -1335,7 +1343,7 @@ Partial Class Form1
         '
         'btnTimKiem_Mon
         '
-        Me.btnTimKiem_Mon.Font = New System.Drawing.Font("Rod", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnTimKiem_Mon.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnTimKiem_Mon.Location = New System.Drawing.Point(259, 214)
         Me.btnTimKiem_Mon.Name = "btnTimKiem_Mon"
         Me.btnTimKiem_Mon.Size = New System.Drawing.Size(104, 32)
@@ -1348,7 +1356,7 @@ Partial Class Form1
         Me.Label11.AutoSize = True
         Me.Label11.Location = New System.Drawing.Point(291, 173)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(86, 15)
+        Me.Label11.Size = New System.Drawing.Size(88, 15)
         Me.Label11.TabIndex = 0
         Me.Label11.Text = "Thực Đơn Món"
         '
@@ -1366,7 +1374,7 @@ Partial Class Form1
         Me.Label12.AutoSize = True
         Me.Label12.Location = New System.Drawing.Point(291, 63)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(54, 15)
+        Me.Label12.Size = New System.Drawing.Size(57, 15)
         Me.Label12.TabIndex = 0
         Me.Label12.Text = "Tên Món"
         '
@@ -1375,7 +1383,7 @@ Partial Class Form1
         Me.Label13.AutoSize = True
         Me.Label13.Location = New System.Drawing.Point(291, 136)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(73, 15)
+        Me.Label13.Size = New System.Drawing.Size(72, 15)
         Me.Label13.TabIndex = 0
         Me.Label13.Text = "Giá Hiện Tại"
         '
@@ -1436,16 +1444,9 @@ Partial Class Form1
         '
         Me.ErrorProvider4.ContainerControl = Me
         '
-        'ComboBox1
-        '
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(401, 94)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(121, 23)
-        Me.ComboBox1.TabIndex = 10
-        '
         'MaMon_MADU
         '
+        Me.MaMon_MADU.DataPropertyName = "MaMon"
         Me.MaMon_MADU.HeaderText = "Mã Món"
         Me.MaMon_MADU.Name = "MaMon_MADU"
         Me.MaMon_MADU.Visible = False
@@ -1466,7 +1467,6 @@ Partial Class Form1
         '
         'ThucDonMon
         '
-        Me.ThucDonMon.DataPropertyName = "ThucDonMon"
         Me.ThucDonMon.HeaderText = "Thực Đơn Món"
         Me.ThucDonMon.Name = "ThucDonMon"
         Me.ThucDonMon.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
@@ -1478,16 +1478,16 @@ Partial Class Form1
         Me.Loai.HeaderText = "Loại"
         Me.Loai.Name = "Loai"
         '
-        'Form1
+        'frmManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(1370, 730)
+        Me.ClientSize = New System.Drawing.Size(1362, 730)
         Me.Controls.Add(Me.TbCtrQuanLy)
         Me.Controls.Add(Me.Label1)
         Me.Font = New System.Drawing.Font("Roboto", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Name = "Form1"
+        Me.Name = "frmManager"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Quản Lý"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
