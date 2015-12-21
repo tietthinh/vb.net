@@ -212,13 +212,13 @@ Public Class frmChef
 
         If TypeOf column Is DataGridViewButtonColumn AndAlso e.RowIndex >= 0 Then
             If column.Name = "Increase" Then
-                dgv.Rows(e.RowIndex).Cells("SoLuong").Value += dgv.Rows(e.RowIndex).Cells("DoTangMacDinh").Value
+                dgv.Rows(e.RowIndex).Cells("MaterialQuantity").Value += dgv.Rows(e.RowIndex).Cells("DefaultIncrease").Value
             Else
-                Dim i As Integer = dgv.Rows(e.RowIndex).Cells("SoLuong").Value - dgv.Rows(e.RowIndex).Cells("DoTangMacDinh").Value
+                Dim i As Double = dgv.Rows(e.RowIndex).Cells("MaterialQuantity").Value - dgv.Rows(e.RowIndex).Cells("DefaultIncrease").Value
                 If i >= 0 Then
-                    dgv.Rows(e.RowIndex).Cells("SoLuong").Value = i
+                    dgv.Rows(e.RowIndex).Cells("MaterialQuantity").Value = i
                 Else
-                    dgv.Rows(e.RowIndex).Cells("SoLuong").Value = 0
+                    dgv.Rows(e.RowIndex).Cells("MaterialQuantity").Value = 0
                 End If
             End If
         End If

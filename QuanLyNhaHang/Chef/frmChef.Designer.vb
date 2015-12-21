@@ -25,6 +25,7 @@ Partial Class frmChef
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.dgvCookList = New System.Windows.Forms.DataGridView()
         Me.CookListTransID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CookListDishName = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -59,6 +60,7 @@ Partial Class frmChef
         Me.txtTotalQuantity = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.dgvMaterialList = New System.Windows.Forms.DataGridView()
+        Me.ltbException = New System.Windows.Forms.ListBox()
         Me.DetailDishID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.MaterialID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.MaterialName = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -67,7 +69,6 @@ Partial Class frmChef
         Me.Increase = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.MaterialUnit = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DefaultIncrease = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ltbException = New System.Windows.Forms.ListBox()
         CType(Me.dgvCookList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvMaterialList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -371,6 +372,16 @@ Partial Class frmChef
         Me.dgvMaterialList.Size = New System.Drawing.Size(406, 406)
         Me.dgvMaterialList.TabIndex = 41
         '
+        'ltbException
+        '
+        Me.ltbException.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ltbException.FormattingEnabled = True
+        Me.ltbException.ItemHeight = 20
+        Me.ltbException.Location = New System.Drawing.Point(12, 538)
+        Me.ltbException.Name = "ltbException"
+        Me.ltbException.Size = New System.Drawing.Size(502, 164)
+        Me.ltbException.TabIndex = 42
+        '
         'DetailDishID
         '
         Me.DetailDishID.DataPropertyName = "MaMon"
@@ -411,10 +422,13 @@ Partial Class frmChef
         '
         Me.MaterialQuantity.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.MaterialQuantity.DataPropertyName = "SoLuong"
+        DataGridViewCellStyle4.Format = "#,###0.#######"
+        DataGridViewCellStyle4.NullValue = Nothing
+        Me.MaterialQuantity.DefaultCellStyle = DataGridViewCellStyle4
         Me.MaterialQuantity.HeaderText = "Số lượng"
         Me.MaterialQuantity.Name = "MaterialQuantity"
         Me.MaterialQuantity.ReadOnly = True
-        Me.MaterialQuantity.Width = 84
+        Me.MaterialQuantity.Width = 91
         '
         'Increase
         '
@@ -433,7 +447,7 @@ Partial Class frmChef
         Me.MaterialUnit.HeaderText = "Đơn vị"
         Me.MaterialUnit.Name = "MaterialUnit"
         Me.MaterialUnit.ReadOnly = True
-        Me.MaterialUnit.Width = 59
+        Me.MaterialUnit.Width = 74
         '
         'DefaultIncrease
         '
@@ -443,16 +457,6 @@ Partial Class frmChef
         Me.DefaultIncrease.ReadOnly = True
         Me.DefaultIncrease.Visible = False
         Me.DefaultIncrease.Width = 169
-        '
-        'ltbException
-        '
-        Me.ltbException.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ltbException.FormattingEnabled = True
-        Me.ltbException.ItemHeight = 20
-        Me.ltbException.Location = New System.Drawing.Point(12, 538)
-        Me.ltbException.Name = "ltbException"
-        Me.ltbException.Size = New System.Drawing.Size(502, 164)
-        Me.ltbException.TabIndex = 42
         '
         'frmChef
         '
@@ -515,6 +519,10 @@ Partial Class frmChef
     Friend WithEvents CantServeTimeOrder As System.Windows.Forms.ColumnHeader
     Friend WithEvents CantServeTransID As System.Windows.Forms.ColumnHeader
     Friend WithEvents CantServeNote As System.Windows.Forms.ColumnHeader
+    Friend WithEvents CookListTransID As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents CookListDishName As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents CookListQuantity As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents CookListDone As System.Windows.Forms.DataGridViewButtonColumn
     Friend WithEvents DetailDishID As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents MaterialID As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents MaterialName As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -523,8 +531,4 @@ Partial Class frmChef
     Friend WithEvents Increase As System.Windows.Forms.DataGridViewButtonColumn
     Friend WithEvents MaterialUnit As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents DefaultIncrease As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents CookListTransID As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents CookListDishName As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents CookListQuantity As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents CookListDone As System.Windows.Forms.DataGridViewButtonColumn
 End Class
