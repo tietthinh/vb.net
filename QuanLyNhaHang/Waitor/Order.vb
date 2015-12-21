@@ -3,16 +3,7 @@
     Private _Name As String
     Private _Quantity As Integer
     Private _Note As String
-    Private _TransferCode As String
 
-    Public Property TransferCode As String
-        Get
-            Return Me._TransferCode
-        End Get
-        Set(value As String)
-            Me.TransferCode = value
-        End Set
-    End Property
     Public Property Id() As String
         Get
             Return Me._Id
