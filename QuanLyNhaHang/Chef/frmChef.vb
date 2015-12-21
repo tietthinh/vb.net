@@ -32,9 +32,8 @@ Public Class frmChef
             db.Open()
             orderList = db.Query("spDSDatMonTrongNgaySelect", parameter)
         Catch ex As SqlException
-            Throw ex
-        Finally
             db.Close()
+            Throw ex
         End Try
 
         Dim index As Integer = 1
@@ -66,9 +65,9 @@ Public Class frmChef
         cookList.Columns.Add(New DataColumn(orderList.Columns("TenMon").ColumnName, orderList.Columns("TenMon").DataType))
         cookList.Columns.Add(New DataColumn(orderList.Columns("SoLuong").ColumnName, orderList.Columns("SoLuong").DataType))
 
-        currentUsedMaterial.Columns.Add("MaSP")    
-        currentUsedMaterial.Columns.Add("SoLuongMotMon")
+        currentUsedMaterial.Columns.Add("MaSP")
         currentUsedMaterial.Columns.Add("SoLuong")
+        currentUsedMaterial.Columns.Add("SoLuongMotMon")
 
         cantServeList = orderList.Clone()
     End Sub
@@ -123,7 +122,13 @@ Public Class frmChef
 
             dgvCookList.DataSource = cookList
 
-            db.Query("spSanPhamDaDungInsert", db.CreateParameter(New String() {"@DS"}, New Object() {currentUsedMaterial}))
+            Try
+                db.Update("spSanPhamDaDungInsert", db.CreateParameter(New String() {"@DS"}, New Object() {currentUsedMaterial}))
+            Catch ex As SqlException
+                MessageBox.Show(ex.Number)
+                MessageBox.Show(ex.Message)
+                Throw ex
+            End Try
 
             For i As Integer = ltvOrderList.SelectedItems.Count - 1 To 0 Step -1
                 orderList.Rows(ltvOrderList.SelectedItems(i).Index).Delete()
@@ -135,18 +140,26 @@ Public Class frmChef
     End Sub
 
     Private Sub frmChef_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        db.Close()
         db.Dispose()
+
         orderList.Dispose()
         orderList = Nothing
+
         cookList.Dispose()
         cookList = Nothing
+
         cantServeList.Dispose()
         cantServeList = Nothing
+
         materialList.Dispose()
         materialList = Nothing
+
         currentDish = ""
         currentDish = Nothing
+
         currentIndex = Nothing
+
         currentTotalQuantity = Nothing
     End Sub
 
@@ -158,7 +171,7 @@ Public Class frmChef
             Dim parameterName() As String = New String() {"@MaChuyen", "@TinhTrang"}
             Dim parameterValue() As Object = New Object() {dgv.Rows(e.RowIndex).Cells("CookListTransID").Value, 3}
             Dim parameter() As SqlClient.SqlParameter = db.CreateParameter(parameterName, parameterValue)
-            db.Query("spDSDatMonTrongNgayUpdateTinhTrang", parameter)
+            db.Update("spDSDatMonTrongNgayUpdateTinhTrang", parameter)
             dgv.Rows.RemoveAt(e.RowIndex)
         End If
     End Sub
@@ -190,6 +203,24 @@ Public Class frmChef
             materialList.Rows.Clear()
 
             dgvMaterialList.DataSource = materialList
+        End If
+    End Sub
+
+    Private Sub dgvMaterialList_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvMaterialList.CellContentClick
+        Dim dgv As DataGridView = DirectCast(sender, DataGridView)
+        Dim column As DataGridViewColumn = dgv.Columns(e.ColumnIndex)
+
+        If TypeOf column Is DataGridViewButtonColumn AndAlso e.RowIndex >= 0 Then
+            If column.Name = "Increase" Then
+                dgv.Rows(e.RowIndex).Cells("SoLuong").Value += dgv.Rows(e.RowIndex).Cells("DoTangMacDinh").Value
+            Else
+                Dim i As Integer = dgv.Rows(e.RowIndex).Cells("SoLuong").Value - dgv.Rows(e.RowIndex).Cells("DoTangMacDinh").Value
+                If i >= 0 Then
+                    dgv.Rows(e.RowIndex).Cells("SoLuong").Value = i
+                Else
+                    dgv.Rows(e.RowIndex).Cells("SoLuong").Value = 0
+                End If
+            End If
         End If
     End Sub
 End Class
