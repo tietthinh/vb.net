@@ -23,6 +23,7 @@ Partial Class frmManager
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lblMaNV = New System.Windows.Forms.Label()
         Me.lblHoTen = New System.Windows.Forms.Label()
@@ -93,15 +94,15 @@ Partial Class frmManager
         Me.cboDaThanhToan_HoaDon = New System.Windows.Forms.ComboBox()
         Me.dgvHoaDon = New System.Windows.Forms.DataGridView()
         Me.MaHoaDon_HD = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.MaHoaDonChung_HD = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.MaNV_HD = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TenNhanVien = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ThoiGian = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.SoBan = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.SoLuongKhach = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TenNhanVien = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.MaNV_HD = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.MaHoaDonChung_HD = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TongTien = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GhiChu = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DaThanhToan_HD = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ThoiGian = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TongTien = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.txtTimKiem_HoaDon = New System.Windows.Forms.TextBox()
         Me.lblTenNhanVien = New System.Windows.Forms.Label()
         Me.btnTimKiem_HoaDon = New System.Windows.Forms.Button()
@@ -149,6 +150,11 @@ Partial Class frmManager
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.cboThucDonMon_Mon = New System.Windows.Forms.ComboBox()
         Me.dgvMonAnDoUong = New System.Windows.Forms.DataGridView()
+        Me.MaMon_MADU = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TenMon = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.GiaTienHienTai = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ThucDonMon = New System.Windows.Forms.DataGridViewComboBoxColumn()
+        Me.Loai = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.txtTimKiem_Mon = New System.Windows.Forms.TextBox()
         Me.btnTimKiem_Mon = New System.Windows.Forms.Button()
         Me.Label11 = New System.Windows.Forms.Label()
@@ -164,11 +170,31 @@ Partial Class frmManager
         Me.ErrorProvider2 = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.ErrorProvider3 = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.ErrorProvider4 = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.MaMon_MADU = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TenMon = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.GiaTienHienTai = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ThucDonMon = New System.Windows.Forms.DataGridViewComboBoxColumn()
-        Me.Loai = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.MaPN_PN = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.MaNV_PN = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.MaNCC_PN = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.NgayLap_PN = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.NgayGiaoDK_PN = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TongTien_PN = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TinhTrang_PN = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
+        Me.ComboBox3 = New System.Windows.Forms.ComboBox()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.Button4 = New System.Windows.Forms.Button()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.TextBox3 = New System.Windows.Forms.TextBox()
         Me.TbCtrQuanLy.SuspendLayout()
         Me.NhanVien.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -189,6 +215,10 @@ Partial Class frmManager
         CType(Me.ErrorProvider2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ErrorProvider3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ErrorProvider4, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage2.SuspendLayout()
+        Me.GroupBox5.SuspendLayout()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox4.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label1
@@ -197,7 +227,7 @@ Partial Class frmManager
         Me.Label1.Font = New System.Drawing.Font("Roboto", 28.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.Location = New System.Drawing.Point(589, 9)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(178, 47)
+        Me.Label1.Size = New System.Drawing.Size(175, 47)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "QUẢN LÝ"
         '
@@ -206,7 +236,7 @@ Partial Class frmManager
         Me.lblMaNV.AutoSize = True
         Me.lblMaNV.Location = New System.Drawing.Point(21, 29)
         Me.lblMaNV.Name = "lblMaNV"
-        Me.lblMaNV.Size = New System.Drawing.Size(40, 15)
+        Me.lblMaNV.Size = New System.Drawing.Size(41, 15)
         Me.lblMaNV.TabIndex = 1
         Me.lblMaNV.Text = "MaNV"
         '
@@ -215,7 +245,7 @@ Partial Class frmManager
         Me.lblHoTen.AutoSize = True
         Me.lblHoTen.Location = New System.Drawing.Point(21, 65)
         Me.lblHoTen.Name = "lblHoTen"
-        Me.lblHoTen.Size = New System.Drawing.Size(47, 15)
+        Me.lblHoTen.Size = New System.Drawing.Size(46, 15)
         Me.lblHoTen.TabIndex = 1
         Me.lblHoTen.Text = "Họ Tên"
         '
@@ -224,7 +254,7 @@ Partial Class frmManager
         Me.lblThoiGianBD.AutoSize = True
         Me.lblThoiGianBD.Location = New System.Drawing.Point(363, 130)
         Me.lblThoiGianBD.Name = "lblThoiGianBD"
-        Me.lblThoiGianBD.Size = New System.Drawing.Size(104, 15)
+        Me.lblThoiGianBD.Size = New System.Drawing.Size(105, 15)
         Me.lblThoiGianBD.TabIndex = 1
         Me.lblThoiGianBD.Text = "Thời Gian Bắt Đầu"
         '
@@ -260,6 +290,8 @@ Partial Class frmManager
         Me.TbCtrQuanLy.Controls.Add(Me.NhanVien)
         Me.TbCtrQuanLy.Controls.Add(Me.HoaDon)
         Me.TbCtrQuanLy.Controls.Add(Me.MonAnDoUong)
+        Me.TbCtrQuanLy.Controls.Add(Me.TabPage1)
+        Me.TbCtrQuanLy.Controls.Add(Me.TabPage2)
         Me.TbCtrQuanLy.Font = New System.Drawing.Font("Roboto", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TbCtrQuanLy.Location = New System.Drawing.Point(10, 59)
         Me.TbCtrQuanLy.Name = "TbCtrQuanLy"
@@ -343,7 +375,7 @@ Partial Class frmManager
         Me.rdoDangLam.AutoSize = True
         Me.rdoDangLam.Location = New System.Drawing.Point(98, 20)
         Me.rdoDangLam.Name = "rdoDangLam"
-        Me.rdoDangLam.Size = New System.Drawing.Size(79, 19)
+        Me.rdoDangLam.Size = New System.Drawing.Size(81, 19)
         Me.rdoDangLam.TabIndex = 1
         Me.rdoDangLam.Text = "Đang Làm"
         Me.rdoDangLam.UseVisualStyleBackColor = True
@@ -354,7 +386,7 @@ Partial Class frmManager
         Me.rdoDaNghi.Checked = True
         Me.rdoDaNghi.Location = New System.Drawing.Point(13, 20)
         Me.rdoDaNghi.Name = "rdoDaNghi"
-        Me.rdoDaNghi.Size = New System.Drawing.Size(67, 19)
+        Me.rdoDaNghi.Size = New System.Drawing.Size(69, 19)
         Me.rdoDaNghi.TabIndex = 0
         Me.rdoDaNghi.TabStop = True
         Me.rdoDaNghi.Text = "Đã Nghỉ"
@@ -376,7 +408,7 @@ Partial Class frmManager
         Me.rdoNu.AutoSize = True
         Me.rdoNu.Location = New System.Drawing.Point(98, 20)
         Me.rdoNu.Name = "rdoNu"
-        Me.rdoNu.Size = New System.Drawing.Size(40, 19)
+        Me.rdoNu.Size = New System.Drawing.Size(41, 19)
         Me.rdoNu.TabIndex = 1
         Me.rdoNu.Text = "Nữ"
         Me.rdoNu.UseVisualStyleBackColor = True
@@ -387,7 +419,7 @@ Partial Class frmManager
         Me.rdoNam.Checked = True
         Me.rdoNam.Location = New System.Drawing.Point(13, 20)
         Me.rdoNam.Name = "rdoNam"
-        Me.rdoNam.Size = New System.Drawing.Size(49, 19)
+        Me.rdoNam.Size = New System.Drawing.Size(52, 19)
         Me.rdoNam.TabIndex = 0
         Me.rdoNam.TabStop = True
         Me.rdoNam.Text = "Nam"
@@ -454,7 +486,7 @@ Partial Class frmManager
         Me.lblNgaySinh.AutoSize = True
         Me.lblNgaySinh.Location = New System.Drawing.Point(23, 137)
         Me.lblNgaySinh.Name = "lblNgaySinh"
-        Me.lblNgaySinh.Size = New System.Drawing.Size(62, 15)
+        Me.lblNgaySinh.Size = New System.Drawing.Size(63, 15)
         Me.lblNgaySinh.TabIndex = 1
         Me.lblNgaySinh.Text = "Ngày Sinh"
         '
@@ -463,7 +495,7 @@ Partial Class frmManager
         Me.lblTenChucVu.AutoSize = True
         Me.lblTenChucVu.Location = New System.Drawing.Point(581, 94)
         Me.lblTenChucVu.Name = "lblTenChucVu"
-        Me.lblTenChucVu.Size = New System.Drawing.Size(78, 15)
+        Me.lblTenChucVu.Size = New System.Drawing.Size(76, 15)
         Me.lblTenChucVu.TabIndex = 1
         Me.lblTenChucVu.Text = "Tên Chức Vụ"
         '
@@ -472,7 +504,7 @@ Partial Class frmManager
         Me.lblLoaiNV.AutoSize = True
         Me.lblLoaiNV.Location = New System.Drawing.Point(363, 94)
         Me.lblLoaiNV.Name = "lblLoaiNV"
-        Me.lblLoaiNV.Size = New System.Drawing.Size(49, 15)
+        Me.lblLoaiNV.Size = New System.Drawing.Size(50, 15)
         Me.lblLoaiNV.TabIndex = 1
         Me.lblLoaiNV.Text = "Loại NV"
         '
@@ -837,7 +869,7 @@ Partial Class frmManager
         'dgvHoaDon
         '
         Me.dgvHoaDon.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvHoaDon.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.MaHoaDon_HD, Me.MaHoaDonChung_HD, Me.SoBan, Me.SoLuongKhach, Me.TenNhanVien, Me.MaNV_HD, Me.GhiChu, Me.DaThanhToan_HD, Me.ThoiGian, Me.TongTien})
+        Me.dgvHoaDon.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.MaHoaDon_HD, Me.MaNV_HD, Me.TenNhanVien, Me.ThoiGian, Me.SoBan, Me.SoLuongKhach, Me.MaHoaDonChung_HD, Me.TongTien, Me.GhiChu, Me.DaThanhToan_HD})
         Me.dgvHoaDon.Location = New System.Drawing.Point(322, 65)
         Me.dgvHoaDon.Name = "dgvHoaDon"
         Me.dgvHoaDon.RowTemplate.Height = 24
@@ -851,12 +883,25 @@ Partial Class frmManager
         Me.MaHoaDon_HD.HeaderText = "Mã Hóa Đơn"
         Me.MaHoaDon_HD.Name = "MaHoaDon_HD"
         '
-        'MaHoaDonChung_HD
+        'MaNV_HD
         '
-        Me.MaHoaDonChung_HD.DataPropertyName = "MaHDChung"
-        Me.MaHoaDonChung_HD.HeaderText = "Mã Hóa Đơn Chung"
-        Me.MaHoaDonChung_HD.Name = "MaHoaDonChung_HD"
-        Me.MaHoaDonChung_HD.ReadOnly = True
+        Me.MaNV_HD.DataPropertyName = "MaNV"
+        Me.MaNV_HD.HeaderText = "Mã Nhân Viên"
+        Me.MaNV_HD.Name = "MaNV_HD"
+        Me.MaNV_HD.Visible = False
+        '
+        'TenNhanVien
+        '
+        Me.TenNhanVien.DataPropertyName = "HoTen"
+        Me.TenNhanVien.HeaderText = "Tên Nhân Viên"
+        Me.TenNhanVien.Name = "TenNhanVien"
+        '
+        'ThoiGian
+        '
+        Me.ThoiGian.DataPropertyName = "ThoiGian"
+        Me.ThoiGian.HeaderText = "Thời Gian"
+        Me.ThoiGian.Name = "ThoiGian"
+        Me.ThoiGian.Width = 120
         '
         'SoBan
         '
@@ -871,18 +916,19 @@ Partial Class frmManager
         Me.SoLuongKhach.HeaderText = "Số Lượng Khách"
         Me.SoLuongKhach.Name = "SoLuongKhach"
         '
-        'TenNhanVien
+        'MaHoaDonChung_HD
         '
-        Me.TenNhanVien.DataPropertyName = "HoTen"
-        Me.TenNhanVien.HeaderText = "Tên Nhân Viên"
-        Me.TenNhanVien.Name = "TenNhanVien"
+        Me.MaHoaDonChung_HD.DataPropertyName = "MaHDChung"
+        Me.MaHoaDonChung_HD.HeaderText = "Mã Hóa Đơn Chung"
+        Me.MaHoaDonChung_HD.Name = "MaHoaDonChung_HD"
+        Me.MaHoaDonChung_HD.ReadOnly = True
         '
-        'MaNV_HD
+        'TongTien
         '
-        Me.MaNV_HD.DataPropertyName = "MaNV"
-        Me.MaNV_HD.HeaderText = "Mã Nhân Viên"
-        Me.MaNV_HD.Name = "MaNV_HD"
-        Me.MaNV_HD.Visible = False
+        Me.TongTien.DataPropertyName = "TongTien"
+        Me.TongTien.HeaderText = "Tổng Tiền"
+        Me.TongTien.Name = "TongTien"
+        Me.TongTien.Width = 125
         '
         'GhiChu
         '
@@ -896,20 +942,6 @@ Partial Class frmManager
         Me.DaThanhToan_HD.DataPropertyName = "TinhTrang"
         Me.DaThanhToan_HD.HeaderText = "Đã Thanh Toán"
         Me.DaThanhToan_HD.Name = "DaThanhToan_HD"
-        '
-        'ThoiGian
-        '
-        Me.ThoiGian.DataPropertyName = "ThoiGian"
-        Me.ThoiGian.HeaderText = "Thời Gian"
-        Me.ThoiGian.Name = "ThoiGian"
-        Me.ThoiGian.Width = 120
-        '
-        'TongTien
-        '
-        Me.TongTien.DataPropertyName = "TongTien"
-        Me.TongTien.HeaderText = "Tổng Tiền"
-        Me.TongTien.Name = "TongTien"
-        Me.TongTien.Width = 125
         '
         'txtTimKiem_HoaDon
         '
@@ -1211,7 +1243,7 @@ Partial Class frmManager
         Me.Label10.AutoSize = True
         Me.Label10.Location = New System.Drawing.Point(291, 127)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(60, 15)
+        Me.Label10.Size = New System.Drawing.Size(58, 15)
         Me.Label10.TabIndex = 0
         Me.Label10.Text = "Số Lượng"
         '
@@ -1220,7 +1252,7 @@ Partial Class frmManager
         Me.Label14.AutoSize = True
         Me.Label14.Location = New System.Drawing.Point(291, 51)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(57, 15)
+        Me.Label14.Size = New System.Drawing.Size(54, 15)
         Me.Label14.TabIndex = 0
         Me.Label14.Text = "Tên Món"
         '
@@ -1333,6 +1365,43 @@ Partial Class frmManager
         Me.dgvMonAnDoUong.Size = New System.Drawing.Size(622, 206)
         Me.dgvMonAnDoUong.TabIndex = 8
         '
+        'MaMon_MADU
+        '
+        Me.MaMon_MADU.DataPropertyName = "MaMon"
+        Me.MaMon_MADU.HeaderText = "Mã Món"
+        Me.MaMon_MADU.Name = "MaMon_MADU"
+        Me.MaMon_MADU.Visible = False
+        '
+        'TenMon
+        '
+        Me.TenMon.DataPropertyName = "TenMon"
+        Me.TenMon.HeaderText = "Tên Món"
+        Me.TenMon.Name = "TenMon"
+        Me.TenMon.Width = 200
+        '
+        'GiaTienHienTai
+        '
+        Me.GiaTienHienTai.DataPropertyName = "GiaTienHienTai"
+        DataGridViewCellStyle1.Format = "N0"
+        DataGridViewCellStyle1.NullValue = Nothing
+        Me.GiaTienHienTai.DefaultCellStyle = DataGridViewCellStyle1
+        Me.GiaTienHienTai.HeaderText = "Giá Tiền Hiện Tại"
+        Me.GiaTienHienTai.Name = "GiaTienHienTai"
+        Me.GiaTienHienTai.Width = 145
+        '
+        'ThucDonMon
+        '
+        Me.ThucDonMon.HeaderText = "Thực Đơn Món"
+        Me.ThucDonMon.Name = "ThucDonMon"
+        Me.ThucDonMon.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ThucDonMon.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.ThucDonMon.Width = 120
+        '
+        'Loai
+        '
+        Me.Loai.HeaderText = "Loại"
+        Me.Loai.Name = "Loai"
+        '
         'txtTimKiem_Mon
         '
         Me.txtTimKiem_Mon.Location = New System.Drawing.Point(383, 218)
@@ -1356,7 +1425,7 @@ Partial Class frmManager
         Me.Label11.AutoSize = True
         Me.Label11.Location = New System.Drawing.Point(291, 173)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(88, 15)
+        Me.Label11.Size = New System.Drawing.Size(86, 15)
         Me.Label11.TabIndex = 0
         Me.Label11.Text = "Thực Đơn Món"
         '
@@ -1374,7 +1443,7 @@ Partial Class frmManager
         Me.Label12.AutoSize = True
         Me.Label12.Location = New System.Drawing.Point(291, 63)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(57, 15)
+        Me.Label12.Size = New System.Drawing.Size(54, 15)
         Me.Label12.TabIndex = 0
         Me.Label12.Text = "Tên Món"
         '
@@ -1383,7 +1452,7 @@ Partial Class frmManager
         Me.Label13.AutoSize = True
         Me.Label13.Location = New System.Drawing.Point(291, 136)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(72, 15)
+        Me.Label13.Size = New System.Drawing.Size(73, 15)
         Me.Label13.TabIndex = 0
         Me.Label13.Text = "Giá Hiện Tại"
         '
@@ -1444,39 +1513,230 @@ Partial Class frmManager
         '
         Me.ErrorProvider4.ContainerControl = Me
         '
-        'MaMon_MADU
+        'TabPage1
         '
-        Me.MaMon_MADU.DataPropertyName = "MaMon"
-        Me.MaMon_MADU.HeaderText = "Mã Món"
-        Me.MaMon_MADU.Name = "MaMon_MADU"
-        Me.MaMon_MADU.Visible = False
+        Me.TabPage1.Location = New System.Drawing.Point(4, 24)
+        Me.TabPage1.Name = "TabPage1"
+        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage1.Size = New System.Drawing.Size(1340, 626)
+        Me.TabPage1.TabIndex = 2
+        Me.TabPage1.Text = "TabPage1"
+        Me.TabPage1.UseVisualStyleBackColor = True
         '
-        'TenMon
+        'TabPage2
         '
-        Me.TenMon.DataPropertyName = "TenMon"
-        Me.TenMon.HeaderText = "Tên Món"
-        Me.TenMon.Name = "TenMon"
-        Me.TenMon.Width = 200
+        Me.TabPage2.Controls.Add(Me.GroupBox5)
+        Me.TabPage2.Controls.Add(Me.GroupBox4)
+        Me.TabPage2.Location = New System.Drawing.Point(4, 24)
+        Me.TabPage2.Name = "TabPage2"
+        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage2.Size = New System.Drawing.Size(1340, 626)
+        Me.TabPage2.TabIndex = 3
+        Me.TabPage2.Text = "Phiếu Nhập"
+        Me.TabPage2.UseVisualStyleBackColor = True
         '
-        'GiaTienHienTai
+        'GroupBox5
         '
-        Me.GiaTienHienTai.DataPropertyName = "GiaTienHienTai"
-        Me.GiaTienHienTai.HeaderText = "Giá Tiền Hiện Tại"
-        Me.GiaTienHienTai.Name = "GiaTienHienTai"
-        Me.GiaTienHienTai.Width = 145
+        Me.GroupBox5.Controls.Add(Me.DataGridView1)
+        Me.GroupBox5.Location = New System.Drawing.Point(16, 196)
+        Me.GroupBox5.Name = "GroupBox5"
+        Me.GroupBox5.Size = New System.Drawing.Size(729, 408)
+        Me.GroupBox5.TabIndex = 9
+        Me.GroupBox5.TabStop = False
+        Me.GroupBox5.Text = "Danh Sách Phiếu Nhập"
         '
-        'ThucDonMon
+        'DataGridView1
         '
-        Me.ThucDonMon.HeaderText = "Thực Đơn Món"
-        Me.ThucDonMon.Name = "ThucDonMon"
-        Me.ThucDonMon.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ThucDonMon.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.ThucDonMon.Width = 120
+        Me.DataGridView1.AllowUserToOrderColumns = True
+        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.MaPN_PN, Me.MaNV_PN, Me.MaNCC_PN, Me.NgayLap_PN, Me.NgayGiaoDK_PN, Me.TongTien_PN, Me.TinhTrang_PN})
+        Me.DataGridView1.Location = New System.Drawing.Point(27, 36)
+        Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.RowTemplate.Height = 24
+        Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.DataGridView1.Size = New System.Drawing.Size(680, 349)
+        Me.DataGridView1.TabIndex = 8
         '
-        'Loai
+        'MaPN_PN
         '
-        Me.Loai.HeaderText = "Loại"
-        Me.Loai.Name = "Loai"
+        Me.MaPN_PN.DataPropertyName = "MaPN"
+        Me.MaPN_PN.HeaderText = "Mã Phiếu Nhập"
+        Me.MaPN_PN.Name = "MaPN_PN"
+        Me.MaPN_PN.Visible = False
+        '
+        'MaNV_PN
+        '
+        Me.MaNV_PN.DataPropertyName = "MaNV"
+        Me.MaNV_PN.HeaderText = "Mã Nhân Viên"
+        Me.MaNV_PN.Name = "MaNV_PN"
+        Me.MaNV_PN.Visible = False
+        '
+        'MaNCC_PN
+        '
+        Me.MaNCC_PN.DataPropertyName = "MaNCC"
+        Me.MaNCC_PN.HeaderText = "Mã Nhà Cung Cấp"
+        Me.MaNCC_PN.Name = "MaNCC_PN"
+        '
+        'NgayLap_PN
+        '
+        Me.NgayLap_PN.DataPropertyName = "NgayLap"
+        Me.NgayLap_PN.HeaderText = "Ngày Lập"
+        Me.NgayLap_PN.Name = "NgayLap_PN"
+        Me.NgayLap_PN.Width = 150
+        '
+        'NgayGiaoDK_PN
+        '
+        Me.NgayGiaoDK_PN.DataPropertyName = "NgayGiaoDK"
+        Me.NgayGiaoDK_PN.HeaderText = "Ngày Giao DK"
+        Me.NgayGiaoDK_PN.Name = "NgayGiaoDK_PN"
+        Me.NgayGiaoDK_PN.Width = 150
+        '
+        'TongTien_PN
+        '
+        Me.TongTien_PN.DataPropertyName = "TongTien"
+        Me.TongTien_PN.HeaderText = "Tổng Tiền"
+        Me.TongTien_PN.Name = "TongTien_PN"
+        Me.TongTien_PN.Width = 130
+        '
+        'TinhTrang_PN
+        '
+        Me.TinhTrang_PN.DataPropertyName = "TinhTrang"
+        Me.TinhTrang_PN.HeaderText = "Tình Trạng"
+        Me.TinhTrang_PN.Name = "TinhTrang_PN"
+        '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.ComboBox2)
+        Me.GroupBox4.Controls.Add(Me.ComboBox3)
+        Me.GroupBox4.Controls.Add(Me.TextBox1)
+        Me.GroupBox4.Controls.Add(Me.Button1)
+        Me.GroupBox4.Controls.Add(Me.Label9)
+        Me.GroupBox4.Controls.Add(Me.Label19)
+        Me.GroupBox4.Controls.Add(Me.Label20)
+        Me.GroupBox4.Controls.Add(Me.Label21)
+        Me.GroupBox4.Controls.Add(Me.Button2)
+        Me.GroupBox4.Controls.Add(Me.Button3)
+        Me.GroupBox4.Controls.Add(Me.Button4)
+        Me.GroupBox4.Controls.Add(Me.TextBox2)
+        Me.GroupBox4.Controls.Add(Me.TextBox3)
+        Me.GroupBox4.Font = New System.Drawing.Font("Roboto", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox4.Location = New System.Drawing.Point(16, 20)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(717, 158)
+        Me.GroupBox4.TabIndex = 7
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "Thông Tin Phiếu Nhập"
+        '
+        'ComboBox2
+        '
+        Me.ComboBox2.FormattingEnabled = True
+        Me.ComboBox2.Location = New System.Drawing.Point(125, 55)
+        Me.ComboBox2.Name = "ComboBox2"
+        Me.ComboBox2.Size = New System.Drawing.Size(121, 23)
+        Me.ComboBox2.TabIndex = 10
+        '
+        'ComboBox3
+        '
+        Me.ComboBox3.FormattingEnabled = True
+        Me.ComboBox3.Location = New System.Drawing.Point(466, 55)
+        Me.ComboBox3.Name = "ComboBox3"
+        Me.ComboBox3.Size = New System.Drawing.Size(126, 23)
+        Me.ComboBox3.TabIndex = 9
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(494, 113)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(187, 22)
+        Me.TextBox1.TabIndex = 7
+        Me.TextBox1.Text = "Nhập thông tin cần tìm vào đây"
+        '
+        'Button1
+        '
+        Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.Location = New System.Drawing.Point(384, 109)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(104, 32)
+        Me.Button1.TabIndex = 6
+        Me.Button1.Text = "Tìm Kiếm"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(357, 58)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(86, 15)
+        Me.Label9.TabIndex = 0
+        Me.Label9.Text = "Thực Đơn Món"
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Location = New System.Drawing.Point(15, 62)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(30, 15)
+        Me.Label19.TabIndex = 0
+        Me.Label19.Text = "Loại"
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.Location = New System.Drawing.Point(15, 24)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(54, 15)
+        Me.Label20.TabIndex = 0
+        Me.Label20.Text = "Tên Món"
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Location = New System.Drawing.Point(357, 21)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(73, 15)
+        Me.Label21.TabIndex = 0
+        Me.Label21.Text = "Giá Hiện Tại"
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(268, 104)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(95, 37)
+        Me.Button2.TabIndex = 5
+        Me.Button2.Text = "Xóa"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(143, 104)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(95, 37)
+        Me.Button3.TabIndex = 4
+        Me.Button3.Text = "Sửa"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
+        'Button4
+        '
+        Me.Button4.Location = New System.Drawing.Point(18, 104)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(95, 37)
+        Me.Button4.TabIndex = 3
+        Me.Button4.Text = "Thêm"
+        Me.Button4.UseVisualStyleBackColor = True
+        '
+        'TextBox2
+        '
+        Me.TextBox2.Location = New System.Drawing.Point(124, 21)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(179, 22)
+        Me.TextBox2.TabIndex = 0
+        '
+        'TextBox3
+        '
+        Me.TextBox3.Location = New System.Drawing.Point(466, 18)
+        Me.TextBox3.Name = "TextBox3"
+        Me.TextBox3.Size = New System.Drawing.Size(179, 22)
+        Me.TextBox3.TabIndex = 1
         '
         'frmManager
         '
@@ -1519,6 +1779,11 @@ Partial Class frmManager
         CType(Me.ErrorProvider2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ErrorProvider3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ErrorProvider4, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage2.ResumeLayout(False)
+        Me.GroupBox5.ResumeLayout(False)
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox4.ResumeLayout(False)
+        Me.GroupBox4.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1621,16 +1886,6 @@ Partial Class frmManager
     Friend WithEvents ErrorProvider1 As System.Windows.Forms.ErrorProvider
     Friend WithEvents txtMaNV As System.Windows.Forms.TextBox
     Friend WithEvents Label17 As System.Windows.Forms.Label
-    Friend WithEvents MaHoaDon_HD As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents MaHoaDonChung_HD As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents SoBan As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents SoLuongKhach As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents TenNhanVien As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents MaNV_HD As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents GhiChu As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DaThanhToan_HD As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents ThoiGian As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents TongTien As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents MaMon_CTM As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents TenMon_CTMon As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents MaSP_CTM As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -1669,5 +1924,40 @@ Partial Class frmManager
     Friend WithEvents GiaTienHienTai As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents ThucDonMon As System.Windows.Forms.DataGridViewComboBoxColumn
     Friend WithEvents Loai As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents MaHoaDon_HD As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents MaNV_HD As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents TenNhanVien As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents ThoiGian As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents SoBan As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents SoLuongKhach As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents MaHoaDonChung_HD As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents TongTien As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents GhiChu As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DaThanhToan_HD As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
+    Friend WithEvents TabPage2 As System.Windows.Forms.TabPage
+    Friend WithEvents GroupBox5 As System.Windows.Forms.GroupBox
+    Friend WithEvents DataGridView1 As System.Windows.Forms.DataGridView
+    Friend WithEvents MaPN_PN As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents MaNV_PN As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents MaNCC_PN As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents NgayLap_PN As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents NgayGiaoDK_PN As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents TongTien_PN As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents TinhTrang_PN As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
+    Friend WithEvents ComboBox2 As System.Windows.Forms.ComboBox
+    Friend WithEvents ComboBox3 As System.Windows.Forms.ComboBox
+    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
+    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents Label19 As System.Windows.Forms.Label
+    Friend WithEvents Label20 As System.Windows.Forms.Label
+    Friend WithEvents Label21 As System.Windows.Forms.Label
+    Friend WithEvents Button2 As System.Windows.Forms.Button
+    Friend WithEvents Button3 As System.Windows.Forms.Button
+    Friend WithEvents Button4 As System.Windows.Forms.Button
+    Friend WithEvents TextBox2 As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox3 As System.Windows.Forms.TextBox
 
 End Class
