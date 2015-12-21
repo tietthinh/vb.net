@@ -185,6 +185,7 @@ Public Class frmChef
         ltvOrderList.Items(currentIndex).Selected = True
         If ltvOrderList.SelectedItems.Count > 0 Then
             ltbException.Items.Add(ltvOrderList.SelectedItems(0).SubItems("GhiChu").Text)
+
             currentTotalQuantity = Integer.Parse(ltvOrderList.SelectedItems(0).SubItems("SoLuong").Text)
 
             materialList = LoadMaterial(ltvOrderList.SelectedItems(0).SubItems("MaMon").Text)
