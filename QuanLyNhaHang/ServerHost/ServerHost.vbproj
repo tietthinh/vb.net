@@ -130,9 +130,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Remote\Remote.vbproj">
-      <Project>{a44b471e-16d3-4a1c-a616-a309315499e0}</Project>
-      <Name>Remote</Name>
+    <ProjectReference Include="..\Library\Library.vbproj">
+      <Project>{6f746987-bdda-4a52-a372-274a744ca6a0}</Project>
+      <Name>Library</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServiceLibrary\ServiceLibrary.vbproj">
+      <Project>{2b766e17-20a0-4474-8838-e6a715441174}</Project>
+      <Name>ServiceLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

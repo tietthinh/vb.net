@@ -2,6 +2,7 @@
 Imports System.Runtime.Remoting.Channels
 Imports System.Runtime.Remoting.Channels.Http
 Imports System.ServiceProcess
+Imports Library
 Imports Remote
 
 Public Class TransferService

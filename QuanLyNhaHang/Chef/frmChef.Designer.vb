@@ -22,9 +22,9 @@ Partial Class frmChef
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle31 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle32 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle33 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.dgvCookList = New System.Windows.Forms.DataGridView()
         Me.CookListTransID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CookListDishName = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -81,24 +81,24 @@ Partial Class frmChef
         Me.dgvCookList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.dgvCookList.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvCookList.BackgroundColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle31.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle31.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle31.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle31.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle31.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle31.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvCookList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle31
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvCookList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvCookList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvCookList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.CookListTransID, Me.CookListDishName, Me.CookListQuantity, Me.CookListDone})
-        DataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle32.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle32.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
-        DataGridViewCellStyle32.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle32.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle32.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle32.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvCookList.DefaultCellStyle = DataGridViewCellStyle32
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvCookList.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvCookList.Location = New System.Drawing.Point(932, 37)
         Me.dgvCookList.Name = "dgvCookList"
         Me.dgvCookList.ReadOnly = True
@@ -130,7 +130,7 @@ Partial Class frmChef
         Me.CookListQuantity.HeaderText = "Số lượng"
         Me.CookListQuantity.Name = "CookListQuantity"
         Me.CookListQuantity.ReadOnly = True
-        Me.CookListQuantity.Width = 91
+        Me.CookListQuantity.Width = 92
         '
         'CookListDone
         '
@@ -178,7 +178,7 @@ Partial Class frmChef
         Me.Label1.Font = New System.Drawing.Font("Roboto Condensed", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.Location = New System.Drawing.Point(16, 9)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(194, 25)
+        Me.Label1.Size = New System.Drawing.Size(185, 26)
         Me.Label1.TabIndex = 8
         Me.Label1.Text = "DANH SÁCH ĐẶT MÓN"
         '
@@ -188,7 +188,7 @@ Partial Class frmChef
         Me.Label2.Font = New System.Drawing.Font("Roboto Condensed", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.Location = New System.Drawing.Point(148, 509)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(183, 25)
+        Me.Label2.Size = New System.Drawing.Size(178, 26)
         Me.Label2.TabIndex = 9
         Me.Label2.Text = "DANH SÁCH GHI CHÚ"
         '
@@ -198,7 +198,7 @@ Partial Class frmChef
         Me.Label3.Font = New System.Drawing.Font("Roboto Condensed", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.Location = New System.Drawing.Point(586, 530)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(269, 25)
+        Me.Label3.Size = New System.Drawing.Size(258, 26)
         Me.Label3.TabIndex = 10
         Me.Label3.Text = "DANH SÁCH KHÔNG LÀM ĐƯỢC"
         '
@@ -208,7 +208,7 @@ Partial Class frmChef
         Me.Label4.Font = New System.Drawing.Font("Roboto Condensed", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.Location = New System.Drawing.Point(1007, 9)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(249, 25)
+        Me.Label4.Size = New System.Drawing.Size(237, 26)
         Me.Label4.TabIndex = 11
         Me.Label4.Text = "DANH SÁCH MÓN ĐANG LÀM"
         '
@@ -315,7 +315,7 @@ Partial Class frmChef
         Me.Label5.Font = New System.Drawing.Font("Roboto Condensed", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.Location = New System.Drawing.Point(605, 9)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(224, 25)
+        Me.Label5.Size = New System.Drawing.Size(218, 26)
         Me.Label5.TabIndex = 37
         Me.Label5.Text = "DANH SÁCH NGUYÊN LIỆU"
         '
@@ -323,10 +323,10 @@ Partial Class frmChef
         '
         Me.ltbMessage.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ltbMessage.FormattingEnabled = True
-        Me.ltbMessage.ItemHeight = 20
+        Me.ltbMessage.ItemHeight = 21
         Me.ltbMessage.Location = New System.Drawing.Point(986, 558)
         Me.ltbMessage.Name = "ltbMessage"
-        Me.ltbMessage.Size = New System.Drawing.Size(356, 144)
+        Me.ltbMessage.Size = New System.Drawing.Size(356, 130)
         Me.ltbMessage.TabIndex = 38
         '
         'txtTotalQuantity
@@ -344,7 +344,7 @@ Partial Class frmChef
         Me.Label6.Font = New System.Drawing.Font("Roboto Condensed", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label6.Location = New System.Drawing.Point(332, 9)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(124, 25)
+        Me.Label6.Size = New System.Drawing.Size(122, 26)
         Me.Label6.TabIndex = 40
         Me.Label6.Text = "Số lượng món"
         '
@@ -355,14 +355,14 @@ Partial Class frmChef
         Me.dgvMaterialList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.dgvMaterialList.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvMaterialList.BackgroundColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle33.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle33.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle33.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle33.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle33.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle33.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvMaterialList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle33
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvMaterialList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvMaterialList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvMaterialList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DetailDishID, Me.MaterialID, Me.MaterialName, Me.Decrease, Me.MaterialQuantity, Me.Increase, Me.MaterialUnit, Me.DefaultIncrease})
         Me.dgvMaterialList.Location = New System.Drawing.Point(520, 37)
@@ -414,7 +414,7 @@ Partial Class frmChef
         Me.MaterialQuantity.HeaderText = "Số lượng"
         Me.MaterialQuantity.Name = "MaterialQuantity"
         Me.MaterialQuantity.ReadOnly = True
-        Me.MaterialQuantity.Width = 84
+        Me.MaterialQuantity.Width = 85
         '
         'Increase
         '
@@ -433,7 +433,7 @@ Partial Class frmChef
         Me.MaterialUnit.HeaderText = "Đơn vị"
         Me.MaterialUnit.Name = "MaterialUnit"
         Me.MaterialUnit.ReadOnly = True
-        Me.MaterialUnit.Width = 59
+        Me.MaterialUnit.Width = 69
         '
         'DefaultIncrease
         '
@@ -448,10 +448,10 @@ Partial Class frmChef
         '
         Me.ltbException.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ltbException.FormattingEnabled = True
-        Me.ltbException.ItemHeight = 20
+        Me.ltbException.ItemHeight = 21
         Me.ltbException.Location = New System.Drawing.Point(12, 538)
         Me.ltbException.Name = "ltbException"
-        Me.ltbException.Size = New System.Drawing.Size(502, 164)
+        Me.ltbException.Size = New System.Drawing.Size(502, 151)
         Me.ltbException.TabIndex = 42
         '
         'frmChef

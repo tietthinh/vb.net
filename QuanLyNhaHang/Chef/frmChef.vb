@@ -5,9 +5,17 @@
 '=====================================================================
 
 Imports Library
-
+Imports Remote
+Imports System.Runtime.Remoting
+Imports System.Runtime.Remoting.Channels
+Imports System.Runtime.Remoting.Channels.ChannelServices
+Imports System.Threading
 Public Class frmChef
-
+    Private _ServerObject As ServerObject
+    Private _Username As String
+    Private _Thread As Thread
+    Private _Data As String = ""
+    Private _Logging As String = ""
     Dim db As New DatabaseConnection()
     Dim orderList As DataTable
     Dim cookList As New DataTable()
@@ -18,6 +26,22 @@ Public Class frmChef
     Dim exceptionList As New List(Of Integer)
 
     Private Sub frmChef_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ''*****Service Area********
+        Try
+            ''Initiate connection
+            Dim _Channel As New Http.HttpChannel
+            RegisterChannel(_Channel)
+            InitializeRemoteServer()
+            ''Start thread listening
+            _ServerObject = New ServerObject()
+            _Thread = New Thread(New ThreadStart(Sub() Process()))
+            _Thread.Start()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+            MessageBox.Show("Connection to server failed", "Error Connection")
+            Me.Close()
+        End Try
+        ''*****Service Area********
         Dim parameter As SqlClient.SqlParameter = New SqlClient.SqlParameter("@Time", SqlDbType.Char, 20)
         parameter.Value = "12:09:00"
         Try
@@ -98,14 +122,11 @@ Public Class frmChef
                 row("SoLuong") = item.SubItems("SoLuong").Text
                 cookList.Rows.Add(row)
             Next
-
             dgvCookList.DataSource = cookList
-
             For i As Integer = ltvOrderList.SelectedItems.Count - 1 To 0 Step -1
                 orderList.Rows(ltvOrderList.SelectedItems(i).Index).Delete()
                 ltvOrderList.SelectedItems(i).Remove()
             Next
-
             txtTotalQuantity.Text = ""
         End If
     End Sub
@@ -158,5 +179,28 @@ Public Class frmChef
             Next
             ltbException.Items.Clear()
         End If
+    End Sub
+
+    Private Sub btnSendWaitor_Click(sender As Object, e As EventArgs) Handles btnSendWaitor.Click
+        _ServerObject.AddData("3_01-0005")
+    End Sub
+    Private Sub Process()
+        While (True)
+            Thread.Sleep(0)
+            Dim _Text As String = _ServerObject.GetHolder()
+            _Logging = _Text
+            Dim _Length As Integer = _Data.Length
+            Dim _ReceiveData As String = _Text.Substring(_Length)
+            ''Handles event here.
+            If (_ReceiveData <> "") Then
+                ''Handle your data here
+                MessageBox.Show(_ReceiveData)
+                ''
+            End If
+            _Data = _Text
+        End While
+    End Sub
+    Private Sub InitializeRemoteServer()
+        RemotingConfiguration.RegisterWellKnownClientType(GetType(ServerObject), "http://192.168.145.1:12345/TransferData")
     End Sub
 End Class
