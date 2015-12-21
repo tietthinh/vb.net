@@ -10,16 +10,23 @@ Imports System.Data.SqlClient
 Public Class frmChef
 
     Dim db As New DatabaseConnection()
+
     Dim orderList As DataTable
     Dim cookList As New DataTable()
     Dim cantServeList As New DataTable()
     Dim materialList As New DataTable()
+    Dim currentUsedMaterial As New DataTable()
+
     Dim currentDish As String
+
     Dim currentIndex As Integer
-    Dim exceptionList As New List(Of Integer)
+    Dim currentTotalQuantity As Integer
+    Dim dishTotal As Integer
+
+    Dim exceptionList As New List(Of ListViewItem)
 
     Private Sub frmChef_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim parameter() As SqlClient.SqlParameter = db.CreateParameter(New String() {"@Time"}, New Object() {"12:09:00"})
+        Dim parameter() As SqlClient.SqlParameter = db.CreateParameter(New String() {"@MaChuyen"}, New Object() {"01-0001"})
 
         Try
             db.Open()
@@ -59,14 +66,16 @@ Public Class frmChef
         cookList.Columns.Add(New DataColumn(orderList.Columns("TenMon").ColumnName, orderList.Columns("TenMon").DataType))
         cookList.Columns.Add(New DataColumn(orderList.Columns("SoLuong").ColumnName, orderList.Columns("SoLuong").DataType))
 
+        currentUsedMaterial.Columns.Add("MaSP")    
+        currentUsedMaterial.Columns.Add("SoLuongMotMon")
+        currentUsedMaterial.Columns.Add("SoLuong")
+
         cantServeList = orderList.Clone()
     End Sub
 
     Private Sub ltvOrderList_Click(sender As Object, e As EventArgs) Handles ltvOrderList.Click
-        For i As Integer = 0 To exceptionList.Count - 1 Step 1
-            ltvOrderList.Items(exceptionList(i)).BackColor = SystemColors.Window
-            exceptionList.RemoveAt(i)
-        Next
+        ClearListViewItemBackColor(exceptionList, ltvOrderList)
+        currentTotalQuantity = 0
 
         Dim quantity As Integer = 0
         If ltvOrderList.SelectedItems.Count > 0 Then
@@ -79,14 +88,21 @@ Public Class frmChef
                     If item.SubItems("GhiChu").Text <> "" Then
                         item.Selected = False
                         item.BackColor = Color.Red
-                        exceptionList.Add(item.Index)
+                        exceptionList.Add(item)
                     Else
                         item.Selected = True
+                        currentTotalQuantity += Integer.Parse(item.SubItems("SoLuong").Text)
                     End If
                 End If
             Next
 
+            materialList = LoadMaterial(ltvOrderList.SelectedItems(0).SubItems("MaMon").Text)
+            dgvMaterialList.DataSource = materialList
+
             exceptionList.Reverse()
+
+            currentUsedMaterial.Rows.Clear()
+            currentUsedMaterial = CloneDataTable(materialList, GetAllColumnsName(currentUsedMaterial), currentTotalQuantity)
 
             txtTotalQuantity.Text = quantity.ToString()
         End If
@@ -94,15 +110,20 @@ Public Class frmChef
 
     Private Sub btnCook_Click(sender As Object, e As EventArgs) Handles btnCook.Click
         If ltvOrderList.SelectedItems.Count > 0 Then
+            dishTotal = 0
             For Each item As ListViewItem In ltvOrderList.SelectedItems
                 Dim row As DataRow = cookList.NewRow
                 row("MaChuyen") = item.SubItems("MaChuyen").Text
                 row("TenMon") = item.SubItems("TenMon").Text
                 row("SoLuong") = item.SubItems("SoLuong").Text
                 cookList.Rows.Add(row)
+
+                dishTotal += row("SoLuong")
             Next
 
             dgvCookList.DataSource = cookList
+
+            db.Query("spSanPhamDaDungInsert", db.CreateParameter(New String() {"@DS"}, New Object() {currentUsedMaterial}))
 
             For i As Integer = ltvOrderList.SelectedItems.Count - 1 To 0 Step -1
                 orderList.Rows(ltvOrderList.SelectedItems(i).Index).Delete()
@@ -126,6 +147,7 @@ Public Class frmChef
         currentDish = ""
         currentDish = Nothing
         currentIndex = Nothing
+        currentTotalQuantity = Nothing
     End Sub
 
     Private Sub dgvCookList_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCookList.CellContentClick
@@ -144,22 +166,30 @@ Public Class frmChef
     Private Sub ltvOrderList_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles ltvOrderList.MouseDoubleClick
         ltbException.Items.Clear()
         ltvOrderList.SelectedItems.Clear()
+        currentTotalQuantity = 0
+
         currentIndex = ltvOrderList.InsertionMark.NearestIndex(New Point(e.X, e.Y))
         ltvOrderList.Items(currentIndex).Selected = True
         If ltvOrderList.SelectedItems.Count > 0 Then
             ltbException.Items.Add(ltvOrderList.SelectedItems(0).SubItems("GhiChu").Text)
+            currentTotalQuantity = Integer.Parse(ltvOrderList.SelectedItems(0).SubItems("SoLuong").Text)
+
+            materialList = LoadMaterial(ltvOrderList.SelectedItems(0).SubItems("MaMon").Text)
+            dgvMaterialList.DataSource = materialList
+
+            currentUsedMaterial.Rows.Clear()
+            currentUsedMaterial = CloneDataTable(materialList, GetAllColumnsName(currentUsedMaterial), currentTotalQuantity)
         End If
     End Sub
 
     Private Sub ltvOrderList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ltvOrderList.SelectedIndexChanged
         If ltvOrderList.SelectedItems.Count <= 0 Then
-            'For i As Integer = 0 To exceptionList.Count - 1 Step 1
-            '    ltvOrderList.Items(exceptionList(i)).BackColor = SystemColors.Window
-            '    exceptionList.RemoveAt(i)
-            'Next
             ClearListViewItemBackColor(exceptionList, ltvOrderList)
 
             ltbException.Items.Clear()
+            materialList.Rows.Clear()
+
+            dgvMaterialList.DataSource = materialList
         End If
     End Sub
 End Class
