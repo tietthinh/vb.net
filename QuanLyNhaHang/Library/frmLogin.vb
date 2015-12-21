@@ -41,7 +41,7 @@ Public Class frmLogin
     Public Sub New(ByRef user As User)
         Me.InitializeComponent()
 
-        _ReturnUser = user
+        user = _ReturnUser
     End Sub
 
     'Events:
