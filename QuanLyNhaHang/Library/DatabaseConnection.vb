@@ -50,7 +50,7 @@ Public Class DatabaseConnection
     ''' Open the current connection to Database. 
     ''' </summary>
     ''' <remarks></remarks>
-    Public Sub Open()
+    Private Sub Open()
         Try
             _Connecter.Open()
         Catch ex As SqlException
@@ -62,7 +62,7 @@ Public Class DatabaseConnection
     ''' Close the current connection to Database.
     ''' </summary>
     ''' <remarks></remarks>
-    Public Sub Close()
+    Private Sub Close()
         Try
             _Connecter.Close()
         Catch ex As SqlException
@@ -178,9 +178,12 @@ Public Class DatabaseConnection
     ''' </summary>
     ''' <param name="_Query">Command for executing Stored Procedure.</param>
     ''' <param name="Parameter">List of parameters matching Stored Procedure's parameters.</param>
+    ''' <returns>The number of inserted/deleted/updated rows.</returns>
     ''' <remarks></remarks>
-    Public Sub Update(ByVal _Query As String, ByVal ParamArray parameter() As SqlParameter)
+    Public Function Update(ByVal _Query As String, ByVal ParamArray parameter() As SqlParameter) As Integer
         Dim cmd As SqlCommand = _Connecter.CreateCommand()
+        Dim rowCount As Integer
+
         cmd.CommandText = _Query
         cmd.CommandType = CommandType.StoredProcedure
 
@@ -189,14 +192,20 @@ Public Class DatabaseConnection
         End If
 
         Try
-            cmd.ExecuteNonQuery()
+            Me.Open()
+
+            rowCount = cmd.ExecuteNonQuery()
         Catch ex As SqlException
             Throw ex
         Finally
+            Me.Close()
+
             cmd.Dispose()
             cmd = Nothing
         End Try
-    End Sub
+
+        Return rowCount
+    End Function
 
     ''' <summary>
     ''' Insert/Delete/Update Database from DataTable into Table in Database.
@@ -227,6 +236,21 @@ Public Class DatabaseConnection
     End Sub
 
     ''' <summary>
+    ''' Create a list of parameters for Query command.
+    ''' </summary>
+    ''' <param name="listParameterName">List of parameters' name.</param>
+    ''' <param name="listParameterValue">List of parameters' value.</param>
+    ''' <returns>List of parameters.</returns>
+    ''' <remarks></remarks>
+    Public Function CreateParameter(ByVal listParameterName() As String, ByVal listParameterValue() As Object) As SqlParameter()
+        Dim parameter(listParameterName.Length - 1) As SqlClient.SqlParameter
+        For i As Integer = 0 To parameter.Length - 1 Step 1
+            parameter(i) = New SqlParameter(listParameterName(i), listParameterValue(i))
+        Next
+        Return parameter
+    End Function
+
+    ''' <summary>
     ''' Check employee's information in form.
     ''' </summary>
     ''' <param name="username">Employee's Username.</param>
@@ -243,14 +267,14 @@ Public Class DatabaseConnection
         Dim accountList As New DataTable()
 
         Try
-            Open()
+            Me.Open()
             accountList = Query("Select TenDN, MatKhau From TaiKhoanNhanVien")
         Catch ex As SqlException
             accountList.Dispose()
             accountList = Nothing
             Throw ex
         Finally
-            Close()
+            Me.Close()
         End Try
 
         For Each row As DataRow In accountList.Rows
@@ -291,21 +315,23 @@ Public Class DatabaseConnection
         Dim accountList As New DataTable()
 
         Try
-            Open()
+            Me.Open()
             accountList = Query("Select TKNV.TenDN, TKNV.MatKhau, NV.cmnd, NV.MaNV, NV.HoTen " + _
                                 "From TaiKhoanNhanVien TKNV, NhanVien NV " + _
                                 "Where NV.MaNV = TKNV.MaNV")
         Catch ex As SqlException
             Throw ex
         Finally
-            Close()
+            Me.Close()
         End Try
 
         For Each row As DataRow In accountList.Rows
             If username = row("TenDN") And GetMd5Hash(password, row("cmnd").ToString().Trim()) = row("MatKhau") Then
                 user = New User(row("MaNV"), row("HoTen"))
+
                 accountList.Dispose()
                 accountList = Nothing
+
                 Return True
             End If
         Next
@@ -313,6 +339,7 @@ Public Class DatabaseConnection
         accountList.Dispose()
         accountList = Nothing
         user = Nothing
+
         Return False
     End Function
 

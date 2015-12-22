@@ -25,6 +25,7 @@ Partial Class frmChef
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.dgvCookList = New System.Windows.Forms.DataGridView()
         Me.CookListTransID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CookListDishName = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -68,6 +69,7 @@ Partial Class frmChef
         Me.MaterialUnit = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DefaultIncrease = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ltbException = New System.Windows.Forms.ListBox()
+        Me.lblMaterialQuantity = New System.Windows.Forms.Label()
         CType(Me.dgvCookList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvMaterialList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -130,7 +132,7 @@ Partial Class frmChef
         Me.CookListQuantity.HeaderText = "Số lượng"
         Me.CookListQuantity.Name = "CookListQuantity"
         Me.CookListQuantity.ReadOnly = True
-        Me.CookListQuantity.Width = 92
+        Me.CookListQuantity.Width = 91
         '
         'CookListDone
         '
@@ -178,7 +180,7 @@ Partial Class frmChef
         Me.Label1.Font = New System.Drawing.Font("Roboto Condensed", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.Location = New System.Drawing.Point(16, 9)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(185, 26)
+        Me.Label1.Size = New System.Drawing.Size(194, 25)
         Me.Label1.TabIndex = 8
         Me.Label1.Text = "DANH SÁCH ĐẶT MÓN"
         '
@@ -188,7 +190,7 @@ Partial Class frmChef
         Me.Label2.Font = New System.Drawing.Font("Roboto Condensed", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.Location = New System.Drawing.Point(148, 509)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(178, 26)
+        Me.Label2.Size = New System.Drawing.Size(183, 25)
         Me.Label2.TabIndex = 9
         Me.Label2.Text = "DANH SÁCH GHI CHÚ"
         '
@@ -198,7 +200,7 @@ Partial Class frmChef
         Me.Label3.Font = New System.Drawing.Font("Roboto Condensed", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.Location = New System.Drawing.Point(586, 530)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(258, 26)
+        Me.Label3.Size = New System.Drawing.Size(269, 25)
         Me.Label3.TabIndex = 10
         Me.Label3.Text = "DANH SÁCH KHÔNG LÀM ĐƯỢC"
         '
@@ -208,7 +210,7 @@ Partial Class frmChef
         Me.Label4.Font = New System.Drawing.Font("Roboto Condensed", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.Location = New System.Drawing.Point(1007, 9)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(237, 26)
+        Me.Label4.Size = New System.Drawing.Size(249, 25)
         Me.Label4.TabIndex = 11
         Me.Label4.Text = "DANH SÁCH MÓN ĐANG LÀM"
         '
@@ -315,7 +317,7 @@ Partial Class frmChef
         Me.Label5.Font = New System.Drawing.Font("Roboto Condensed", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.Location = New System.Drawing.Point(605, 9)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(218, 26)
+        Me.Label5.Size = New System.Drawing.Size(224, 25)
         Me.Label5.TabIndex = 37
         Me.Label5.Text = "DANH SÁCH NGUYÊN LIỆU"
         '
@@ -323,10 +325,10 @@ Partial Class frmChef
         '
         Me.ltbMessage.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ltbMessage.FormattingEnabled = True
-        Me.ltbMessage.ItemHeight = 21
+        Me.ltbMessage.ItemHeight = 20
         Me.ltbMessage.Location = New System.Drawing.Point(986, 558)
         Me.ltbMessage.Name = "ltbMessage"
-        Me.ltbMessage.Size = New System.Drawing.Size(356, 130)
+        Me.ltbMessage.Size = New System.Drawing.Size(356, 144)
         Me.ltbMessage.TabIndex = 38
         '
         'txtTotalQuantity
@@ -344,7 +346,7 @@ Partial Class frmChef
         Me.Label6.Font = New System.Drawing.Font("Roboto Condensed", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label6.Location = New System.Drawing.Point(332, 9)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(122, 26)
+        Me.Label6.Size = New System.Drawing.Size(124, 25)
         Me.Label6.TabIndex = 40
         Me.Label6.Text = "Số lượng món"
         '
@@ -367,7 +369,6 @@ Partial Class frmChef
         Me.dgvMaterialList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DetailDishID, Me.MaterialID, Me.MaterialName, Me.Decrease, Me.MaterialQuantity, Me.Increase, Me.MaterialUnit, Me.DefaultIncrease})
         Me.dgvMaterialList.Location = New System.Drawing.Point(520, 37)
         Me.dgvMaterialList.Name = "dgvMaterialList"
-        Me.dgvMaterialList.ReadOnly = True
         Me.dgvMaterialList.Size = New System.Drawing.Size(406, 406)
         Me.dgvMaterialList.TabIndex = 41
         '
@@ -376,7 +377,6 @@ Partial Class frmChef
         Me.DetailDishID.DataPropertyName = "MaMon"
         Me.DetailDishID.HeaderText = "Mã món"
         Me.DetailDishID.Name = "DetailDishID"
-        Me.DetailDishID.ReadOnly = True
         Me.DetailDishID.Visible = False
         Me.DetailDishID.Width = 86
         '
@@ -385,7 +385,6 @@ Partial Class frmChef
         Me.MaterialID.DataPropertyName = "MaSP"
         Me.MaterialID.HeaderText = "Mã nguyên liệu"
         Me.MaterialID.Name = "MaterialID"
-        Me.MaterialID.ReadOnly = True
         Me.MaterialID.Visible = False
         Me.MaterialID.Width = 131
         '
@@ -395,14 +394,12 @@ Partial Class frmChef
         Me.MaterialName.DataPropertyName = "TenSP"
         Me.MaterialName.HeaderText = "Nguyên liệu"
         Me.MaterialName.Name = "MaterialName"
-        Me.MaterialName.ReadOnly = True
         '
         'Decrease
         '
         Me.Decrease.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.Decrease.HeaderText = ""
         Me.Decrease.Name = "Decrease"
-        Me.Decrease.ReadOnly = True
         Me.Decrease.Text = "-"
         Me.Decrease.UseColumnTextForButtonValue = True
         Me.Decrease.Width = 5
@@ -411,17 +408,18 @@ Partial Class frmChef
         '
         Me.MaterialQuantity.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.MaterialQuantity.DataPropertyName = "SoLuong"
+        DataGridViewCellStyle4.Format = "#,###0.#######"
+        DataGridViewCellStyle4.NullValue = Nothing
+        Me.MaterialQuantity.DefaultCellStyle = DataGridViewCellStyle4
         Me.MaterialQuantity.HeaderText = "Số lượng"
         Me.MaterialQuantity.Name = "MaterialQuantity"
-        Me.MaterialQuantity.ReadOnly = True
-        Me.MaterialQuantity.Width = 85
+        Me.MaterialQuantity.Width = 84
         '
         'Increase
         '
         Me.Increase.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.Increase.HeaderText = ""
         Me.Increase.Name = "Increase"
-        Me.Increase.ReadOnly = True
         Me.Increase.Text = "+"
         Me.Increase.UseColumnTextForButtonValue = True
         Me.Increase.Width = 5
@@ -432,15 +430,13 @@ Partial Class frmChef
         Me.MaterialUnit.DataPropertyName = "TenDV"
         Me.MaterialUnit.HeaderText = "Đơn vị"
         Me.MaterialUnit.Name = "MaterialUnit"
-        Me.MaterialUnit.ReadOnly = True
-        Me.MaterialUnit.Width = 69
+        Me.MaterialUnit.Width = 59
         '
         'DefaultIncrease
         '
         Me.DefaultIncrease.DataPropertyName = "DoTangMacDinh"
         Me.DefaultIncrease.HeaderText = "Giá trị tăng mặc định"
         Me.DefaultIncrease.Name = "DefaultIncrease"
-        Me.DefaultIncrease.ReadOnly = True
         Me.DefaultIncrease.Visible = False
         Me.DefaultIncrease.Width = 169
         '
@@ -448,17 +444,28 @@ Partial Class frmChef
         '
         Me.ltbException.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ltbException.FormattingEnabled = True
-        Me.ltbException.ItemHeight = 21
+        Me.ltbException.ItemHeight = 20
         Me.ltbException.Location = New System.Drawing.Point(12, 538)
         Me.ltbException.Name = "ltbException"
-        Me.ltbException.Size = New System.Drawing.Size(502, 151)
+        Me.ltbException.Size = New System.Drawing.Size(502, 164)
         Me.ltbException.TabIndex = 42
+        '
+        'lblMaterialQuantity
+        '
+        Me.lblMaterialQuantity.AutoSize = True
+        Me.lblMaterialQuantity.Location = New System.Drawing.Point(835, 18)
+        Me.lblMaterialQuantity.Name = "lblMaterialQuantity"
+        Me.lblMaterialQuantity.Size = New System.Drawing.Size(93, 13)
+        Me.lblMaterialQuantity.TabIndex = 43
+        Me.lblMaterialQuantity.Text = "Material's Quantity"
+        Me.lblMaterialQuantity.Visible = False
         '
         'frmChef
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1354, 705)
+        Me.Controls.Add(Me.lblMaterialQuantity)
         Me.Controls.Add(Me.ltbException)
         Me.Controls.Add(Me.dgvMaterialList)
         Me.Controls.Add(Me.Label6)
@@ -515,6 +522,10 @@ Partial Class frmChef
     Friend WithEvents CantServeTimeOrder As System.Windows.Forms.ColumnHeader
     Friend WithEvents CantServeTransID As System.Windows.Forms.ColumnHeader
     Friend WithEvents CantServeNote As System.Windows.Forms.ColumnHeader
+    Friend WithEvents CookListTransID As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents CookListDishName As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents CookListQuantity As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents CookListDone As System.Windows.Forms.DataGridViewButtonColumn
     Friend WithEvents DetailDishID As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents MaterialID As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents MaterialName As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -523,8 +534,5 @@ Partial Class frmChef
     Friend WithEvents Increase As System.Windows.Forms.DataGridViewButtonColumn
     Friend WithEvents MaterialUnit As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents DefaultIncrease As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents CookListTransID As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents CookListDishName As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents CookListQuantity As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents CookListDone As System.Windows.Forms.DataGridViewButtonColumn
+    Friend WithEvents lblMaterialQuantity As System.Windows.Forms.Label
 End Class
