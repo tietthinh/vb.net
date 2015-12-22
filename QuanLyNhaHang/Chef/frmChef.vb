@@ -11,6 +11,8 @@ Public Class frmChef
 
     Dim db As New DatabaseConnection()
 
+    Dim frmNumpad As frmNumPad
+
     Dim orderList As DataTable
     Dim cookList As New DataTable()
     Dim cantServeList As New DataTable()
@@ -22,6 +24,7 @@ Public Class frmChef
     Dim currentIndex As Integer
     Dim currentTotalQuantity As Integer
     Dim dishTotal As Integer
+    Dim currentMaterialRow As Integer
 
     Dim exceptionList As New List(Of ListViewItem)
 
@@ -29,10 +32,8 @@ Public Class frmChef
         Dim parameter() As SqlClient.SqlParameter = db.CreateParameter(New String() {"@MaChuyen"}, New Object() {"01-0001"})
 
         Try
-            db.Open()
             orderList = db.Query("spDSDatMonTrongNgaySelect", parameter)
         Catch ex As SqlException
-            db.Close()
             Throw ex
         End Try
 
@@ -140,7 +141,6 @@ Public Class frmChef
     End Sub
 
     Private Sub frmChef_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        db.Close()
         db.Dispose()
 
         orderList.Dispose()
@@ -207,24 +207,39 @@ Public Class frmChef
         End If
     End Sub
 
-    Private Sub dgvMaterialList_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvMaterialList.CellContentClick
-        Dim dgv As DataGridView = DirectCast(sender, DataGridView)
-        Dim column As DataGridViewColumn = dgv.Columns(e.ColumnIndex)
+    Private Sub dgvMaterialList_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvMaterialList.CellClick
+        If e.ColumnIndex >= 0 Then
+            Dim dgv As DataGridView = DirectCast(sender, DataGridView)
+            Dim column As DataGridViewColumn = dgv.Columns(e.ColumnIndex)
 
-        If TypeOf column Is DataGridViewButtonColumn AndAlso e.RowIndex >= 0 Then
-            If column.Name = "Increase" Then
-                dgv.Rows(e.RowIndex).Cells("MaterialQuantity").Value += dgv.Rows(e.RowIndex).Cells("DefaultIncrease").Value
-            Else
-                Dim i As Double = dgv.Rows(e.RowIndex).Cells("MaterialQuantity").Value - dgv.Rows(e.RowIndex).Cells("DefaultIncrease").Value
-                If i >= 0 Then
-                    dgv.Rows(e.RowIndex).Cells("MaterialQuantity").Value = i
+            If TypeOf column Is DataGridViewButtonColumn AndAlso e.RowIndex >= 0 Then
+                If column.Name = "Increase" Then
+                    dgv.Rows(e.RowIndex).Cells("MaterialQuantity").Value += dgv.Rows(e.RowIndex).Cells("DefaultIncrease").Value
                 Else
-                    dgv.Rows(e.RowIndex).Cells("MaterialQuantity").Value = 0
+                    Dim i As Double = dgv.Rows(e.RowIndex).Cells("MaterialQuantity").Value - dgv.Rows(e.RowIndex).Cells("DefaultIncrease").Value
+                    If i >= 0 Then
+                        dgv.Rows(e.RowIndex).Cells("MaterialQuantity").Value = i
+                    Else
+                        dgv.Rows(e.RowIndex).Cells("MaterialQuantity").Value = 0
+                    End If
                 End If
+
+            ElseIf TypeOf column Is DataGridViewTextBoxColumn AndAlso e.RowIndex >= 0 And column.Name = "MaterialQuantity" Then
+                currentMaterialRow = e.RowIndex
+
+                AddHandler lblMaterialQuantity.TextChanged, AddressOf lblMaterialQuantity_TextChanged
+
+                frmNumpad = New frmNumPad(lblMaterialQuantity)
+                frmNumpad.Show()
             End If
-        ElseIf TypeOf column Is DataGridViewTextBoxColumn AndAlso e.RowIndex >= 0 And column.Name = "MaterialQuantity" Then
-            Dim frmNumpad As New frmNumPad(dgv.Rows(e.RowIndex).Cells("SoLuong").Value)
-            frmNumpad.Show()
         End If
+    End Sub
+
+    Private Sub lblMaterialQuantity_TextChanged(sender As Object, e As EventArgs)
+        Try
+            dgvMaterialList.Rows(currentMaterialRow).Cells("MaterialQuantity").Value = lblMaterialQuantity.Text
+        Catch ex As Exception
+            dgvMaterialList.Rows(currentMaterialRow).Cells("MaterialQuantity").Value = Math.Round(Double.Parse(lblMaterialQuantity.Text))
+        End Try
     End Sub
 End Class
