@@ -6,6 +6,7 @@
 '=====================================================================
 
 Public Class User
+
     'Fields:
     ''' <summary>
     ''' Employee's Identity.
@@ -45,6 +46,16 @@ Public Class User
     End Property
 
     'Constructors:
+
+    ''' <summary>
+    ''' Default constructor.
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Sub New()
+        _Identity = ""
+        _EmployeeName = ""
+    End Sub
+
     ''' <summary>
     ''' Constructor gets two parameters to set value for User object.
     ''' </summary>

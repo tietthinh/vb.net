@@ -20,12 +20,18 @@ Module Chef_Process
         Dim materialList As DataTable
 
         Try
+<<<<<<< HEAD
             db.Open()
             materialList = db.Query("spCTLamMonSelect", db.CreateParameter(New String() {"@MaMon"}, New Object() {_DishID}))
         Catch ex As Exception
             Throw ex
         Finally
             db.Close()
+=======
+            materialList = db.Query("spCTLamMonSelect", db.CreateParameter(New String() {"@MaMon"}, New Object() {_DishID}))
+        Catch ex As Exception
+            Throw ex
+>>>>>>> 89f8d23eefdff0e048a53d2516a0bcd504778cbd
         End Try
 
         db.Dispose()
@@ -63,4 +69,9 @@ Module Chef_Process
 
         Return destinationDataTable
     End Function
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 89f8d23eefdff0e048a53d2516a0bcd504778cbd
 End Module
