@@ -64,22 +64,29 @@ Public Class frmManager
             dgvNhanVien.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString, dt(2), dt(3).ToString, TinhTrangNV, dt(5), dt(6).ToString, LoaiNV, dt(8).ToString, dt(9).ToString})
         Next
 
-        Dim table1 As New DataTable
-        table1 = _connect.Query("Select distinct NV.LoaiNhanVien, NV.MaNV From  NhanVien NV, ChucVuNhanVien CV Where CV.MaChucVu = NV.MaChucVu")
-        'cboLoaiNV.DataSource = table1
+        Dim _Table1 As New DataTable
+        _Table1 = _connect.Query("Select distinct NV.LoaiNhanVien, NV.MaNV From  NhanVien NV, ChucVuNhanVien CV Where CV.MaChucVu = NV.MaChucVu")
+        'cboLoaiNV.DataSource = _Table1
         'cboLoaiNV.DisplayMember = "LoaiNhanVien"
         'cboLoaiNV.ValueMember = "MaNV"
 
-        cboLoaiNV.Items.Insert(0, "Parttime")
-        cboLoaiNV.Items.Insert(1, "Fulltime")
-        cboLoaiNV.SelectedIndex = 0
+        cboKhaNang_NV.Items.Insert(0, "Parttime")
+        cboKhaNang_NV.Items.Insert(1, "Fulltime")
+        cboKhaNang_NV.SelectedIndex = 0
 
 
-        Dim table2 As New DataTable
-        table2 = _connect.Query("Select distinct CV.TenChucVu, CV.MaChucVu From  NhanVien NV, ChucVuNhanVien CV Where CV.MaChucVu = NV.MaChucVu")
-        cboTenChucVu.DataSource = table2
+        Dim _Table2 As New DataTable
+        _Table2 = _connect.Query("Select distinct CV.TenChucVu, CV.MaChucVu From  NhanVien NV, ChucVuNhanVien CV Where CV.MaChucVu = NV.MaChucVu")
+        cboTenChucVu.DataSource = _Table2
         cboTenChucVu.DisplayMember = "TenChucVu"
         cboTenChucVu.ValueMember = "MaChucVu"
+
+        Dim _Table3 As New DataTable
+        _Table3 = _connect.Query("Select MaNV, TenPhanMem  From KhaNangViTinhCuaNhanVien")
+        cboKhaNang_NV.DataSource = _Table3
+        cboKhaNang_NV.DisplayMember = "TenPhanMem"
+        cboKhaNang_NV.ValueMember = "MaNV"
+
 
     End Sub
     Private Sub frmManager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -133,7 +140,7 @@ Public Class frmManager
                 '_connect.Open()
                 _query = "Insert into NhanVien(MaNV, TGBatDau, cmnd, HoTen, TinhTrang, NgaySinh, GioiTinh, LoaiNhanVien, MaChucVu) values('NV0031'," + "'" + dtpThoiGianBD.Value.ToString("yyyy-MM-dd") + "','" +
                     txtcmnd.Text.ToString + "', N'" + txtTen.Text.ToString + "','" + _tinhtrang + "','" + dtpNgaySinh.Value.ToString("yyyy-MM-dd") + "','" + _gioitinh + "','" +
-                    cboLoaiNV.SelectedIndex.ToString + "','" + cboTenChucVu.SelectedValue.ToString + "')"
+                    cboKhaNang_NV.SelectedIndex.ToString + "','" + cboTenChucVu.SelectedValue.ToString + "')"
                 _connect.Query(_query)
                 '_connect.Close()
             End If
@@ -192,7 +199,7 @@ Public Class frmManager
                     dtpThoiGianBD.Value.ToString("yyyy-MM-dd") + "',cmnd ='" +
                 txtcmnd.Text.ToString.Trim + "', HoTen = N'" + txtTen.Text.ToString.Trim + "', TinhTrang = '" + _tinhtrang + "', NgaySinh = '" +
                 dtpNgaySinh.Value.ToString("yyyy-MM-dd") + "', GioiTinh = '" + _gioitinh + "', LoaiNhanVien = '" +
-                cboLoaiNV.SelectedIndex.ToString + "', MaChucVu = '" + cboTenChucVu.SelectedValue.ToString.Trim + "'" + "Where MaNV ='" +
+                cboKhaNang_NV.SelectedIndex.ToString + "', MaChucVu = '" + cboTenChucVu.SelectedValue.ToString.Trim + "'" + "Where MaNV ='" +
                  txtMaNV.Text.Trim + "'"
                 _connect.Query(_query)
                 '_connect.Close()
@@ -308,11 +315,11 @@ Public Class frmManager
             txtcmnd.Text = dgvNhanVien.Rows(e.RowIndex).Cells("CMND").Value.ToString()
             dtpNgaySinh.Text = dgvNhanVien.Rows(e.RowIndex).Cells("NgaySinh").Value.ToString()
             Dim LoaiNV As String = ""
-            cboLoaiNV.Text = dgvNhanVien.Rows(e.RowIndex).Cells("LoaiNhanVien").Value.ToString
+            cboKhaNang_NV.Text = dgvNhanVien.Rows(e.RowIndex).Cells("LoaiNhanVien").Value.ToString
             If LoaiNV = "True" Then
-                cboLoaiNV.SelectedIndex = 1
+                cboKhaNang_NV.SelectedIndex = 1
             Else
-                cboLoaiNV.SelectedIndex = 0
+                cboKhaNang_NV.SelectedIndex = 0
             End If
             txtTen.Text = dgvNhanVien.Rows(e.RowIndex).Cells("HoTen").Value.ToString()
 
@@ -328,7 +335,7 @@ Public Class frmManager
                 rdoDangLam.Checked = True
             End If
 
-            cboLoaiNV.SelectedValue = dgvNhanVien.Rows(e.RowIndex).Cells("LoaiNhanVien").Value
+            cboKhaNang_NV.SelectedValue = dgvNhanVien.Rows(e.RowIndex).Cells("LoaiNhanVien").Value
             cboTenChucVu.SelectedValue = dgvNhanVien.Rows(e.RowIndex).Cells("MaChucVu").Value
             dtpNgaySinh.Value = dgvNhanVien.Rows(e.RowIndex).Cells("NgaySinh").Value.ToString
 
