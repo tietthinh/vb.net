@@ -24,6 +24,12 @@ Public Class DatabaseConnection
         ConfigurationManager.ConnectionStrings("Restaurant Management")
 
     ''' <summary>
+    ''' Employee's account information.
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Shared _User As New User()
+
+    ''' <summary>
     ''' Gets or Sets the current connecter of Library.DatabaseConnection.
     ''' </summary>
     ''' <value></value>
@@ -50,7 +56,7 @@ Public Class DatabaseConnection
     ''' Open the current connection to Database. 
     ''' </summary>
     ''' <remarks></remarks>
-    Public Sub Open()
+    Private Sub Open()
         Try
             _Connecter.Open()
         Catch ex As SqlException
@@ -62,7 +68,7 @@ Public Class DatabaseConnection
     ''' Close the current connection to Database.
     ''' </summary>
     ''' <remarks></remarks>
-    Public Sub Close()
+    Private Sub Close()
         Try
             _Connecter.Close()
         Catch ex As SqlException
@@ -192,10 +198,14 @@ Public Class DatabaseConnection
         End If
 
         Try
+            Me.Open()
+
             rowCount = cmd.ExecuteNonQuery()
         Catch ex As SqlException
             Throw ex
         Finally
+            Me.Close()
+
             cmd.Dispose()
             cmd = Nothing
         End Try
@@ -263,14 +273,14 @@ Public Class DatabaseConnection
         Dim accountList As New DataTable()
 
         Try
-            Open()
+            Me.Open()
             accountList = Query("Select TenDN, MatKhau From TaiKhoanNhanVien")
         Catch ex As SqlException
             accountList.Dispose()
             accountList = Nothing
             Throw ex
         Finally
-            Close()
+            Me.Close()
         End Try
 
         For Each row As DataRow In accountList.Rows
@@ -311,21 +321,23 @@ Public Class DatabaseConnection
         Dim accountList As New DataTable()
 
         Try
-            Open()
+            Me.Open()
             accountList = Query("Select TKNV.TenDN, TKNV.MatKhau, NV.cmnd, NV.MaNV, NV.HoTen " + _
                                 "From TaiKhoanNhanVien TKNV, NhanVien NV " + _
                                 "Where NV.MaNV = TKNV.MaNV")
         Catch ex As SqlException
             Throw ex
         Finally
-            Close()
+            Me.Close()
         End Try
 
         For Each row As DataRow In accountList.Rows
             If username = row("TenDN") And GetMd5Hash(password, row("cmnd").ToString().Trim()) = row("MatKhau") Then
                 user = New User(row("MaNV"), row("HoTen"))
+
                 accountList.Dispose()
                 accountList = Nothing
+
                 Return True
             End If
         Next
@@ -333,6 +345,7 @@ Public Class DatabaseConnection
         accountList.Dispose()
         accountList = Nothing
         user = Nothing
+
         Return False
     End Function
 

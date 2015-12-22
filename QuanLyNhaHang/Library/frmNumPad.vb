@@ -19,24 +19,37 @@ Public Class frmNumPad
     ''' Maximum dish/material can be ordered/used.
     ''' </summary>
     ''' <remarks></remarks>
-    Dim _MaxValue As Double = 1500
+    Dim _MaxValue As Double = 10000
 
     ''' <summary>
-    ''' Control receives value.
+    ''' Enable dot button if true.
     ''' </summary>
     ''' <remarks></remarks>
-    Public _Control As Control
+    Dim _EnableDotButton As Boolean
+
+    ''' <summary>
+    ''' Control receives value from this form.
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private _Control As Control
+
+    ''' <summary>
+    ''' Value to receive dot value.
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private _TempValue As String = "0"
 
     'Constructors:
     ''' <summary>
     ''' Constructor gets a control to set value into that control. 
     ''' </summary>
-    ''' <param name="control">Control that receives value.</param>
+    ''' <param name="control">Control's Property that receives value.</param>
     ''' <remarks></remarks>
-    Public Sub New(ByRef control As Control)
+    Public Sub New(ByRef control As Control, Optional lock As Boolean = False)
         Me.InitializeComponent()
 
         _Control = control
+        _EnableDotButton = lock
     End Sub
 
     'Events:
@@ -48,20 +61,22 @@ Public Class frmNumPad
     Private Sub NumPad_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Remove border to prevent resize this form
         Me.FormBorderStyle = FormBorderStyle.None
+
+        btnDot.Enabled = _EnableDotButton
     End Sub
     '
     'Button's Event
     '
     'Click: Occur when the button is clicked
     '
-    Public Sub Button_Click(sender As Object, e As EventArgs) Handles btn0.Click, btn1.Click, btn2.Click,
-             btn3.Click, btn4.Click, btn5.Click, btn6.Click, btn7.Click, btn8.Click, btn9.Click,
-             btnComma.Click, btnDot.Click
+    Public Sub Button_Click(sender As Object, e As EventArgs) Handles btn0.Click, btn1.Click, btn2.Click, _
+             btn3.Click, btn4.Click, btn5.Click, btn6.Click, btn7.Click, btn8.Click, btn9.Click, btnDot.Click
         _SelectedButton = CType(sender, Button)
-        If _Control.Text = "" Or UShort.Parse(_Control.Text) <= _MaxValue Then
-            _Control.Text += _SelectedButton.Text
+        If _TempValue = "" Or Double.Parse(_TempValue) <= _MaxValue Then
+            _TempValue += _SelectedButton.Text
         Else
-            _Control.Text = _MaxValue.ToString()
+            _TempValue = _MaxValue.ToString()
         End If
+        _Control.Text = _TempValue
     End Sub
 End Class

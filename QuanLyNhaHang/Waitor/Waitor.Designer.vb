@@ -355,7 +355,7 @@ Partial Class NhanVien
         'nudGuestCount
         '
         Me.nudGuestCount.Location = New System.Drawing.Point(1274, 586)
-        Me.nudGuestCount.Maximum = New Decimal(New Integer() {8, 0, 0, 0})
+        Me.nudGuestCount.Maximum = New Decimal(New Integer() {80000, 0, 0, 0})
         Me.nudGuestCount.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.nudGuestCount.Name = "nudGuestCount"
         Me.nudGuestCount.Size = New System.Drawing.Size(73, 20)

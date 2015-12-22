@@ -7,6 +7,7 @@ Imports System.Runtime.Remoting.Channels.ChannelServices
 Imports System.Threading
 Imports System.Net
 Imports System.Configuration
+Imports System.Runtime.Remoting.Channels.Http
 
 Public Class NhanVien
     Private _frmNumpad As frmNumPad
@@ -14,14 +15,17 @@ Public Class NhanVien
     Private _IsSelected As Boolean = False
     Private _PictureBoxEffect As PictureBox
     Private _SelectedTable As PictureBox
+    Private _PreviousTable As New PictureBox
     Private _ServerObject As ServerObject
     Private _Thread As Thread
     Private _Data As String = ""
     Private _Logging As String = ""
+
     Private _CurrentUser As User = Nothing
+
     Private _ParameterInput() As SqlParameter
     Private _ParameterOutput() As SqlParameter
-    Private _OrderHolder() As List(Of String)
+    Private _ListTable As New List(Of Table)
     Public Sub New()
         ' This call is required by the designer.
         InitializeComponent()
@@ -35,37 +39,100 @@ Public Class NhanVien
     Private Sub picTable01_Click(sender As Object, e As EventArgs) Handles picTable01.Click, picTable02.Click, picTable03.Click, picTable04.Click,
         picTable05.Click, picTable06.Click, picTable07.Click, picTable08.Click, picTable09.Click
         _SelectedTable = CType(sender, PictureBox)
-        If (_IsSelected = False) Then
-            Dim a As Integer = MessageBox.Show("Vui lòng kiểm tra số bàn!" + vbCrLf + "Bạn đang chọn bàn số " + _SelectedTable.Name.Last, "Xác Nhận", MessageBoxButtons.OKCancel)
-            If (a = 1) Then
-                Dim _Number As String = "BÀN " + _SelectedTable.Name.Last
-                _PictureBoxEffect = _SelectedTable
-                _PictureBoxEffect.BackColor = Color.RoyalBlue
-                lblTittle.Text = "DANH SÁCH MÓN ĂN " + _Number
-                lstMenu.Enabled = True
-                _IsSelected = True
-                AppProvider._IsCommitted = False
-                UpdateTableStatus(1)
-                LoadMenu()
-            End If
-        Else
-            ''Multi-table saver
-            Dim _ListOrder As List(Of String) = Nothing
-            For i As Integer = 0 To dgvList.Rows.Count - 1 Step 1
-                _ListOrder.Add(_SelectedTable.Name.Last)
-                _ListOrder.Add(dgvList.Rows(i).Cells(0).Value.ToString())
-                _ListOrder.Add(dgvList.Rows(i).Cells(1).Value.ToString())
-                _ListOrder.Add(dgvList.Rows(i).Cells(2).Value.ToString())
-                _ListOrder.Add(dgvList.Rows(i).Cells(3).Value.ToString())
-                _ListOrder.Add(dgvList.Rows(i).Cells(4).Value.ToString())
-                _ListOrder.Add(dgvList.Rows(i).Cells(5).Value.ToString())
-                _ListOrder.Add(dgvList.Rows(i).Cells(6).Value.ToString())
-                Array.Resize(_OrderHolder, _OrderHolder.Length + 1)
-                _OrderHolder(_OrderHolder.Length - 1) = _ListOrder
+        Dim _Index As Integer = 0
+        ''Save
+        'If existed
+        If (dgvList.Rows.Count > 0 And CheckExistedTable(_PreviousTable, _Index) = True) Then
+            Dim _Order As New Order
+            Dim _ContinuesPosition As Integer = _ListTable(_Index).GetLength
+            For i As Integer = _ContinuesPosition To dgvList.Rows.Count - 1 Step 1
+                _Order = New Order
+                _Order.STT = dgvList.Rows(i).Cells(0).Value.ToString
+                _Order.TenMon = dgvList.Rows(i).Cells(1).Value.ToString
+                _Order.SoLuong = dgvList.Rows(i).Cells(2).Value.ToString
+                _Order.GhiChu = dgvList.Rows(i).Cells(3).Value.ToString
+                _Order.TinhTrang = dgvList.Rows(i).Cells(4).Value.ToString
+                _Order.MaChuyen = dgvList.Rows(i).Cells(5).Value.ToString
+                _Order.MaMon = dgvList.Rows(i).Cells(6).Value.ToString
+                _ListTable(_Index).Add(_Order)
             Next
-            ''
+            dgvList.Rows.Clear()
         End If
+        'If not existed
+        If (dgvList.Rows.Count > 0 And CheckExistedTable(_PreviousTable, _Index) = False) Then
+            Dim _Table As New Table
+            _Table.TableNumber = Integer.Parse(_PreviousTable.Name.Last.ToString())
+            Dim _Order As New Order
+            For i As Integer = 0 To dgvList.Rows.Count - 1 Step 1
+                _Order = New Order
+                _Order.STT = dgvList.Rows(i).Cells(0).Value.ToString
+                _Order.TenMon = dgvList.Rows(i).Cells(1).Value.ToString
+                _Order.SoLuong = dgvList.Rows(i).Cells(2).Value.ToString
+                _Order.GhiChu = dgvList.Rows(i).Cells(3).Value.ToString
+                _Order.TinhTrang = dgvList.Rows(i).Cells(4).Value.ToString
+                _Order.MaChuyen = dgvList.Rows(i).Cells(5).Value.ToString
+                _Order.MaMon = dgvList.Rows(i).Cells(6).Value.ToString
+                _Table.Add(_Order)
+            Next
+            _ListTable.Add(_Table)
+            dgvList.Rows.Clear()
+        End If
+        ''Load
+        If (CheckExistedTable(_SelectedTable, _Index) = True) Then
+            dgvList.Rows.Clear()
+            For i As Integer = 0 To _ListTable(_Index).GetLength - 1 Step 1
+                dgvList.Rows.Add(_ListTable(_Index).GetOrder(i).STT,
+                                 _ListTable(_Index).GetOrder(i).TenMon,
+                                  _ListTable(_Index).GetOrder(i).SoLuong,
+                                  _ListTable(_Index).GetOrder(i).GhiChu,
+                                  _ListTable(_Index).GetOrder(i).TinhTrang,
+                                  _ListTable(_Index).GetOrder(i).MaChuyen,
+                                  _ListTable(_Index).GetOrder(i).MaMon)
+            Next
+        End If
+        'Dim a As Integer = MessageBox.Show("Vui lòng kiểm tra số bàn!" + vbCrLf + "Bạn đang chọn bàn số " + _SelectedTable.Name.Last, "Xác Nhận", MessageBoxButtons.OKCancel)
+        'If (a = 1) Then
+        _PreviousTable.BackColor = Color.White
+        Dim _Number As String = "BÀN " + _SelectedTable.Name.Last
+        _PictureBoxEffect = _SelectedTable
+        _PreviousTable = _SelectedTable
+        _PictureBoxEffect.BackColor = Color.RoyalBlue
+        lblTittle.Text = "DANH SÁCH MÓN ĂN " + _Number
+        lstMenu.Enabled = True
+        _IsSelected = True
+        AppProvider._IsCommitted = False
+        UpdateTableStatus(1)
+        LoadMenu()
+        'End If
+        ''Multi-table saver
     End Sub
+    ''' <summary>
+    ''' Check if clicked table is existed then return position of table in the array
+    ''' </summary>
+    ''' <param name="_table"></param>
+    ''' <returns></returns>
+    Private Function CheckExistedTable(ByVal _Table As PictureBox, ByRef _Index As Integer) As Boolean
+        For i As Integer = 0 To _ListTable.Count - 1 Step 1
+            If (_ListTable(i).TableNumber = _Table.Name.Last.ToString) Then
+                _Index = i
+                Return True
+            End If
+        Next
+        Return False
+    End Function
+    ''' <summary>
+    ''' Search a table with table number 
+    ''' </summary>
+    ''' <param name="TableNumber"></param>
+    ''' <returns>Position of table</returns>
+    Public Function SearchTable(ByVal TableNumber As Integer) As Integer
+        For i As Integer = 0 To _ListTable.Count - 1 Step 1
+            If (_ListTable(i).TableNumber = TableNumber) Then
+                Return (i + 1)
+            End If
+        Next
+        Return -1
+    End Function
     Private Sub listMenu_Click(sender As Object, e As EventArgs) Handles lstMenu.Click
         AppProvider._IsUpdate = False
         AppProvider._SelectedItem = lstMenu.SelectedItems(0).SubItems(1).Text.ToString
@@ -78,17 +145,16 @@ Public Class NhanVien
         add.ShowDialog()
     End Sub
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        _frmNumpad = New frmNumPad(nudGuestCount)
-        _frmNumpad.StartPosition = FormStartPosition.Manual
-        _frmNumpad.Location = New Point(940, 380)
-        Dim _Login As New frmLogin(_CurrentUser)
+        Dim _Login As New frmLogin()
         _Login.ShowDialog()
+
+        _CurrentUser = DatabaseConnection._User
+
         If (_Login.DialogResult = 1) Then
             ''********************************************Service Initiate*******************************************
             Try
-                Me.Text = "Nhân viên " + _CurrentUser.EmployeeName
                 ''Initiate connection
-                Dim _Channel As New Http.HttpChannel
+                Dim _Channel As New HttpChannel
                 RegisterChannel(_Channel, True)
                 InitializeRemoteServer()
                 ''Start thread listening
@@ -102,7 +168,6 @@ Public Class NhanVien
             End Try
             ''********************************************Service Initiate*******************************************
             LoadMenu()
-            Me.ShowDialog()
         Else
             Me.Close()
         End If
@@ -296,27 +361,24 @@ Public Class NhanVien
     End Sub
 
     Private Sub CheckChefBartenderToWaitor(ByVal _MaMon As String)
-        Dim _Result As Boolean = False
-        Dim _Order As String = ""
-        Dim _Index As Integer
-        If (_MaMon.Last = "2") Then
-            LoadMenu()
-        End If
+        Dim _Order As String = _MaMon.Split("_")(1)
+        Dim _Result As String = _MaMon.Split("_")(2)
+        Dim _Quantity As Integer = _MaMon.Split("_")(3)
+        Dim _Index As Integer = 0
         For i As Integer = 0 To dgvList.RowCount - 1 Step 1
-            If (dgvList.Item(5, i).Value.ToString = _MaMon) Then
+            If (dgvList.Item(5, i).Value.ToString = _Order) Then
                 _Result = True
                 _Order = dgvList.Item(1, i).Value.ToString + dgvList.Item(3, i).Value.ToString
                 _Index = i
                 Exit For
             End If
         Next
-        If (_Result = True) Then
-            If (_MaMon.Last = "1") Then
-                dgvList.Item(4, _Index).Value = "Hoàn thành"
-                MessageBox.Show("Món ăn " + _Order + " đã hoàn thành.", "Thông báo")
-            Else
-                MessageBox.Show("Món ăn " + _Order + " không thể làm.", "Thông báo")
-            End If
+        If (_Result = "1") Then
+            dgvList.Item(4, _Index).Value = "Hoàn thành"
+            MessageBox.Show("Món ăn " + _Order + " đã hoàn thành.", "Thông báo")
+        Else
+            LoadMenu()
+            MessageBox.Show("Món ăn " + _Order + " không thể làm.", "Thông báo")
         End If
     End Sub
     ''=============================================== THIS SECTION FOR CHEF/BARTENDER==========================================================
@@ -377,16 +439,21 @@ Public Class NhanVien
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     Private Sub nudGuestCount_Enter(sender As Object, e As EventArgs) Handles nudGuestCount.Enter
+        _frmNumpad = New frmNumPad(nudGuestCount)
+        _frmNumpad.StartPosition = FormStartPosition.Manual
+        _frmNumpad.Location = New Point(940, 380)
         _frmNumpad.Show()
         _frmNumpad.BringToFront()
     End Sub
 
     Private Sub nudGuestCount_Leave(sender As Object, e As EventArgs) Handles nudGuestCount.Leave
-        _frmNumpad.Hide()
+        _frmNumpad.Close()
     End Sub
 
     Private Sub NhanVien_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        _frmNumpad.Close()
+        If (_frmNumpad IsNot Nothing) Then
+            _frmNumpad.Close()
+        End If
     End Sub
 
     Private Sub nudGuestCount_Click(sender As Object, e As EventArgs) Handles nudGuestCount.Click
