@@ -80,7 +80,6 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Chef_Process.vb" />
     <Compile Include="frmChef.Designer.vb">
       <DependentUpon>frmChef.vb</DependentUpon>
     </Compile>

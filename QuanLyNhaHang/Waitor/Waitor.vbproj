@@ -99,6 +99,8 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AppProvider.vb" />
+    <Compile Include="Order.vb" />
+    <Compile Include="Table.vb" />
     <Compile Include="Waitor.vb">
       <SubType>Form</SubType>
     </Compile>
