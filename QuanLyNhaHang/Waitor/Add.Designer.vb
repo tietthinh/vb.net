@@ -22,35 +22,6 @@ Partial Class Add
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-<<<<<<< HEAD
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SuspendLayout()
-        '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(12, 217)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 0
-        Me.Button1.Text = "Đồng Ý"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'Button2
-        '
-        Me.Button2.Enabled = False
-        Me.Button2.Location = New System.Drawing.Point(197, 217)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 1
-        Me.Button2.Text = "Hủy Món"
-        Me.Button2.UseVisualStyleBackColor = True
-=======
         Me.btnAccept = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -84,52 +55,20 @@ Partial Class Add
         Me.btnCancel.TabIndex = 1
         Me.btnCancel.Text = "THOÁT"
         Me.btnCancel.UseVisualStyleBackColor = False
->>>>>>> dc5d22baf6e808a874f7b923c1327adcd307ff6f
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-<<<<<<< HEAD
-        Me.Label1.Location = New System.Drawing.Point(15, 69)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(53, 13)
-=======
         Me.Label1.Font = New System.Drawing.Font("Roboto Black", 15.75!, System.Drawing.FontStyle.Bold)
         Me.Label1.Location = New System.Drawing.Point(15, 69)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(102, 28)
->>>>>>> dc5d22baf6e808a874f7b923c1327adcd307ff6f
         Me.Label1.TabIndex = 2
         Me.Label1.Text = "Số Lượng"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-<<<<<<< HEAD
-        Me.Label2.Location = New System.Drawing.Point(23, 129)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(45, 13)
-        Me.Label2.TabIndex = 3
-        Me.Label2.Text = "Ghi Chú"
-        '
-        'TextBox1
-        '
-        Me.TextBox1.Location = New System.Drawing.Point(74, 126)
-        Me.TextBox1.Multiline = True
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(198, 85)
-        Me.TextBox1.TabIndex = 4
-        '
-        'NumericUpDown1
-        '
-        Me.NumericUpDown1.Location = New System.Drawing.Point(74, 67)
-        Me.NumericUpDown1.Maximum = New Decimal(New Integer() {50, 0, 0, 0})
-        Me.NumericUpDown1.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.NumericUpDown1.Name = "NumericUpDown1"
-        Me.NumericUpDown1.Size = New System.Drawing.Size(198, 20)
-        Me.NumericUpDown1.TabIndex = 5
-        Me.NumericUpDown1.Value = New Decimal(New Integer() {1, 0, 0, 0})
-=======
         Me.Label2.Font = New System.Drawing.Font("Roboto Black", 15.75!, System.Drawing.FontStyle.Bold)
         Me.Label2.Location = New System.Drawing.Point(30, 106)
         Me.Label2.Name = "Label2"
@@ -166,25 +105,11 @@ Partial Class Add
         Me.lblTitle.TabIndex = 6
         Me.lblTitle.Text = "CHI TIẾT ĐẶT MÓN"
         Me.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
->>>>>>> dc5d22baf6e808a874f7b923c1327adcd307ff6f
         '
         'Add
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-<<<<<<< HEAD
-        Me.ClientSize = New System.Drawing.Size(284, 262)
-        Me.Controls.Add(Me.NumericUpDown1)
-        Me.Controls.Add(Me.TextBox1)
-        Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
-        Me.Location = New System.Drawing.Point(700, 300)
-        Me.Name = "Add"
-        Me.Text = "Add"
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
-=======
         Me.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
         Me.ClientSize = New System.Drawing.Size(284, 246)
         Me.Controls.Add(Me.lblTitle)
@@ -200,20 +125,11 @@ Partial Class Add
         Me.Text = "Add"
         Me.TopMost = True
         CType(Me.nudQuantity, System.ComponentModel.ISupportInitialize).EndInit()
->>>>>>> dc5d22baf6e808a874f7b923c1327adcd307ff6f
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
 
-<<<<<<< HEAD
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Label1 As Label
-    Friend WithEvents Label2 As Label
-    Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents NumericUpDown1 As NumericUpDown
-=======
     Friend WithEvents btnAccept As Button
     Friend WithEvents btnCancel As Button
     Friend WithEvents Label1 As Label
@@ -221,5 +137,4 @@ Partial Class Add
     Friend WithEvents txtNote As TextBox
     Friend WithEvents nudQuantity As NumericUpDown
     Friend WithEvents lblTitle As Label
->>>>>>> dc5d22baf6e808a874f7b923c1327adcd307ff6f
 End Class

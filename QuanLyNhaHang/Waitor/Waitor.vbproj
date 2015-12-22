@@ -6,15 +6,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{A8652BA6-FA7D-402A-AE6D-52B3370903B7}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>NhanVien.My.MyApplication</StartupObject>
-    <RootNamespace>NhanVien</RootNamespace>
-    <AssemblyName>NhanVien</AssemblyName>
+    <StartupObject>Waitor.My.MyApplication</StartupObject>
+    <RootNamespace>Waitor</RootNamespace>
+    <AssemblyName>Waitor</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
-<<<<<<< HEAD
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-=======
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <PublishUrl>publish\</PublishUrl>
@@ -33,7 +29,6 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <TargetFrameworkProfile />
->>>>>>> dc5d22baf6e808a874f7b923c1327adcd307ff6f
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -42,7 +37,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>NhanVien.xml</DocumentationFile>
+    <DocumentationFile>Waitor.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -52,7 +47,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>NhanVien.xml</DocumentationFile>
+    <DocumentationFile>Waitor.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -99,32 +94,18 @@
   <ItemGroup>
     <Compile Include="Add.Designer.vb">
       <DependentUpon>Add.vb</DependentUpon>
-<<<<<<< HEAD
-    </Compile>
-    <Compile Include="Add.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Background.Designer.vb">
-      <DependentUpon>Background.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Background.vb">
-      <SubType>UserControl</SubType>
-=======
->>>>>>> dc5d22baf6e808a874f7b923c1327adcd307ff6f
     </Compile>
     <Compile Include="Add.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AppProvider.vb" />
+    <Compile Include="Order.vb" />
+    <Compile Include="Table.vb" />
     <Compile Include="Waitor.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Waitor.Designer.vb">
       <DependentUpon>Waitor.vb</DependentUpon>
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.vb">
-      <DependentUpon>Form1.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -147,16 +128,8 @@
     <EmbeddedResource Include="Add.resx">
       <DependentUpon>Add.vb</DependentUpon>
     </EmbeddedResource>
-<<<<<<< HEAD
-    <EmbeddedResource Include="Background.resx">
-      <DependentUpon>Background.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.vb</DependentUpon>
-=======
     <EmbeddedResource Include="Waitor.resx">
       <DependentUpon>Waitor.vb</DependentUpon>
->>>>>>> dc5d22baf6e808a874f7b923c1327adcd307ff6f
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

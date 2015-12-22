@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-﻿Public Class Add
-    Private Sub Add_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        '' Set form's start position in the screen.
-        '' Định vị trí xuất hiện của Form.
-        Me.StartPosition = FormStartPosition.Manual
-        Me.Location = New Point(800, 300)
-        Me.ShowDialog()
-    End Sub
-=======
 ﻿
 Imports Library
 Imports System.Data.SqlClient
@@ -26,8 +16,6 @@ Public Class Add
         Me.StartPosition = FormStartPosition.Manual
         Me.Location = New Point(810, 300)
         If (AppProvider._IsUpdate = True) Then
-            ''Code failed!
-            MessageBox.Show("is update")
             Dim row As DataGridViewRow = NhanVien.dgvList.SelectedRows.Item(0)
             nudQuantity.Value = row.Cells(2).Value
             txtNote.Text = row.Cells(3).Value.ToString
@@ -36,8 +24,8 @@ Public Class Add
     End Sub
 
     Private Sub btnAccept_Click(sender As Object, e As EventArgs) Handles btnAccept.Click
-        Dim _Name As String = ""
-        Dim _Id As String = ""
+        Dim _Name As String = Nothing
+        Dim _Id As String = Nothing
         Dim _Quantity As Integer = Me.nudQuantity.Value
         Dim _Note As String = Me.txtNote.Text
         If (AppProvider._IsUpdate = False) Then
@@ -45,7 +33,7 @@ Public Class Add
             Dim name As String = NhanVien.lstMenu.SelectedItems(0).Text
             _Id = NhanVien.dgvList.Rows.Count + 1
             _Name = name
-            NhanVien.dgvList.Rows.Add(_Id, _Name, _Quantity, _Note, "Chưa làm", Nothing, _Code)
+            NhanVien.dgvList.Rows.Add(_Id, _Name, _Quantity, _Note, "Chưa làm", "", _Code)
         Else
             ''Is update
             Dim _Index As Integer = NhanVien.dgvList.SelectedRows.Item(0).Index
@@ -95,5 +83,4 @@ Public Class Add
             proc.Kill()
         Next
     End Sub
->>>>>>> dc5d22baf6e808a874f7b923c1327adcd307ff6f
 End Class
