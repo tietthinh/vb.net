@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Waitor", "Waitor\Waitor.vbproj", "{A8652BA6-FA7D-402A-AE6D-52B3370903B7}"
 EndProject
@@ -16,10 +16,6 @@ EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "WarehouseKeeper", "WarehouseKeeper\WarehouseKeeper.vbproj", "{A5AB0283-FD3B-451B-B48A-F00AEC7D677A}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Bartender", "Bartender\Bartender.vbproj", "{70919E90-CA18-49B4-92A0-C7126923DC88}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ServerHost", "ServerHost\ServerHost.vbproj", "{1E545A42-3E1F-4C86-8D0E-0DD143DC76C6}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ServiceLibrary", "ServiceLibrary\ServiceLibrary.vbproj", "{2B766E17-20A0-4474-8838-E6A715441174}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,14 +51,6 @@ Global
 		{70919E90-CA18-49B4-92A0-C7126923DC88}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70919E90-CA18-49B4-92A0-C7126923DC88}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70919E90-CA18-49B4-92A0-C7126923DC88}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1E545A42-3E1F-4C86-8D0E-0DD143DC76C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1E545A42-3E1F-4C86-8D0E-0DD143DC76C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1E545A42-3E1F-4C86-8D0E-0DD143DC76C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1E545A42-3E1F-4C86-8D0E-0DD143DC76C6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2B766E17-20A0-4474-8838-E6A715441174}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2B766E17-20A0-4474-8838-E6A715441174}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2B766E17-20A0-4474-8838-E6A715441174}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2B766E17-20A0-4474-8838-E6A715441174}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

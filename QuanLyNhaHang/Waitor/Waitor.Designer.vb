@@ -23,19 +23,12 @@ Partial Class NhanVien
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.dgvList = New System.Windows.Forms.DataGridView()
-        Me.colNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colFood = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colQuantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colNote = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colStatus = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.MaChuyen = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colMa = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.lblTittle = New System.Windows.Forms.Label()
-        Me.lstMenu = New System.Windows.Forms.ListView()
+        Me.listMenu = New System.Windows.Forms.ListView()
         Me.colName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.colMaMon = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.colIcon = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.btnLamMon = New System.Windows.Forms.Button()
-        Me.btnPay = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.picTable09 = New System.Windows.Forms.PictureBox()
         Me.picTable08 = New System.Windows.Forms.PictureBox()
         Me.picTable07 = New System.Windows.Forms.PictureBox()
@@ -50,9 +43,12 @@ Partial Class NhanVien
         Me.btnDelete = New System.Windows.Forms.Button()
         Me.lstNotAvailable = New System.Windows.Forms.ListView()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.btnUpdateTable = New System.Windows.Forms.Button()
-        Me.nudGuestCount = New System.Windows.Forms.NumericUpDown()
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.colNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colFood = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colQuantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colNote = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colStatus = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.MaMon = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dgvList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picTable09, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picTable08, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -64,72 +60,25 @@ Partial Class NhanVien
         CType(Me.picTable02, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picTable01, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picBorder, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.nudGuestCount, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'dgvList
         '
         Me.dgvList.AllowUserToAddRows = False
         Me.dgvList.AllowUserToDeleteRows = False
-        Me.dgvList.BackgroundColor = System.Drawing.SystemColors.Window
         Me.dgvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colNumber, Me.colFood, Me.colQuantity, Me.colNote, Me.colStatus, Me.MaChuyen, Me.colMa})
+        Me.dgvList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colNumber, Me.colFood, Me.colQuantity, Me.colNote, Me.colStatus, Me.MaMon})
         Me.dgvList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvList.GridColor = System.Drawing.SystemColors.ActiveCaption
         Me.dgvList.Location = New System.Drawing.Point(708, 68)
         Me.dgvList.MultiSelect = False
         Me.dgvList.Name = "dgvList"
         Me.dgvList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvList.Size = New System.Drawing.Size(424, 540)
+        Me.dgvList.Size = New System.Drawing.Size(424, 538)
         Me.dgvList.TabIndex = 19
-        '
-        'colNumber
-        '
-        Me.colNumber.HeaderText = "STT"
-        Me.colNumber.Name = "colNumber"
-        Me.colNumber.Width = 20
-        '
-        'colFood
-        '
-        Me.colFood.HeaderText = "Tên Món"
-        Me.colFood.Name = "colFood"
-        Me.colFood.Width = 125
-        '
-        'colQuantity
-        '
-        Me.colQuantity.HeaderText = "SL"
-        Me.colQuantity.Name = "colQuantity"
-        Me.colQuantity.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.colQuantity.Width = 30
-        '
-        'colNote
-        '
-        Me.colNote.HeaderText = "Ghi Chú"
-        Me.colNote.Name = "colNote"
-        Me.colNote.Width = 125
-        '
-        'colStatus
-        '
-        Me.colStatus.HeaderText = "Tình Trạng"
-        Me.colStatus.Name = "colStatus"
-        Me.colStatus.Width = 80
-        '
-        'MaChuyen
-        '
-        Me.MaChuyen.HeaderText = "Mã Chuyển"
-        Me.MaChuyen.Name = "MaChuyen"
-        Me.MaChuyen.Visible = False
-        '
-        'colMa
-        '
-        Me.colMa.HeaderText = "Mã Món"
-        Me.colMa.Name = "colMa"
-        Me.colMa.Visible = False
         '
         'lblTittle
         '
-        Me.lblTittle.Font = New System.Drawing.Font("Roboto Black", 32.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTittle.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.lblTittle.Font = New System.Drawing.Font("Microsoft Sans Serif", 34.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTittle.Location = New System.Drawing.Point(708, 9)
         Me.lblTittle.Name = "lblTittle"
         Me.lblTittle.Size = New System.Drawing.Size(642, 56)
@@ -137,51 +86,47 @@ Partial Class NhanVien
         Me.lblTittle.Text = "DANH SÁCH MÓN ĂN "
         Me.lblTittle.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
-        'lstMenu
+        'listMenu
         '
-        Me.lstMenu.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.colName, Me.colMaMon})
-        Me.lstMenu.Enabled = False
-        Me.lstMenu.FullRowSelect = True
-        Me.lstMenu.Location = New System.Drawing.Point(1138, 253)
-        Me.lstMenu.Name = "lstMenu"
-        Me.lstMenu.Size = New System.Drawing.Size(212, 327)
-        Me.lstMenu.TabIndex = 23
-        Me.lstMenu.TileSize = New System.Drawing.Size(168, 40)
-        Me.lstMenu.UseCompatibleStateImageBehavior = False
+        Me.listMenu.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.colName, Me.colIcon})
+        Me.listMenu.Enabled = False
+        Me.listMenu.Location = New System.Drawing.Point(1138, 253)
+        Me.listMenu.Name = "listMenu"
+        Me.listMenu.Size = New System.Drawing.Size(212, 353)
+        Me.listMenu.TabIndex = 23
+        Me.listMenu.TileSize = New System.Drawing.Size(168, 40)
+        Me.listMenu.UseCompatibleStateImageBehavior = False
+        Me.listMenu.View = System.Windows.Forms.View.Tile
         '
         'colName
         '
         Me.colName.Text = "Tên Món"
         Me.colName.Width = 103
         '
-        'colMaMon
+        'colIcon
         '
-        Me.colMaMon.Text = "MaMon"
-        Me.colMaMon.Width = 71
+        Me.colIcon.Text = "Icon"
+        Me.colIcon.Width = 71
         '
         'btnLamMon
         '
-        Me.btnLamMon.BackColor = System.Drawing.Color.Orange
-        Me.btnLamMon.Font = New System.Drawing.Font("Roboto Condensed", 21.75!, System.Drawing.FontStyle.Bold)
-        Me.btnLamMon.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnLamMon.Location = New System.Drawing.Point(870, 612)
+        Me.btnLamMon.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnLamMon.Location = New System.Drawing.Point(906, 612)
         Me.btnLamMon.Name = "btnLamMon"
-        Me.btnLamMon.Size = New System.Drawing.Size(156, 90)
+        Me.btnLamMon.Size = New System.Drawing.Size(212, 88)
         Me.btnLamMon.TabIndex = 24
         Me.btnLamMon.Text = "LÀM MÓN"
-        Me.btnLamMon.UseVisualStyleBackColor = False
+        Me.btnLamMon.UseVisualStyleBackColor = True
         '
-        'btnPay
+        'Button2
         '
-        Me.btnPay.BackColor = System.Drawing.Color.Orange
-        Me.btnPay.Font = New System.Drawing.Font("Roboto Condensed", 21.75!, System.Drawing.FontStyle.Bold)
-        Me.btnPay.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnPay.Location = New System.Drawing.Point(1032, 612)
-        Me.btnPay.Name = "btnPay"
-        Me.btnPay.Size = New System.Drawing.Size(156, 90)
-        Me.btnPay.TabIndex = 25
-        Me.btnPay.Text = "THANH TOÁN"
-        Me.btnPay.UseVisualStyleBackColor = False
+        Me.Button2.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button2.Location = New System.Drawing.Point(1124, 612)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(214, 88)
+        Me.Button2.TabIndex = 25
+        Me.Button2.Text = "THANH TOÁN"
+        Me.Button2.UseVisualStyleBackColor = True
         '
         'picTable09
         '
@@ -285,19 +230,18 @@ Partial Class NhanVien
         '
         'picBorder
         '
-        Me.picBorder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.picBorder.Image = Global.Waitor.My.Resources.Resources.border
         Me.picBorder.ImageLocation = ""
         Me.picBorder.Location = New System.Drawing.Point(8, 7)
         Me.picBorder.Name = "picBorder"
-        Me.picBorder.Size = New System.Drawing.Size(704, 706)
+        Me.picBorder.Size = New System.Drawing.Size(694, 700)
         Me.picBorder.TabIndex = 0
         Me.picBorder.TabStop = False
         '
         'lblMenu
         '
-        Me.lblMenu.BackColor = System.Drawing.Color.Blue
-        Me.lblMenu.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.lblMenu.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.lblMenu.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblMenu.ForeColor = System.Drawing.SystemColors.Window
         Me.lblMenu.Location = New System.Drawing.Point(1138, 229)
         Me.lblMenu.Name = "lblMenu"
@@ -308,15 +252,13 @@ Partial Class NhanVien
         '
         'btnDelete
         '
-        Me.btnDelete.BackColor = System.Drawing.Color.Orange
-        Me.btnDelete.Font = New System.Drawing.Font("Roboto Condensed", 21.75!, System.Drawing.FontStyle.Bold)
-        Me.btnDelete.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnDelete.Location = New System.Drawing.Point(708, 611)
+        Me.btnDelete.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnDelete.Location = New System.Drawing.Point(708, 612)
         Me.btnDelete.Name = "btnDelete"
-        Me.btnDelete.Size = New System.Drawing.Size(156, 90)
+        Me.btnDelete.Size = New System.Drawing.Size(192, 88)
         Me.btnDelete.TabIndex = 27
         Me.btnDelete.Text = "XÓA MÓN"
-        Me.btnDelete.UseVisualStyleBackColor = False
+        Me.btnDelete.UseVisualStyleBackColor = True
         '
         'lstNotAvailable
         '
@@ -330,9 +272,9 @@ Partial Class NhanVien
         '
         'Label1
         '
-        Me.Label1.BackColor = System.Drawing.Color.Blue
-        Me.Label1.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Label1.ForeColor = System.Drawing.Color.White
+        Me.Label1.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.SystemColors.Window
         Me.Label1.Location = New System.Drawing.Point(1138, 68)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(212, 21)
@@ -340,55 +282,54 @@ Partial Class NhanVien
         Me.Label1.Text = "MÓN CHƯA LÀM ĐƯỢC"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'btnUpdateTable
+        'colNumber
         '
-        Me.btnUpdateTable.BackColor = System.Drawing.Color.Orange
-        Me.btnUpdateTable.Font = New System.Drawing.Font("Roboto Condensed", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnUpdateTable.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnUpdateTable.Location = New System.Drawing.Point(1194, 612)
-        Me.btnUpdateTable.Name = "btnUpdateTable"
-        Me.btnUpdateTable.Size = New System.Drawing.Size(156, 90)
-        Me.btnUpdateTable.TabIndex = 30
-        Me.btnUpdateTable.Text = "CẬP NHẬT BÀN"
-        Me.btnUpdateTable.UseVisualStyleBackColor = False
+        Me.colNumber.HeaderText = "STT"
+        Me.colNumber.Name = "colNumber"
+        Me.colNumber.Width = 20
         '
-        'nudGuestCount
+        'colFood
         '
-        Me.nudGuestCount.Location = New System.Drawing.Point(1274, 586)
-        Me.nudGuestCount.Maximum = New Decimal(New Integer() {80000, 0, 0, 0})
-        Me.nudGuestCount.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.nudGuestCount.Name = "nudGuestCount"
-        Me.nudGuestCount.Size = New System.Drawing.Size(73, 20)
-        Me.nudGuestCount.TabIndex = 31
-        Me.nudGuestCount.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.colFood.HeaderText = "Tên Món"
+        Me.colFood.Name = "colFood"
+        Me.colFood.Width = 125
         '
-        'Label2
+        'colQuantity
         '
-        Me.Label2.BackColor = System.Drawing.Color.Blue
-        Me.Label2.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Label2.Location = New System.Drawing.Point(1138, 583)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(212, 25)
-        Me.Label2.TabIndex = 32
-        Me.Label2.Text = "SỐ LƯỢNG KHÁCH"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.colQuantity.HeaderText = "SL"
+        Me.colQuantity.Name = "colQuantity"
+        Me.colQuantity.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.colQuantity.Width = 30
+        '
+        'colNote
+        '
+        Me.colNote.HeaderText = "Ghi Chú"
+        Me.colNote.Name = "colNote"
+        Me.colNote.Width = 125
+        '
+        'colStatus
+        '
+        Me.colStatus.HeaderText = "Tình Trạng"
+        Me.colStatus.Name = "colStatus"
+        Me.colStatus.Width = 80
+        '
+        'MaMon
+        '
+        Me.MaMon.HeaderText = "MaMon"
+        Me.MaMon.Name = "MaMon"
         '
         'NhanVien
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.Maroon
         Me.ClientSize = New System.Drawing.Size(1350, 706)
-        Me.Controls.Add(Me.nudGuestCount)
-        Me.Controls.Add(Me.btnUpdateTable)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.lstNotAvailable)
         Me.Controls.Add(Me.btnDelete)
         Me.Controls.Add(Me.lblMenu)
-        Me.Controls.Add(Me.btnPay)
+        Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.btnLamMon)
-        Me.Controls.Add(Me.lstMenu)
+        Me.Controls.Add(Me.listMenu)
         Me.Controls.Add(Me.lblTittle)
         Me.Controls.Add(Me.dgvList)
         Me.Controls.Add(Me.picTable09)
@@ -401,7 +342,6 @@ Partial Class NhanVien
         Me.Controls.Add(Me.picTable02)
         Me.Controls.Add(Me.picTable01)
         Me.Controls.Add(Me.picBorder)
-        Me.Controls.Add(Me.Label2)
         Me.Name = "NhanVien"
         Me.Text = "Nhan Vien"
         CType(Me.dgvList, System.ComponentModel.ISupportInitialize).EndInit()
@@ -415,7 +355,6 @@ Partial Class NhanVien
         CType(Me.picTable02, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picTable01, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picBorder, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.nudGuestCount, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -432,23 +371,19 @@ Partial Class NhanVien
     Friend WithEvents picTable07 As PictureBox
     Friend WithEvents dgvList As DataGridView
     Friend WithEvents lblTittle As Label
-    Friend WithEvents lstMenu As ListView
+    Friend WithEvents listMenu As ListView
     Friend WithEvents colName As ColumnHeader
-    Friend WithEvents colMaMon As ColumnHeader
+    Friend WithEvents colIcon As ColumnHeader
     Friend WithEvents btnLamMon As Button
-    Friend WithEvents btnPay As Button
+    Friend WithEvents Button2 As Button
     Friend WithEvents lblMenu As Label
     Friend WithEvents btnDelete As Button
     Friend WithEvents lstNotAvailable As ListView
     Friend WithEvents Label1 As Label
-    Friend WithEvents btnUpdateTable As Button
-    Friend WithEvents nudGuestCount As NumericUpDown
     Friend WithEvents colNumber As DataGridViewTextBoxColumn
     Friend WithEvents colFood As DataGridViewTextBoxColumn
     Friend WithEvents colQuantity As DataGridViewTextBoxColumn
     Friend WithEvents colNote As DataGridViewTextBoxColumn
     Friend WithEvents colStatus As DataGridViewTextBoxColumn
-    Friend WithEvents MaChuyen As DataGridViewTextBoxColumn
-    Friend WithEvents colMa As DataGridViewTextBoxColumn
-    Friend WithEvents Label2 As Label
+    Friend WithEvents MaMon As DataGridViewTextBoxColumn
 End Class

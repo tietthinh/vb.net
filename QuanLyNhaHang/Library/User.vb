@@ -6,6 +6,7 @@
 '=====================================================================
 
 Public Class User
+
     'Fields:
     ''' <summary>
     ''' Employee's Identity.

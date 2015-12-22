@@ -1,65 +1,50 @@
 ﻿Public Class Order
-    Private _STT As String
-    Private _TenMon As String
-    Private _SoLuong As String
-    Private _GhiChu As String
-    Private _TinhTrang As String
-    Private _MaChuyen As String
-    Private _MaMon As String
-    Public Property STT() As String
+    Private _Id As String
+    Private _Name As String
+    Private _Quantity As Integer
+    Private _Note As String
+    Private _TransferCode As String
+
+    Public Property TransferCode As String
         Get
-            Return Me._STT
+            Return Me._TransferCode
         End Get
         Set(value As String)
-            Me._STT = value
+            Me.TransferCode = value
         End Set
     End Property
-    Public Property TenMon() As String
+    Public Property Id() As String
         Get
-            Return Me._TenMon
+            Return Me._Id
         End Get
         Set(value As String)
-            Me._TenMon = value
+            Me._Id = value
         End Set
     End Property
-    Public Property SoLuong() As String
+    Public Property Name() As String
         Get
-            Return Me._SoLuong
+            Return Me._Name
         End Get
         Set(value As String)
-            Me._SoLuong = value
+            Me._Name = value
         End Set
     End Property
-    Public Property GhiChu() As String
+
+    Public Property Quantity() As Integer
         Get
-            Return Me._GhiChu
+            Return Me._Quantity
+        End Get
+        Set(value As Integer)
+            Me._Quantity = value
+        End Set
+    End Property
+    Public Property Note() As String
+        Get
+            Return Me._Note
         End Get
         Set(value As String)
-            Me._GhiChu = value
+            Me._Note = value
         End Set
     End Property
-    Public Property MaMon() As String
-        Get
-            Return Me._MaMon
-        End Get
-        Set(value As String)
-            Me._MaMon = value
-        End Set
-    End Property
-    Public Property TinhTrang() As String
-        Get
-            Return Me._TinhTrang
-        End Get
-        Set(value As String)
-            Me._TinhTrang = value
-        End Set
-    End Property
-    Public Property MaChuyen() As String
-        Get
-            Return Me._MaChuyen
-        End Get
-        Set(value As String)
-            Me._MaChuyen = value
-        End Set
-    End Property
+
 End Class
