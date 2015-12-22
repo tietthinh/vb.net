@@ -7,6 +7,7 @@ Imports System.Runtime.Remoting.Channels.ChannelServices
 Imports System.Threading
 Imports System.Net
 Imports System.Configuration
+Imports System.Runtime.Remoting.Channels.Http
 
 Public Class NhanVien
     Private _frmNumpad As frmNumPad
@@ -19,7 +20,9 @@ Public Class NhanVien
     Private _Thread As Thread
     Private _Data As String = ""
     Private _Logging As String = ""
+
     Private _CurrentUser As User = Nothing
+
     Private _ParameterInput() As SqlParameter
     Private _ParameterOutput() As SqlParameter
     Private _ListTable As New List(Of Table)
@@ -91,15 +94,15 @@ Public Class NhanVien
         'If (a = 1) Then
         _PreviousTable.BackColor = Color.White
         Dim _Number As String = "BÀN " + _SelectedTable.Name.Last
-            _PictureBoxEffect = _SelectedTable
-            _PreviousTable = _SelectedTable
-            _PictureBoxEffect.BackColor = Color.RoyalBlue
-            lblTittle.Text = "DANH SÁCH MÓN ĂN " + _Number
-            lstMenu.Enabled = True
-            _IsSelected = True
-            AppProvider._IsCommitted = False
-            UpdateTableStatus(1)
-            LoadMenu()
+        _PictureBoxEffect = _SelectedTable
+        _PreviousTable = _SelectedTable
+        _PictureBoxEffect.BackColor = Color.RoyalBlue
+        lblTittle.Text = "DANH SÁCH MÓN ĂN " + _Number
+        lstMenu.Enabled = True
+        _IsSelected = True
+        AppProvider._IsCommitted = False
+        UpdateTableStatus(1)
+        LoadMenu()
         'End If
         ''Multi-table saver
     End Sub
@@ -142,13 +145,16 @@ Public Class NhanVien
         add.ShowDialog()
     End Sub
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'Dim _Login As New frmLogin(_CurrentUser)
-        '_Login.ShowDialog()
-        'If (_Login.DialogResult = 1) Then
-        ''********************************************Service Initiate*******************************************
-        Try
+        Dim _Login As New frmLogin()
+        _Login.ShowDialog()
+
+        _CurrentUser = DatabaseConnection._User
+
+        If (_Login.DialogResult = 1) Then
+            ''********************************************Service Initiate*******************************************
+            Try
                 ''Initiate connection
-                Dim _Channel As New Http.HttpChannel
+                Dim _Channel As New HttpChannel
                 RegisterChannel(_Channel, True)
                 InitializeRemoteServer()
                 ''Start thread listening
@@ -162,10 +168,9 @@ Public Class NhanVien
             End Try
             ''********************************************Service Initiate*******************************************
             LoadMenu()
-            Me.ShowDialog()
-        'Else
-        '    Me.Close()
-        'End If
+        Else
+            Me.Close()
+        End If
     End Sub
     Private Sub btnLamMon_Click(sender As Object, e As EventArgs) Handles btnLamMon.Click
         ''Commit the list to Chef
