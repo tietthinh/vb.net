@@ -1,50 +1,65 @@
 ﻿Public Class Order
-    Private _Id As String
-    Private _Name As String
-    Private _Quantity As Integer
-    Private _Note As String
-    Private _TransferCode As String
-
-    Public Property TransferCode As String
+    Private _STT As String
+    Private _TenMon As String
+    Private _SoLuong As String
+    Private _GhiChu As String
+    Private _TinhTrang As String
+    Private _MaChuyen As String
+    Private _MaMon As String
+    Public Property STT() As String
         Get
-            Return Me._TransferCode
+            Return Me._STT
         End Get
         Set(value As String)
-            Me.TransferCode = value
+            Me._STT = value
         End Set
     End Property
-    Public Property Id() As String
+    Public Property TenMon() As String
         Get
-            Return Me._Id
+            Return Me._TenMon
         End Get
         Set(value As String)
-            Me._Id = value
+            Me._TenMon = value
         End Set
     End Property
-    Public Property Name() As String
+    Public Property SoLuong() As String
         Get
-            Return Me._Name
+            Return Me._SoLuong
         End Get
         Set(value As String)
-            Me._Name = value
+            Me._SoLuong = value
         End Set
     End Property
-
-    Public Property Quantity() As Integer
+    Public Property GhiChu() As String
         Get
-            Return Me._Quantity
-        End Get
-        Set(value As Integer)
-            Me._Quantity = value
-        End Set
-    End Property
-    Public Property Note() As String
-        Get
-            Return Me._Note
+            Return Me._GhiChu
         End Get
         Set(value As String)
-            Me._Note = value
+            Me._GhiChu = value
         End Set
     End Property
-
+    Public Property MaMon() As String
+        Get
+            Return Me._MaMon
+        End Get
+        Set(value As String)
+            Me._MaMon = value
+        End Set
+    End Property
+    Public Property TinhTrang() As String
+        Get
+            Return Me._TinhTrang
+        End Get
+        Set(value As String)
+            Me._TinhTrang = value
+        End Set
+    End Property
+    Public Property MaChuyen() As String
+        Get
+            Return Me._MaChuyen
+        End Get
+        Set(value As String)
+            Me._MaChuyen = value
+        End Set
+    End Property
 End Class
