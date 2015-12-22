@@ -222,6 +222,9 @@ Public Class frmChef
                     dgv.Rows(e.RowIndex).Cells("MaterialQuantity").Value = 0
                 End If
             End If
+        ElseIf TypeOf column Is DataGridViewTextBoxColumn AndAlso e.RowIndex >= 0 And column.Name = "MaterialQuantity" Then
+            Dim frmNumpad As New frmNumPad(dgv.Rows(e.RowIndex).Cells("SoLuong").Value)
+            frmNumpad.Show()
         End If
     End Sub
 End Class
