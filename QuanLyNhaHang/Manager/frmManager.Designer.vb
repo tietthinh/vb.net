@@ -54,9 +54,27 @@ Partial Class frmManager
         Me.lblLoaiNV = New System.Windows.Forms.Label()
         Me.lblCMND = New System.Windows.Forms.Label()
         Me.dgvNhanVien = New System.Windows.Forms.DataGridView()
+        Me.MaNV = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.HoTen = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ThoiGianBatDau = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CMND = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TinhTrang = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.NgaySinh = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.GioiTinh = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.LoaiNhanVien = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TenChucVu = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.MaChucVu = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.HoaDon = New System.Windows.Forms.TabPage()
         Me.gbxChiTietHoaDon = New System.Windows.Forms.GroupBox()
         Me.dgvCTHoaDon = New System.Windows.Forms.DataGridView()
+        Me.MaHoaDon = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TenMon_CTHD = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.GiaMotMon_CTHD = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.MaChiTiet = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.GhiChu_CTHD = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.SoLuong = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TongTien_CTHD = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.MaMon_CTHD = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.txtTimKiem_CTHD = New System.Windows.Forms.TextBox()
         Me.txtGhiChuCTHoaDon = New System.Windows.Forms.TextBox()
         Me.txtGiaMotMon_CTHD = New System.Windows.Forms.TextBox()
@@ -75,6 +93,16 @@ Partial Class frmManager
         Me.gbxHoaDon = New System.Windows.Forms.GroupBox()
         Me.cboDaThanhToan_HoaDon = New System.Windows.Forms.ComboBox()
         Me.dgvHoaDon = New System.Windows.Forms.DataGridView()
+        Me.MaHoaDon_HD = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.MaNV_HD = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TenNhanVien = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ThoiGian = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.SoBan = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.SoLuongKhach = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.MaHoaDonChung_HD = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TongTien = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.GhiChu = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DaThanhToan_HD = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.txtTimKiem_HoaDon = New System.Windows.Forms.TextBox()
         Me.lblTenNhanVien = New System.Windows.Forms.Label()
         Me.btnTimKiem_HoaDon = New System.Windows.Forms.Button()
@@ -99,6 +127,13 @@ Partial Class frmManager
         Me.gbxThongTinChiTietMon = New System.Windows.Forms.GroupBox()
         Me.cboDonVi_CTMon = New System.Windows.Forms.ComboBox()
         Me.dgvCTMon = New System.Windows.Forms.DataGridView()
+        Me.MaMon_CTM = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TenMon_CTMon = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.MaSP_CTM = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TenSP_CTMon = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.SoLuong_CTMon = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DonVi_CTMon = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.MaDonVi_MKHT = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.txtTimKiem_CTMon = New System.Windows.Forms.TextBox()
         Me.btnTim_CTMon = New System.Windows.Forms.Button()
         Me.Label16 = New System.Windows.Forms.Label()
@@ -115,6 +150,11 @@ Partial Class frmManager
         Me.cboLoai_MADU = New System.Windows.Forms.ComboBox()
         Me.cboThucDonMon_Mon = New System.Windows.Forms.ComboBox()
         Me.dgvMonAnDoUong = New System.Windows.Forms.DataGridView()
+        Me.MaMon_MADU = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TenMon = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.GiaTienHienTai = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ThucDonMon = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Loai = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.txtTimKiem_Mon = New System.Windows.Forms.TextBox()
         Me.btnTimKiem_Mon = New System.Windows.Forms.Button()
         Me.Label11 = New System.Windows.Forms.Label()
@@ -126,94 +166,24 @@ Partial Class frmManager
         Me.btnThem_Mon = New System.Windows.Forms.Button()
         Me.txtTenMon_Mon = New System.Windows.Forms.TextBox()
         Me.txtGiaHienTai_Mon = New System.Windows.Forms.TextBox()
-        Me.TabPage2 = New System.Windows.Forms.TabPage()
-        Me.gpbDanhSachCTPN = New System.Windows.Forms.GroupBox()
-        Me.dgvPhieuNhap = New System.Windows.Forms.DataGridView()
-        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
-        Me.cboTinhTrang_PhieuNhap = New System.Windows.Forms.ComboBox()
-        Me.txtTimKiem_PhieuNhap = New System.Windows.Forms.TextBox()
-        Me.btnTimKiem_PhieuNhap = New System.Windows.Forms.Button()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.Label20 = New System.Windows.Forms.Label()
-        Me.btnXoa_PhieuNhap = New System.Windows.Forms.Button()
-        Me.btnSua_PhieuNhap = New System.Windows.Forms.Button()
-        Me.btnThem_PhieuNhap = New System.Windows.Forms.Button()
-        Me.txtTenMon_PhieuNhap = New System.Windows.Forms.TextBox()
-        Me.txtGiaHienTai_PhieuNhap = New System.Windows.Forms.TextBox()
-        Me.ErrorProvider1 = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.ErrorProvider2 = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.ErrorProvider3 = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.ErrorProvider4 = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.MaMon_CTM = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TenMon_CTMon = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.MaSP_CTM = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TenSP_CTMon = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.SoLuong_CTMon = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DonVi_CTMon = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.MaDonVi_MKHT = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.MaMon_MADU = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TenMon = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.GiaTienHienTai = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ThucDonMon = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Loai = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.MaNV = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.HoTen = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ThoiGianBatDau = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CMND = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TinhTrang = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.NgaySinh = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.GioiTinh = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.LoaiNhanVien = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TenChucVu = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.MaChucVu = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.btnThongKe_PhieuNhap = New System.Windows.Forms.Button()
-        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
-        Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
-        Me.Label22 = New System.Windows.Forms.Label()
-        Me.Label23 = New System.Windows.Forms.Label()
-        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.PhieuNhap = New System.Windows.Forms.TabPage()
         Me.gpbChiTietPhieuNhap = New System.Windows.Forms.GroupBox()
-        Me.txtTenNV_PN = New System.Windows.Forms.TextBox()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.Label24 = New System.Windows.Forms.Label()
-        Me.Label25 = New System.Windows.Forms.Label()
-        Me.MaHoaDon_HD = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.MaNV_HD = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TenNhanVien = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ThoiGian = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.SoBan = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.SoLuongKhach = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.MaHoaDonChung_HD = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TongTien = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.GhiChu = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DaThanhToan_HD = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.MaHoaDon = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TenMon_CTHD = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.GiaMotMon_CTHD = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.MaChiTiet = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.GhiChu_CTHD = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.SoLuong = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TongTien_CTHD = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.MaMon_CTHD = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Label19 = New System.Windows.Forms.Label()
+        Me.Label31 = New System.Windows.Forms.Label()
         Me.btnSua_CTPN = New System.Windows.Forms.Button()
         Me.btnXoa_CTPN = New System.Windows.Forms.Button()
         Me.btnThem_CTPN = New System.Windows.Forms.Button()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.txtThanhTIen_CTPN = New System.Windows.Forms.TextBox()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.txtDonGia_CTPN = New System.Windows.Forms.TextBox()
+        Me.Label27 = New System.Windows.Forms.Label()
         Me.txtSoLuong_CTPN = New System.Windows.Forms.TextBox()
+        Me.Label21 = New System.Windows.Forms.Label()
         Me.txtTenSP_CTPN = New System.Windows.Forms.TextBox()
         Me.txtMaPN_CTPN = New System.Windows.Forms.TextBox()
-        Me.Label21 = New System.Windows.Forms.Label()
-        Me.Label26 = New System.Windows.Forms.Label()
-        Me.Label27 = New System.Windows.Forms.Label()
-        Me.txtTim_CTPN = New System.Windows.Forms.TextBox()
-        Me.btnTim_CTPN = New System.Windows.Forms.Button()
-        Me.dgvChiTietPhieuNhap = New System.Windows.Forms.DataGridView()
-        Me.txtDonVi_CTPN = New System.Windows.Forms.TextBox()
-        Me.Label28 = New System.Windows.Forms.Label()
-        Me.txtDonGia_CTPN = New System.Windows.Forms.TextBox()
-        Me.txtThanhTIen_CTPN = New System.Windows.Forms.TextBox()
-        Me.Label29 = New System.Windows.Forms.Label()
-        Me.Label31 = New System.Windows.Forms.Label()
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.dgvPhieuNhap = New System.Windows.Forms.DataGridView()
         Me.MaPN_PN = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.MaNCC_PN = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TenNCC_PN = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -223,6 +193,10 @@ Partial Class frmManager
         Me.NgayGiaoDK_PN = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TongTien_PN = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TinhTrang_PN = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.btnTimKiem_PhieuNhap = New System.Windows.Forms.Button()
+        Me.txtTimKiem_PhieuNhap = New System.Windows.Forms.TextBox()
+        Me.gpbDanhSachCTPN = New System.Windows.Forms.GroupBox()
+        Me.dgvChiTietPhieuNhap = New System.Windows.Forms.DataGridView()
         Me.MaPN_CTPN = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.MaSP_CTPN = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TenSP_CTPN = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -231,6 +205,63 @@ Partial Class frmManager
         Me.TenDV_CTPN = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DonGia_CTPN = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ThanhTien_CTPN = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.btnTim_CTPN = New System.Windows.Forms.Button()
+        Me.txtTim_CTPN = New System.Windows.Forms.TextBox()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.btnThongKe_PhieuNhap = New System.Windows.Forms.Button()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.dtpNgayGiaoDK = New System.Windows.Forms.DateTimePicker()
+        Me.dtpNgayLap = New System.Windows.Forms.DateTimePicker()
+        Me.btnThem_PhieuNhap = New System.Windows.Forms.Button()
+        Me.btnXoa_PhieuNhap = New System.Windows.Forms.Button()
+        Me.btnSua_PhieuNhap = New System.Windows.Forms.Button()
+        Me.cboTinhTrang_PhieuNhap = New System.Windows.Forms.ComboBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.txtTenNV_PN = New System.Windows.Forms.TextBox()
+        Me.txtTenNCC_PN = New System.Windows.Forms.TextBox()
+        Me.txtTongTien_PhieuNhap = New System.Windows.Forms.TextBox()
+        Me.ChucVu_LoaiDonViTinh = New System.Windows.Forms.TabPage()
+        Me.GroupBox11 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox9 = New System.Windows.Forms.GroupBox()
+        Me.dgvChucVu = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.GroupBox8 = New System.Windows.Forms.GroupBox()
+        Me.btnXoa_ChucVu = New System.Windows.Forms.Button()
+        Me.btnSua_ChucVu = New System.Windows.Forms.Button()
+        Me.btnThem_ChucVu = New System.Windows.Forms.Button()
+        Me.TextBox6 = New System.Windows.Forms.TextBox()
+        Me.TextBox7 = New System.Windows.Forms.TextBox()
+        Me.Label34 = New System.Windows.Forms.Label()
+        Me.Label36 = New System.Windows.Forms.Label()
+        Me.GroupBox10 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox7 = New System.Windows.Forms.GroupBox()
+        Me.dgvChucVuNV = New System.Windows.Forms.DataGridView()
+        Me.MaDV_LDVT = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TenDV_LDVT = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DoTangMacDinh_LDVT = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.btnSua_LoaiDV = New System.Windows.Forms.Button()
+        Me.btnXoa_LoaiDV = New System.Windows.Forms.Button()
+        Me.TextBox3 = New System.Windows.Forms.TextBox()
+        Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.btnThem_LoaiDV = New System.Windows.Forms.Button()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.ErrorProvider1 = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.ErrorProvider2 = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.ErrorProvider3 = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.ErrorProvider4 = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.cboDonVi_CTPN = New System.Windows.Forms.ComboBox()
         Me.TbCtrQuanLy.SuspendLayout()
         Me.NhanVien.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -247,17 +278,26 @@ Partial Class frmManager
         CType(Me.dgvCTMon, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxThongTinChiTietHoaDon.SuspendLayout()
         CType(Me.dgvMonAnDoUong, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TabPage2.SuspendLayout()
-        Me.gpbDanhSachCTPN.SuspendLayout()
+        Me.PhieuNhap.SuspendLayout()
+        Me.gpbChiTietPhieuNhap.SuspendLayout()
+        Me.GroupBox6.SuspendLayout()
         CType(Me.dgvPhieuNhap, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.gpbDanhSachCTPN.SuspendLayout()
+        CType(Me.dgvChiTietPhieuNhap, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox4.SuspendLayout()
+        Me.ChucVu_LoaiDonViTinh.SuspendLayout()
+        Me.GroupBox11.SuspendLayout()
+        Me.GroupBox9.SuspendLayout()
+        CType(Me.dgvChucVu, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox8.SuspendLayout()
+        Me.GroupBox10.SuspendLayout()
+        Me.GroupBox7.SuspendLayout()
+        CType(Me.dgvChucVuNV, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox5.SuspendLayout()
         CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ErrorProvider2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ErrorProvider3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ErrorProvider4, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox6.SuspendLayout()
-        Me.gpbChiTietPhieuNhap.SuspendLayout()
-        CType(Me.dgvChiTietPhieuNhap, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
@@ -329,7 +369,8 @@ Partial Class frmManager
         Me.TbCtrQuanLy.Controls.Add(Me.NhanVien)
         Me.TbCtrQuanLy.Controls.Add(Me.HoaDon)
         Me.TbCtrQuanLy.Controls.Add(Me.MonAnDoUong)
-        Me.TbCtrQuanLy.Controls.Add(Me.TabPage2)
+        Me.TbCtrQuanLy.Controls.Add(Me.PhieuNhap)
+        Me.TbCtrQuanLy.Controls.Add(Me.ChucVu_LoaiDonViTinh)
         Me.TbCtrQuanLy.Font = New System.Drawing.Font("Roboto", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TbCtrQuanLy.Location = New System.Drawing.Point(10, 59)
         Me.TbCtrQuanLy.Name = "TbCtrQuanLy"
@@ -566,6 +607,84 @@ Partial Class frmManager
         Me.dgvNhanVien.Size = New System.Drawing.Size(1245, 418)
         Me.dgvNhanVien.TabIndex = 5
         '
+        'MaNV
+        '
+        Me.MaNV.DataPropertyName = "MaNV"
+        Me.MaNV.HeaderText = "MaNV"
+        Me.MaNV.Name = "MaNV"
+        Me.MaNV.ReadOnly = True
+        Me.MaNV.Visible = False
+        '
+        'HoTen
+        '
+        Me.HoTen.DataPropertyName = "HoTen"
+        Me.HoTen.HeaderText = "Họ Tên"
+        Me.HoTen.Name = "HoTen"
+        Me.HoTen.ReadOnly = True
+        Me.HoTen.Width = 220
+        '
+        'ThoiGianBatDau
+        '
+        Me.ThoiGianBatDau.DataPropertyName = "TGBatDau"
+        Me.ThoiGianBatDau.HeaderText = "Thời Gian Bắt Đầu"
+        Me.ThoiGianBatDau.Name = "ThoiGianBatDau"
+        Me.ThoiGianBatDau.ReadOnly = True
+        Me.ThoiGianBatDau.Width = 200
+        '
+        'CMND
+        '
+        Me.CMND.DataPropertyName = "CMND"
+        Me.CMND.HeaderText = "CMND"
+        Me.CMND.Name = "CMND"
+        Me.CMND.ReadOnly = True
+        Me.CMND.Width = 150
+        '
+        'TinhTrang
+        '
+        Me.TinhTrang.DataPropertyName = "TinhTrang"
+        Me.TinhTrang.HeaderText = "Tình Trạng"
+        Me.TinhTrang.Name = "TinhTrang"
+        Me.TinhTrang.ReadOnly = True
+        Me.TinhTrang.Width = 120
+        '
+        'NgaySinh
+        '
+        Me.NgaySinh.DataPropertyName = "NgaySinh"
+        Me.NgaySinh.HeaderText = "Ngày Sinh"
+        Me.NgaySinh.Name = "NgaySinh"
+        Me.NgaySinh.ReadOnly = True
+        Me.NgaySinh.Width = 150
+        '
+        'GioiTinh
+        '
+        Me.GioiTinh.DataPropertyName = "GioiTinh"
+        Me.GioiTinh.HeaderText = "Giới Tính"
+        Me.GioiTinh.Name = "GioiTinh"
+        Me.GioiTinh.ReadOnly = True
+        '
+        'LoaiNhanVien
+        '
+        Me.LoaiNhanVien.DataPropertyName = "LoaiNhanVien"
+        Me.LoaiNhanVien.HeaderText = "Loại Nhân Viên"
+        Me.LoaiNhanVien.Name = "LoaiNhanVien"
+        Me.LoaiNhanVien.ReadOnly = True
+        '
+        'TenChucVu
+        '
+        Me.TenChucVu.DataPropertyName = "TenChucVu"
+        Me.TenChucVu.HeaderText = "Tên Chức Vụ"
+        Me.TenChucVu.Name = "TenChucVu"
+        Me.TenChucVu.ReadOnly = True
+        Me.TenChucVu.Width = 145
+        '
+        'MaChucVu
+        '
+        Me.MaChucVu.DataPropertyName = "MaChucVu"
+        Me.MaChucVu.HeaderText = "Mã Chức Vụ"
+        Me.MaChucVu.Name = "MaChucVu"
+        Me.MaChucVu.ReadOnly = True
+        Me.MaChucVu.Visible = False
+        '
         'HoaDon
         '
         Me.HoaDon.Controls.Add(Me.gbxChiTietHoaDon)
@@ -615,6 +734,71 @@ Partial Class frmManager
         Me.dgvCTHoaDon.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvCTHoaDon.Size = New System.Drawing.Size(867, 198)
         Me.dgvCTHoaDon.TabIndex = 10
+        '
+        'MaHoaDon
+        '
+        Me.MaHoaDon.DataPropertyName = "MaHoaDon"
+        Me.MaHoaDon.HeaderText = "Mã Hóa Đơn"
+        Me.MaHoaDon.Name = "MaHoaDon"
+        Me.MaHoaDon.ReadOnly = True
+        Me.MaHoaDon.Visible = False
+        Me.MaHoaDon.Width = 120
+        '
+        'TenMon_CTHD
+        '
+        Me.TenMon_CTHD.DataPropertyName = "TenMon"
+        Me.TenMon_CTHD.HeaderText = "Tên Món"
+        Me.TenMon_CTHD.Name = "TenMon_CTHD"
+        Me.TenMon_CTHD.ReadOnly = True
+        Me.TenMon_CTHD.Width = 200
+        '
+        'GiaMotMon_CTHD
+        '
+        Me.GiaMotMon_CTHD.DataPropertyName = "GiaMotMon"
+        Me.GiaMotMon_CTHD.HeaderText = "Giá Một Món"
+        Me.GiaMotMon_CTHD.Name = "GiaMotMon_CTHD"
+        Me.GiaMotMon_CTHD.ReadOnly = True
+        Me.GiaMotMon_CTHD.Width = 140
+        '
+        'MaChiTiet
+        '
+        Me.MaChiTiet.DataPropertyName = "MaCT"
+        Me.MaChiTiet.HeaderText = "Mã Chi Tiết"
+        Me.MaChiTiet.Name = "MaChiTiet"
+        Me.MaChiTiet.ReadOnly = True
+        Me.MaChiTiet.Visible = False
+        '
+        'GhiChu_CTHD
+        '
+        Me.GhiChu_CTHD.DataPropertyName = "GhiChu"
+        Me.GhiChu_CTHD.HeaderText = "Ghi Chú"
+        Me.GhiChu_CTHD.Name = "GhiChu_CTHD"
+        Me.GhiChu_CTHD.ReadOnly = True
+        Me.GhiChu_CTHD.Width = 198
+        '
+        'SoLuong
+        '
+        Me.SoLuong.DataPropertyName = "SoLuong"
+        Me.SoLuong.HeaderText = "Số Lượng"
+        Me.SoLuong.Name = "SoLuong"
+        Me.SoLuong.ReadOnly = True
+        Me.SoLuong.Width = 120
+        '
+        'TongTien_CTHD
+        '
+        Me.TongTien_CTHD.DataPropertyName = "ThanhTien"
+        Me.TongTien_CTHD.HeaderText = "Tổng Tiền"
+        Me.TongTien_CTHD.Name = "TongTien_CTHD"
+        Me.TongTien_CTHD.ReadOnly = True
+        Me.TongTien_CTHD.Width = 166
+        '
+        'MaMon_CTHD
+        '
+        Me.MaMon_CTHD.DataPropertyName = "MaMon"
+        Me.MaMon_CTHD.HeaderText = "Mã Món"
+        Me.MaMon_CTHD.Name = "MaMon_CTHD"
+        Me.MaMon_CTHD.ReadOnly = True
+        Me.MaMon_CTHD.Visible = False
         '
         'txtTimKiem_CTHD
         '
@@ -790,6 +974,82 @@ Partial Class frmManager
         Me.dgvHoaDon.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvHoaDon.Size = New System.Drawing.Size(888, 252)
         Me.dgvHoaDon.TabIndex = 11
+        '
+        'MaHoaDon_HD
+        '
+        Me.MaHoaDon_HD.DataPropertyName = "MaHoaDon"
+        Me.MaHoaDon_HD.HeaderText = "Mã Hóa Đơn"
+        Me.MaHoaDon_HD.Name = "MaHoaDon_HD"
+        Me.MaHoaDon_HD.ReadOnly = True
+        Me.MaHoaDon_HD.Visible = False
+        '
+        'MaNV_HD
+        '
+        Me.MaNV_HD.DataPropertyName = "MaNV"
+        Me.MaNV_HD.HeaderText = "Mã Nhân Viên"
+        Me.MaNV_HD.Name = "MaNV_HD"
+        Me.MaNV_HD.ReadOnly = True
+        Me.MaNV_HD.Visible = False
+        '
+        'TenNhanVien
+        '
+        Me.TenNhanVien.DataPropertyName = "HoTen"
+        Me.TenNhanVien.HeaderText = "Tên Nhân Viên"
+        Me.TenNhanVien.Name = "TenNhanVien"
+        Me.TenNhanVien.ReadOnly = True
+        '
+        'ThoiGian
+        '
+        Me.ThoiGian.DataPropertyName = "ThoiGian"
+        Me.ThoiGian.HeaderText = "Thời Gian"
+        Me.ThoiGian.Name = "ThoiGian"
+        Me.ThoiGian.ReadOnly = True
+        Me.ThoiGian.Width = 120
+        '
+        'SoBan
+        '
+        Me.SoBan.DataPropertyName = "SoBan"
+        Me.SoBan.HeaderText = "Số Bàn"
+        Me.SoBan.Name = "SoBan"
+        Me.SoBan.ReadOnly = True
+        Me.SoBan.Width = 80
+        '
+        'SoLuongKhach
+        '
+        Me.SoLuongKhach.DataPropertyName = "SoLuongKhach"
+        Me.SoLuongKhach.HeaderText = "Số Lượng Khách"
+        Me.SoLuongKhach.Name = "SoLuongKhach"
+        Me.SoLuongKhach.ReadOnly = True
+        '
+        'MaHoaDonChung_HD
+        '
+        Me.MaHoaDonChung_HD.DataPropertyName = "MaHDChung"
+        Me.MaHoaDonChung_HD.HeaderText = "Mã Hóa Đơn Chung"
+        Me.MaHoaDonChung_HD.Name = "MaHoaDonChung_HD"
+        Me.MaHoaDonChung_HD.ReadOnly = True
+        '
+        'TongTien
+        '
+        Me.TongTien.DataPropertyName = "TongTien"
+        Me.TongTien.HeaderText = "Tổng Tiền"
+        Me.TongTien.Name = "TongTien"
+        Me.TongTien.ReadOnly = True
+        Me.TongTien.Width = 125
+        '
+        'GhiChu
+        '
+        Me.GhiChu.DataPropertyName = "GhiChu"
+        Me.GhiChu.HeaderText = "Ghi Chú"
+        Me.GhiChu.Name = "GhiChu"
+        Me.GhiChu.ReadOnly = True
+        Me.GhiChu.Width = 120
+        '
+        'DaThanhToan_HD
+        '
+        Me.DaThanhToan_HD.DataPropertyName = "TinhTrang"
+        Me.DaThanhToan_HD.HeaderText = "Đã Thanh Toán"
+        Me.DaThanhToan_HD.Name = "DaThanhToan_HD"
+        Me.DaThanhToan_HD.ReadOnly = True
         '
         'txtTimKiem_HoaDon
         '
@@ -1013,6 +1273,59 @@ Partial Class frmManager
         Me.dgvCTMon.Size = New System.Drawing.Size(540, 227)
         Me.dgvCTMon.TabIndex = 9
         '
+        'MaMon_CTM
+        '
+        Me.MaMon_CTM.DataPropertyName = "MaMon"
+        Me.MaMon_CTM.HeaderText = "Mã Món"
+        Me.MaMon_CTM.Name = "MaMon_CTM"
+        Me.MaMon_CTM.ReadOnly = True
+        Me.MaMon_CTM.Visible = False
+        '
+        'TenMon_CTMon
+        '
+        Me.TenMon_CTMon.DataPropertyName = "TenMon"
+        Me.TenMon_CTMon.HeaderText = "Tên Món"
+        Me.TenMon_CTMon.Name = "TenMon_CTMon"
+        Me.TenMon_CTMon.ReadOnly = True
+        Me.TenMon_CTMon.Width = 180
+        '
+        'MaSP_CTM
+        '
+        Me.MaSP_CTM.DataPropertyName = "MaSP"
+        Me.MaSP_CTM.HeaderText = "Mã Sản Phẩm"
+        Me.MaSP_CTM.Name = "MaSP_CTM"
+        Me.MaSP_CTM.ReadOnly = True
+        Me.MaSP_CTM.Visible = False
+        '
+        'TenSP_CTMon
+        '
+        Me.TenSP_CTMon.DataPropertyName = "TenSP"
+        Me.TenSP_CTMon.HeaderText = "Tên Sản Phẩm"
+        Me.TenSP_CTMon.Name = "TenSP_CTMon"
+        Me.TenSP_CTMon.ReadOnly = True
+        '
+        'SoLuong_CTMon
+        '
+        Me.SoLuong_CTMon.DataPropertyName = "SoLuong"
+        Me.SoLuong_CTMon.HeaderText = "Số Lượng"
+        Me.SoLuong_CTMon.Name = "SoLuong_CTMon"
+        Me.SoLuong_CTMon.ReadOnly = True
+        '
+        'DonVi_CTMon
+        '
+        Me.DonVi_CTMon.DataPropertyName = "TenDV"
+        Me.DonVi_CTMon.HeaderText = "Đơn Vị"
+        Me.DonVi_CTMon.Name = "DonVi_CTMon"
+        Me.DonVi_CTMon.ReadOnly = True
+        '
+        'MaDonVi_MKHT
+        '
+        Me.MaDonVi_MKHT.DataPropertyName = "MaDV"
+        Me.MaDonVi_MKHT.HeaderText = "Mã Đơn Vị"
+        Me.MaDonVi_MKHT.Name = "MaDonVi_MKHT"
+        Me.MaDonVi_MKHT.ReadOnly = True
+        Me.MaDonVi_MKHT.Visible = False
+        '
         'txtTimKiem_CTMon
         '
         Me.txtTimKiem_CTMon.Location = New System.Drawing.Point(383, 222)
@@ -1150,6 +1463,7 @@ Partial Class frmManager
         'cboThucDonMon_Mon
         '
         Me.cboThucDonMon_Mon.FormattingEnabled = True
+        Me.cboThucDonMon_Mon.Items.AddRange(New Object() {"Có", "Không"})
         Me.cboThucDonMon_Mon.Location = New System.Drawing.Point(400, 170)
         Me.cboThucDonMon_Mon.Name = "cboThucDonMon_Mon"
         Me.cboThucDonMon_Mon.Size = New System.Drawing.Size(126, 23)
@@ -1166,6 +1480,47 @@ Partial Class frmManager
         Me.dgvMonAnDoUong.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvMonAnDoUong.Size = New System.Drawing.Size(625, 206)
         Me.dgvMonAnDoUong.TabIndex = 8
+        '
+        'MaMon_MADU
+        '
+        Me.MaMon_MADU.DataPropertyName = "MaMon"
+        Me.MaMon_MADU.HeaderText = "Mã Món"
+        Me.MaMon_MADU.Name = "MaMon_MADU"
+        Me.MaMon_MADU.ReadOnly = True
+        Me.MaMon_MADU.Visible = False
+        '
+        'TenMon
+        '
+        Me.TenMon.DataPropertyName = "TenMon"
+        Me.TenMon.HeaderText = "Tên Món"
+        Me.TenMon.Name = "TenMon"
+        Me.TenMon.ReadOnly = True
+        Me.TenMon.Width = 200
+        '
+        'GiaTienHienTai
+        '
+        Me.GiaTienHienTai.DataPropertyName = "GiaTienHienTai"
+        DataGridViewCellStyle1.Format = "N0"
+        DataGridViewCellStyle1.NullValue = Nothing
+        Me.GiaTienHienTai.DefaultCellStyle = DataGridViewCellStyle1
+        Me.GiaTienHienTai.HeaderText = "Giá Tiền Hiện Tại"
+        Me.GiaTienHienTai.Name = "GiaTienHienTai"
+        Me.GiaTienHienTai.ReadOnly = True
+        Me.GiaTienHienTai.Width = 145
+        '
+        'ThucDonMon
+        '
+        Me.ThucDonMon.HeaderText = "Thực Đơn Món"
+        Me.ThucDonMon.Name = "ThucDonMon"
+        Me.ThucDonMon.ReadOnly = True
+        Me.ThucDonMon.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ThucDonMon.Width = 120
+        '
+        'Loai
+        '
+        Me.Loai.HeaderText = "Loại"
+        Me.Loai.Name = "Loai"
+        Me.Loai.ReadOnly = True
         '
         'txtTimKiem_Mon
         '
@@ -1262,398 +1617,19 @@ Partial Class frmManager
         Me.txtGiaHienTai_Mon.Size = New System.Drawing.Size(179, 22)
         Me.txtGiaHienTai_Mon.TabIndex = 1
         '
-        'TabPage2
-        '
-        Me.TabPage2.Controls.Add(Me.gpbChiTietPhieuNhap)
-        Me.TabPage2.Controls.Add(Me.GroupBox6)
-        Me.TabPage2.Controls.Add(Me.gpbDanhSachCTPN)
-        Me.TabPage2.Controls.Add(Me.GroupBox4)
-        Me.TabPage2.Location = New System.Drawing.Point(4, 24)
-        Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(1340, 626)
-        Me.TabPage2.TabIndex = 3
-        Me.TabPage2.Text = "Phiếu Nhập"
-        Me.TabPage2.UseVisualStyleBackColor = True
-        '
-        'gpbDanhSachCTPN
-        '
-        Me.gpbDanhSachCTPN.Controls.Add(Me.dgvChiTietPhieuNhap)
-        Me.gpbDanhSachCTPN.Controls.Add(Me.btnTim_CTPN)
-        Me.gpbDanhSachCTPN.Controls.Add(Me.txtTim_CTPN)
-        Me.gpbDanhSachCTPN.Enabled = False
-        Me.gpbDanhSachCTPN.Location = New System.Drawing.Point(529, 317)
-        Me.gpbDanhSachCTPN.Name = "gpbDanhSachCTPN"
-        Me.gpbDanhSachCTPN.Size = New System.Drawing.Size(788, 286)
-        Me.gpbDanhSachCTPN.TabIndex = 9
-        Me.gpbDanhSachCTPN.TabStop = False
-        Me.gpbDanhSachCTPN.Text = "Danh Sách Chi Tiết Phiếu Nhập"
-        '
-        'dgvPhieuNhap
-        '
-        Me.dgvPhieuNhap.AllowUserToOrderColumns = True
-        Me.dgvPhieuNhap.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvPhieuNhap.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.MaPN_PN, Me.MaNCC_PN, Me.TenNCC_PN, Me.MaNV_PN, Me.TenNV_PN, Me.NgayLap_PN, Me.NgayGiaoDK_PN, Me.TongTien_PN, Me.TinhTrang_PN})
-        Me.dgvPhieuNhap.Location = New System.Drawing.Point(6, 49)
-        Me.dgvPhieuNhap.Name = "dgvPhieuNhap"
-        Me.dgvPhieuNhap.RowTemplate.Height = 24
-        Me.dgvPhieuNhap.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvPhieuNhap.Size = New System.Drawing.Size(774, 214)
-        Me.dgvPhieuNhap.TabIndex = 8
-        '
-        'GroupBox4
-        '
-        Me.GroupBox4.Controls.Add(Me.btnThongKe_PhieuNhap)
-        Me.GroupBox4.Controls.Add(Me.Label19)
-        Me.GroupBox4.Controls.Add(Me.DateTimePicker2)
-        Me.GroupBox4.Controls.Add(Me.btnThem_PhieuNhap)
-        Me.GroupBox4.Controls.Add(Me.btnXoa_PhieuNhap)
-        Me.GroupBox4.Controls.Add(Me.btnSua_PhieuNhap)
-        Me.GroupBox4.Controls.Add(Me.DateTimePicker1)
-        Me.GroupBox4.Controls.Add(Me.cboTinhTrang_PhieuNhap)
-        Me.GroupBox4.Controls.Add(Me.Label9)
-        Me.GroupBox4.Controls.Add(Me.Label25)
-        Me.GroupBox4.Controls.Add(Me.Label20)
-        Me.GroupBox4.Controls.Add(Me.Label23)
-        Me.GroupBox4.Controls.Add(Me.Label22)
-        Me.GroupBox4.Controls.Add(Me.Label24)
-        Me.GroupBox4.Controls.Add(Me.TextBox2)
-        Me.GroupBox4.Controls.Add(Me.txtTenNV_PN)
-        Me.GroupBox4.Controls.Add(Me.txtTenMon_PhieuNhap)
-        Me.GroupBox4.Controls.Add(Me.txtGiaHienTai_PhieuNhap)
-        Me.GroupBox4.Font = New System.Drawing.Font("Roboto", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox4.Location = New System.Drawing.Point(16, 39)
-        Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(498, 243)
-        Me.GroupBox4.TabIndex = 7
-        Me.GroupBox4.TabStop = False
-        Me.GroupBox4.Text = "Thông Tin Phiếu Nhập"
-        '
-        'cboTinhTrang_PhieuNhap
-        '
-        Me.cboTinhTrang_PhieuNhap.FormattingEnabled = True
-        Me.cboTinhTrang_PhieuNhap.Location = New System.Drawing.Point(150, 176)
-        Me.cboTinhTrang_PhieuNhap.Name = "cboTinhTrang_PhieuNhap"
-        Me.cboTinhTrang_PhieuNhap.Size = New System.Drawing.Size(126, 23)
-        Me.cboTinhTrang_PhieuNhap.TabIndex = 9
-        '
-        'txtTimKiem_PhieuNhap
-        '
-        Me.txtTimKiem_PhieuNhap.Location = New System.Drawing.Point(189, 19)
-        Me.txtTimKiem_PhieuNhap.Name = "txtTimKiem_PhieuNhap"
-        Me.txtTimKiem_PhieuNhap.Size = New System.Drawing.Size(187, 22)
-        Me.txtTimKiem_PhieuNhap.TabIndex = 7
-        Me.txtTimKiem_PhieuNhap.Text = "Nhập thông tin cần tìm vào đây"
-        '
-        'btnTimKiem_PhieuNhap
-        '
-        Me.btnTimKiem_PhieuNhap.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnTimKiem_PhieuNhap.Location = New System.Drawing.Point(79, 15)
-        Me.btnTimKiem_PhieuNhap.Name = "btnTimKiem_PhieuNhap"
-        Me.btnTimKiem_PhieuNhap.Size = New System.Drawing.Size(104, 32)
-        Me.btnTimKiem_PhieuNhap.TabIndex = 6
-        Me.btnTimKiem_PhieuNhap.Text = "Tìm Kiếm"
-        Me.btnTimKiem_PhieuNhap.UseVisualStyleBackColor = True
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(13, 179)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(66, 15)
-        Me.Label9.TabIndex = 0
-        Me.Label9.Text = "Tình Trạng"
-        '
-        'Label20
-        '
-        Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(13, 86)
-        Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(110, 15)
-        Me.Label20.TabIndex = 0
-        Me.Label20.Text = "Tên Nhà Cung Cấp"
-        '
-        'btnXoa_PhieuNhap
-        '
-        Me.btnXoa_PhieuNhap.Location = New System.Drawing.Point(386, 131)
-        Me.btnXoa_PhieuNhap.Name = "btnXoa_PhieuNhap"
-        Me.btnXoa_PhieuNhap.Size = New System.Drawing.Size(95, 37)
-        Me.btnXoa_PhieuNhap.TabIndex = 5
-        Me.btnXoa_PhieuNhap.Text = "Xóa"
-        Me.btnXoa_PhieuNhap.UseVisualStyleBackColor = True
-        '
-        'btnSua_PhieuNhap
-        '
-        Me.btnSua_PhieuNhap.Location = New System.Drawing.Point(386, 75)
-        Me.btnSua_PhieuNhap.Name = "btnSua_PhieuNhap"
-        Me.btnSua_PhieuNhap.Size = New System.Drawing.Size(95, 37)
-        Me.btnSua_PhieuNhap.TabIndex = 4
-        Me.btnSua_PhieuNhap.Text = "Sửa"
-        Me.btnSua_PhieuNhap.UseVisualStyleBackColor = True
-        '
-        'btnThem_PhieuNhap
-        '
-        Me.btnThem_PhieuNhap.Location = New System.Drawing.Point(386, 24)
-        Me.btnThem_PhieuNhap.Name = "btnThem_PhieuNhap"
-        Me.btnThem_PhieuNhap.Size = New System.Drawing.Size(95, 37)
-        Me.btnThem_PhieuNhap.TabIndex = 3
-        Me.btnThem_PhieuNhap.Text = "Thêm"
-        Me.btnThem_PhieuNhap.UseVisualStyleBackColor = True
-        '
-        'txtTenMon_PhieuNhap
-        '
-        Me.txtTenMon_PhieuNhap.Location = New System.Drawing.Point(150, 83)
-        Me.txtTenMon_PhieuNhap.Name = "txtTenMon_PhieuNhap"
-        Me.txtTenMon_PhieuNhap.Size = New System.Drawing.Size(179, 22)
-        Me.txtTenMon_PhieuNhap.TabIndex = 0
-        '
-        'txtGiaHienTai_PhieuNhap
-        '
-        Me.txtGiaHienTai_PhieuNhap.Location = New System.Drawing.Point(150, 208)
-        Me.txtGiaHienTai_PhieuNhap.Name = "txtGiaHienTai_PhieuNhap"
-        Me.txtGiaHienTai_PhieuNhap.Size = New System.Drawing.Size(179, 22)
-        Me.txtGiaHienTai_PhieuNhap.TabIndex = 1
-        '
-        'ErrorProvider1
-        '
-        Me.ErrorProvider1.ContainerControl = Me
-        '
-        'ErrorProvider2
-        '
-        Me.ErrorProvider2.ContainerControl = Me
-        '
-        'ErrorProvider3
-        '
-        Me.ErrorProvider3.ContainerControl = Me
-        '
-        'ErrorProvider4
-        '
-        Me.ErrorProvider4.ContainerControl = Me
-        '
-        'MaMon_CTM
-        '
-        Me.MaMon_CTM.DataPropertyName = "MaMon"
-        Me.MaMon_CTM.HeaderText = "Mã Món"
-        Me.MaMon_CTM.Name = "MaMon_CTM"
-        Me.MaMon_CTM.ReadOnly = True
-        Me.MaMon_CTM.Visible = False
-        '
-        'TenMon_CTMon
-        '
-        Me.TenMon_CTMon.DataPropertyName = "TenMon"
-        Me.TenMon_CTMon.HeaderText = "Tên Món"
-        Me.TenMon_CTMon.Name = "TenMon_CTMon"
-        Me.TenMon_CTMon.ReadOnly = True
-        Me.TenMon_CTMon.Width = 180
-        '
-        'MaSP_CTM
-        '
-        Me.MaSP_CTM.DataPropertyName = "MaSP"
-        Me.MaSP_CTM.HeaderText = "Mã Sản Phẩm"
-        Me.MaSP_CTM.Name = "MaSP_CTM"
-        Me.MaSP_CTM.ReadOnly = True
-        Me.MaSP_CTM.Visible = False
-        '
-        'TenSP_CTMon
-        '
-        Me.TenSP_CTMon.DataPropertyName = "TenSP"
-        Me.TenSP_CTMon.HeaderText = "Tên Sản Phẩm"
-        Me.TenSP_CTMon.Name = "TenSP_CTMon"
-        Me.TenSP_CTMon.ReadOnly = True
-        '
-        'SoLuong_CTMon
-        '
-        Me.SoLuong_CTMon.DataPropertyName = "SoLuong"
-        Me.SoLuong_CTMon.HeaderText = "Số Lượng"
-        Me.SoLuong_CTMon.Name = "SoLuong_CTMon"
-        Me.SoLuong_CTMon.ReadOnly = True
-        '
-        'DonVi_CTMon
-        '
-        Me.DonVi_CTMon.DataPropertyName = "TenDV"
-        Me.DonVi_CTMon.HeaderText = "Đơn Vị"
-        Me.DonVi_CTMon.Name = "DonVi_CTMon"
-        Me.DonVi_CTMon.ReadOnly = True
-        '
-        'MaDonVi_MKHT
-        '
-        Me.MaDonVi_MKHT.DataPropertyName = "MaDV"
-        Me.MaDonVi_MKHT.HeaderText = "Mã Đơn Vị"
-        Me.MaDonVi_MKHT.Name = "MaDonVi_MKHT"
-        Me.MaDonVi_MKHT.ReadOnly = True
-        Me.MaDonVi_MKHT.Visible = False
-        '
-        'MaMon_MADU
-        '
-        Me.MaMon_MADU.DataPropertyName = "MaMon"
-        Me.MaMon_MADU.HeaderText = "Mã Món"
-        Me.MaMon_MADU.Name = "MaMon_MADU"
-        Me.MaMon_MADU.ReadOnly = True
-        Me.MaMon_MADU.Visible = False
-        '
-        'TenMon
-        '
-        Me.TenMon.DataPropertyName = "TenMon"
-        Me.TenMon.HeaderText = "Tên Món"
-        Me.TenMon.Name = "TenMon"
-        Me.TenMon.ReadOnly = True
-        Me.TenMon.Width = 200
-        '
-        'GiaTienHienTai
-        '
-        Me.GiaTienHienTai.DataPropertyName = "GiaTienHienTai"
-        DataGridViewCellStyle1.Format = "N0"
-        DataGridViewCellStyle1.NullValue = Nothing
-        Me.GiaTienHienTai.DefaultCellStyle = DataGridViewCellStyle1
-        Me.GiaTienHienTai.HeaderText = "Giá Tiền Hiện Tại"
-        Me.GiaTienHienTai.Name = "GiaTienHienTai"
-        Me.GiaTienHienTai.ReadOnly = True
-        Me.GiaTienHienTai.Width = 145
-        '
-        'ThucDonMon
-        '
-        Me.ThucDonMon.HeaderText = "Thực Đơn Món"
-        Me.ThucDonMon.Name = "ThucDonMon"
-        Me.ThucDonMon.ReadOnly = True
-        Me.ThucDonMon.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ThucDonMon.Width = 120
-        '
-        'Loai
-        '
-        Me.Loai.HeaderText = "Loại"
-        Me.Loai.Name = "Loai"
-        Me.Loai.ReadOnly = True
-        '
-        'MaNV
-        '
-        Me.MaNV.DataPropertyName = "MaNV"
-        Me.MaNV.HeaderText = "MaNV"
-        Me.MaNV.Name = "MaNV"
-        Me.MaNV.ReadOnly = True
-        Me.MaNV.Visible = False
-        '
-        'HoTen
-        '
-        Me.HoTen.DataPropertyName = "HoTen"
-        Me.HoTen.HeaderText = "Họ Tên"
-        Me.HoTen.Name = "HoTen"
-        Me.HoTen.ReadOnly = True
-        Me.HoTen.Width = 220
-        '
-        'ThoiGianBatDau
-        '
-        Me.ThoiGianBatDau.DataPropertyName = "TGBatDau"
-        Me.ThoiGianBatDau.HeaderText = "Thời Gian Bắt Đầu"
-        Me.ThoiGianBatDau.Name = "ThoiGianBatDau"
-        Me.ThoiGianBatDau.ReadOnly = True
-        Me.ThoiGianBatDau.Width = 200
-        '
-        'CMND
-        '
-        Me.CMND.DataPropertyName = "CMND"
-        Me.CMND.HeaderText = "CMND"
-        Me.CMND.Name = "CMND"
-        Me.CMND.ReadOnly = True
-        Me.CMND.Width = 150
-        '
-        'TinhTrang
-        '
-        Me.TinhTrang.DataPropertyName = "TinhTrang"
-        Me.TinhTrang.HeaderText = "Tình Trạng"
-        Me.TinhTrang.Name = "TinhTrang"
-        Me.TinhTrang.ReadOnly = True
-        Me.TinhTrang.Width = 120
-        '
-        'NgaySinh
-        '
-        Me.NgaySinh.DataPropertyName = "NgaySinh"
-        Me.NgaySinh.HeaderText = "Ngày Sinh"
-        Me.NgaySinh.Name = "NgaySinh"
-        Me.NgaySinh.ReadOnly = True
-        Me.NgaySinh.Width = 150
-        '
-        'GioiTinh
-        '
-        Me.GioiTinh.DataPropertyName = "GioiTinh"
-        Me.GioiTinh.HeaderText = "Giới Tính"
-        Me.GioiTinh.Name = "GioiTinh"
-        Me.GioiTinh.ReadOnly = True
-        '
-        'LoaiNhanVien
-        '
-        Me.LoaiNhanVien.DataPropertyName = "LoaiNhanVien"
-        Me.LoaiNhanVien.HeaderText = "Loại Nhân Viên"
-        Me.LoaiNhanVien.Name = "LoaiNhanVien"
-        Me.LoaiNhanVien.ReadOnly = True
-        '
-        'TenChucVu
-        '
-        Me.TenChucVu.DataPropertyName = "TenChucVu"
-        Me.TenChucVu.HeaderText = "Tên Chức Vụ"
-        Me.TenChucVu.Name = "TenChucVu"
-        Me.TenChucVu.ReadOnly = True
-        Me.TenChucVu.Width = 145
-        '
-        'MaChucVu
-        '
-        Me.MaChucVu.DataPropertyName = "MaChucVu"
-        Me.MaChucVu.HeaderText = "Mã Chức Vụ"
-        Me.MaChucVu.Name = "MaChucVu"
-        Me.MaChucVu.ReadOnly = True
-        Me.MaChucVu.Visible = False
-        '
-        'btnThongKe_PhieuNhap
-        '
-        Me.btnThongKe_PhieuNhap.Location = New System.Drawing.Point(386, 187)
-        Me.btnThongKe_PhieuNhap.Name = "btnThongKe_PhieuNhap"
-        Me.btnThongKe_PhieuNhap.Size = New System.Drawing.Size(95, 37)
-        Me.btnThongKe_PhieuNhap.TabIndex = 3
-        Me.btnThongKe_PhieuNhap.Text = "Chi Tiết"
-        Me.btnThongKe_PhieuNhap.UseVisualStyleBackColor = True
-        '
-        'DateTimePicker1
-        '
-        Me.DateTimePicker1.Location = New System.Drawing.Point(150, 147)
-        Me.DateTimePicker1.Name = "DateTimePicker1"
-        Me.DateTimePicker1.Size = New System.Drawing.Size(200, 22)
-        Me.DateTimePicker1.TabIndex = 10
-        '
-        'DateTimePicker2
-        '
-        Me.DateTimePicker2.Location = New System.Drawing.Point(150, 114)
-        Me.DateTimePicker2.Name = "DateTimePicker2"
-        Me.DateTimePicker2.Size = New System.Drawing.Size(200, 22)
-        Me.DateTimePicker2.TabIndex = 10
-        '
-        'Label22
-        '
-        Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(13, 120)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(59, 15)
-        Me.Label22.TabIndex = 0
-        Me.Label22.Text = "Ngày Lập"
-        '
-        'Label23
-        '
-        Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(13, 153)
-        Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(83, 15)
-        Me.Label23.TabIndex = 0
-        Me.Label23.Text = "Ngày Giao DK"
-        '
-        'GroupBox6
-        '
-        Me.GroupBox6.Controls.Add(Me.dgvPhieuNhap)
-        Me.GroupBox6.Controls.Add(Me.btnTimKiem_PhieuNhap)
-        Me.GroupBox6.Controls.Add(Me.txtTimKiem_PhieuNhap)
-        Me.GroupBox6.Location = New System.Drawing.Point(529, 19)
-        Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(788, 279)
-        Me.GroupBox6.TabIndex = 10
-        Me.GroupBox6.TabStop = False
-        Me.GroupBox6.Text = "Danh Sách Phiếu Nhập"
+        'PhieuNhap
+        '
+        Me.PhieuNhap.Controls.Add(Me.gpbChiTietPhieuNhap)
+        Me.PhieuNhap.Controls.Add(Me.GroupBox6)
+        Me.PhieuNhap.Controls.Add(Me.gpbDanhSachCTPN)
+        Me.PhieuNhap.Controls.Add(Me.GroupBox4)
+        Me.PhieuNhap.Location = New System.Drawing.Point(4, 24)
+        Me.PhieuNhap.Name = "PhieuNhap"
+        Me.PhieuNhap.Padding = New System.Windows.Forms.Padding(3)
+        Me.PhieuNhap.Size = New System.Drawing.Size(1340, 626)
+        Me.PhieuNhap.TabIndex = 3
+        Me.PhieuNhap.Text = "Phiếu Nhập"
+        Me.PhieuNhap.UseVisualStyleBackColor = True
         '
         'gpbChiTietPhieuNhap
         '
@@ -1664,8 +1640,8 @@ Partial Class frmManager
         Me.gpbChiTietPhieuNhap.Controls.Add(Me.Label29)
         Me.gpbChiTietPhieuNhap.Controls.Add(Me.Label28)
         Me.gpbChiTietPhieuNhap.Controls.Add(Me.txtThanhTIen_CTPN)
+        Me.gpbChiTietPhieuNhap.Controls.Add(Me.cboDonVi_CTPN)
         Me.gpbChiTietPhieuNhap.Controls.Add(Me.Label26)
-        Me.gpbChiTietPhieuNhap.Controls.Add(Me.txtDonVi_CTPN)
         Me.gpbChiTietPhieuNhap.Controls.Add(Me.txtDonGia_CTPN)
         Me.gpbChiTietPhieuNhap.Controls.Add(Me.Label27)
         Me.gpbChiTietPhieuNhap.Controls.Add(Me.txtSoLuong_CTPN)
@@ -1680,188 +1656,15 @@ Partial Class frmManager
         Me.gpbChiTietPhieuNhap.TabStop = False
         Me.gpbChiTietPhieuNhap.Text = "Thông Tin Chi Tiết Phiếu Nhập"
         '
-        'txtTenNV_PN
+        'Label31
         '
-        Me.txtTenNV_PN.Location = New System.Drawing.Point(150, 52)
-        Me.txtTenNV_PN.Name = "txtTenNV_PN"
-        Me.txtTenNV_PN.Size = New System.Drawing.Size(179, 22)
-        Me.txtTenNV_PN.TabIndex = 1
-        '
-        'TextBox2
-        '
-        Me.TextBox2.Location = New System.Drawing.Point(150, 21)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(179, 22)
-        Me.TextBox2.TabIndex = 0
-        '
-        'Label24
-        '
-        Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(13, 55)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(87, 15)
-        Me.Label24.TabIndex = 0
-        Me.Label24.Text = "Tên Nhân Viên"
-        '
-        'Label25
-        '
-        Me.Label25.AutoSize = True
-        Me.Label25.Location = New System.Drawing.Point(13, 24)
-        Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(91, 15)
-        Me.Label25.TabIndex = 0
-        Me.Label25.Text = "Mã Phiếu Nhập"
-        '
-        'MaHoaDon_HD
-        '
-        Me.MaHoaDon_HD.DataPropertyName = "MaHoaDon"
-        Me.MaHoaDon_HD.HeaderText = "Mã Hóa Đơn"
-        Me.MaHoaDon_HD.Name = "MaHoaDon_HD"
-        Me.MaHoaDon_HD.ReadOnly = True
-        Me.MaHoaDon_HD.Visible = False
-        '
-        'MaNV_HD
-        '
-        Me.MaNV_HD.DataPropertyName = "MaNV"
-        Me.MaNV_HD.HeaderText = "Mã Nhân Viên"
-        Me.MaNV_HD.Name = "MaNV_HD"
-        Me.MaNV_HD.ReadOnly = True
-        Me.MaNV_HD.Visible = False
-        '
-        'TenNhanVien
-        '
-        Me.TenNhanVien.DataPropertyName = "HoTen"
-        Me.TenNhanVien.HeaderText = "Tên Nhân Viên"
-        Me.TenNhanVien.Name = "TenNhanVien"
-        Me.TenNhanVien.ReadOnly = True
-        '
-        'ThoiGian
-        '
-        Me.ThoiGian.DataPropertyName = "ThoiGian"
-        Me.ThoiGian.HeaderText = "Thời Gian"
-        Me.ThoiGian.Name = "ThoiGian"
-        Me.ThoiGian.ReadOnly = True
-        Me.ThoiGian.Width = 120
-        '
-        'SoBan
-        '
-        Me.SoBan.DataPropertyName = "SoBan"
-        Me.SoBan.HeaderText = "Số Bàn"
-        Me.SoBan.Name = "SoBan"
-        Me.SoBan.ReadOnly = True
-        Me.SoBan.Width = 80
-        '
-        'SoLuongKhach
-        '
-        Me.SoLuongKhach.DataPropertyName = "SoLuongKhach"
-        Me.SoLuongKhach.HeaderText = "Số Lượng Khách"
-        Me.SoLuongKhach.Name = "SoLuongKhach"
-        Me.SoLuongKhach.ReadOnly = True
-        '
-        'MaHoaDonChung_HD
-        '
-        Me.MaHoaDonChung_HD.DataPropertyName = "MaHDChung"
-        Me.MaHoaDonChung_HD.HeaderText = "Mã Hóa Đơn Chung"
-        Me.MaHoaDonChung_HD.Name = "MaHoaDonChung_HD"
-        Me.MaHoaDonChung_HD.ReadOnly = True
-        '
-        'TongTien
-        '
-        Me.TongTien.DataPropertyName = "TongTien"
-        Me.TongTien.HeaderText = "Tổng Tiền"
-        Me.TongTien.Name = "TongTien"
-        Me.TongTien.ReadOnly = True
-        Me.TongTien.Width = 125
-        '
-        'GhiChu
-        '
-        Me.GhiChu.DataPropertyName = "GhiChu"
-        Me.GhiChu.HeaderText = "Ghi Chú"
-        Me.GhiChu.Name = "GhiChu"
-        Me.GhiChu.ReadOnly = True
-        Me.GhiChu.Width = 120
-        '
-        'DaThanhToan_HD
-        '
-        Me.DaThanhToan_HD.DataPropertyName = "TinhTrang"
-        Me.DaThanhToan_HD.HeaderText = "Đã Thanh Toán"
-        Me.DaThanhToan_HD.Name = "DaThanhToan_HD"
-        Me.DaThanhToan_HD.ReadOnly = True
-        '
-        'MaHoaDon
-        '
-        Me.MaHoaDon.DataPropertyName = "MaHoaDon"
-        Me.MaHoaDon.HeaderText = "Mã Hóa Đơn"
-        Me.MaHoaDon.Name = "MaHoaDon"
-        Me.MaHoaDon.ReadOnly = True
-        Me.MaHoaDon.Visible = False
-        Me.MaHoaDon.Width = 120
-        '
-        'TenMon_CTHD
-        '
-        Me.TenMon_CTHD.DataPropertyName = "TenMon"
-        Me.TenMon_CTHD.HeaderText = "Tên Món"
-        Me.TenMon_CTHD.Name = "TenMon_CTHD"
-        Me.TenMon_CTHD.ReadOnly = True
-        Me.TenMon_CTHD.Width = 200
-        '
-        'GiaMotMon_CTHD
-        '
-        Me.GiaMotMon_CTHD.DataPropertyName = "GiaMotMon"
-        Me.GiaMotMon_CTHD.HeaderText = "Giá Một Món"
-        Me.GiaMotMon_CTHD.Name = "GiaMotMon_CTHD"
-        Me.GiaMotMon_CTHD.ReadOnly = True
-        Me.GiaMotMon_CTHD.Width = 140
-        '
-        'MaChiTiet
-        '
-        Me.MaChiTiet.DataPropertyName = "MaCT"
-        Me.MaChiTiet.HeaderText = "Mã Chi Tiết"
-        Me.MaChiTiet.Name = "MaChiTiet"
-        Me.MaChiTiet.ReadOnly = True
-        Me.MaChiTiet.Visible = False
-        '
-        'GhiChu_CTHD
-        '
-        Me.GhiChu_CTHD.DataPropertyName = "GhiChu"
-        Me.GhiChu_CTHD.HeaderText = "Ghi Chú"
-        Me.GhiChu_CTHD.Name = "GhiChu_CTHD"
-        Me.GhiChu_CTHD.ReadOnly = True
-        Me.GhiChu_CTHD.Width = 198
-        '
-        'SoLuong
-        '
-        Me.SoLuong.DataPropertyName = "SoLuong"
-        Me.SoLuong.HeaderText = "Số Lượng"
-        Me.SoLuong.Name = "SoLuong"
-        Me.SoLuong.ReadOnly = True
-        Me.SoLuong.Width = 120
-        '
-        'TongTien_CTHD
-        '
-        Me.TongTien_CTHD.DataPropertyName = "ThanhTien"
-        Me.TongTien_CTHD.HeaderText = "Tổng Tiền"
-        Me.TongTien_CTHD.Name = "TongTien_CTHD"
-        Me.TongTien_CTHD.ReadOnly = True
-        Me.TongTien_CTHD.Width = 166
-        '
-        'MaMon_CTHD
-        '
-        Me.MaMon_CTHD.DataPropertyName = "MaMon"
-        Me.MaMon_CTHD.HeaderText = "Mã Món"
-        Me.MaMon_CTHD.Name = "MaMon_CTHD"
-        Me.MaMon_CTHD.ReadOnly = True
-        Me.MaMon_CTHD.Visible = False
-        '
-        'Label19
-        '
-        Me.Label19.AutoSize = True
-        Me.Label19.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label19.Location = New System.Drawing.Point(25, 206)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(98, 24)
-        Me.Label19.TabIndex = 11
-        Me.Label19.Text = "Tổng Tiền"
+        Me.Label31.AutoSize = True
+        Me.Label31.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label31.Location = New System.Drawing.Point(25, 185)
+        Me.Label31.Name = "Label31"
+        Me.Label31.Size = New System.Drawing.Size(108, 24)
+        Me.Label31.TabIndex = 11
+        Me.Label31.Text = "Thành Tiền"
         '
         'btnSua_CTPN
         '
@@ -1890,12 +1693,71 @@ Partial Class frmManager
         Me.btnThem_CTPN.Text = "Thêm"
         Me.btnThem_CTPN.UseVisualStyleBackColor = True
         '
+        'Label29
+        '
+        Me.Label29.AutoSize = True
+        Me.Label29.Location = New System.Drawing.Point(13, 157)
+        Me.Label29.Name = "Label29"
+        Me.Label29.Size = New System.Drawing.Size(50, 15)
+        Me.Label29.TabIndex = 0
+        Me.Label29.Text = "Đơn Giá"
+        '
+        'Label28
+        '
+        Me.Label28.AutoSize = True
+        Me.Label28.Location = New System.Drawing.Point(13, 127)
+        Me.Label28.Name = "Label28"
+        Me.Label28.Size = New System.Drawing.Size(43, 15)
+        Me.Label28.TabIndex = 0
+        Me.Label28.Text = "Đơn Vị"
+        '
+        'txtThanhTIen_CTPN
+        '
+        Me.txtThanhTIen_CTPN.Location = New System.Drawing.Point(150, 185)
+        Me.txtThanhTIen_CTPN.Name = "txtThanhTIen_CTPN"
+        Me.txtThanhTIen_CTPN.Size = New System.Drawing.Size(179, 22)
+        Me.txtThanhTIen_CTPN.TabIndex = 0
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.Location = New System.Drawing.Point(13, 96)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(58, 15)
+        Me.Label26.TabIndex = 0
+        Me.Label26.Text = "Số Lượng"
+        '
+        'txtDonGia_CTPN
+        '
+        Me.txtDonGia_CTPN.Location = New System.Drawing.Point(150, 154)
+        Me.txtDonGia_CTPN.Name = "txtDonGia_CTPN"
+        Me.txtDonGia_CTPN.Size = New System.Drawing.Size(179, 22)
+        Me.txtDonGia_CTPN.TabIndex = 0
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.Location = New System.Drawing.Point(13, 34)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(91, 15)
+        Me.Label27.TabIndex = 0
+        Me.Label27.Text = "Mã Phiếu Nhập"
+        '
         'txtSoLuong_CTPN
         '
         Me.txtSoLuong_CTPN.Location = New System.Drawing.Point(150, 93)
         Me.txtSoLuong_CTPN.Name = "txtSoLuong_CTPN"
         Me.txtSoLuong_CTPN.Size = New System.Drawing.Size(179, 22)
         Me.txtSoLuong_CTPN.TabIndex = 0
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Location = New System.Drawing.Point(13, 65)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(87, 15)
+        Me.Label21.TabIndex = 0
+        Me.Label21.Text = "Tên Sản Phẩm"
         '
         'txtTenSP_CTPN
         '
@@ -1911,111 +1773,29 @@ Partial Class frmManager
         Me.txtMaPN_CTPN.Size = New System.Drawing.Size(179, 22)
         Me.txtMaPN_CTPN.TabIndex = 0
         '
-        'Label21
+        'GroupBox6
         '
-        Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(13, 65)
-        Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(87, 15)
-        Me.Label21.TabIndex = 0
-        Me.Label21.Text = "Tên Sản Phẩm"
+        Me.GroupBox6.Controls.Add(Me.dgvPhieuNhap)
+        Me.GroupBox6.Controls.Add(Me.btnTimKiem_PhieuNhap)
+        Me.GroupBox6.Controls.Add(Me.txtTimKiem_PhieuNhap)
+        Me.GroupBox6.Location = New System.Drawing.Point(529, 19)
+        Me.GroupBox6.Name = "GroupBox6"
+        Me.GroupBox6.Size = New System.Drawing.Size(788, 279)
+        Me.GroupBox6.TabIndex = 10
+        Me.GroupBox6.TabStop = False
+        Me.GroupBox6.Text = "Danh Sách Phiếu Nhập"
         '
-        'Label26
+        'dgvPhieuNhap
         '
-        Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(13, 96)
-        Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(58, 15)
-        Me.Label26.TabIndex = 0
-        Me.Label26.Text = "Số Lượng"
-        '
-        'Label27
-        '
-        Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(13, 34)
-        Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(91, 15)
-        Me.Label27.TabIndex = 0
-        Me.Label27.Text = "Mã Phiếu Nhập"
-        '
-        'txtTim_CTPN
-        '
-        Me.txtTim_CTPN.Location = New System.Drawing.Point(189, 25)
-        Me.txtTim_CTPN.Name = "txtTim_CTPN"
-        Me.txtTim_CTPN.Size = New System.Drawing.Size(187, 22)
-        Me.txtTim_CTPN.TabIndex = 7
-        Me.txtTim_CTPN.Text = "Nhập thông tin cần tìm vào đây"
-        '
-        'btnTim_CTPN
-        '
-        Me.btnTim_CTPN.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnTim_CTPN.Location = New System.Drawing.Point(79, 21)
-        Me.btnTim_CTPN.Name = "btnTim_CTPN"
-        Me.btnTim_CTPN.Size = New System.Drawing.Size(104, 32)
-        Me.btnTim_CTPN.TabIndex = 6
-        Me.btnTim_CTPN.Text = "Tìm Kiếm"
-        Me.btnTim_CTPN.UseVisualStyleBackColor = True
-        '
-        'dgvChiTietPhieuNhap
-        '
-        Me.dgvChiTietPhieuNhap.AllowUserToOrderColumns = True
-        Me.dgvChiTietPhieuNhap.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvChiTietPhieuNhap.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.MaPN_CTPN, Me.MaSP_CTPN, Me.TenSP_CTPN, Me.SoLuong_CTPN, Me.MaDV_CTPN, Me.TenDV_CTPN, Me.DonGia_CTPN, Me.ThanhTien_CTPN})
-        Me.dgvChiTietPhieuNhap.Location = New System.Drawing.Point(6, 55)
-        Me.dgvChiTietPhieuNhap.Name = "dgvChiTietPhieuNhap"
-        Me.dgvChiTietPhieuNhap.RowTemplate.Height = 24
-        Me.dgvChiTietPhieuNhap.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvChiTietPhieuNhap.Size = New System.Drawing.Size(774, 214)
-        Me.dgvChiTietPhieuNhap.TabIndex = 8
-        '
-        'txtDonVi_CTPN
-        '
-        Me.txtDonVi_CTPN.Location = New System.Drawing.Point(150, 124)
-        Me.txtDonVi_CTPN.Name = "txtDonVi_CTPN"
-        Me.txtDonVi_CTPN.Size = New System.Drawing.Size(179, 22)
-        Me.txtDonVi_CTPN.TabIndex = 0
-        '
-        'Label28
-        '
-        Me.Label28.AutoSize = True
-        Me.Label28.Location = New System.Drawing.Point(13, 127)
-        Me.Label28.Name = "Label28"
-        Me.Label28.Size = New System.Drawing.Size(43, 15)
-        Me.Label28.TabIndex = 0
-        Me.Label28.Text = "Đơn Vị"
-        '
-        'txtDonGia_CTPN
-        '
-        Me.txtDonGia_CTPN.Location = New System.Drawing.Point(150, 154)
-        Me.txtDonGia_CTPN.Name = "txtDonGia_CTPN"
-        Me.txtDonGia_CTPN.Size = New System.Drawing.Size(179, 22)
-        Me.txtDonGia_CTPN.TabIndex = 0
-        '
-        'txtThanhTIen_CTPN
-        '
-        Me.txtThanhTIen_CTPN.Location = New System.Drawing.Point(150, 185)
-        Me.txtThanhTIen_CTPN.Name = "txtThanhTIen_CTPN"
-        Me.txtThanhTIen_CTPN.Size = New System.Drawing.Size(179, 22)
-        Me.txtThanhTIen_CTPN.TabIndex = 0
-        '
-        'Label29
-        '
-        Me.Label29.AutoSize = True
-        Me.Label29.Location = New System.Drawing.Point(13, 157)
-        Me.Label29.Name = "Label29"
-        Me.Label29.Size = New System.Drawing.Size(50, 15)
-        Me.Label29.TabIndex = 0
-        Me.Label29.Text = "Đơn Giá"
-        '
-        'Label31
-        '
-        Me.Label31.AutoSize = True
-        Me.Label31.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label31.Location = New System.Drawing.Point(25, 185)
-        Me.Label31.Name = "Label31"
-        Me.Label31.Size = New System.Drawing.Size(108, 24)
-        Me.Label31.TabIndex = 11
-        Me.Label31.Text = "Thành Tiền"
+        Me.dgvPhieuNhap.AllowUserToOrderColumns = True
+        Me.dgvPhieuNhap.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvPhieuNhap.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.MaPN_PN, Me.MaNCC_PN, Me.TenNCC_PN, Me.MaNV_PN, Me.TenNV_PN, Me.NgayLap_PN, Me.NgayGiaoDK_PN, Me.TongTien_PN, Me.TinhTrang_PN})
+        Me.dgvPhieuNhap.Location = New System.Drawing.Point(6, 49)
+        Me.dgvPhieuNhap.Name = "dgvPhieuNhap"
+        Me.dgvPhieuNhap.RowTemplate.Height = 24
+        Me.dgvPhieuNhap.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvPhieuNhap.Size = New System.Drawing.Size(774, 214)
+        Me.dgvPhieuNhap.TabIndex = 8
         '
         'MaPN_PN
         '
@@ -2082,6 +1862,49 @@ Partial Class frmManager
         Me.TinhTrang_PN.Name = "TinhTrang_PN"
         Me.TinhTrang_PN.ReadOnly = True
         '
+        'btnTimKiem_PhieuNhap
+        '
+        Me.btnTimKiem_PhieuNhap.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnTimKiem_PhieuNhap.Location = New System.Drawing.Point(79, 15)
+        Me.btnTimKiem_PhieuNhap.Name = "btnTimKiem_PhieuNhap"
+        Me.btnTimKiem_PhieuNhap.Size = New System.Drawing.Size(104, 32)
+        Me.btnTimKiem_PhieuNhap.TabIndex = 6
+        Me.btnTimKiem_PhieuNhap.Text = "Tìm Kiếm"
+        Me.btnTimKiem_PhieuNhap.UseVisualStyleBackColor = True
+        '
+        'txtTimKiem_PhieuNhap
+        '
+        Me.txtTimKiem_PhieuNhap.Location = New System.Drawing.Point(189, 19)
+        Me.txtTimKiem_PhieuNhap.Name = "txtTimKiem_PhieuNhap"
+        Me.txtTimKiem_PhieuNhap.Size = New System.Drawing.Size(187, 22)
+        Me.txtTimKiem_PhieuNhap.TabIndex = 7
+        Me.txtTimKiem_PhieuNhap.Text = "Nhập thông tin cần tìm vào đây"
+        '
+        'gpbDanhSachCTPN
+        '
+        Me.gpbDanhSachCTPN.Controls.Add(Me.dgvChiTietPhieuNhap)
+        Me.gpbDanhSachCTPN.Controls.Add(Me.btnTim_CTPN)
+        Me.gpbDanhSachCTPN.Controls.Add(Me.txtTim_CTPN)
+        Me.gpbDanhSachCTPN.Enabled = False
+        Me.gpbDanhSachCTPN.Location = New System.Drawing.Point(529, 317)
+        Me.gpbDanhSachCTPN.Name = "gpbDanhSachCTPN"
+        Me.gpbDanhSachCTPN.Size = New System.Drawing.Size(788, 286)
+        Me.gpbDanhSachCTPN.TabIndex = 9
+        Me.gpbDanhSachCTPN.TabStop = False
+        Me.gpbDanhSachCTPN.Text = "Danh Sách Chi Tiết Phiếu Nhập"
+        '
+        'dgvChiTietPhieuNhap
+        '
+        Me.dgvChiTietPhieuNhap.AllowUserToOrderColumns = True
+        Me.dgvChiTietPhieuNhap.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvChiTietPhieuNhap.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.MaPN_CTPN, Me.MaSP_CTPN, Me.TenSP_CTPN, Me.SoLuong_CTPN, Me.MaDV_CTPN, Me.TenDV_CTPN, Me.DonGia_CTPN, Me.ThanhTien_CTPN})
+        Me.dgvChiTietPhieuNhap.Location = New System.Drawing.Point(6, 55)
+        Me.dgvChiTietPhieuNhap.Name = "dgvChiTietPhieuNhap"
+        Me.dgvChiTietPhieuNhap.RowTemplate.Height = 24
+        Me.dgvChiTietPhieuNhap.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvChiTietPhieuNhap.Size = New System.Drawing.Size(774, 214)
+        Me.dgvChiTietPhieuNhap.TabIndex = 8
+        '
         'MaPN_CTPN
         '
         Me.MaPN_CTPN.DataPropertyName = "MaPN"
@@ -2147,6 +1970,512 @@ Partial Class frmManager
         Me.ThanhTien_CTPN.ReadOnly = True
         Me.ThanhTien_CTPN.Width = 140
         '
+        'btnTim_CTPN
+        '
+        Me.btnTim_CTPN.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnTim_CTPN.Location = New System.Drawing.Point(79, 21)
+        Me.btnTim_CTPN.Name = "btnTim_CTPN"
+        Me.btnTim_CTPN.Size = New System.Drawing.Size(104, 32)
+        Me.btnTim_CTPN.TabIndex = 6
+        Me.btnTim_CTPN.Text = "Tìm Kiếm"
+        Me.btnTim_CTPN.UseVisualStyleBackColor = True
+        '
+        'txtTim_CTPN
+        '
+        Me.txtTim_CTPN.Location = New System.Drawing.Point(189, 25)
+        Me.txtTim_CTPN.Name = "txtTim_CTPN"
+        Me.txtTim_CTPN.Size = New System.Drawing.Size(187, 22)
+        Me.txtTim_CTPN.TabIndex = 7
+        Me.txtTim_CTPN.Text = "Nhập thông tin cần tìm vào đây"
+        '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.btnThongKe_PhieuNhap)
+        Me.GroupBox4.Controls.Add(Me.Label19)
+        Me.GroupBox4.Controls.Add(Me.dtpNgayGiaoDK)
+        Me.GroupBox4.Controls.Add(Me.dtpNgayLap)
+        Me.GroupBox4.Controls.Add(Me.btnThem_PhieuNhap)
+        Me.GroupBox4.Controls.Add(Me.btnXoa_PhieuNhap)
+        Me.GroupBox4.Controls.Add(Me.btnSua_PhieuNhap)
+        Me.GroupBox4.Controls.Add(Me.cboTinhTrang_PhieuNhap)
+        Me.GroupBox4.Controls.Add(Me.Label9)
+        Me.GroupBox4.Controls.Add(Me.Label25)
+        Me.GroupBox4.Controls.Add(Me.Label20)
+        Me.GroupBox4.Controls.Add(Me.Label23)
+        Me.GroupBox4.Controls.Add(Me.Label22)
+        Me.GroupBox4.Controls.Add(Me.Label24)
+        Me.GroupBox4.Controls.Add(Me.TextBox2)
+        Me.GroupBox4.Controls.Add(Me.txtTenNV_PN)
+        Me.GroupBox4.Controls.Add(Me.txtTenNCC_PN)
+        Me.GroupBox4.Controls.Add(Me.txtTongTien_PhieuNhap)
+        Me.GroupBox4.Font = New System.Drawing.Font("Roboto", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox4.Location = New System.Drawing.Point(16, 39)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(498, 243)
+        Me.GroupBox4.TabIndex = 7
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "Thông Tin Phiếu Nhập"
+        '
+        'btnThongKe_PhieuNhap
+        '
+        Me.btnThongKe_PhieuNhap.Location = New System.Drawing.Point(386, 187)
+        Me.btnThongKe_PhieuNhap.Name = "btnThongKe_PhieuNhap"
+        Me.btnThongKe_PhieuNhap.Size = New System.Drawing.Size(95, 37)
+        Me.btnThongKe_PhieuNhap.TabIndex = 3
+        Me.btnThongKe_PhieuNhap.Text = "Chi Tiết"
+        Me.btnThongKe_PhieuNhap.UseVisualStyleBackColor = True
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label19.Location = New System.Drawing.Point(25, 206)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(98, 24)
+        Me.Label19.TabIndex = 11
+        Me.Label19.Text = "Tổng Tiền"
+        '
+        'dtpNgayGiaoDK
+        '
+        Me.dtpNgayGiaoDK.CustomFormat = "dd/MM/yyyy"
+        Me.dtpNgayGiaoDK.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpNgayGiaoDK.Location = New System.Drawing.Point(150, 147)
+        Me.dtpNgayGiaoDK.Name = "dtpNgayGiaoDK"
+        Me.dtpNgayGiaoDK.Size = New System.Drawing.Size(200, 22)
+        Me.dtpNgayGiaoDK.TabIndex = 10
+        '
+        'dtpNgayLap
+        '
+        Me.dtpNgayLap.CustomFormat = "dd/MM/yyyy"
+        Me.dtpNgayLap.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpNgayLap.Location = New System.Drawing.Point(150, 114)
+        Me.dtpNgayLap.Name = "dtpNgayLap"
+        Me.dtpNgayLap.Size = New System.Drawing.Size(200, 22)
+        Me.dtpNgayLap.TabIndex = 10
+        '
+        'btnThem_PhieuNhap
+        '
+        Me.btnThem_PhieuNhap.Location = New System.Drawing.Point(386, 24)
+        Me.btnThem_PhieuNhap.Name = "btnThem_PhieuNhap"
+        Me.btnThem_PhieuNhap.Size = New System.Drawing.Size(95, 37)
+        Me.btnThem_PhieuNhap.TabIndex = 3
+        Me.btnThem_PhieuNhap.Text = "Thêm"
+        Me.btnThem_PhieuNhap.UseVisualStyleBackColor = True
+        '
+        'btnXoa_PhieuNhap
+        '
+        Me.btnXoa_PhieuNhap.Location = New System.Drawing.Point(386, 131)
+        Me.btnXoa_PhieuNhap.Name = "btnXoa_PhieuNhap"
+        Me.btnXoa_PhieuNhap.Size = New System.Drawing.Size(95, 37)
+        Me.btnXoa_PhieuNhap.TabIndex = 5
+        Me.btnXoa_PhieuNhap.Text = "Xóa"
+        Me.btnXoa_PhieuNhap.UseVisualStyleBackColor = True
+        '
+        'btnSua_PhieuNhap
+        '
+        Me.btnSua_PhieuNhap.Location = New System.Drawing.Point(386, 75)
+        Me.btnSua_PhieuNhap.Name = "btnSua_PhieuNhap"
+        Me.btnSua_PhieuNhap.Size = New System.Drawing.Size(95, 37)
+        Me.btnSua_PhieuNhap.TabIndex = 4
+        Me.btnSua_PhieuNhap.Text = "Sửa"
+        Me.btnSua_PhieuNhap.UseVisualStyleBackColor = True
+        '
+        'cboTinhTrang_PhieuNhap
+        '
+        Me.cboTinhTrang_PhieuNhap.FormattingEnabled = True
+        Me.cboTinhTrang_PhieuNhap.Location = New System.Drawing.Point(150, 176)
+        Me.cboTinhTrang_PhieuNhap.Name = "cboTinhTrang_PhieuNhap"
+        Me.cboTinhTrang_PhieuNhap.Size = New System.Drawing.Size(126, 23)
+        Me.cboTinhTrang_PhieuNhap.TabIndex = 9
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(13, 179)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(66, 15)
+        Me.Label9.TabIndex = 0
+        Me.Label9.Text = "Tình Trạng"
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.Location = New System.Drawing.Point(13, 24)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(91, 15)
+        Me.Label25.TabIndex = 0
+        Me.Label25.Text = "Mã Phiếu Nhập"
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.Location = New System.Drawing.Point(13, 86)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(110, 15)
+        Me.Label20.TabIndex = 0
+        Me.Label20.Text = "Tên Nhà Cung Cấp"
+        '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.Location = New System.Drawing.Point(13, 153)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(83, 15)
+        Me.Label23.TabIndex = 0
+        Me.Label23.Text = "Ngày Giao DK"
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(13, 120)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(59, 15)
+        Me.Label22.TabIndex = 0
+        Me.Label22.Text = "Ngày Lập"
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Location = New System.Drawing.Point(13, 55)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(87, 15)
+        Me.Label24.TabIndex = 0
+        Me.Label24.Text = "Tên Nhân Viên"
+        '
+        'TextBox2
+        '
+        Me.TextBox2.Location = New System.Drawing.Point(150, 21)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(179, 22)
+        Me.TextBox2.TabIndex = 0
+        '
+        'txtTenNV_PN
+        '
+        Me.txtTenNV_PN.Location = New System.Drawing.Point(150, 52)
+        Me.txtTenNV_PN.Name = "txtTenNV_PN"
+        Me.txtTenNV_PN.Size = New System.Drawing.Size(179, 22)
+        Me.txtTenNV_PN.TabIndex = 1
+        '
+        'txtTenNCC_PN
+        '
+        Me.txtTenNCC_PN.Location = New System.Drawing.Point(150, 83)
+        Me.txtTenNCC_PN.Name = "txtTenNCC_PN"
+        Me.txtTenNCC_PN.Size = New System.Drawing.Size(179, 22)
+        Me.txtTenNCC_PN.TabIndex = 0
+        '
+        'txtTongTien_PhieuNhap
+        '
+        Me.txtTongTien_PhieuNhap.Location = New System.Drawing.Point(150, 208)
+        Me.txtTongTien_PhieuNhap.Name = "txtTongTien_PhieuNhap"
+        Me.txtTongTien_PhieuNhap.Size = New System.Drawing.Size(179, 22)
+        Me.txtTongTien_PhieuNhap.TabIndex = 1
+        '
+        'ChucVu_LoaiDonViTinh
+        '
+        Me.ChucVu_LoaiDonViTinh.Controls.Add(Me.GroupBox11)
+        Me.ChucVu_LoaiDonViTinh.Controls.Add(Me.GroupBox10)
+        Me.ChucVu_LoaiDonViTinh.Location = New System.Drawing.Point(4, 24)
+        Me.ChucVu_LoaiDonViTinh.Name = "ChucVu_LoaiDonViTinh"
+        Me.ChucVu_LoaiDonViTinh.Padding = New System.Windows.Forms.Padding(3)
+        Me.ChucVu_LoaiDonViTinh.Size = New System.Drawing.Size(1340, 626)
+        Me.ChucVu_LoaiDonViTinh.TabIndex = 4
+        Me.ChucVu_LoaiDonViTinh.Text = "Chức Vụ - Loại Đơn Vị Tính"
+        Me.ChucVu_LoaiDonViTinh.UseVisualStyleBackColor = True
+        '
+        'GroupBox11
+        '
+        Me.GroupBox11.Controls.Add(Me.GroupBox9)
+        Me.GroupBox11.Controls.Add(Me.GroupBox8)
+        Me.GroupBox11.Location = New System.Drawing.Point(691, 6)
+        Me.GroupBox11.Name = "GroupBox11"
+        Me.GroupBox11.Size = New System.Drawing.Size(628, 606)
+        Me.GroupBox11.TabIndex = 2
+        Me.GroupBox11.TabStop = False
+        Me.GroupBox11.Text = "Chức Vụ Nhân Viên"
+        '
+        'GroupBox9
+        '
+        Me.GroupBox9.Controls.Add(Me.dgvChucVu)
+        Me.GroupBox9.Location = New System.Drawing.Point(57, 159)
+        Me.GroupBox9.Name = "GroupBox9"
+        Me.GroupBox9.Size = New System.Drawing.Size(510, 422)
+        Me.GroupBox9.TabIndex = 0
+        Me.GroupBox9.TabStop = False
+        Me.GroupBox9.Text = "Danh Sách Thông Tin Chức Vụ"
+        '
+        'dgvChucVu
+        '
+        Me.dgvChucVu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvChucVu.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3})
+        Me.dgvChucVu.Location = New System.Drawing.Point(6, 21)
+        Me.dgvChucVu.Name = "dgvChucVu"
+        Me.dgvChucVu.Size = New System.Drawing.Size(496, 395)
+        Me.dgvChucVu.TabIndex = 2
+        '
+        'DataGridViewTextBoxColumn1
+        '
+        Me.DataGridViewTextBoxColumn1.HeaderText = "Mã Đơn Vị"
+        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
+        Me.DataGridViewTextBoxColumn1.ReadOnly = True
+        Me.DataGridViewTextBoxColumn1.Width = 150
+        '
+        'DataGridViewTextBoxColumn2
+        '
+        Me.DataGridViewTextBoxColumn2.HeaderText = "Tên Đơn Vị"
+        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
+        Me.DataGridViewTextBoxColumn2.ReadOnly = True
+        Me.DataGridViewTextBoxColumn2.Width = 150
+        '
+        'DataGridViewTextBoxColumn3
+        '
+        Me.DataGridViewTextBoxColumn3.HeaderText = "Độ Tăng Mặc Định"
+        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
+        Me.DataGridViewTextBoxColumn3.ReadOnly = True
+        Me.DataGridViewTextBoxColumn3.Width = 150
+        '
+        'GroupBox8
+        '
+        Me.GroupBox8.Controls.Add(Me.btnXoa_ChucVu)
+        Me.GroupBox8.Controls.Add(Me.btnSua_ChucVu)
+        Me.GroupBox8.Controls.Add(Me.btnThem_ChucVu)
+        Me.GroupBox8.Controls.Add(Me.TextBox6)
+        Me.GroupBox8.Controls.Add(Me.TextBox7)
+        Me.GroupBox8.Controls.Add(Me.Label34)
+        Me.GroupBox8.Controls.Add(Me.Label36)
+        Me.GroupBox8.Location = New System.Drawing.Point(75, 24)
+        Me.GroupBox8.Name = "GroupBox8"
+        Me.GroupBox8.Size = New System.Drawing.Size(474, 129)
+        Me.GroupBox8.TabIndex = 0
+        Me.GroupBox8.TabStop = False
+        Me.GroupBox8.Text = "Thông Tin Chức Vụ"
+        '
+        'btnXoa_ChucVu
+        '
+        Me.btnXoa_ChucVu.Location = New System.Drawing.Point(325, 89)
+        Me.btnXoa_ChucVu.Name = "btnXoa_ChucVu"
+        Me.btnXoa_ChucVu.Size = New System.Drawing.Size(102, 34)
+        Me.btnXoa_ChucVu.TabIndex = 2
+        Me.btnXoa_ChucVu.Text = "Xóa"
+        Me.btnXoa_ChucVu.UseVisualStyleBackColor = True
+        '
+        'btnSua_ChucVu
+        '
+        Me.btnSua_ChucVu.Location = New System.Drawing.Point(184, 89)
+        Me.btnSua_ChucVu.Name = "btnSua_ChucVu"
+        Me.btnSua_ChucVu.Size = New System.Drawing.Size(102, 34)
+        Me.btnSua_ChucVu.TabIndex = 2
+        Me.btnSua_ChucVu.Text = "Sửa"
+        Me.btnSua_ChucVu.UseVisualStyleBackColor = True
+        '
+        'btnThem_ChucVu
+        '
+        Me.btnThem_ChucVu.Location = New System.Drawing.Point(43, 89)
+        Me.btnThem_ChucVu.Name = "btnThem_ChucVu"
+        Me.btnThem_ChucVu.Size = New System.Drawing.Size(102, 34)
+        Me.btnThem_ChucVu.TabIndex = 2
+        Me.btnThem_ChucVu.Text = "Them"
+        Me.btnThem_ChucVu.UseVisualStyleBackColor = True
+        '
+        'TextBox6
+        '
+        Me.TextBox6.Location = New System.Drawing.Point(139, 21)
+        Me.TextBox6.Name = "TextBox6"
+        Me.TextBox6.Size = New System.Drawing.Size(174, 22)
+        Me.TextBox6.TabIndex = 1
+        '
+        'TextBox7
+        '
+        Me.TextBox7.Location = New System.Drawing.Point(139, 58)
+        Me.TextBox7.Name = "TextBox7"
+        Me.TextBox7.Size = New System.Drawing.Size(174, 22)
+        Me.TextBox7.TabIndex = 1
+        '
+        'Label34
+        '
+        Me.Label34.AutoSize = True
+        Me.Label34.Location = New System.Drawing.Point(17, 24)
+        Me.Label34.Name = "Label34"
+        Me.Label34.Size = New System.Drawing.Size(73, 15)
+        Me.Label34.TabIndex = 0
+        Me.Label34.Text = "Mã Chức Vụ"
+        '
+        'Label36
+        '
+        Me.Label36.AutoSize = True
+        Me.Label36.Location = New System.Drawing.Point(17, 61)
+        Me.Label36.Name = "Label36"
+        Me.Label36.Size = New System.Drawing.Size(76, 15)
+        Me.Label36.TabIndex = 0
+        Me.Label36.Text = "Tên Chức Vụ"
+        '
+        'GroupBox10
+        '
+        Me.GroupBox10.Controls.Add(Me.GroupBox7)
+        Me.GroupBox10.Controls.Add(Me.GroupBox5)
+        Me.GroupBox10.Location = New System.Drawing.Point(16, 6)
+        Me.GroupBox10.Name = "GroupBox10"
+        Me.GroupBox10.Size = New System.Drawing.Size(621, 606)
+        Me.GroupBox10.TabIndex = 1
+        Me.GroupBox10.TabStop = False
+        Me.GroupBox10.Text = "Loại Đơn Vị Tính"
+        '
+        'GroupBox7
+        '
+        Me.GroupBox7.Controls.Add(Me.dgvChucVuNV)
+        Me.GroupBox7.Location = New System.Drawing.Point(52, 159)
+        Me.GroupBox7.Name = "GroupBox7"
+        Me.GroupBox7.Size = New System.Drawing.Size(510, 436)
+        Me.GroupBox7.TabIndex = 0
+        Me.GroupBox7.TabStop = False
+        Me.GroupBox7.Text = "Danh Sách Thông Tin Loại Đơn Vị"
+        '
+        'dgvChucVuNV
+        '
+        Me.dgvChucVuNV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvChucVuNV.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.MaDV_LDVT, Me.TenDV_LDVT, Me.DoTangMacDinh_LDVT})
+        Me.dgvChucVuNV.Location = New System.Drawing.Point(6, 21)
+        Me.dgvChucVuNV.Name = "dgvChucVuNV"
+        Me.dgvChucVuNV.Size = New System.Drawing.Size(496, 409)
+        Me.dgvChucVuNV.TabIndex = 2
+        '
+        'MaDV_LDVT
+        '
+        Me.MaDV_LDVT.HeaderText = "Mã Đơn Vị"
+        Me.MaDV_LDVT.Name = "MaDV_LDVT"
+        Me.MaDV_LDVT.ReadOnly = True
+        Me.MaDV_LDVT.Width = 150
+        '
+        'TenDV_LDVT
+        '
+        Me.TenDV_LDVT.HeaderText = "Tên Đơn Vị"
+        Me.TenDV_LDVT.Name = "TenDV_LDVT"
+        Me.TenDV_LDVT.ReadOnly = True
+        Me.TenDV_LDVT.Width = 150
+        '
+        'DoTangMacDinh_LDVT
+        '
+        Me.DoTangMacDinh_LDVT.HeaderText = "Độ Tăng Mặc Định"
+        Me.DoTangMacDinh_LDVT.Name = "DoTangMacDinh_LDVT"
+        Me.DoTangMacDinh_LDVT.ReadOnly = True
+        Me.DoTangMacDinh_LDVT.Width = 150
+        '
+        'GroupBox5
+        '
+        Me.GroupBox5.Controls.Add(Me.btnSua_LoaiDV)
+        Me.GroupBox5.Controls.Add(Me.btnXoa_LoaiDV)
+        Me.GroupBox5.Controls.Add(Me.TextBox3)
+        Me.GroupBox5.Controls.Add(Me.TextBox4)
+        Me.GroupBox5.Controls.Add(Me.TextBox1)
+        Me.GroupBox5.Controls.Add(Me.Label33)
+        Me.GroupBox5.Controls.Add(Me.btnThem_LoaiDV)
+        Me.GroupBox5.Controls.Add(Me.Label32)
+        Me.GroupBox5.Controls.Add(Me.Label30)
+        Me.GroupBox5.Location = New System.Drawing.Point(70, 24)
+        Me.GroupBox5.Name = "GroupBox5"
+        Me.GroupBox5.Size = New System.Drawing.Size(474, 129)
+        Me.GroupBox5.TabIndex = 0
+        Me.GroupBox5.TabStop = False
+        Me.GroupBox5.Text = "Thông Tin Loại Đơn Vị"
+        '
+        'btnSua_LoaiDV
+        '
+        Me.btnSua_LoaiDV.Location = New System.Drawing.Point(346, 51)
+        Me.btnSua_LoaiDV.Name = "btnSua_LoaiDV"
+        Me.btnSua_LoaiDV.Size = New System.Drawing.Size(102, 34)
+        Me.btnSua_LoaiDV.TabIndex = 2
+        Me.btnSua_LoaiDV.Text = "Sửa"
+        Me.btnSua_LoaiDV.UseVisualStyleBackColor = True
+        '
+        'btnXoa_LoaiDV
+        '
+        Me.btnXoa_LoaiDV.Location = New System.Drawing.Point(346, 89)
+        Me.btnXoa_LoaiDV.Name = "btnXoa_LoaiDV"
+        Me.btnXoa_LoaiDV.Size = New System.Drawing.Size(102, 34)
+        Me.btnXoa_LoaiDV.TabIndex = 2
+        Me.btnXoa_LoaiDV.Text = "Xóa"
+        Me.btnXoa_LoaiDV.UseVisualStyleBackColor = True
+        '
+        'TextBox3
+        '
+        Me.TextBox3.Location = New System.Drawing.Point(139, 93)
+        Me.TextBox3.Name = "TextBox3"
+        Me.TextBox3.Size = New System.Drawing.Size(174, 22)
+        Me.TextBox3.TabIndex = 1
+        '
+        'TextBox4
+        '
+        Me.TextBox4.Location = New System.Drawing.Point(139, 21)
+        Me.TextBox4.Name = "TextBox4"
+        Me.TextBox4.Size = New System.Drawing.Size(174, 22)
+        Me.TextBox4.TabIndex = 1
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(139, 58)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(174, 22)
+        Me.TextBox1.TabIndex = 1
+        '
+        'Label33
+        '
+        Me.Label33.AutoSize = True
+        Me.Label33.Location = New System.Drawing.Point(17, 24)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(63, 15)
+        Me.Label33.TabIndex = 0
+        Me.Label33.Text = "Mã Đơn Vị"
+        '
+        'btnThem_LoaiDV
+        '
+        Me.btnThem_LoaiDV.Location = New System.Drawing.Point(346, 14)
+        Me.btnThem_LoaiDV.Name = "btnThem_LoaiDV"
+        Me.btnThem_LoaiDV.Size = New System.Drawing.Size(102, 34)
+        Me.btnThem_LoaiDV.TabIndex = 2
+        Me.btnThem_LoaiDV.Text = "Thêm"
+        Me.btnThem_LoaiDV.UseVisualStyleBackColor = True
+        '
+        'Label32
+        '
+        Me.Label32.AutoSize = True
+        Me.Label32.Location = New System.Drawing.Point(17, 96)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Size = New System.Drawing.Size(107, 15)
+        Me.Label32.TabIndex = 0
+        Me.Label32.Text = "Độ Tăng Mặc Định"
+        '
+        'Label30
+        '
+        Me.Label30.AutoSize = True
+        Me.Label30.Location = New System.Drawing.Point(17, 61)
+        Me.Label30.Name = "Label30"
+        Me.Label30.Size = New System.Drawing.Size(66, 15)
+        Me.Label30.TabIndex = 0
+        Me.Label30.Text = "Tên Đơn Vị"
+        '
+        'ErrorProvider1
+        '
+        Me.ErrorProvider1.ContainerControl = Me
+        '
+        'ErrorProvider2
+        '
+        Me.ErrorProvider2.ContainerControl = Me
+        '
+        'ErrorProvider3
+        '
+        Me.ErrorProvider3.ContainerControl = Me
+        '
+        'ErrorProvider4
+        '
+        Me.ErrorProvider4.ContainerControl = Me
+        '
+        'cboDonVi_CTPN
+        '
+        Me.cboDonVi_CTPN.FormattingEnabled = True
+        Me.cboDonVi_CTPN.Location = New System.Drawing.Point(150, 124)
+        Me.cboDonVi_CTPN.Name = "cboDonVi_CTPN"
+        Me.cboDonVi_CTPN.Size = New System.Drawing.Size(126, 23)
+        Me.cboDonVi_CTPN.TabIndex = 9
+        '
         'frmManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2184,21 +2513,32 @@ Partial Class frmManager
         Me.gbxThongTinChiTietHoaDon.ResumeLayout(False)
         Me.gbxThongTinChiTietHoaDon.PerformLayout()
         CType(Me.dgvMonAnDoUong, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TabPage2.ResumeLayout(False)
+        Me.PhieuNhap.ResumeLayout(False)
+        Me.gpbChiTietPhieuNhap.ResumeLayout(False)
+        Me.gpbChiTietPhieuNhap.PerformLayout()
+        Me.GroupBox6.ResumeLayout(False)
+        Me.GroupBox6.PerformLayout()
+        CType(Me.dgvPhieuNhap, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gpbDanhSachCTPN.ResumeLayout(False)
         Me.gpbDanhSachCTPN.PerformLayout()
-        CType(Me.dgvPhieuNhap, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvChiTietPhieuNhap, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
+        Me.ChucVu_LoaiDonViTinh.ResumeLayout(False)
+        Me.GroupBox11.ResumeLayout(False)
+        Me.GroupBox9.ResumeLayout(False)
+        CType(Me.dgvChucVu, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox8.ResumeLayout(False)
+        Me.GroupBox8.PerformLayout()
+        Me.GroupBox10.ResumeLayout(False)
+        Me.GroupBox7.ResumeLayout(False)
+        CType(Me.dgvChucVuNV, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox5.ResumeLayout(False)
+        Me.GroupBox5.PerformLayout()
         CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ErrorProvider2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ErrorProvider3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ErrorProvider4, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox6.ResumeLayout(False)
-        Me.GroupBox6.PerformLayout()
-        Me.gpbChiTietPhieuNhap.ResumeLayout(False)
-        Me.gpbChiTietPhieuNhap.PerformLayout()
-        CType(Me.dgvChiTietPhieuNhap, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2309,7 +2649,7 @@ Partial Class frmManager
     Friend WithEvents ErrorProvider4 As System.Windows.Forms.ErrorProvider
     Friend WithEvents Label18 As System.Windows.Forms.Label
     Friend WithEvents cboLoai_MADU As System.Windows.Forms.ComboBox
-    Friend WithEvents TabPage2 As System.Windows.Forms.TabPage
+    Friend WithEvents PhieuNhap As System.Windows.Forms.TabPage
     Friend WithEvents gpbDanhSachCTPN As System.Windows.Forms.GroupBox
     Friend WithEvents dgvPhieuNhap As System.Windows.Forms.DataGridView
     Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
@@ -2321,8 +2661,8 @@ Partial Class frmManager
     Friend WithEvents btnXoa_PhieuNhap As System.Windows.Forms.Button
     Friend WithEvents btnSua_PhieuNhap As System.Windows.Forms.Button
     Friend WithEvents btnThem_PhieuNhap As System.Windows.Forms.Button
-    Friend WithEvents txtTenMon_PhieuNhap As System.Windows.Forms.TextBox
-    Friend WithEvents txtGiaHienTai_PhieuNhap As System.Windows.Forms.TextBox
+    Friend WithEvents txtTenNCC_PN As System.Windows.Forms.TextBox
+    Friend WithEvents txtTongTien_PhieuNhap As System.Windows.Forms.TextBox
     Friend WithEvents MaMon_CTM As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents TenMon_CTMon As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents MaSP_CTM As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -2346,8 +2686,7 @@ Partial Class frmManager
     Friend WithEvents TenChucVu As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents MaChucVu As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents btnThongKe_PhieuNhap As System.Windows.Forms.Button
-    Friend WithEvents DateTimePicker2 As System.Windows.Forms.DateTimePicker
-    Friend WithEvents DateTimePicker1 As System.Windows.Forms.DateTimePicker
+    Friend WithEvents dtpNgayLap As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label23 As System.Windows.Forms.Label
     Friend WithEvents Label22 As System.Windows.Forms.Label
     Friend WithEvents GroupBox6 As System.Windows.Forms.GroupBox
@@ -2390,7 +2729,6 @@ Partial Class frmManager
     Friend WithEvents Label29 As System.Windows.Forms.Label
     Friend WithEvents Label28 As System.Windows.Forms.Label
     Friend WithEvents txtThanhTIen_CTPN As System.Windows.Forms.TextBox
-    Friend WithEvents txtDonVi_CTPN As System.Windows.Forms.TextBox
     Friend WithEvents txtDonGia_CTPN As System.Windows.Forms.TextBox
     Friend WithEvents Label31 As System.Windows.Forms.Label
     Friend WithEvents MaPN_PN As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -2410,5 +2748,38 @@ Partial Class frmManager
     Friend WithEvents TenDV_CTPN As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents DonGia_CTPN As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents ThanhTien_CTPN As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents ChucVu_LoaiDonViTinh As System.Windows.Forms.TabPage
+    Friend WithEvents GroupBox5 As System.Windows.Forms.GroupBox
+    Friend WithEvents Label30 As System.Windows.Forms.Label
+    Friend WithEvents TextBox3 As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
+    Friend WithEvents Label32 As System.Windows.Forms.Label
+    Friend WithEvents dgvChucVuNV As System.Windows.Forms.DataGridView
+    Friend WithEvents TextBox4 As System.Windows.Forms.TextBox
+    Friend WithEvents Label33 As System.Windows.Forms.Label
+    Friend WithEvents GroupBox7 As System.Windows.Forms.GroupBox
+    Friend WithEvents btnXoa_ChucVu As System.Windows.Forms.Button
+    Friend WithEvents btnSua_ChucVu As System.Windows.Forms.Button
+    Friend WithEvents btnThem_ChucVu As System.Windows.Forms.Button
+    Friend WithEvents GroupBox9 As System.Windows.Forms.GroupBox
+    Friend WithEvents dgvChucVu As System.Windows.Forms.DataGridView
+    Friend WithEvents GroupBox8 As System.Windows.Forms.GroupBox
+    Friend WithEvents btnSua_LoaiDV As System.Windows.Forms.Button
+    Friend WithEvents btnXoa_LoaiDV As System.Windows.Forms.Button
+    Friend WithEvents btnThem_LoaiDV As System.Windows.Forms.Button
+    Friend WithEvents TextBox6 As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox7 As System.Windows.Forms.TextBox
+    Friend WithEvents Label34 As System.Windows.Forms.Label
+    Friend WithEvents Label36 As System.Windows.Forms.Label
+    Friend WithEvents DataGridViewTextBoxColumn1 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn2 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn3 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents MaDV_LDVT As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents TenDV_LDVT As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DoTangMacDinh_LDVT As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents GroupBox10 As System.Windows.Forms.GroupBox
+    Friend WithEvents GroupBox11 As System.Windows.Forms.GroupBox
+    Friend WithEvents dtpNgayGiaoDK As System.Windows.Forms.DateTimePicker
+    Friend WithEvents cboDonVi_CTPN As System.Windows.Forms.ComboBox
 
 End Class
