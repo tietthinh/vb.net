@@ -32,18 +32,6 @@ Public Class frmLogin
     ''' <remarks></remarks>
     Private db As New DatabaseConnection()
 
-    'Constructors:
-    ''' <summary>
-    ''' Constructor gets a parameter to set value for this parameter.
-    ''' </summary>
-    ''' <param name="user">Employee's account information.</param>
-    ''' <remarks></remarks>
-    Public Sub New(ByRef user As User)
-        Me.InitializeComponent()
-
-        _ReturnUser = user
-    End Sub
-
     'Events:
     '
     'Form's Events
@@ -153,8 +141,11 @@ Public Class frmLogin
     '
     'Click: Occur when the btnLogin is clicked
     Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
-        If db.CheckInvalidAccount(txtID.Text, txtPW.Text, _ReturnUser) Then
+        If db.CheckInvalidAccount(txtID.Text, txtPW.Text, DatabaseConnection._User) Then
             MessageBox.Show("Đăng nhập thành công", "", MessageBoxButtons.OK)
+
+            db.Dispose()
+
             Me.DialogResult = Windows.Forms.DialogResult.OK
             Me.Close()
         Else
