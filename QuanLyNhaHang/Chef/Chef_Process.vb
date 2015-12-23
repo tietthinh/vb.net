@@ -8,6 +8,12 @@ Imports Library
 
 Module Chef_Process
 
+    ''' <summary>
+    ''' Clear background color of rows in list view.
+    ''' </summary>
+    ''' <param name="listItem">List of items which has background color.</param>
+    ''' <param name="listView">List view contains these list items.</param>
+    ''' <remarks></remarks>
     Public Sub ClearListViewItemBackColor(ByRef listItem As List(Of ListViewItem), ByRef listView As ListView)
         For i As Integer = 0 To listItem.Count - 1 Step 1
             listItem(i).BackColor = SystemColors.Window
@@ -15,6 +21,12 @@ Module Chef_Process
         Next
     End Sub
 
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="_DishID"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function LoadMaterial(ByVal _DishID As Object) As DataTable
         Dim db As New DatabaseConnection()
         Dim materialList As DataTable
