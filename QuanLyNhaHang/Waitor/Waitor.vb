@@ -101,7 +101,7 @@ Public Class NhanVien
         lstMenu.Enabled = True
         _IsSelected = True
         AppProvider._IsCommitted = False
-        UpdateTableStatus(1)
+        'UpdateTableStatus(1)
         LoadMenu()
         'End If
         ''Multi-table saver
@@ -147,9 +147,7 @@ Public Class NhanVien
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim _Login As New frmLogin()
         _Login.ShowDialog()
-
         _CurrentUser = DatabaseConnection._User
-
         If (_Login.DialogResult = 1) Then
             ''********************************************Service Initiate*******************************************
             Try
@@ -166,6 +164,7 @@ Public Class NhanVien
                 MessageBox.Show("Kết nối thất bại!", "Lỗi")
                 Me.Close()
             End Try
+            Me.Text = "Nhân Viên " + _CurrentUser.EmployeeName.ToString
             ''********************************************Service Initiate*******************************************
             LoadMenu()
         Else
@@ -208,18 +207,19 @@ Public Class NhanVien
             AppProvider._IsCommitted = True
             MessageBox.Show("Gửi danh sách thành công!", "Thông báo", MessageBoxButtons.OK)
             ''Counting on waiting order.
-            Dim _Query2 As String = "spDemMonDaDat"
-            For i As Integer = 0 To dgvList.Rows.Count - 1 Step 1
-                If (dgvList.Item(4, i).Value = "Chưa làm") Then
-                    _ServerObject.AddData(dgvList.Item(5, i).Value)
-                    Exit For
-                End If
-            Next
-            ''Send Chef/Bartender signal.
-            Dim _SoLuongMon As Integer = Integer.Parse(_Connection.Query(_Query2).Rows(0).Item(0).ToString)
-            If (_SoLuongMon = 0) Then
-                _ServerObject.AddData("2+" + dgvList.Item(5, 0).Value)
-            End If
+
+            '    For i As Integer = 0 To dgvList.Rows.Count - 1 Step 1
+            '        If (dgvList.Item(4, i).Value = "Chưa làm") Then
+            '            _ServerObject.AddData(dgvList.Item(5, i).Value.ToString.Trim + "*")
+            '            Exit For
+            '        End If
+            '    Next
+            '    ''Send Chef/Bartender signal.
+            '    Dim _Query2 As String = "spDemMonDaDat"
+            '    Dim _SoLuongMon As Integer = Integer.Parse(_Connection.Query(_Query2).Rows(0).Item(0).ToString)
+            '    If (_SoLuongMon = 0) Then
+            '        _ServerObject.AddData("2+" + dgvList.Item(5, 0).Value + "*")
+            '    End If
         Else
             MessageBox.Show("Danh sách món ăn trống!", "Thông báo")
         End If
@@ -227,7 +227,7 @@ Public Class NhanVien
     Private Sub btnPay_Click(sender As Object, e As EventArgs) Handles btnPay.Click
         If (AppProvider._IsCommitted = True And _IsSelected = True) Then
             ''Commit the list to Cashier
-            _ServerObject.AddData("1+" + dgvList.Item(5, 0).Value.ToString + "_" + dgvList.Item(5, dgvList.RowCount - 1).Value.ToString + +_CurrentUser.Identity + nudGuestCount.Value)
+            _ServerObject.AddData("1+" + dgvList.Item(5, 0).Value.ToString.Trim + "_" + dgvList.Item(5, dgvList.RowCount - 1).Value.ToString.Trim + "_" + _CurrentUser.Identity.ToString.Trim + "_" + nudGuestCount.Value.ToString.Trim + "*")
             ''Remove Effect & Clear list orders
             _PictureBoxEffect.BackColor = Color.White
             dgvList.Rows.Clear()
@@ -254,6 +254,43 @@ Public Class NhanVien
         Else
             MessageBox.Show("Danh sách món ăn rỗng!", "Thông báo", MessageBoxButtons.OK)
         End If
+    End Sub
+    ''' <summary>
+    ''' Hiển thị bàn phím số bên cạnh chức năng chọn số lượng khách.
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    Private Sub nudGuestCount_Enter(sender As Object, e As EventArgs) Handles nudGuestCount.Enter
+        _frmNumpad = New frmNumPad(nudGuestCount)
+        _frmNumpad.StartPosition = FormStartPosition.Manual
+        _frmNumpad.Location = New Point(940, 380)
+        _frmNumpad.Show()
+        _frmNumpad.BringToFront()
+    End Sub
+
+    Private Sub nudGuestCount_Leave(sender As Object, e As EventArgs) Handles nudGuestCount.Leave
+        _frmNumpad.Close()
+    End Sub
+
+    Private Sub NhanVien_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        If (_frmNumpad IsNot Nothing) Then
+            _frmNumpad.Close()
+        End If
+    End Sub
+
+    Private Sub nudGuestCount_Click(sender As Object, e As EventArgs) Handles nudGuestCount.Click
+        nudGuestCount_Enter(sender, e)
+    End Sub
+
+    Private Sub btn_MouseDown(sender As Object, e As MouseEventArgs) Handles btnDelete.MouseDown, btnLamMon.MouseDown, btnPay.MouseDown, btnUpdateTable.MouseDown
+        Dim _Button As Button = CType(sender, Button)
+        _Button.ForeColor = Color.Red
+        _Button.BackColor = Color.Blue
+    End Sub
+    Private Sub btn_MouseUp(sender As Object, e As MouseEventArgs) Handles btnDelete.MouseUp, btnLamMon.MouseUp, btnPay.MouseUp, btnUpdateTable.MouseUp
+        Dim _Button As Button = CType(sender, Button)
+        _Button.ForeColor = Color.White
+        _Button.BackColor = Color.Orange
     End Sub
     Private Sub btnUpdateTable_Click(sender As Object, e As EventArgs) Handles btnUpdateTable.Click
         If (_IsSelected = True) Then
@@ -303,7 +340,7 @@ Public Class NhanVien
     End Sub
     Private Sub UpdateTableStatus(ByVal _TinhTrang As Integer)
         Dim _Query1 As String = "usp_CapNhapTinhTrangBan"
-        _ParameterInput = {New SqlParameter("@SoBan", _SelectedTable.Name.Last), New SqlParameter("@TinhTrang", _TinhTrang)}
+        _ParameterInput = {New SqlParameter("@SoBan", Integer.Parse(_SelectedTable.Name.Last)), New SqlParameter("@TinhTrang", _TinhTrang)}
         _Connection.Query(_Query1, _ParameterInput)
     End Sub
     Private Function GetMenuList(ByVal _TinhTrang As Integer) As DataTable
@@ -311,38 +348,39 @@ Public Class NhanVien
         Dim _Parameter As New SqlClient.SqlParameter("@TinhTrang", _TinhTrang)
         Return _Connection.Query(_Query, _Parameter)
     End Function
-    Private Sub Processed()
+    Private Sub Process()
         While (True)
-            If (Me.IsAccessible) Then
-                Thread.Sleep(0)
-                Dim _Text As String = _ServerObject.GetHolder()
-                Dim _Length As Integer = _Data.Length
-                Dim _ReceiveData As String = _Text.Substring(_Length)
-                ''Handles event here.
-                If (_ReceiveData <> "" And _ReceiveData.Length > 2) Then
+            Thread.Sleep(0)
+            If (Me.IsAccessible = True) Then
+                Me.Invoke(New MethodInvoker(Sub()
+                                                Dim _Text As String = _ServerObject.GetHolder()
+                                                Dim _Length As Integer = _Data.Length
+                                                Dim _ReceiveData As String = _Text.Substring(_Length)
+                                                ''Handles event here.
+                                                If (_ReceiveData <> "" And _ReceiveData.Length > 2) Then
 
-                    'If (_ReceiveData.Substring(0, 2) = "1+") Then
-                    '    CheckWaitorToCashier(_ReceiveData)
-                    'End If
+                                                    'If (_ReceiveData.Substring(0, 2) = "1+") Then
+                                                    '    CheckWaitorToCashier(_ReceiveData)
+                                                    'End If
 
-                    If (_ReceiveData.Substring(0, 2) = "4+") Then
-                        CheckChefBartenderToWaitor(_ReceiveData.Substring(2))
-                    End If
+                                                    If (_ReceiveData.Substring(0, 2) = "4+") Then
+                                                        CheckChefBartenderToWaitor(_ReceiveData.Substring(2))
+                                                    End If
 
-                    If (_ReceiveData.Substring(0, 2) = "5+") Then
-                        CheckChefBartenderToWaitorConfirm(_ReceiveData.Substring(2))
-                    End If
+                                                    If (_ReceiveData.Substring(0, 2) = "5+") Then
+                                                        CheckChefBartenderToWaitorConfirm(_ReceiveData.Substring(2))
+                                                    End If
 
-                    'If (_ReceiveData.Substring(0, 2) = "6+") Then
-                    '    CheckChefBartenderToWarehouse(_ReceiveData)
-                    'End If
-
-                End If
-                ''
-                _Data = _Text
-                '' For manager only
-                _Logging += DateTime.Now.ToString() + _ReceiveData
-                ''
+                                                    'If (_ReceiveData.Substring(0, 2) = "6+") Then
+                                                    '    CheckChefBartenderToWarehouse(_ReceiveData)
+                                                    'End If
+                                                End If
+                                                ''
+                                                _Data = _Text
+                                                '' For manager only
+                                                _Logging += DateTime.Now.ToString() + _ReceiveData
+                                            End Sub
+                ))
             Else
                 Exit While
             End If
@@ -352,12 +390,12 @@ Public Class NhanVien
         For Each _Row As DataRow In dgvList.Rows
             If (_Row(5).ToString = _MaChuyen) Then
                 If (_Row(4).ToString = "Chưa làm") Then
-                    _ServerObject.AddData("3+" + _MaChuyen + "1")
+                    _ServerObject.AddData("3+" + _MaChuyen + "_1*")
                     Exit Sub
                 End If
             End If
         Next
-        _ServerObject.AddData("3+" + _MaChuyen + "0")
+        _ServerObject.AddData("3+" + _MaChuyen + "0*")
     End Sub
 
     Private Sub CheckChefBartenderToWaitor(ByVal _MaMon As String)
@@ -382,108 +420,78 @@ Public Class NhanVien
         End If
     End Sub
     ''=============================================== THIS SECTION FOR CHEF/BARTENDER==========================================================
-    Private Sub CheckWaitorToChefBartender(ByVal _Data As String)
-        Dim Data() As String = SplitData(_Data, 2)
-        ''TODO your code from here
-    End Sub
-    Private Sub CheckWaitorToChefBartenderConfirm(ByVal _Data As String)
-        Dim Data() As String = SplitData(_Data, 3)
-        ''TODO your code from here
-    End Sub
-    Private Sub CheckWarehouseToChefBartenderConfirm(ByVal _MaChuyen As String)
-        Dim Data() As String = SplitData(_Data, 7)
-        ''TODO your code from here
-    End Sub
+    'Private Sub CheckWaitorToChefBartender(ByVal _Data As String)
+    '    Dim Data() As String = SplitData(_Data, 2)
+    '    ''TODO your code from here
+    'End Sub
+    'Private Sub CheckWaitorToChefBartenderConfirm(ByVal _Data As String)
+    '    Dim Data() As String = SplitData(_Data, 3)
+    '    ''TODO your code from here
+    'End Sub
+    'Private Sub CheckWarehouseToChefBartenderConfirm(ByVal _MaChuyen As String)
+    '    Dim Data() As String = SplitData(_Data, 7)
+    '    ''TODO your code from here
+    'End Sub
     ''Service listener for Chef. (Unique)
-    Private Sub Process()
-        Dim _Timer = New Timers.Timer
-        _Timer.Start()
-        While (True)
-            If (Me.IsAccessible) Then
-                Thread.Sleep(0)
-                Dim _Length As Integer = _Data.Length
-                Dim _Text As String = _ServerObject.GetHolder()
-                Dim _ReceiveData As String = _Text.Substring(_Length)
-                If (_ReceiveData <> "" And _ReceiveData.Length > 2) Then
-                    CheckWaitorToChefBartender(_Text.Substring(_Length))
-                    CheckWaitorToChefBartenderConfirm(_Text.Substring(_Length))
-                    CheckWarehouseToChefBartenderConfirm(_Text.Substring(_Length))
-                End If
-                If (_Timer.Interval >= 60000) Then
-                    Thread.Sleep(2000)
-                    _Timer.Interval = 0
-                    _Timer.Start()
-                End If
-                _Data = _Text
-            Else
-                Exit While
-            End If
-        End While
-    End Sub
-    Private Function SplitData(ByVal _ReceiveData As String, ByVal _Code As String) As String()
-        Dim _ReceiveArray() As String = {}
-        Dim j As Integer = 0
-        _ReceiveArray = _ReceiveData.Split("-")
-        For i As Integer = 0 To _ReceiveArray.Count - 2 Step 1
-            Dim _Item As String = _ReceiveArray(i)
-            If (_Item.Substring(0, 2) = _Code + "+") Then
-                _ReceiveArray(j) = _Item.Substring(2)
-                j += 1
-            End If
-        Next
-        Return _ReceiveArray
-    End Function
-    ''' <summary>
-    ''' Hiển thị bàn phím số bên cạnh chức năng chọn số lượng khách.
-    ''' </summary>
-    ''' <param name="sender"></param>
-    ''' <param name="e"></param>
-    Private Sub nudGuestCount_Enter(sender As Object, e As EventArgs) Handles nudGuestCount.Enter
-        _frmNumpad = New frmNumPad(nudGuestCount)
-        _frmNumpad.StartPosition = FormStartPosition.Manual
-        _frmNumpad.Location = New Point(940, 380)
-        _frmNumpad.Show()
-        _frmNumpad.BringToFront()
-    End Sub
-
-    Private Sub nudGuestCount_Leave(sender As Object, e As EventArgs) Handles nudGuestCount.Leave
-        _frmNumpad.Close()
-    End Sub
-
-    Private Sub NhanVien_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        If (_frmNumpad IsNot Nothing) Then
-            _frmNumpad.Close()
-        End If
-    End Sub
-
-    Private Sub nudGuestCount_Click(sender As Object, e As EventArgs) Handles nudGuestCount.Click
-        nudGuestCount_Enter(sender, e)
-    End Sub
-
-    Private Sub btn_MouseDown(sender As Object, e As MouseEventArgs) Handles btnDelete.MouseDown, btnLamMon.MouseDown, btnPay.MouseDown, btnUpdateTable.MouseDown
-        Dim _Button As Button = CType(sender, Button)
-        _Button.ForeColor = Color.Red
-        _Button.BackColor = Color.Blue
-    End Sub
-    Private Sub btn_MouseUp(sender As Object, e As MouseEventArgs) Handles btnDelete.MouseUp, btnLamMon.MouseUp, btnPay.MouseUp, btnUpdateTable.MouseUp
-        Dim _Button As Button = CType(sender, Button)
-        _Button.ForeColor = Color.White
-        _Button.BackColor = Color.Orange
-    End Sub
-
+    'Private Sub Process()
+    '    Dim _Timer = New Timers.Timer
+    '    _Timer.Start()
+    '    While (True)
+    '        Thread.Sleep(0)
+    '        If (Me.IsAccessible = True) Then
+    '            Me.Invoke(New MethodInvoker(Sub()
+    '                                            Dim _Length As Integer = _Data.Length
+    '                                            Dim _Text As String = _ServerObject.GetHolder()
+    '                                            Dim _ReceiveData As String = _Text.Substring(_Length)
+    '                                            If (_ReceiveData <> "" And _ReceiveData.Length > 2) Then
+    '                                                CheckWaitorToChefBartender(_Text.Substring(_Length))
+    '                                                CheckWaitorToChefBartenderConfirm(_Text.Substring(_Length))
+    '                                                CheckWarehouseToChefBartenderConfirm(_Text.Substring(_Length))
+    '                                            End If
+    '                                            If (_Timer.Interval >= 60000) Then
+    '                                                Thread.Sleep(2000)
+    '                                                _Timer.Interval = 0
+    '                                                _Timer.Start()
+    '                                            End If
+    '                                            _Data = _Text
+    '                                        End Sub
+    '                        ))
+    '        Else
+    '            Exit While
+    '        End If
+    '    End While
+    'End Sub
+    'Private Function SplitData(ByVal _ReceiveData As String, ByVal _Code As String) As List(Of String)
+    '    Dim _ReceiveArray As New List(Of String)
+    '    Dim _ReturnArray As New List(Of String)
+    '    Dim j As Integer = 0
+    '    For i As Integer = 0 To _ReceiveData.Split("*").Length - 2 Step 1
+    '        _ReceiveArray.Add(_ReceiveData.Split("*")(i))
+    '    Next
+    '    For i As Integer = 0 To _ReceiveArray.Count - 1 Step 1
+    '        Dim _Item As New String(_ReceiveArray(i).ToString)
+    '        If (_Item <> "") Then
+    '            If (_Code.Equals(_Item.Split("+")(0).Last.ToString) = True) Then
+    '                _ReturnArray.Add(_Item.Split("+")(1))
+    '                j += 1
+    '            End If
+    '        End If
+    '    Next
+    '    Return _ReturnArray
+    'End Function
     ''===================================================================================================================================
 
-    Private Sub CheckWaitorToCashierSignal(ByVal _MaMon As String)
-        Dim _DataArray() As String = SplitData(_MaMon, 1)
-        For Each _String As String In _DataArray
-            Dim _MaDau As String = _String.Split("_")(0)
-            Dim _MaCuoi As String = _String.Split("_")(1)
-            Dim _SoLuongKhach As String = _String.Split("_")(2)
-            Dim _MaNhanVien As String = _String.Split("_")(3)
-        Next
-        ''TODO your code here
-        ''
-    End Sub
+    'Private Sub CheckWaitorToCashierSignal(ByVal _MaMon As String)
+    '    Dim _DataArray() As String = SplitData(_MaMon, 1)
+    '    For Each _String As String In _DataArray
+    '        Dim _MaDau As String = _String.Split("_")(0)
+    '        Dim _MaCuoi As String = _String.Split("_")(1)
+    '        Dim _SoLuongKhach As String = _String.Split("_")(2)
+    '        Dim _MaNhanVien As String = _String.Split("_")(3)
+    '    Next
+    '    ''TODO your code here
+    '    ''
+    'End Sub
 
     'Private Sub CheckChefBartenderToWarehouseSignal(ByVal _MaMon As String)
     '    
