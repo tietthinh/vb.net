@@ -91,15 +91,15 @@ Public Class NhanVien
         'If (a = 1) Then
         _PreviousTable.BackColor = Color.White
         Dim _Number As String = "BÀN " + _SelectedTable.Name.Last
-            _PictureBoxEffect = _SelectedTable
-            _PreviousTable = _SelectedTable
-            _PictureBoxEffect.BackColor = Color.RoyalBlue
-            lblTittle.Text = "DANH SÁCH MÓN ĂN " + _Number
-            lstMenu.Enabled = True
-            _IsSelected = True
-            AppProvider._IsCommitted = False
-            UpdateTableStatus(1)
-            LoadMenu()
+        _PictureBoxEffect = _SelectedTable
+        _PreviousTable = _SelectedTable
+        _PictureBoxEffect.BackColor = Color.RoyalBlue
+        lblTittle.Text = "DANH SÁCH MÓN ĂN " + _Number
+        lstMenu.Enabled = True
+        _IsSelected = True
+        AppProvider._IsCommitted = False
+        UpdateTableStatus(1)
+        LoadMenu()
         'End If
         ''Multi-table saver
     End Sub
@@ -147,22 +147,22 @@ Public Class NhanVien
         'If (_Login.DialogResult = 1) Then
         ''********************************************Service Initiate*******************************************
         Try
-                ''Initiate connection
-                Dim _Channel As New Http.HttpChannel
-                RegisterChannel(_Channel, True)
-                InitializeRemoteServer()
-                ''Start thread listening
-                _ServerObject = New ServerObject()
-                _Thread = New Thread(New ThreadStart(Sub() Process()))
-                _Thread.Start()
-            Catch ex As Exception
-                MessageBox.Show(ex.Message)
-                MessageBox.Show("Kết nối thất bại!", "Lỗi")
-                Me.Close()
-            End Try
-            ''********************************************Service Initiate*******************************************
-            LoadMenu()
-            Me.ShowDialog()
+            ''Initiate connection
+            Dim _Channel As New Http.HttpChannel
+            RegisterChannel(_Channel, True)
+            InitializeRemoteServer()
+            ''Start thread listening
+            _ServerObject = New ServerObject()
+            _Thread = New Thread(New ThreadStart(Sub() Processed()))
+            _Thread.Start()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+            MessageBox.Show("Kết nối thất bại!", "Lỗi")
+            Me.Close()
+        End Try
+        ''********************************************Service Initiate*******************************************
+        LoadMenu()
+        Me.ShowDialog()
         'Else
         '    Me.Close()
         'End If
@@ -331,7 +331,6 @@ Public Class NhanVien
                     'If (_ReceiveData.Substring(0, 2) = "6+") Then
                     '    CheckChefBartenderToWarehouse(_ReceiveData)
                     'End If
-
                 End If
                 ''
                 _Data = _Text
@@ -377,57 +376,57 @@ Public Class NhanVien
         End If
     End Sub
     ''=============================================== THIS SECTION FOR CHEF/BARTENDER==========================================================
-    Private Sub CheckWaitorToChefBartender(ByVal _Data As String)
-        Dim Data() As String = SplitData(_Data, 2)
-        ''TODO your code from here
-    End Sub
-    Private Sub CheckWaitorToChefBartenderConfirm(ByVal _Data As String)
-        Dim Data() As String = SplitData(_Data, 3)
-        ''TODO your code from here
-    End Sub
-    Private Sub CheckWarehouseToChefBartenderConfirm(ByVal _MaChuyen As String)
-        Dim Data() As String = SplitData(_Data, 7)
-        ''TODO your code from here
-    End Sub
+    'Private Sub CheckWaitorToChefBartender(ByVal _Data As String)
+    '    Dim Data() As String = SplitData(_Data, 2)
+    '    ''TODO your code from here
+    'End Sub
+    'Private Sub CheckWaitorToChefBartenderConfirm(ByVal _Data As String)
+    '    Dim Data() As String = SplitData(_Data, 3)
+    '    ''TODO your code from here
+    'End Sub
+    'Private Sub CheckWarehouseToChefBartenderConfirm(ByVal _MaChuyen As String)
+    '    Dim Data() As String = SplitData(_Data, 7)
+    '    ''TODO your code from here
+    'End Sub
     ''Service listener for Chef. (Unique)
-    Private Sub Process()
-        Dim _Timer = New Timers.Timer
-        _Timer.Start()
-        While (True)
-            If (Me.IsAccessible) Then
-                Thread.Sleep(0)
-                Dim _Length As Integer = _Data.Length
-                Dim _Text As String = _ServerObject.GetHolder()
-                Dim _ReceiveData As String = _Text.Substring(_Length)
-                If (_ReceiveData <> "" And _ReceiveData.Length > 2) Then
-                    CheckWaitorToChefBartender(_Text.Substring(_Length))
-                    CheckWaitorToChefBartenderConfirm(_Text.Substring(_Length))
-                    CheckWarehouseToChefBartenderConfirm(_Text.Substring(_Length))
-                End If
-                If (_Timer.Interval >= 60000) Then
-                    Thread.Sleep(2000)
-                    _Timer.Interval = 0
-                    _Timer.Start()
-                End If
-                _Data = _Text
-            Else
-                Exit While
-            End If
-        End While
-    End Sub
-    Private Function SplitData(ByVal _ReceiveData As String, ByVal _Code As String) As String()
-        Dim _ReceiveArray() As String = {}
-        Dim j As Integer = 0
-        _ReceiveArray = _ReceiveData.Split("-")
-        For i As Integer = 0 To _ReceiveArray.Count - 2 Step 1
-            Dim _Item As String = _ReceiveArray(i)
-            If (_Item.Substring(0, 2) = _Code + "+") Then
-                _ReceiveArray(j) = _Item.Substring(2)
-                j += 1
-            End If
-        Next
-        Return _ReceiveArray
-    End Function
+    'Private Sub Process()
+    '    Dim _Timer = New Timers.Timer
+    '    _Timer.Start()
+    '    While (True)
+    '        If (Me.IsAccessible) Then
+    '            Thread.Sleep(0)
+    '            Dim _Length As Integer = _Data.Length
+    '            Dim _Text As String = _ServerObject.GetHolder()
+    '            Dim _ReceiveData As String = _Text.Substring(_Length)
+    '            If (_ReceiveData <> "" And _ReceiveData.Length > 2) Then
+    '                CheckWaitorToChefBartender(_Text.Substring(_Length))
+    '                CheckWaitorToChefBartenderConfirm(_Text.Substring(_Length))
+    '                CheckWarehouseToChefBartenderConfirm(_Text.Substring(_Length))
+    '            End If
+    '            If (_Timer.Interval >= 60000) Then
+    '                Thread.Sleep(2000)
+    '                _Timer.Interval = 0
+    '                _Timer.Start()
+    '            End If
+    '            _Data = _Text
+    '        Else
+    '            Exit While
+    '        End If
+    '    End While
+    'End Sub
+    'Private Function SplitData(ByVal _ReceiveData As String, ByVal _Code As String) As String()
+    '    Dim _ReceiveArray() As String = {}
+    '    Dim j As Integer = 0
+    '    _ReceiveArray = _ReceiveData.Split("-")
+    '    For i As Integer = 0 To _ReceiveArray.Count - 2 Step 1
+    '        Dim _Item As String = _ReceiveArray(i)
+    '        If (_Item.Substring(0, 2) = _Code + "+") Then
+    '            _ReceiveArray(j) = _Item.Substring(2)
+    '            j += 1
+    '        End If
+    '    Next
+    '    Return _ReceiveArray
+    'End Function
     ''' <summary>
     ''' Hiển thị bàn phím số bên cạnh chức năng chọn số lượng khách.
     ''' </summary>
@@ -468,17 +467,17 @@ Public Class NhanVien
 
     ''===================================================================================================================================
 
-    Private Sub CheckWaitorToCashierSignal(ByVal _MaMon As String)
-        Dim _DataArray() As String = SplitData(_MaMon, 1)
-        For Each _String As String In _DataArray
-            Dim _MaDau As String = _String.Split("_")(0)
-            Dim _MaCuoi As String = _String.Split("_")(1)
-            Dim _SoLuongKhach As String = _String.Split("_")(2)
-            Dim _MaNhanVien As String = _String.Split("_")(3)
-        Next
-        ''TODO your code here
-        ''
-    End Sub
+    'Private Sub CheckWaitorToCashierSignal(ByVal _MaMon As String)
+    '    Dim _DataArray() As String = SplitData(_MaMon, 1)
+    '    For Each _String As String In _DataArray
+    '        Dim _MaDau As String = _String.Split("_")(0)
+    '        Dim _MaCuoi As String = _String.Split("_")(1)
+    '        Dim _SoLuongKhach As String = _String.Split("_")(2)
+    '        Dim _MaNhanVien As String = _String.Split("_")(3)
+    '    Next
+    '    ''TODO your code here
+    '    ''
+    'End Sub
 
     'Private Sub CheckChefBartenderToWarehouseSignal(ByVal _MaMon As String)
     '    
