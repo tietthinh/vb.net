@@ -131,10 +131,6 @@ Public Class frmCashier
         Dim _Convert As Long = Long.Parse(_Currency, Globalization.NumberStyles.Number)
         Return _Convert
     End Function
-    Private Sub Process()
-        '' Get data for @MaHD
-        '' Set to ListView Column 1, Column 2, Column 3
-    End Sub
 
     Private Sub ltvBan_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ltvBan.SelectedIndexChanged
         If (ltvBan.SelectedItems.Count = 0) Then
@@ -145,64 +141,67 @@ Public Class frmCashier
             btnGopBan.Enabled = True
         End If
     End Sub
-    Private Sub Processed()
+    Private Sub Process()
         While (True)
-                Thread.Sleep(0)
-                Dim _Text As String = _ServerObject.GetHolder()
-                Dim _Length As Integer = _Data.Length
-                Dim _ReceiveData As String = _Text.Substring(_Length)
-                ''Handles event here.
-                If (_ReceiveData <> "" And _ReceiveData.Length > 2) Then
-                    CheckWaitorToCashierSignal(_ReceiveData)
-                End If
-                ''
-                _Data = _Text
-                '' For manager only
-                ''
+            Thread.Sleep(0)
+            If (Me.IsAccessible = True) Then
+                Me.Invoke(New MethodInvoker(Sub()
+                                                Dim _Text As String = _ServerObject.GetHolder()
+                                                Dim _Length As Integer = _Data.Length
+                                                Dim _ReceiveData As String = _Text.Substring(_Length)
+                                                ''Handles event here.
+                                                If (_ReceiveData <> "" And _ReceiveData.Length > 2) Then
+                                                    CheckWaitorToCashierSignal(_ReceiveData)
+                                                End If
+                                                ''
+                                                _Data = _Text
+
+                                            End Sub
+                ))
+            Else
+                Exit While
+            End If
         End While
     End Sub
     Private Sub CheckWaitorToCashierSignal(ByVal _MaMon As String)
-        Dim _Array() As String = SplitData(_MaMon, "1")
+        Dim _Array As List(Of String) = SplitData(_MaMon, "1")
         For Each _MaMonAn As String In _Array
-            _MaChuyenDau = _MaMonAn.Split("_")(0).Trim
-            _MaChuyenCuoi = _MaMonAn.Split("_")(1).Trim
-            Dim _SoLuongKhach As Integer = _MaMon.Split("_")(2)
-            'Dim _MaNhanVien As String = _MaMon.Split("_")(3)
-            Dim _MaNhanVien As String = "NV0007"
-            ''TODO your code here
-
-            Dim Query As String = "spHoaDonInsert "
-            _ParameterInput = {New SqlParameter("@MaNV", _MaNhanVien),
+            If (_MaMonAn <> "" And _MaMonAn.Length > 2) Then
+                _MaChuyenDau = _MaMonAn.Split("_")(0).Trim
+                _MaChuyenCuoi = _MaMonAn.Split("_")(1).Trim
+                Dim _MaNhanVien As String = _MaMonAn.Split("_")(2)
+                Dim _SoLuongKhach As Integer = _MaMonAn.Split("_")(3)
+                ''TODO your code here
+                Dim Query As String = "spHoaDonInsert "
+                _ParameterInput = {New SqlParameter("@MaNV", _MaNhanVien),
                                New SqlParameter("@SoBan", Integer.Parse(_MaChuyenDau.Substring(0, 2))),
                                New SqlParameter("@SoLuongKhach", _SoLuongKhach),
                                New SqlParameter("@GhiChu", "")}
-            _ParameterOut = {New SqlParameter("@MaHD", SqlDbType.Char, 10)}
-            db.Query(Query, _ParameterOut, _ParameterInput)
-            Dim _Item As ListViewItem = ltvBan.Items.Add(_MaChuyenDau.Substring(0, 2))
-            _Item.SubItems.Add(_ParameterOut(0).SqlValue.ToString())
-            _Item.SubItems.Add(_MaChuyenDau)
-            _Item.SubItems.Add(_MaChuyenCuoi)
-        Next
-    End Sub
-    Private Function SplitData(ByVal _ReceiveData As String, ByVal _Code As String) As String()
-        Dim _ReceiveArray() As String = {}
-        Dim j As Integer = 0
-        _ReceiveArray = _ReceiveData.Split("-")
-        For i As Integer = 0 To _ReceiveArray.Count - 2 Step 1
-            Dim _Item As String = _ReceiveArray(i)
-            If (_Item.Substring(0, 2) = _Code + "+") Then
-                _ReceiveArray(j) = _Item.Substring(2)
-                j += 1
+                _ParameterOut = {New SqlParameter("@MaHD", SqlDbType.Char, 10)}
+                db.Query(Query, _ParameterOut, _ParameterInput)
+                Dim _Item As ListViewItem = ltvBan.Items.Add(_MaChuyenDau.Substring(0, 2))
+                _Item.SubItems.Add(_ParameterOut(0).SqlValue.ToString())
+                _Item.SubItems.Add(_MaChuyenDau)
+                _Item.SubItems.Add(_MaChuyenCuoi)
             End If
         Next
-        Return _ReceiveArray
+    End Sub
+    Private Function SplitData(ByVal _ReceiveData As String, ByVal _Code As String) As List(Of String)
+        Dim _ReceiveArray As New List(Of String)
+        Dim _ReturnArray As New List(Of String)
+        Dim j As Integer = 0
+        For i As Integer = 0 To _ReceiveData.Split("*").Length - 2 Step 1
+            _ReceiveArray.Add(_ReceiveData.Split("*")(i))
+        Next
+        For i As Integer = 0 To _ReceiveArray.Count - 1 Step 1
+            Dim _Item As New String(_ReceiveArray(i).ToString)
+            If (_Item <> "") Then
+                If (_Code.Equals(_Item.Split("+")(0).Last.ToString) = True) Then
+                    _ReturnArray.Add(_Item.Split("+")(1))
+                    j += 1
+                End If
+            End If
+        Next
+        Return _ReturnArray
     End Function
-
-    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
-
-    End Sub
-
-    Private Sub dgvChiTietHoaDon_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvChiTietHoaDon.CellContentClick
-
-    End Sub
 End Class

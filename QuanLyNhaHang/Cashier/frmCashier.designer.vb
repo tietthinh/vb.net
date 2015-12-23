@@ -55,7 +55,7 @@ Partial Class frmCashier
         Me.Label1.ForeColor = System.Drawing.Color.Transparent
         Me.Label1.Location = New System.Drawing.Point(-2, 9)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(1373, 90)
+        Me.Label1.Size = New System.Drawing.Size(1365, 90)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Thu Ngân"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -67,7 +67,7 @@ Partial Class frmCashier
         Me.lblTien.ForeColor = System.Drawing.Color.Red
         Me.lblTien.Location = New System.Drawing.Point(407, 639)
         Me.lblTien.Name = "lblTien"
-        Me.lblTien.Size = New System.Drawing.Size(0, 33)
+        Me.lblTien.Size = New System.Drawing.Size(0, 35)
         Me.lblTien.TabIndex = 3
         '
         'btnGopBan
@@ -101,7 +101,7 @@ Partial Class frmCashier
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tssUserName})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 694)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1370, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(1362, 22)
         Me.StatusStrip1.TabIndex = 10
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -220,7 +220,7 @@ Partial Class frmCashier
         Me.Label4.ForeColor = System.Drawing.Color.Red
         Me.Label4.Location = New System.Drawing.Point(222, 639)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(138, 33)
+        Me.Label4.Size = New System.Drawing.Size(134, 35)
         Me.Label4.TabIndex = 15
         Me.Label4.Text = "Tổng tiền:"
         '
@@ -229,7 +229,7 @@ Partial Class frmCashier
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.RoyalBlue
-        Me.ClientSize = New System.Drawing.Size(1370, 716)
+        Me.ClientSize = New System.Drawing.Size(1362, 716)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.dgvChiTietHoaDon)
         Me.Controls.Add(Me.Label3)

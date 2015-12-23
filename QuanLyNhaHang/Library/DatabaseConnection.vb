@@ -24,6 +24,12 @@ Public Class DatabaseConnection
         ConfigurationManager.ConnectionStrings("Restaurant Management")
 
     ''' <summary>
+    ''' Employee's account information.
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Shared _User As New User()
+
+    ''' <summary>
     ''' Gets or Sets the current connecter of Library.DatabaseConnection.
     ''' </summary>
     ''' <value></value>
