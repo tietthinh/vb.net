@@ -160,7 +160,7 @@ Public Class frmWarehouseKeeper
         For Each row As DataGridViewRow In dgvDSNhaCungCap.Rows
             Dim _Email As DataTable
             Dim _Name() As String = New String() {"@MaNCC"}
-            Dim _Value() As String = New String() {row.Cells(1).Value.ToString()}
+            Dim _Value() As String = New String() {row.Cells("colMaNCC").Value.ToString()}
             Dim _Phone As DataTable
 
             _Email = Connection.Query("spNhaCungCap_EmailSelect", Connection.CreateParameter(_Name, _Value))

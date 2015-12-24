@@ -63,13 +63,6 @@ Partial Class frmWarehouseKeeper
         Me.btnThemNCC = New System.Windows.Forms.Button()
         Me.btnTimNCC = New System.Windows.Forms.Button()
         Me.dgvDSNhaCungCap = New System.Windows.Forms.DataGridView()
-        Me.colMaNCC = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colTenNCC = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDiaChi = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colChietKhau = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colGhiChu = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colEmail = New System.Windows.Forms.DataGridViewComboBoxColumn()
-        Me.colSDT = New System.Windows.Forms.DataGridViewComboBoxColumn()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.txtDiaChi = New System.Windows.Forms.TextBox()
         Me.txtGhiChu = New System.Windows.Forms.TextBox()
@@ -88,6 +81,13 @@ Partial Class frmWarehouseKeeper
         Me.erTimSP = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.Label11 = New System.Windows.Forms.Label()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.colMaNCC = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colTenNCC = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDiaChi = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colChietKhau = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colGhiChu = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colEmail = New System.Windows.Forms.DataGridViewComboBoxColumn()
+        Me.colSDT = New System.Windows.Forms.DataGridViewComboBoxColumn()
         CType(Me.dgvDSSanPham, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvDSNhaCungCap, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.erTenSP, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -150,6 +150,7 @@ Partial Class frmWarehouseKeeper
         Me.dgvDSSanPham.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvDSSanPham.Location = New System.Drawing.Point(15, 306)
         Me.dgvDSSanPham.Name = "dgvDSSanPham"
+        Me.dgvDSSanPham.RowHeadersVisible = False
         Me.dgvDSSanPham.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvDSSanPham.Size = New System.Drawing.Size(479, 338)
         Me.dgvDSSanPham.TabIndex = 6
@@ -476,69 +477,10 @@ Partial Class frmWarehouseKeeper
         Me.dgvDSNhaCungCap.DefaultCellStyle = DataGridViewCellStyle4
         Me.dgvDSNhaCungCap.Location = New System.Drawing.Point(500, 419)
         Me.dgvDSNhaCungCap.Name = "dgvDSNhaCungCap"
+        Me.dgvDSNhaCungCap.RowHeadersVisible = False
         Me.dgvDSNhaCungCap.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvDSNhaCungCap.Size = New System.Drawing.Size(842, 225)
         Me.dgvDSNhaCungCap.TabIndex = 88
-        '
-        'colMaNCC
-        '
-        Me.colMaNCC.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colMaNCC.DataPropertyName = "MaNCC"
-        Me.colMaNCC.HeaderText = "Mã nhà cung cấp"
-        Me.colMaNCC.Name = "colMaNCC"
-        Me.colMaNCC.ReadOnly = True
-        Me.colMaNCC.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        '
-        'colTenNCC
-        '
-        Me.colTenNCC.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colTenNCC.DataPropertyName = "TenNCC"
-        Me.colTenNCC.HeaderText = "Tên nhà cung cấp"
-        Me.colTenNCC.Name = "colTenNCC"
-        Me.colTenNCC.ReadOnly = True
-        '
-        'colDiaChi
-        '
-        Me.colDiaChi.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colDiaChi.DataPropertyName = "DiaChi"
-        Me.colDiaChi.HeaderText = "Địa chỉ"
-        Me.colDiaChi.Name = "colDiaChi"
-        Me.colDiaChi.ReadOnly = True
-        '
-        'colChietKhau
-        '
-        Me.colChietKhau.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colChietKhau.DataPropertyName = "ChietKhau"
-        Me.colChietKhau.HeaderText = "Chiết khấu"
-        Me.colChietKhau.Name = "colChietKhau"
-        Me.colChietKhau.ReadOnly = True
-        '
-        'colGhiChu
-        '
-        Me.colGhiChu.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colGhiChu.DataPropertyName = "GhiChu"
-        Me.colGhiChu.HeaderText = "Ghi chú"
-        Me.colGhiChu.Name = "colGhiChu"
-        Me.colGhiChu.ReadOnly = True
-        '
-        'colEmail
-        '
-        Me.colEmail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colEmail.DataPropertyName = "MaNCC_Mail"
-        Me.colEmail.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox
-        Me.colEmail.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.colEmail.HeaderText = "Email"
-        Me.colEmail.Name = "colEmail"
-        Me.colEmail.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        '
-        'colSDT
-        '
-        Me.colSDT.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colSDT.DataPropertyName = "MaNCC_SDT"
-        Me.colSDT.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.colSDT.HeaderText = "Điện thoại"
-        Me.colSDT.Name = "colSDT"
-        Me.colSDT.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
         '
         'Label12
         '
@@ -656,6 +598,66 @@ Partial Class frmWarehouseKeeper
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(600, 20)
         Me.TextBox1.TabIndex = 100
+        '
+        'colMaNCC
+        '
+        Me.colMaNCC.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colMaNCC.DataPropertyName = "MaNCC"
+        Me.colMaNCC.HeaderText = "Mã nhà cung cấp"
+        Me.colMaNCC.Name = "colMaNCC"
+        Me.colMaNCC.ReadOnly = True
+        Me.colMaNCC.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        '
+        'colTenNCC
+        '
+        Me.colTenNCC.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colTenNCC.DataPropertyName = "TenNCC"
+        Me.colTenNCC.HeaderText = "Tên nhà cung cấp"
+        Me.colTenNCC.Name = "colTenNCC"
+        Me.colTenNCC.ReadOnly = True
+        '
+        'colDiaChi
+        '
+        Me.colDiaChi.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colDiaChi.DataPropertyName = "DiaChi"
+        Me.colDiaChi.HeaderText = "Địa chỉ"
+        Me.colDiaChi.Name = "colDiaChi"
+        Me.colDiaChi.ReadOnly = True
+        '
+        'colChietKhau
+        '
+        Me.colChietKhau.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colChietKhau.DataPropertyName = "ChietKhau"
+        Me.colChietKhau.HeaderText = "Chiết khấu"
+        Me.colChietKhau.Name = "colChietKhau"
+        Me.colChietKhau.ReadOnly = True
+        '
+        'colGhiChu
+        '
+        Me.colGhiChu.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colGhiChu.DataPropertyName = "GhiChu"
+        Me.colGhiChu.HeaderText = "Ghi chú"
+        Me.colGhiChu.Name = "colGhiChu"
+        Me.colGhiChu.ReadOnly = True
+        '
+        'colEmail
+        '
+        Me.colEmail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colEmail.DataPropertyName = "MaNCC_Mail"
+        Me.colEmail.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox
+        Me.colEmail.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.colEmail.HeaderText = "Email"
+        Me.colEmail.Name = "colEmail"
+        Me.colEmail.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        '
+        'colSDT
+        '
+        Me.colSDT.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colSDT.DataPropertyName = "MaNCC_SDT"
+        Me.colSDT.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.colSDT.HeaderText = "Điện thoại"
+        Me.colSDT.Name = "colSDT"
+        Me.colSDT.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
         '
         'frmWarehouseKeeper
         '
@@ -777,11 +779,11 @@ Partial Class frmWarehouseKeeper
     Friend WithEvents erTimSP As ErrorProvider
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents Label11 As Label
-    Friend WithEvents colMaNCC As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colTenNCC As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colDiaChi As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colChietKhau As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colGhiChu As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colEmail As System.Windows.Forms.DataGridViewComboBoxColumn
-    Friend WithEvents colSDT As System.Windows.Forms.DataGridViewComboBoxColumn
+    Friend WithEvents colMaNCC As DataGridViewTextBoxColumn
+    Friend WithEvents colTenNCC As DataGridViewTextBoxColumn
+    Friend WithEvents colDiaChi As DataGridViewTextBoxColumn
+    Friend WithEvents colChietKhau As DataGridViewTextBoxColumn
+    Friend WithEvents colGhiChu As DataGridViewTextBoxColumn
+    Friend WithEvents colEmail As DataGridViewComboBoxColumn
+    Friend WithEvents colSDT As DataGridViewComboBoxColumn
 End Class
