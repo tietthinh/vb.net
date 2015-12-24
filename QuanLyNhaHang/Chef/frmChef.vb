@@ -95,7 +95,9 @@ Public Class frmChef
                     End If
                 End If
             Next
+        End If
 
+        If ltvOrderList.SelectedItems.Count > 0 Then
             materialList = LoadMaterial(ltvOrderList.SelectedItems(0).SubItems("MaMon").Text)
             dgvMaterialList.DataSource = materialList
 
@@ -128,7 +130,6 @@ Public Class frmChef
             Catch ex As SqlException
                 MessageBox.Show(ex.Number)
                 MessageBox.Show(ex.Message)
-                Throw ex
             End Try
 
             For i As Integer = ltvOrderList.SelectedItems.Count - 1 To 0 Step -1
