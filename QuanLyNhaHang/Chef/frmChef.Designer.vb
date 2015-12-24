@@ -26,6 +26,9 @@ Partial Class frmChef
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.dgvCookList = New System.Windows.Forms.DataGridView()
         Me.CookListTransID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CookListDishName = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -60,6 +63,8 @@ Partial Class frmChef
         Me.txtTotalQuantity = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.dgvMaterialList = New System.Windows.Forms.DataGridView()
+        Me.ltbException = New System.Windows.Forms.ListBox()
+        Me.lblMaterialQuantity = New System.Windows.Forms.Label()
         Me.DetailDishID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.MaterialID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.MaterialName = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -68,8 +73,7 @@ Partial Class frmChef
         Me.Increase = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.MaterialUnit = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DefaultIncrease = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ltbException = New System.Windows.Forms.ListBox()
-        Me.lblMaterialQuantity = New System.Windows.Forms.Label()
+        Me.IsDouble = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dgvCookList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvMaterialList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -104,6 +108,7 @@ Partial Class frmChef
         Me.dgvCookList.Location = New System.Drawing.Point(932, 37)
         Me.dgvCookList.Name = "dgvCookList"
         Me.dgvCookList.ReadOnly = True
+        Me.dgvCookList.RowHeadersVisible = False
         Me.dgvCookList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvCookList.Size = New System.Drawing.Size(410, 515)
         Me.dgvCookList.TabIndex = 2
@@ -354,91 +359,44 @@ Partial Class frmChef
         '
         Me.dgvMaterialList.AllowUserToAddRows = False
         Me.dgvMaterialList.AllowUserToDeleteRows = False
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.Empty
+        Me.dgvMaterialList.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvMaterialList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.dgvMaterialList.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvMaterialList.BackgroundColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvMaterialList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvMaterialList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvMaterialList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvMaterialList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DetailDishID, Me.MaterialID, Me.MaterialName, Me.Decrease, Me.MaterialQuantity, Me.Increase, Me.MaterialUnit, Me.DefaultIncrease})
+        Me.dgvMaterialList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DetailDishID, Me.MaterialID, Me.MaterialName, Me.Decrease, Me.MaterialQuantity, Me.Increase, Me.MaterialUnit, Me.DefaultIncrease, Me.IsDouble})
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvMaterialList.DefaultCellStyle = DataGridViewCellStyle6
         Me.dgvMaterialList.Location = New System.Drawing.Point(520, 37)
         Me.dgvMaterialList.Name = "dgvMaterialList"
+        Me.dgvMaterialList.ReadOnly = True
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvMaterialList.RowHeadersDefaultCellStyle = DataGridViewCellStyle7
+        Me.dgvMaterialList.RowHeadersVisible = False
         Me.dgvMaterialList.Size = New System.Drawing.Size(406, 406)
         Me.dgvMaterialList.TabIndex = 41
-        '
-        'DetailDishID
-        '
-        Me.DetailDishID.DataPropertyName = "MaMon"
-        Me.DetailDishID.HeaderText = "Mã món"
-        Me.DetailDishID.Name = "DetailDishID"
-        Me.DetailDishID.Visible = False
-        Me.DetailDishID.Width = 86
-        '
-        'MaterialID
-        '
-        Me.MaterialID.DataPropertyName = "MaSP"
-        Me.MaterialID.HeaderText = "Mã nguyên liệu"
-        Me.MaterialID.Name = "MaterialID"
-        Me.MaterialID.Visible = False
-        Me.MaterialID.Width = 131
-        '
-        'MaterialName
-        '
-        Me.MaterialName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.MaterialName.DataPropertyName = "TenSP"
-        Me.MaterialName.HeaderText = "Nguyên liệu"
-        Me.MaterialName.Name = "MaterialName"
-        '
-        'Decrease
-        '
-        Me.Decrease.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.Decrease.HeaderText = ""
-        Me.Decrease.Name = "Decrease"
-        Me.Decrease.Text = "-"
-        Me.Decrease.UseColumnTextForButtonValue = True
-        Me.Decrease.Width = 5
-        '
-        'MaterialQuantity
-        '
-        Me.MaterialQuantity.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.MaterialQuantity.DataPropertyName = "SoLuong"
-        DataGridViewCellStyle4.Format = "#,###0.#######"
-        DataGridViewCellStyle4.NullValue = Nothing
-        Me.MaterialQuantity.DefaultCellStyle = DataGridViewCellStyle4
-        Me.MaterialQuantity.HeaderText = "Số lượng"
-        Me.MaterialQuantity.Name = "MaterialQuantity"
-        Me.MaterialQuantity.Width = 84
-        '
-        'Increase
-        '
-        Me.Increase.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.Increase.HeaderText = ""
-        Me.Increase.Name = "Increase"
-        Me.Increase.Text = "+"
-        Me.Increase.UseColumnTextForButtonValue = True
-        Me.Increase.Width = 5
-        '
-        'MaterialUnit
-        '
-        Me.MaterialUnit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.MaterialUnit.DataPropertyName = "TenDV"
-        Me.MaterialUnit.HeaderText = "Đơn vị"
-        Me.MaterialUnit.Name = "MaterialUnit"
-        Me.MaterialUnit.Width = 59
-        '
-        'DefaultIncrease
-        '
-        Me.DefaultIncrease.DataPropertyName = "DoTangMacDinh"
-        Me.DefaultIncrease.HeaderText = "Giá trị tăng mặc định"
-        Me.DefaultIncrease.Name = "DefaultIncrease"
-        Me.DefaultIncrease.Visible = False
-        Me.DefaultIncrease.Width = 169
         '
         'ltbException
         '
@@ -459,6 +417,92 @@ Partial Class frmChef
         Me.lblMaterialQuantity.TabIndex = 43
         Me.lblMaterialQuantity.Text = "Material's Quantity"
         Me.lblMaterialQuantity.Visible = False
+        '
+        'DetailDishID
+        '
+        Me.DetailDishID.DataPropertyName = "MaMon"
+        Me.DetailDishID.HeaderText = "Mã món"
+        Me.DetailDishID.Name = "DetailDishID"
+        Me.DetailDishID.ReadOnly = True
+        Me.DetailDishID.Visible = False
+        Me.DetailDishID.Width = 67
+        '
+        'MaterialID
+        '
+        Me.MaterialID.DataPropertyName = "MaSP"
+        Me.MaterialID.HeaderText = "Mã nguyên liệu"
+        Me.MaterialID.Name = "MaterialID"
+        Me.MaterialID.ReadOnly = True
+        Me.MaterialID.Visible = False
+        Me.MaterialID.Width = 112
+        '
+        'MaterialName
+        '
+        Me.MaterialName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.MaterialName.DataPropertyName = "TenSP"
+        Me.MaterialName.HeaderText = "Nguyên liệu"
+        Me.MaterialName.Name = "MaterialName"
+        Me.MaterialName.ReadOnly = True
+        '
+        'Decrease
+        '
+        Me.Decrease.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.Decrease.HeaderText = ""
+        Me.Decrease.Name = "Decrease"
+        Me.Decrease.ReadOnly = True
+        Me.Decrease.Text = "-"
+        Me.Decrease.UseColumnTextForButtonValue = True
+        Me.Decrease.Width = 5
+        '
+        'MaterialQuantity
+        '
+        Me.MaterialQuantity.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.MaterialQuantity.DataPropertyName = "SoLuong"
+        DataGridViewCellStyle5.Format = "#,###0.#######"
+        DataGridViewCellStyle5.NullValue = Nothing
+        Me.MaterialQuantity.DefaultCellStyle = DataGridViewCellStyle5
+        Me.MaterialQuantity.HeaderText = "Số lượng"
+        Me.MaterialQuantity.Name = "MaterialQuantity"
+        Me.MaterialQuantity.ReadOnly = True
+        Me.MaterialQuantity.Width = 91
+        '
+        'Increase
+        '
+        Me.Increase.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.Increase.HeaderText = ""
+        Me.Increase.Name = "Increase"
+        Me.Increase.ReadOnly = True
+        Me.Increase.Text = "+"
+        Me.Increase.UseColumnTextForButtonValue = True
+        Me.Increase.Width = 5
+        '
+        'MaterialUnit
+        '
+        Me.MaterialUnit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.MaterialUnit.DataPropertyName = "TenDV"
+        Me.MaterialUnit.HeaderText = "Đơn vị"
+        Me.MaterialUnit.Name = "MaterialUnit"
+        Me.MaterialUnit.ReadOnly = True
+        Me.MaterialUnit.Width = 74
+        '
+        'DefaultIncrease
+        '
+        Me.DefaultIncrease.DataPropertyName = "DoTangMacDinh"
+        Me.DefaultIncrease.HeaderText = "Giá trị tăng mặc định"
+        Me.DefaultIncrease.Name = "DefaultIncrease"
+        Me.DefaultIncrease.ReadOnly = True
+        Me.DefaultIncrease.Visible = False
+        Me.DefaultIncrease.Width = 169
+        '
+        'IsDouble
+        '
+        Me.IsDouble.DataPropertyName = "SoThuc"
+        Me.IsDouble.HeaderText = "Số thực"
+        Me.IsDouble.Name = "IsDouble"
+        Me.IsDouble.ReadOnly = True
+        Me.IsDouble.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.IsDouble.Visible = False
+        Me.IsDouble.Width = 83
         '
         'frmChef
         '
@@ -526,6 +570,7 @@ Partial Class frmChef
     Friend WithEvents CookListDishName As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents CookListQuantity As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents CookListDone As System.Windows.Forms.DataGridViewButtonColumn
+    Friend WithEvents lblMaterialQuantity As System.Windows.Forms.Label
     Friend WithEvents DetailDishID As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents MaterialID As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents MaterialName As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -534,5 +579,5 @@ Partial Class frmChef
     Friend WithEvents Increase As System.Windows.Forms.DataGridViewButtonColumn
     Friend WithEvents MaterialUnit As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents DefaultIncrease As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents lblMaterialQuantity As System.Windows.Forms.Label
+    Friend WithEvents IsDouble As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class

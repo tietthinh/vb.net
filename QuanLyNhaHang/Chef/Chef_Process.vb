@@ -8,6 +8,12 @@ Imports Library
 
 Module Chef_Process
 
+    ''' <summary>
+    ''' Clear background color of rows in list view.
+    ''' </summary>
+    ''' <param name="listItem">List of items which has background color.</param>
+    ''' <param name="listView">List view contains these list items.</param>
+    ''' <remarks></remarks>
     Public Sub ClearListViewItemBackColor(ByRef listItem As List(Of ListViewItem), ByRef listView As ListView)
         For i As Integer = 0 To listItem.Count - 1 Step 1
             listItem(i).BackColor = SystemColors.Window
@@ -15,6 +21,12 @@ Module Chef_Process
         Next
     End Sub
 
+    ''' <summary>
+    ''' Load list material from Database into DataTable.
+    ''' </summary>
+    ''' <param name="_DishID">Identity of Dish in Database.</param>
+    ''' <returns>A table containts list of material matching the Identity.</returns>
+    ''' <remarks></remarks>
     Public Function LoadMaterial(ByVal _DishID As Object) As DataTable
         Dim db As New DatabaseConnection()
         Dim materialList As DataTable
@@ -30,6 +42,12 @@ Module Chef_Process
         Return materialList
     End Function
 
+    ''' <summary>
+    ''' Gets all name of columns of DataTable.
+    ''' </summary>
+    ''' <param name="sourceDataTable">DataTable wanting to get columns' name.</param>
+    ''' <returns>A array of string contains all columns' name.</returns>
+    ''' <remarks></remarks>
     Public Function GetAllColumnsName(ByVal sourceDataTable As DataTable) As String()
         Dim listName(sourceDataTable.Columns.Count - 1) As String
 
@@ -40,6 +58,14 @@ Module Chef_Process
         Return listName
     End Function
 
+    ''' <summary>
+    ''' Clone a DataTable to other DataTable.
+    ''' </summary>
+    ''' <param name="sourceDataTable">Datatable wanting to clone.</param>
+    ''' <param name="listRowName"></param>
+    ''' <param name="totalQuantity"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function CloneDataTable(ByVal sourceDataTable As DataTable, ByVal listRowName As String(), ByVal totalQuantity As Integer) As DataTable
         Dim destinationDataTable As New DataTable()
 
@@ -51,9 +77,9 @@ Module Chef_Process
 
         For Each row As DataRow In sourceDataTable.Rows
             Dim mlRow As DataRow = destinationDataTable.NewRow()
-            mlRow("MaSP") = row("MaSP")
-            mlRow("SoLuongMotMon") = row("SoLuong")
-            mlRow("SoLuong") = row("SoLuong") * totalQuantity
+            mlRow(listRowName(0)) = row(listRowName(0))
+            mlRow(listRowName(2)) = row(listRowName(1))
+            mlRow(listRowName(1)) = row(listRowName(1)) * totalQuantity
 
             destinationDataTable.Rows.Add(mlRow)
         Next
