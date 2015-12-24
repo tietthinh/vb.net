@@ -5,6 +5,7 @@
 '=====================================================================
 
 Imports Library
+Imports System.Data.SqlClient
 
 Module Chef_Process
 
@@ -21,6 +22,10 @@ Module Chef_Process
         Next
     End Sub
 
+    Public Function LoadOrder(ByVal _TransIDList As List(Of String)) As DataTable
+
+    End Function
+
     ''' <summary>
     ''' Load list material from Database into DataTable.
     ''' </summary>
@@ -33,7 +38,7 @@ Module Chef_Process
 
         Try
             materialList = db.Query("spCTLamMonSelect", db.CreateParameter(New String() {"@MaMon"}, New Object() {_DishID}))
-        Catch ex As Exception
+        Catch ex As SqlException
             Throw ex
         End Try
 
