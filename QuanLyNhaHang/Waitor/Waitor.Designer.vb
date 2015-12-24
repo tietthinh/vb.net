@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class NhanVien
+Partial Class Waitor
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -374,7 +374,7 @@ Partial Class NhanVien
         Me.Label2.Text = "SỐ LƯỢNG KHÁCH"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'NhanVien
+        'Waitor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -402,7 +402,7 @@ Partial Class NhanVien
         Me.Controls.Add(Me.picTable01)
         Me.Controls.Add(Me.picBorder)
         Me.Controls.Add(Me.Label2)
-        Me.Name = "NhanVien"
+        Me.Name = "Waitor"
         Me.Text = "Nhan Vien"
         CType(Me.dgvList, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picTable09, System.ComponentModel.ISupportInitialize).EndInit()
