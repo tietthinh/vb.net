@@ -48,6 +48,8 @@ Partial Class frmWarehouseKeeper
         Me.btnThemSP = New System.Windows.Forms.Button()
         Me.btnTimSP = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.txtDienThoai = New System.Windows.Forms.TextBox()
+        Me.txtEmail = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.txtChietKhau = New System.Windows.Forms.TextBox()
@@ -73,18 +75,30 @@ Partial Class frmWarehouseKeeper
         Me.txtGhiChu = New System.Windows.Forms.TextBox()
         Me.btnCong1 = New System.Windows.Forms.Button()
         Me.btnCong2 = New System.Windows.Forms.Button()
-        Me.errSP = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.erTenSP = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.erSoLuong = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.erDonVi = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.erNCC = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.erChietKhau = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.erDiaChi = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.erEmail = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.erDienThoai = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.Label3 = New System.Windows.Forms.Label()
         Me.txtTimSP = New System.Windows.Forms.TextBox()
+        Me.erTimSP = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.Label11 = New System.Windows.Forms.Label()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.cboEmail = New System.Windows.Forms.ComboBox()
-        Me.cboDienThoai = New System.Windows.Forms.ComboBox()
         CType(Me.dgvDSSanPham, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvDSNhaCungCap, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.errSP, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.erTenSP, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.erSoLuong, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.erDonVi, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.erNCC, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.erChietKhau, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.erDiaChi, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.erEmail, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.erDienThoai, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.erTimSP, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label5
@@ -303,6 +317,20 @@ Partial Class frmWarehouseKeeper
         Me.Label1.Text = "QUẢN LÝ KHO HÀNG"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
+        'txtDienThoai
+        '
+        Me.txtDienThoai.Location = New System.Drawing.Point(1107, 109)
+        Me.txtDienThoai.Name = "txtDienThoai"
+        Me.txtDienThoai.Size = New System.Drawing.Size(176, 20)
+        Me.txtDienThoai.TabIndex = 11
+        '
+        'txtEmail
+        '
+        Me.txtEmail.Location = New System.Drawing.Point(1107, 68)
+        Me.txtEmail.Name = "txtEmail"
+        Me.txtEmail.Size = New System.Drawing.Size(176, 20)
+        Me.txtEmail.TabIndex = 9
+        '
         'Label2
         '
         Me.Label2.AutoSize = True
@@ -325,7 +353,6 @@ Partial Class frmWarehouseKeeper
         '
         'txtChietKhau
         '
-        Me.txtChietKhau.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.txtChietKhau.Location = New System.Drawing.Point(683, 111)
         Me.txtChietKhau.Name = "txtChietKhau"
         Me.txtChietKhau.Size = New System.Drawing.Size(295, 20)
@@ -341,7 +368,6 @@ Partial Class frmWarehouseKeeper
         '
         'Label7
         '
-        Me.Label7.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Roboto", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label7.Location = New System.Drawing.Point(570, 225)
@@ -352,7 +378,6 @@ Partial Class frmWarehouseKeeper
         '
         'Label13
         '
-        Me.Label13.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Roboto", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label13.Location = New System.Drawing.Point(570, 109)
@@ -386,7 +411,7 @@ Partial Class frmWarehouseKeeper
         'btnSuaNCC
         '
         Me.btnSuaNCC.Font = New System.Drawing.Font("Roboto", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnSuaNCC.Location = New System.Drawing.Point(1028, 342)
+        Me.btnSuaNCC.Location = New System.Drawing.Point(1028, 350)
         Me.btnSuaNCC.Name = "btnSuaNCC"
         Me.btnSuaNCC.Size = New System.Drawing.Size(81, 34)
         Me.btnSuaNCC.TabIndex = 16
@@ -396,7 +421,7 @@ Partial Class frmWarehouseKeeper
         'btnXoaNCC
         '
         Me.btnXoaNCC.Font = New System.Drawing.Font("Roboto", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnXoaNCC.Location = New System.Drawing.Point(876, 342)
+        Me.btnXoaNCC.Location = New System.Drawing.Point(876, 350)
         Me.btnXoaNCC.Name = "btnXoaNCC"
         Me.btnXoaNCC.Size = New System.Drawing.Size(81, 34)
         Me.btnXoaNCC.TabIndex = 15
@@ -406,7 +431,7 @@ Partial Class frmWarehouseKeeper
         'btnThemNCC
         '
         Me.btnThemNCC.Font = New System.Drawing.Font("Roboto", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnThemNCC.Location = New System.Drawing.Point(724, 342)
+        Me.btnThemNCC.Location = New System.Drawing.Point(724, 350)
         Me.btnThemNCC.Name = "btnThemNCC"
         Me.btnThemNCC.Size = New System.Drawing.Size(81, 34)
         Me.btnThemNCC.TabIndex = 14
@@ -425,6 +450,8 @@ Partial Class frmWarehouseKeeper
         '
         'dgvDSNhaCungCap
         '
+        Me.dgvDSNhaCungCap.AllowUserToAddRows = False
+        Me.dgvDSNhaCungCap.AllowUserToDeleteRows = False
         Me.dgvDSNhaCungCap.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -497,7 +524,7 @@ Partial Class frmWarehouseKeeper
         'colEmail
         '
         Me.colEmail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colEmail.DataPropertyName = "Email"
+        Me.colEmail.DataPropertyName = "MaNCC_Mail"
         Me.colEmail.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox
         Me.colEmail.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.colEmail.HeaderText = "Email"
@@ -507,7 +534,7 @@ Partial Class frmWarehouseKeeper
         'colSDT
         '
         Me.colSDT.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colSDT.DataPropertyName = "SDT"
+        Me.colSDT.DataPropertyName = "MaNCC_SDT"
         Me.colSDT.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.colSDT.HeaderText = "Điện thoại"
         Me.colSDT.Name = "colSDT"
@@ -536,7 +563,6 @@ Partial Class frmWarehouseKeeper
         '
         'txtGhiChu
         '
-        Me.txtGhiChu.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.txtGhiChu.Location = New System.Drawing.Point(683, 225)
         Me.txtGhiChu.Multiline = True
         Me.txtGhiChu.Name = "txtGhiChu"
@@ -545,7 +571,7 @@ Partial Class frmWarehouseKeeper
         '
         'btnCong1
         '
-        Me.btnCong1.Location = New System.Drawing.Point(1289, 70)
+        Me.btnCong1.Location = New System.Drawing.Point(1289, 66)
         Me.btnCong1.Name = "btnCong1"
         Me.btnCong1.Size = New System.Drawing.Size(19, 20)
         Me.btnCong1.TabIndex = 95
@@ -561,13 +587,37 @@ Partial Class frmWarehouseKeeper
         Me.btnCong2.Text = "+"
         Me.btnCong2.UseVisualStyleBackColor = True
         '
-        'errSP
+        'erTenSP
         '
-        Me.errSP.ContainerControl = Me
+        Me.erTenSP.ContainerControl = Me
+        '
+        'erSoLuong
+        '
+        Me.erSoLuong.ContainerControl = Me
+        '
+        'erDonVi
+        '
+        Me.erDonVi.ContainerControl = Me
         '
         'erNCC
         '
         Me.erNCC.ContainerControl = Me
+        '
+        'erChietKhau
+        '
+        Me.erChietKhau.ContainerControl = Me
+        '
+        'erDiaChi
+        '
+        Me.erDiaChi.ContainerControl = Me
+        '
+        'erEmail
+        '
+        Me.erEmail.ContainerControl = Me
+        '
+        'erDienThoai
+        '
+        Me.erDienThoai.ContainerControl = Me
         '
         'Label3
         '
@@ -586,9 +636,12 @@ Partial Class frmWarehouseKeeper
         Me.txtTimSP.Size = New System.Drawing.Size(374, 20)
         Me.txtTimSP.TabIndex = 98
         '
+        'erTimSP
+        '
+        Me.erTimSP.ContainerControl = Me
+        '
         'Label11
         '
-        Me.Label11.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Roboto", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label11.Location = New System.Drawing.Point(570, 298)
@@ -599,29 +652,10 @@ Partial Class frmWarehouseKeeper
         '
         'TextBox1
         '
-        Me.TextBox1.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.TextBox1.Location = New System.Drawing.Point(683, 298)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(600, 20)
         Me.TextBox1.TabIndex = 100
-        '
-        'cboEmail
-        '
-        Me.cboEmail.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cboEmail.FormattingEnabled = True
-        Me.cboEmail.Location = New System.Drawing.Point(1098, 70)
-        Me.cboEmail.Name = "cboEmail"
-        Me.cboEmail.Size = New System.Drawing.Size(185, 21)
-        Me.cboEmail.TabIndex = 101
-        '
-        'cboDienThoai
-        '
-        Me.cboDienThoai.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cboDienThoai.FormattingEnabled = True
-        Me.cboDienThoai.Location = New System.Drawing.Point(1098, 108)
-        Me.cboDienThoai.Name = "cboDienThoai"
-        Me.cboDienThoai.Size = New System.Drawing.Size(185, 21)
-        Me.cboDienThoai.TabIndex = 102
         '
         'frmWarehouseKeeper
         '
@@ -630,8 +664,6 @@ Partial Class frmWarehouseKeeper
         Me.AutoScroll = True
         Me.AutoSize = True
         Me.ClientSize = New System.Drawing.Size(1354, 656)
-        Me.Controls.Add(Me.cboDienThoai)
-        Me.Controls.Add(Me.cboEmail)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.Label11)
         Me.Controls.Add(Me.txtTimSP)
@@ -644,6 +676,8 @@ Partial Class frmWarehouseKeeper
         Me.Controls.Add(Me.btnXoaNCC)
         Me.Controls.Add(Me.btnThemNCC)
         Me.Controls.Add(Me.btnTimNCC)
+        Me.Controls.Add(Me.txtDienThoai)
+        Me.Controls.Add(Me.txtEmail)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.txtGhiChu)
@@ -676,8 +710,15 @@ Partial Class frmWarehouseKeeper
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.dgvDSSanPham, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvDSNhaCungCap, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.errSP, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.erTenSP, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.erSoLuong, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.erDonVi, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.erNCC, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.erChietKhau, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.erDiaChi, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.erEmail, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.erDienThoai, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.erTimSP, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -698,6 +739,8 @@ Partial Class frmWarehouseKeeper
     Friend WithEvents btnThemSP As Button
     Friend WithEvents btnTimSP As Button
     Friend WithEvents Label1 As Label
+    Friend WithEvents txtDienThoai As TextBox
+    Friend WithEvents txtEmail As TextBox
     Friend WithEvents Label2 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents txtChietKhau As TextBox
@@ -716,8 +759,14 @@ Partial Class frmWarehouseKeeper
     Friend WithEvents txtGhiChu As TextBox
     Friend WithEvents btnCong1 As Button
     Friend WithEvents btnCong2 As Button
-    Friend WithEvents errSP As ErrorProvider
+    Friend WithEvents erTenSP As ErrorProvider
+    Friend WithEvents erSoLuong As ErrorProvider
+    Friend WithEvents erDonVi As ErrorProvider
     Friend WithEvents erNCC As ErrorProvider
+    Friend WithEvents erChietKhau As ErrorProvider
+    Friend WithEvents erDiaChi As ErrorProvider
+    Friend WithEvents erEmail As ErrorProvider
+    Friend WithEvents erDienThoai As ErrorProvider
     Friend WithEvents txtTimSP As TextBox
     Friend WithEvents Label3 As Label
     Friend WithEvents colMaSP As DataGridViewTextBoxColumn
@@ -725,15 +774,14 @@ Partial Class frmWarehouseKeeper
     Friend WithEvents colSoLuongTon As DataGridViewTextBoxColumn
     Friend WithEvents colMaDV As DataGridViewTextBoxColumn
     Friend WithEvents colTenDV As DataGridViewTextBoxColumn
+    Friend WithEvents erTimSP As ErrorProvider
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents Label11 As Label
-    Friend WithEvents colMaNCC As DataGridViewTextBoxColumn
-    Friend WithEvents colTenNCC As DataGridViewTextBoxColumn
-    Friend WithEvents colDiaChi As DataGridViewTextBoxColumn
-    Friend WithEvents colChietKhau As DataGridViewTextBoxColumn
-    Friend WithEvents colGhiChu As DataGridViewTextBoxColumn
-    Friend WithEvents colEmail As DataGridViewComboBoxColumn
-    Friend WithEvents colSDT As DataGridViewComboBoxColumn
-    Friend WithEvents cboDienThoai As ComboBox
-    Friend WithEvents cboEmail As ComboBox
+    Friend WithEvents colMaNCC As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colTenNCC As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDiaChi As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colChietKhau As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colGhiChu As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colEmail As System.Windows.Forms.DataGridViewComboBoxColumn
+    Friend WithEvents colSDT As System.Windows.Forms.DataGridViewComboBoxColumn
 End Class
