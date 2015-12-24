@@ -16,7 +16,7 @@ Public Class Add
         Me.StartPosition = FormStartPosition.Manual
         Me.Location = New Point(810, 300)
         If (AppProvider._IsUpdate = True) Then
-            Dim row As DataGridViewRow = NhanVien.dgvList.SelectedRows.Item(0)
+            Dim row As DataGridViewRow = Waitor.dgvList.SelectedRows.Item(0)
             nudQuantity.Value = row.Cells(2).Value
             txtNote.Text = row.Cells(3).Value.ToString
         End If
@@ -30,14 +30,14 @@ Public Class Add
         Dim _Note As String = Me.txtNote.Text
         If (AppProvider._IsUpdate = False) Then
             Dim _Code As String = AppProvider._SelectedItem
-            Dim name As String = NhanVien.lstMenu.SelectedItems(0).Text
-            _Id = NhanVien.dgvList.Rows.Count + 1
+            Dim name As String = Waitor.lstMenu.SelectedItems(0).Text
+            _Id = Waitor.dgvList.Rows.Count + 1
             _Name = name
-            NhanVien.dgvList.Rows.Add(_Id, _Name, _Quantity, _Note, "Chưa làm", "", _Code)
+            Waitor.dgvList.Rows.Add(_Id, _Name, _Quantity, _Note, "Chưa làm", "", _Code)
         Else
             ''Is update
-            Dim _Index As Integer = NhanVien.dgvList.SelectedRows.Item(0).Index
-            Dim _Row As DataGridViewRow = NhanVien.dgvList.SelectedRows.Item(0)
+            Dim _Index As Integer = Waitor.dgvList.SelectedRows.Item(0).Index
+            Dim _Row As DataGridViewRow = Waitor.dgvList.SelectedRows.Item(0)
             Dim _Code As String = _Row.Cells(5).Value
             nudQuantity.Value = _Row.Cells(2).Value
             txtNote.Text = _Row.Cells(3).Value
@@ -52,7 +52,7 @@ Public Class Add
                 _Id = id
                 _Name = name
             End If
-            NhanVien.dgvList.Rows(_Index).SetValues(id, name, _Quantity, _Note)
+            Waitor.dgvList.Rows(_Index).SetValues(id, name, _Quantity, _Note)
         End If
         Close()
     End Sub

@@ -180,6 +180,46 @@ Public Class DatabaseConnection
     End Function
 
     ''' <summary>
+    ''' Insert/Delete/Update Database through Stored Procedure with _Query, list of parameters and
+    ''' gets a return value from Stored Procefure.
+    ''' </summary>
+    ''' <param name="_Query">Command for executing Stored Procedure.</param>
+    ''' <param name="returnParameter">Parameter receiving return value.</param>
+    ''' <param name="parameter">List of parameters matching Stored Procedure's parameters.</param>
+    ''' <returns>The number of inserted/deleted/updated rows.</returns>
+    ''' <remarks></remarks>
+    Public Function Update(ByVal _Query As String, ByRef returnParameter As SqlParameter, ByVal ParamArray parameter() As SqlParameter) As Integer
+        Dim cmd As SqlCommand = _Connecter.CreateCommand()
+        Dim rowCount As Integer
+
+        cmd.CommandText = _Query
+        cmd.CommandType = CommandType.StoredProcedure
+
+        If parameter IsNot Nothing And parameter.Length > 0 Then
+            cmd.Parameters.AddRange(parameter)
+        End If
+
+        returnParameter.Direction = ParameterDirection.ReturnValue
+
+        cmd.Parameters.Add(returnParameter)
+
+        Try
+            Me.Open()
+
+            rowCount = cmd.ExecuteNonQuery()
+        Catch ex As SqlException
+            Throw ex
+        Finally
+            Me.Close()
+
+            cmd.Dispose()
+            cmd = Nothing
+        End Try
+
+        Return rowCount
+    End Function
+
+    ''' <summary>
     ''' Insert/Delete/Update Database through Stored Procedure with _Query and list of parameters.
     ''' </summary>
     ''' <param name="_Query">Command for executing Stored Procedure.</param>
