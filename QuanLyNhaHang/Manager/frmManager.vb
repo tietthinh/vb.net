@@ -13,9 +13,19 @@ Imports System.Globalization
 Imports System.Exception
 
 Public Class frmManager
+    'Khai báo các DataTable
+    Dim _TableNhanVien As DataTable = Nothing
+    Dim _TableHoaDon As DataTable = Nothing
+    Dim _TableCTHoaDon As DataTable = Nothing
+    Dim _TableMonAnDoUong As DataTable = Nothing
+    Dim _TableCTMonAnDoUong As DataTable = Nothing
 
+    'Khai bóa vị trí cell
     Dim _location As Integer
+
+    'Khai báo kết nối
     Private _connect As New DatabaseConnection()
+
     'Fields:
     ''' <summary>
     ''' If Password Textbox is null then true, else false.
@@ -31,7 +41,7 @@ Public Class frmManager
 
     Private _ReturnUser As User
 
-    Dim _Table As DataTable = Nothing
+
     Dim _Query As String = ""
     Dim _ParameterInput As New SqlParameter
     'Bảng Nhân Viên
@@ -39,10 +49,11 @@ Public Class frmManager
     '''  Load dữ liệu bảng nhân viên
     ''' </summary>
     ''' <remarks></remarks>
-   
+
     Private Sub frmManager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
         Try
-            LoadNV(dgvNhanVien)
+            _TableNhanVien = LoadNV(dgvNhanVien)
 
             cboLoaiNV.Items.Insert(0, "Parttime")
             cboLoaiNV.Items.Insert(1, "Fulltime")
@@ -159,6 +170,10 @@ Public Class frmManager
                     Return
                 End If
             End If
+
+
+
+            ReLoadNV(dgvNhanVien, _TableNhanVien)
         Catch ex As SqlException
             MessageBox.Show("Dữ liệu nhập sai!")
         End Try
@@ -167,12 +182,9 @@ Public Class frmManager
             MessageBox.Show("Thêm Thành Công", "Thông Báo")
         End If
 
-        '_Table.Rows.Add(txtMaNV.Text, txtTen.Text, dtpThoiGianBD.Value, txtcmnd.Text, _Tinhtrang, dtpNgaySinh.Value, _Gioitinh, _LoaiNV, cboTenChucVu.SelectedValue, cboTenChucVu.Text)
 
-        ReLoadNV(dgvNhanVien, _Table)
     End Sub
     Private Sub btnSuaNV_Click(sender As Object, e As EventArgs) Handles btnSuaNV.Click
-
         DialogResult = MessageBox.Show("Bạn muốn thực hiện thao tác sửa thông tin nhân viên?", "Thông Báo", MessageBoxButtons.OKCancel)
 
         If DialogResult = Windows.Forms.DialogResult.OK Then
@@ -226,6 +238,7 @@ Public Class frmManager
                 'dtpNgaySinh.Value.ToString("yyyy-MM-dd") + "', GioiTinh = '" + _gioitinh + "', LoaiNhanVien = '" +
                 'cboKhaNang_NV.SelectedIndex.ToString + "', MaChucVu = '" + cboTenChucVu.SelectedValue.ToString.Trim + "'" + "Where MaNV ='" +
                 ' txtMaNV.Text.Trim + "'"
+
                 _Query = "spNhanVienUpdate"
                 Dim _Name() As String = New String() {"@MaNV ", "@TenNV ", "@TGBatDau ", "@CMND ", "@TinhTrang ", "@GioiTinh ", "@NgaySinh ", "@LoaiNhanVien ", "@MaChucVu "}
                 Dim _Value() As String = New String() {txtMaNV.Text, txtTen.Text, dtpThoiGianBD.Value.ToString("yyyy-MM-dd"), txtcmnd.Text, _Tinhtrang, _Gioitinh, _
@@ -238,11 +251,11 @@ Public Class frmManager
             End Try
 
             MessageBox.Show("Sửa thành công", "Thông báo")
-
+            ReLoadNV(dgvNhanVien, _TableNhanVien)
+            dgvNhanVien.Rows(_location).Selected = True
+            dgvNhanVien.FirstDisplayedScrollingRowIndex = _location
         End If
-        ReLoadNV(dgvNhanVien, _Table)
-        dgvNhanVien.Rows(_location).Selected = True
-        dgvNhanVien.FirstDisplayedScrollingRowIndex = _location
+
         ''-------------------------------------------------------------------------------------Hien Thi dong da sua--------------------------------------------------------
     End Sub
     Private Sub btnXoaNV_Click(sender As Object, e As EventArgs) Handles btnXoaNV.Click
@@ -272,24 +285,23 @@ Public Class frmManager
                 _gioitinh = "Nữ"
             End If
             Dim _Word As String = txtMaNV.Text.ToString.Trim
-            '_query = "Delete From NhanVien Where MaNV ='" + _word + "'"
-            '_connect.Query(_query)
+            _Query = "Delete From NhanVien Where MaNV ='" + _Word + "'"
+            _connect.Query(_Query)
             '_connect.Close()
-            _Query = "spNhanVienDelete"
-            Dim _Name() As String = New String() {"@MaNV"}
-            Dim _Value() As String = New String() {_Word}
+            '_Query = "spNhanVienDelete"
+            'Dim _Name() As String = New String() {"@MaNV"}
+            'Dim _Value() As String = New String() {_Word}
 
-            _connect.Update(_Query, _connect.CreateParameter(_Name, _Value))
+            '_connect.Update(_Query, _connect.CreateParameter(_Name, _Value))
 
             txtMaNV.Text = ""
             txtTen.Text = ""
             txtcmnd.Text = ""
             txtTimKiem_NhanVien.Text = ""
 
-            Dim _Table As New DataTable
             Dim kq As Boolean = False
-            _Table = _connect.Query("Delete From  NhanVien  Where MaNV='" + _Word + "'")
-            For Each dt As DataRow In _Table.Rows
+            _TableNhanVien = _connect.Query("Delete From  NhanVien  Where MaNV='" + _Word + "'")
+            For Each dt As DataRow In _TableNhanVien.Rows
                 If (_Word <> dt("MaNV").ToString.Trim) Then
                     kq = True
                 End If
@@ -298,20 +310,19 @@ Public Class frmManager
             If (kq = True) Then
                 MessageBox.Show("Xóa Thành Công", "Thông Báo")
             End If
-            ReLoadNV(dgvNhanVien, _Table)
-            dgvNhanVien.Rows(_location).Selected = True
-            dgvNhanVien.FirstDisplayedScrollingRowIndex = _location
+            ReLoadNV(dgvNhanVien, _TableNhanVien)
+            dgvNhanVien.Rows(_location - 1).Selected = True
+            dgvNhanVien.FirstDisplayedScrollingRowIndex = _location - 1
 
         End If
     End Sub
     Private Sub btnTimKiem_Click(sender As Object, e As EventArgs) Handles btnTimKiemNV.Click
-
+        Dim _Table As DataTable = Nothing
         If txtTimKiem_NhanVien.Text.Trim.Count = 0 Then
             MessageBox.Show("Chưa có thông tin tim kiếm", "Thông Báo")
         End If
 
         Dim _KQ As Boolean = False
-        Dim _Table As New DataTable
 
         Dim _Word As String = txtTimKiem_NhanVien.Text.ToString
 
@@ -377,10 +388,9 @@ Public Class frmManager
 
     End Sub
     Private Sub dgvNhanVien_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvNhanVien.CellClick
-        Dim ds As DataTable
         'Dim row As DataRow = ds.Select("HoTen = " + dgvNhanVien(0, dgvNhanVien.CurrentCell.RowIndex).Value)(0)
         _location = e.RowIndex
-        If e.RowIndex = dgvNhanVien.Rows.Count - 1 Then
+        If e.RowIndex = dgvNhanVien.Rows.Count Then
             Return
         End If
 
@@ -429,49 +439,26 @@ Public Class frmManager
         End If
     End Sub
 
-
     'Bảng Hóa Đơn
-    ''' <summary>
-    ''' Load du lieu bang Hoa Don
-    ''' </summary>
-    ''' <remarks></remarks>
-    ''' 
-    Private Sub LoadHoaDon()
 
-        Dim Table As New DataTable
-        Table = _connect.Query("Select HD.MaHoaDon, HD.MaNV, NV.HoTen, HD.ThoiGian, HD.SoBan, HD.SoLuongKhach ,HD.MaHDChung, HD.TongTien, HD.GhiChu, HD.TinhTrang From HoaDon HD, NhanVien NV Where NV.MaNV = HD.MaNV ")
-
-
-        For Each dt As DataRow In Table.Rows
-            Dim _TinhTrang As String = ""
-            If dt(9).ToString.Trim = "True" Then
-                _TinhTrang = "Rồi"
-            Else
-                _TinhTrang = "Chưa"
-            End If
-            dgvHoaDon.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString, dt(2).ToString, dt(3).ToString, dt(4).ToString, dt(5).ToString, dt(6).ToString, Double.Parse(dt(7).ToString()).ToString("#,###"), dt(8).ToString, _TinhTrang})
-        Next
-        'For Each dt As DataGridViewRow In dgvHoaDon.Rows
-        '    dt.Cells("TongTien").ToString("#,####")
-        'Next
-
-
-        Dim Table2 As New DataTable
-        Table2 = _connect.Query("Select distinct HD.TinhTrang From HoaDon HD, NhanVien NV Where NV.MaNV = HD.MaNV ")
-        cboDaThanhToan_HoaDon.DataSource = Table2
-        cboDaThanhToan_HoaDon.DisplayMember = "TinhTrang"
-        cboDaThanhToan_HoaDon.ValueMember = "TinhTrang"
-
-    End Sub
     Private Sub HoaDon_Enter(sender As Object, e As EventArgs) Handles HoaDon.Enter
-        LoadHoaDon()
-        LoadCTHoaDon()
+
+        _TableHoaDon = LoadHoaDon(dgvHoaDon)
+
+
+        LoadCTHoaDon(dgvCTHoaDon)
+
+        'Load ComboBox
+        cboDaThanhToan_HoaDon.Items.Insert(0, "Đã Thanh Toán")
+        cboDaThanhToan_HoaDon.Items.Insert(1, "Chưa Thanh Toán")
+        cboDaThanhToan_HoaDon.SelectedIndex = 0
+
     End Sub
     Private Sub dgvHoaDon_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvHoaDon.CellClick
-        If e.RowIndex = dgvHoaDon.Rows.Count - 1 Then
+        If e.RowIndex = dgvHoaDon.Rows.Count Then
             Return
         End If
-
+        _location = e.RowIndex
         If e.RowIndex > 0 Then
             txtSoBan_HoaDon.Text = dgvHoaDon.Rows(e.RowIndex).Cells("SoBan").Value.ToString()
             txtSoLuongKhach_HoaDon.Text = dgvHoaDon.Rows(e.RowIndex).Cells("SoLuongKhach").Value.ToString()
@@ -485,58 +472,46 @@ Public Class frmManager
         End If
 
     End Sub
-    Private Sub btnTimKiem_HoaDon_Click(sender As Object, e As EventArgs) Handles btnTimKiem_HoaDon.Click
-        If txtTimKiem_CTHD.Text.Length = 0 Then
-            ErrorProvider4.SetError(txtTimKiem_HoaDon, "Bạn chưa chọn giá trị.")
-
-        End If
-    End Sub
     Private Sub btnXoa_HoaDon_Click(sender As Object, e As EventArgs) Handles btnXoa_HoaDon.Click
+        DialogResult = MessageBox.Show("Bạn muốn thực hiện thao tác xóa thông tin nhân viên?", "Thông Báo", MessageBoxButtons.OKCancel)
 
-        Dim _query As String = ""
+        If DialogResult = Windows.Forms.DialogResult.OK Then
 
-        Dim _word As String = txtMaHoaDon_HoaDon.Text
-        _query = "Delete From HoaDon Where MaHoaDon ='" + _word + "'"
-        _connect.Query(_query)
-        '_connect.Close()
-        txtMaHoaDon_HoaDon.Text = ""
-        txtSoBan_HoaDon.Text = ""
-        txtMaHoaDonChung_HoaDon.Text = ""
-        txtTenNV_HoaDon.Text = ""
-        txtGhiChu_HoaDon.Text = ""
-        txtTongTien_HoaDon.Text = ""
-        txtTimKiem_HoaDon.Text = ""
+            dgvHoaDon.Rows.Clear()
 
-        LoadHoaDon()
-        Dim Table As New DataTable
-        Dim kq As Boolean = False
-        Table = _connect.Query("Select HD.MaHoaDon,HD.MaHDChung From HoaDon HD, NhanVien NV Where NV.MaNV = HD.MaNV ")
-        For Each dt As DataRow In Table.Rows
-            If (_word <> dt("MaHoaDon").ToString) Then
-                kq = True
+            Dim _Query As String = "spHoaDonDelete"
+            _connect.Update(_Query)
+
+            Dim _word As String = txtMaHoaDon_HoaDon.Text
+           
+            txtMaHoaDon_HoaDon.Text = ""
+            txtSoBan_HoaDon.Text = ""
+            txtMaHoaDonChung_HoaDon.Text = ""
+            txtTenNV_HoaDon.Text = ""
+            txtGhiChu_HoaDon.Text = ""
+            txtTongTien_HoaDon.Text = ""
+            txtTimKiem_HoaDon.Text = ""
+
+            ReLoadHoaDon(dgvHoaDon, _TableHoaDon)
+            Dim Table As New DataTable
+            Dim kq As Boolean = False
+            Table = _connect.Query("Select HD.MaHoaDon,HD.MaHDChung From HoaDon HD, NhanVien NV Where NV.MaNV = HD.MaNV ")
+            For Each dt As DataRow In Table.Rows
+                If (_word <> dt("MaHoaDon").ToString) Then
+                    kq = True
+                End If
+            Next
+            If (kq = True) Then
+                MessageBox.Show("Xóa Thành Công", "Thông Báo")
+
             End If
-        Next
-        If (kq = True) Then
-            MessageBox.Show("Xóa Thành Công", "Thông Báo")
+
+            dgvNhanVien.Rows(_location - 1).Selected = True
+            dgvNhanVien.FirstDisplayedScrollingRowIndex = _location - 1
         End If
-        dgvHoaDon.Rows.Clear()
-
     End Sub
 
-    'Bảng CT Hóa Đơn
-    ''' <summary>
-    ''' Load du lieu bang CT Hoa Don
-    ''' </summary>
-    ''' <remarks></remarks>
-    ''' 
-    Private Sub LoadCTHoaDon()
-        Dim Table1 As New DataTable
-        Table1 = _connect.Query("Select CTHD.MaHoaDon, MADU.TenMon, CTHD.GiaMotMon, CTHD.GhiChu, CTHD.MaCT, CTHD.SoLuong, CTHD.ThanhTien, MADU.MaMon From ChiTietHoaDon CTHD, MonAnDoUong MADU Where MADU.MaMon = CTHD.MaMon")
-        For Each dt As DataRow In Table1.Rows
-            dgvCTHoaDon.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString, dt(2).ToString, dt(3).ToString, dt(4).ToString, dt(5).ToString, Double.Parse(dt(6).ToString).ToString("#,###"), dt(7).ToString})
-        Next
-
-    End Sub
+    'Bảng Chi Tiết Hóa Đơn
     Private Sub btnTimKiem_CTHD_Click(sender As Object, e As EventArgs) Handles btnTimKiem_CTHD.Click
         If txtTimKiem_CTHD.Text.Length = 0 Then
             ErrorProvider4.SetError(txtTimKiem_CTHD, "Bạn chưa chọn Đơn Vị.")
@@ -549,43 +524,56 @@ Public Class frmManager
 
         End If
     End Sub
-    Private Sub btnXoa_CTHD_Click(sender As Object, e As EventArgs) Handles btnXoa_CTHD.Click
-        Dim _query As String = ""
-        ' _connect.Open()
+    Private Sub btnXoa_CTHD_Click(sender As Object, e As EventArgs)
+        DialogResult = MessageBox.Show("Bạn muốn thực hiện thao tác xóa thông tin nhân viên?", "Thông Báo", MessageBoxButtons.OKCancel)
 
-        Dim _word As String = txtMaHoaDon_HoaDon.Text
-        _query = "Delete From ChiTietHoaDon Where MaCT ='" + _word + "'"
-        _connect.Query(_query)
-        '_connect.Close()
-        MaHoaDon_CTHD.Text = ""
-        txtTenMon_CTHD.Text = ""
-        txtSoLuong_CTHD.Text = ""
-        txtGiaMotMon_CTHD.Text = ""
-        txtGhiChuCTHoaDon.Text = ""
-        txtTongTien_CTHD.Text = ""
-        txtTimKiem_CTHD.Text = ""
+        If DialogResult = Windows.Forms.DialogResult.OK Then
 
-        LoadHoaDon()
-        Dim Table As New DataTable
-        Dim kq As Boolean = False
-        Table = _connect.Query("Select HD.MaHoaDon,HD.MaHDChung From HoaDon HD, NhanVien NV Where NV.MaNV = HD.MaNV ")
-        For Each dt As DataRow In Table.Rows
-            If (_word <> dt("MaHoaDon").ToString) Then
-                kq = True
+
+
+            Dim _Query As String = "spCTHoaDonDelete"
+            _connect.Update(_Query)
+
+            dgvHoaDon.Rows.Clear()
+
+            ' _connect.Open()
+
+            Dim _word As String = txtMaHoaDon_HoaDon.Text
+            _Query = "Delete From ChiTietHoaDon Where MaCT ='" + _word + "'"
+            _connect.Query(_Query)
+            '_connect.Close()
+            txtMaHoaDon_CTHD.Text = ""
+            txtTenMon_CTHD.Text = ""
+            txtSoLuong_CTHD.Text = ""
+            txtGiaMotMon_CTHD.Text = ""
+            txtGhiChuCTHoaDon.Text = ""
+            txtTongTien_CTHD.Text = ""
+            txtTimKiem_CTHD.Text = ""
+
+            LoadHoaDon(dgvHoaDon)
+            Dim Table As New DataTable
+            Dim kq As Boolean = False
+            Table = _connect.Query("Select HD.MaHoaDon,HD.MaHDChung From HoaDon HD, NhanVien NV Where NV.MaNV = HD.MaNV ")
+            For Each dt As DataRow In Table.Rows
+                If (_word <> dt("MaHoaDon").ToString) Then
+                    kq = True
+                End If
+            Next
+            If (kq = True) Then
+                MessageBox.Show("Xóa Thành Công", "Thông Báo")
             End If
-        Next
-        If (kq = True) Then
-            MessageBox.Show("Xóa Thành Công", "Thông Báo")
+            dgvNhanVien.Rows(_location - 1).Selected = True
+            dgvNhanVien.FirstDisplayedScrollingRowIndex = _location - 1
         End If
-        dgvHoaDon.Rows.Clear()
+
     End Sub
     Private Sub dgvCTHoaDon_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCTHoaDon.CellClick
         If e.RowIndex = dgvCTHoaDon.Rows.Count - 1 Then
             Return
         End If
-
+        _location = e.RowIndex
         If e.RowIndex > 0 Then
-            MaHoaDon_CTHD.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("MaHoaDon").Value.ToString()
+            txtMaHoaDon_CTHD.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("MaHoaDon").Value.ToString()
             txtTenMon_CTHD.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("TenMon_CTHD").Value.ToString()
             txtSoLuong_CTHD.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("SoLuong").Value.ToString()
             txtGiaMotMon_CTHD.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("GiaMotMon_CTHD").Value.ToString()
@@ -593,68 +581,32 @@ Public Class frmManager
             txtTongTien_CTHD.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("TongTien_CTHD").Value.ToString()
         End If
     End Sub
+    Private Sub btnTimKiem_HoaDon_Click(sender As Object, e As EventArgs) Handles btnTimKiem_HoaDon.Click
+        If txtTimKiem_CTHD.Text.Length = 0 Then
+            ErrorProvider4.SetError(txtTimKiem_HoaDon, "Bạn chưa chọn giá trị.")
 
-
-    Private Sub LoadMonAnDoUong()
-        Dim _Table As New DataTable
-        _Table = _connect.Query("Select MaMon, TenMon, GiaTienHienTai, ThucDonMon From MonAnDoUong ")
-
-           
-
-        For Each dt As DataRow In _Table.Rows
-            Dim arrayString() As String = New String(1) {}
-            arrayString = Library.StringSplit(dt(0), 2)
-            Dim _Loai As String = ""
-
-            If arrayString(0) = "DA" Then
-                _Loai = "Đồ Ăn"
-            Else
-                _Loai = "Đồ Uống"
-            End If
-            Dim _Thucdon As String = ""
-            If dt(3).ToString = "True" Then
-                _Thucdon = "Có"
-
-            Else
-                _Thucdon = "Không"
-            End If
-
-            dgvMonAnDoUong.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString, Double.Parse(dt(2).ToString).ToString("#,###"), _Thucdon, _Loai})
-        Next
-
-        'Dim _Table1 As New DataTable
-        '_Table1 = _connect.Query("Select distinct ThucDonMon From MonAnDoUong")
-        'cboThucDonMon_Mon.DataSource = _Table1
-        'cboThucDonMon_Mon.DisplayMember = "ThucDonMon"
-        'cboThucDonMon_Mon.ValueMember = "ThucDonMon"
-
-        cboThucDonMon_Mon.SelectedIndex = 0
+        End If
     End Sub
 
-    Private Sub LoadCTMonAnDoUong()
-        Dim Table As New DataTable
-        Table = _connect.Query("Select CTLM.MaMon, MADU.TenMon, CTLM.MaSP, SP.TenSP, CTLM.SoLuong, LDVT.TenDV, CTLM.MaDV From ChiTietLamMon CTLM, MonAnDoUong MADU, SanPham SP, LoaiDonViTinh LDVT Where CTLM.MaMon = MADU.MaMon and CTLM.MaSP = SP.MaSP and CTLM.MaDV = LDVT.MaDV")
-        
-        For Each dt As DataRow In Table.Rows
-            dgvCTMon.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString, dt(2).ToString, dt(3).ToString, dt(4).ToString, dt(5).ToString, dt(6).ToString})
-        Next
-        Dim _Table1 As New DataTable
-        _Table1 = _connect.Query("Select LDVT.TenDV, LDVT.MaDV From LoaiDonViTinh LDVT")
-        cboDonVi_CTMon.DataSource = _Table1
-        cboDonVi_CTMon.DisplayMember = "TenDV"
-        cboDonVi_CTMon.ValueMember = "MaDV"
-        cboDonVi_CTMon.SelectedIndex = 0
 
-    End Sub
-
-    'Bảng Món Ăn Đồ Uống
+    'Bảng Món Ăn Đồ Uống - Chi tiết món
     Private Sub MonAnDoUong_Enter(sender As Object, e As EventArgs) Handles MonAnDoUong.Enter
-        'Dim dsMonAnDoUong As DataTable
-        'dsMonAnDoUong = _connect.Query("Select MaMon, TenMon, GiaTienHienTai, ThucDonMon From MonAnDoUong")
-        'dgvMonAnDoUong.DataSource = dsMonAnDoUong
 
-        LoadMonAnDoUong()
-        LoadCTMonAnDoUong()
+        'Load Bảng MonAnDoUong
+        _TableMonAnDoUong = LoadMonAnDoUong(dgvMonAnDoUong)
+        'Load ComboBox ThucDonMon
+
+        cboThucDonMon_Mon.Items.Insert(0, "Có")
+        cboThucDonMon_Mon.Items.Insert(1, "Không")
+        cboThucDonMon_Mon.SelectedIndex = 0
+
+        'Load Bảng CTMonAnDoUong 
+        _TableCTMonAnDoUong = LoadCTMonAnDoUong(dgvMonAnDoUong)
+
+        'Load ComboBox LoaiDonViTinh
+        Dim _ComboBoxLoaiDonViTinh As New DataTable
+        _ComboBoxLoaiDonViTinh = _connect.Query("Select LDVT.TenDV, LDVT.MaDV From LoaiDonViTinh LDVT")
+        LoadComboBox(cboDonVi_CTMon, _ComboBoxLoaiDonViTinh, "TenDV", "MaDV")
     End Sub
     Private Sub btnThem_Click(sender As Object, e As EventArgs) Handles btnThem_Mon.Click
         If txtTenMon_Mon.Text.Length = 0 Then
@@ -708,20 +660,9 @@ Public Class frmManager
             txtGiaHienTai_Mon.Text = dgvMonAnDoUong.Rows(e.RowIndex).Cells("GiaTienHienTai").Value
             cboThucDonMon_Mon.Text = dgvMonAnDoUong.Rows(e.RowIndex).Cells("ThucDonMon").Value.ToString()
             cboLoai_MADU.Text = dgvMonAnDoUong.Rows(e.RowIndex).Cells("Loai").Value.ToString()
+            
         End If
 
-    End Sub
-    Private Sub dgvCTMon_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCTMon.CellClick
-        If e.RowIndex = dgvCTMon.Rows.Count - 1 Then
-            Return
-        End If
-
-        If e.RowIndex > 0 Then
-            txtTenMon_CTMon.Text = dgvCTMon.Rows(e.RowIndex).Cells("TenMon_CTMon").Value.ToString()
-            txtTenSP_CTMon.Text = dgvCTMon.Rows(e.RowIndex).Cells("TenSP_CTMon").Value.ToString()
-            txtSoLuong_CTMon.Text = dgvCTMon.Rows(e.RowIndex).Cells("SoLuong_CTMon").Value.ToString()
-            cboDonVi_CTMon.Text = dgvCTMon.Rows(e.RowIndex).Cells("DonVi_CTMon").Value.ToString()
-        End If
     End Sub
     Private Sub btnThem_CTMon_Click(sender As Object, e As EventArgs) Handles btnThem_CTMon.Click
         If txtTenMon_CTMon.Text.Length = 0 Then
@@ -757,10 +698,65 @@ Public Class frmManager
         txtTenMon_CTHD.Text = ""
         txtTenSP_CTMon.Text = ""
         txtSoLuong_CTMon.Text = ""
+        dgvNhanVien.Rows(_location - 1).Selected = True
+        dgvNhanVien.FirstDisplayedScrollingRowIndex = _location - 1
+    End Sub
+    Private Sub btnXoa_CTMon_Click(sender As Object, e As EventArgs) Handles btnXoa_CTMon.Click
+        DialogResult = MessageBox.Show("Bạn muốn thực hiện thao tác xóa thông tin nhân viên?", "Thông Báo", MessageBoxButtons.OKCancel)
+
+        If DialogResult = Windows.Forms.DialogResult.OK Then
+
+
+
+            Dim _Query As String = "spCTLamMonDelete"
+            Dim _Name() As String = New String() {"@MaMon ", "@MaSP "}
+            Dim _Value() As String = New String() {txtMaMon_CTMon.Text, txtMaSP_CTMon.Text}
+            _connect.Update(_Query)
+
+            dgvHoaDon.Rows.Clear()
+
+
+            Dim _word As String = txtMaHoaDon_HoaDon.Text
+
+            txtTenMon_CTMon.Text = ""
+            txtTenSP_CTMon.Text = ""
+            txtSoLuong_CTMon.Text = ""
+            cboDonVi_CTMon.Text = ""
+
+            LoadCTMonAnDoUong(dgvCTMon)
+            Dim Table As New DataTable
+            Dim kq As Boolean = False
+            Table = _connect.Query("Select MaMon From ChiTietHoaDon")
+            For Each dt As DataRow In Table.Rows
+                If (_word <> dt("MaMon").ToString) Then
+                    kq = True
+                End If
+            Next
+            If (kq = True) Then
+                MessageBox.Show("Xóa Thành Công", "Thông Báo")
+            End If
+            dgvNhanVien.Rows(_location - 1).Selected = True
+            dgvNhanVien.FirstDisplayedScrollingRowIndex = _location - 1
+        End If
+
     End Sub
 
+    Private Sub dgvCTMon_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCTMon.CellClick
+        _location = e.RowIndex
 
+        If e.RowIndex = dgvCTMon.Rows.Count Then
+            Return
+        End If
 
+        If e.RowIndex > 0 Then
+            txtTenMon_CTMon.Text = dgvCTMon.Rows(e.RowIndex).Cells("TenMon_CTMon").Value.ToString()
+            txtTenSP_CTMon.Text = dgvCTMon.Rows(e.RowIndex).Cells("TenSP_CTMon").Value.ToString()
+            txtSoLuong_CTMon.Text = dgvCTMon.Rows(e.RowIndex).Cells("SoLuong_CTMon").Value.ToString()
+            cboDonVi_CTMon.Text = dgvCTMon.Rows(e.RowIndex).Cells("DonVi_CTMon").Value.ToString()
+            txtMaMon_CTMon.Text = dgvCTMon.Rows(e.RowIndex).Cells("MaMon_CTM").Value.ToString()
+            txtMaSP_CTMon.Text = dgvCTMon.Rows(e.RowIndex).Cells("MaSP_CTM").Value.ToString()
+        End If
+    End Sub
 
     'Bảng Phiếu Nhập
     Private Sub PhieuNhap_Enter(sender As Object, e As EventArgs) Handles PhieuNhap.Enter
@@ -860,7 +856,7 @@ Public Class frmManager
         'If count < count2 Then
         '    MessageBox.Show("Thêm Thành Công", "Thông Báo")
         'End If
-        
+
     End Sub
 
 
@@ -883,9 +879,5 @@ Public Class frmManager
 
     Private Sub frmManager_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         _connect.Dispose()
-    End Sub
-
-    Private Sub NhanVien_Click(sender As Object, e As EventArgs) Handles NhanVien.Click
-
     End Sub
 End Class
