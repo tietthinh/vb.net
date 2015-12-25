@@ -63,8 +63,6 @@ Partial Class frmChef
         Me.txtTotalQuantity = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.dgvMaterialList = New System.Windows.Forms.DataGridView()
-        Me.ltbException = New System.Windows.Forms.ListBox()
-        Me.lblMaterialQuantity = New System.Windows.Forms.Label()
         Me.DetailDishID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.MaterialID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.MaterialName = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -74,6 +72,8 @@ Partial Class frmChef
         Me.MaterialUnit = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DefaultIncrease = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.IsDouble = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ltbException = New System.Windows.Forms.ListBox()
+        Me.lblMaterialQuantity = New System.Windows.Forms.Label()
         CType(Me.dgvCookList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvMaterialList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -305,6 +305,7 @@ Partial Class frmChef
         'CantServeNote
         '
         Me.CantServeNote.Text = "Ghi chú"
+        Me.CantServeNote.Width = 0
         '
         'WaitorFlag
         '
@@ -360,7 +361,6 @@ Partial Class frmChef
         Me.dgvMaterialList.AllowUserToAddRows = False
         Me.dgvMaterialList.AllowUserToDeleteRows = False
         DataGridViewCellStyle3.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.Empty
         Me.dgvMaterialList.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvMaterialList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.dgvMaterialList.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
@@ -397,26 +397,6 @@ Partial Class frmChef
         Me.dgvMaterialList.RowHeadersVisible = False
         Me.dgvMaterialList.Size = New System.Drawing.Size(406, 406)
         Me.dgvMaterialList.TabIndex = 41
-        '
-        'ltbException
-        '
-        Me.ltbException.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ltbException.FormattingEnabled = True
-        Me.ltbException.ItemHeight = 20
-        Me.ltbException.Location = New System.Drawing.Point(12, 538)
-        Me.ltbException.Name = "ltbException"
-        Me.ltbException.Size = New System.Drawing.Size(502, 164)
-        Me.ltbException.TabIndex = 42
-        '
-        'lblMaterialQuantity
-        '
-        Me.lblMaterialQuantity.AutoSize = True
-        Me.lblMaterialQuantity.Location = New System.Drawing.Point(835, 18)
-        Me.lblMaterialQuantity.Name = "lblMaterialQuantity"
-        Me.lblMaterialQuantity.Size = New System.Drawing.Size(93, 13)
-        Me.lblMaterialQuantity.TabIndex = 43
-        Me.lblMaterialQuantity.Text = "Material's Quantity"
-        Me.lblMaterialQuantity.Visible = False
         '
         'DetailDishID
         '
@@ -464,7 +444,7 @@ Partial Class frmChef
         Me.MaterialQuantity.HeaderText = "Số lượng"
         Me.MaterialQuantity.Name = "MaterialQuantity"
         Me.MaterialQuantity.ReadOnly = True
-        Me.MaterialQuantity.Width = 91
+        Me.MaterialQuantity.Width = 84
         '
         'Increase
         '
@@ -483,7 +463,7 @@ Partial Class frmChef
         Me.MaterialUnit.HeaderText = "Đơn vị"
         Me.MaterialUnit.Name = "MaterialUnit"
         Me.MaterialUnit.ReadOnly = True
-        Me.MaterialUnit.Width = 74
+        Me.MaterialUnit.Width = 59
         '
         'DefaultIncrease
         '
@@ -503,6 +483,26 @@ Partial Class frmChef
         Me.IsDouble.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
         Me.IsDouble.Visible = False
         Me.IsDouble.Width = 83
+        '
+        'ltbException
+        '
+        Me.ltbException.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ltbException.FormattingEnabled = True
+        Me.ltbException.ItemHeight = 20
+        Me.ltbException.Location = New System.Drawing.Point(12, 538)
+        Me.ltbException.Name = "ltbException"
+        Me.ltbException.Size = New System.Drawing.Size(502, 164)
+        Me.ltbException.TabIndex = 42
+        '
+        'lblMaterialQuantity
+        '
+        Me.lblMaterialQuantity.AutoSize = True
+        Me.lblMaterialQuantity.Location = New System.Drawing.Point(835, 18)
+        Me.lblMaterialQuantity.Name = "lblMaterialQuantity"
+        Me.lblMaterialQuantity.Size = New System.Drawing.Size(93, 13)
+        Me.lblMaterialQuantity.TabIndex = 43
+        Me.lblMaterialQuantity.Text = "Material's Quantity"
+        Me.lblMaterialQuantity.Visible = False
         '
         'frmChef
         '

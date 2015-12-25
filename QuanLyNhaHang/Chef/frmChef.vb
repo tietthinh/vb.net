@@ -8,9 +8,6 @@ Imports Library
 Imports System.Data.SqlClient
 
 Public Class frmChef
-
-    Dim db As New DatabaseConnection()
-
     Dim frmNumpad As frmNumPad
 
     Dim orderList As DataTable
@@ -37,40 +34,26 @@ Public Class frmChef
             Throw ex
         End Try
 
-        Dim index As Integer = 1
-        For Each row As DataRow In orderList.Rows
-            Dim item As New ListViewItem(index)
-            item.SubItems.Add(row("MaChuyen"))
-            item.SubItems.Add(row("MaMon"))
-            item.SubItems.Add(row("TenMon"))
-            item.SubItems.Add(row("ThoiGian").ToString())
-            item.SubItems.Add(row("SoLuong"))
-            item.SubItems.Add(row("GhiChu").ToString())
-            item.SubItems(0).Name = "STT"
-            item.SubItems(1).Name = "MaChuyen"
-            item.SubItems(2).Name = "MaMon"
-            item.SubItems(3).Name = "TenMon"
-            item.SubItems(4).Name = "ThoiGian"
-            item.SubItems(5).Name = "SoLuong"
-            item.SubItems(6).Name = "GhiChu"
-            ltvOrderList.Items.Add(item)
-            index += 1
-        Next
+        BindIntoOrderedListView(ltvOrderList, orderList, GetAllColumnsName(orderList))
 
         ltvOrderList.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.HeaderSize)
         ltvOrderList.AutoResizeColumn(3, ColumnHeaderAutoResizeStyle.ColumnContent)
         ltvOrderList.AutoResizeColumn(4, ColumnHeaderAutoResizeStyle.ColumnContent)
         ltvOrderList.AutoResizeColumn(5, ColumnHeaderAutoResizeStyle.HeaderSize)
 
-        cookList.Columns.Add(New DataColumn(orderList.Columns("MaChuyen").ColumnName, orderList.Columns("MaChuyen").DataType))
-        cookList.Columns.Add(New DataColumn(orderList.Columns("TenMon").ColumnName, orderList.Columns("TenMon").DataType))
-        cookList.Columns.Add(New DataColumn(orderList.Columns("SoLuong").ColumnName, orderList.Columns("SoLuong").DataType))
+        cookList.Columns.Add(New DataColumn("MaChuyen"))
+        cookList.Columns.Add(New DataColumn("TenMon"))
+        cookList.Columns.Add(New DataColumn("SoLuong"))
 
         currentUsedMaterial.Columns.Add("MaSP")
         currentUsedMaterial.Columns.Add("SoLuong")
         currentUsedMaterial.Columns.Add("SoLuongMotMon")
 
         cantServeList = orderList.Clone()
+
+        ltvCantServeList.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.ColumnContent)
+        ltvCantServeList.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
+        ltvCantServeList.AutoResizeColumn(3, ColumnHeaderAutoResizeStyle.HeaderSize)
     End Sub
 
     Private Sub ltvOrderList_Click(sender As Object, e As EventArgs) Handles ltvOrderList.Click
@@ -104,7 +87,7 @@ Public Class frmChef
             exceptionList.Reverse()
 
             currentUsedMaterial.Rows.Clear()
-            currentUsedMaterial = CloneDataTable(materialList, GetAllColumnsName(currentUsedMaterial), currentTotalQuantity)
+            currentUsedMaterial = AddTotalQuantity(materialList, GetAllColumnsName(currentUsedMaterial), currentTotalQuantity)
 
             txtTotalQuantity.Text = quantity.ToString()
         End If
@@ -115,9 +98,11 @@ Public Class frmChef
             dishTotal = 0
             For Each item As ListViewItem In ltvOrderList.SelectedItems
                 Dim row As DataRow = cookList.NewRow
+
                 row("MaChuyen") = item.SubItems("MaChuyen").Text
                 row("TenMon") = item.SubItems("TenMon").Text
                 row("SoLuong") = item.SubItems("SoLuong").Text
+
                 cookList.Rows.Add(row)
 
                 dishTotal += row("SoLuong")
@@ -127,9 +112,12 @@ Public Class frmChef
 
             Try
                 db.Update("spSanPhamDaDungInsert", db.CreateParameter(New String() {"@DS"}, New Object() {currentUsedMaterial}))
+            Catch ex As SqlException When ex.Number = 50001
+                AppendAllRowsDataTable(cantServeList, cookList)
+
+                BindIntoListView(ltvCantServeList, cantServeList)
             Catch ex As SqlException
-                MessageBox.Show(ex.Number)
-                MessageBox.Show(ex.Message)
+                Throw ex
             End Try
 
             For i As Integer = ltvOrderList.SelectedItems.Count - 1 To 0 Step -1
@@ -193,7 +181,7 @@ Public Class frmChef
             dgvMaterialList.DataSource = materialList
 
             currentUsedMaterial.Rows.Clear()
-            currentUsedMaterial = CloneDataTable(materialList, GetAllColumnsName(currentUsedMaterial), currentTotalQuantity)
+            currentUsedMaterial = AddTotalQuantity(materialList, GetAllColumnsName(currentUsedMaterial), currentTotalQuantity)
         End If
     End Sub
 
