@@ -85,7 +85,7 @@ Public Class frmManager
         End Try
     End Sub
 
-    Private Sub btnThemNV_Click(sender As Object, e As EventArgs) Handles btnThemNV.Click
+    Private Sub btnThemNV_Click(sender As Object, e As EventArgs) Handles btnThemNV.Click, btnThem_KhaNangViTinh.Click
         Dim _KT As Boolean = True
 
         If txtTen.Text.Length = 0 Then
@@ -184,7 +184,7 @@ Public Class frmManager
 
 
     End Sub
-    Private Sub btnSuaNV_Click(sender As Object, e As EventArgs) Handles btnSuaNV.Click
+    Private Sub btnSuaNV_Click(sender As Object, e As EventArgs) Handles btnSuaNV.Click, btnSua_KhaNangViTinh.Click
         DialogResult = MessageBox.Show("Bạn muốn thực hiện thao tác sửa thông tin nhân viên?", "Thông Báo", MessageBoxButtons.OKCancel)
 
         If DialogResult = Windows.Forms.DialogResult.OK Then
@@ -258,7 +258,7 @@ Public Class frmManager
 
         ''-------------------------------------------------------------------------------------Hien Thi dong da sua--------------------------------------------------------
     End Sub
-    Private Sub btnXoaNV_Click(sender As Object, e As EventArgs) Handles btnXoaNV.Click
+    Private Sub btnXoaNV_Click(sender As Object, e As EventArgs) Handles btnXoaNV.Click, btnXoa_KhaNangViTinh.Click
         DialogResult = MessageBox.Show("Bạn muốn thực hiện thao tác xóa thông tin nhân viên?", "Thông Báo", MessageBoxButtons.OKCancel)
 
         If DialogResult = Windows.Forms.DialogResult.OK Then
@@ -601,7 +601,7 @@ Public Class frmManager
         cboThucDonMon_Mon.SelectedIndex = 0
 
         'Load Bảng CTMonAnDoUong 
-        _TableCTMonAnDoUong = LoadCTMonAnDoUong(dgvMonAnDoUong)
+        _TableCTMonAnDoUong = LoadCTMonAnDoUong(dgvCTMon)
 
         'Load ComboBox LoaiDonViTinh
         Dim _ComboBoxLoaiDonViTinh As New DataTable
@@ -702,7 +702,7 @@ Public Class frmManager
         dgvNhanVien.FirstDisplayedScrollingRowIndex = _location - 1
     End Sub
     Private Sub btnXoa_CTMon_Click(sender As Object, e As EventArgs) Handles btnXoa_CTMon.Click
-        DialogResult = MessageBox.Show("Bạn muốn thực hiện thao tác xóa thông tin nhân viên?", "Thông Báo", MessageBoxButtons.OKCancel)
+        DialogResult = MessageBox.Show("Bạn muốn thực hiện thao tác xóa thông tin chi tiết món?", "Thông Báo", MessageBoxButtons.OKCancel)
 
         If DialogResult = Windows.Forms.DialogResult.OK Then
 
