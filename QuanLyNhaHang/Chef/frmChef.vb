@@ -16,6 +16,8 @@ Public Class frmChef
     Dim materialList As New DataTable()
     Dim currentUsedMaterial As New DataTable()
 
+    Dim dishOrderList As New List(Of DishDetail)
+
     Dim currentDish As String
 
     Dim currentIndex As Integer
@@ -23,7 +25,7 @@ Public Class frmChef
     Dim dishTotal As Integer
     Dim currentMaterialRow As Integer
 
-    Dim exceptionList As New List(Of ListViewItem)
+    Dim exceptionList As New List(Of DataGridViewRow)
 
     Private Sub frmChef_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim parameter() As SqlClient.SqlParameter = db.CreateParameter(New String() {"@MaChuyen"}, New Object() {"01-0001"})
@@ -34,12 +36,7 @@ Public Class frmChef
             Throw ex
         End Try
 
-        BindIntoOrderedListView(ltvOrderList, orderList, GetAllColumnsName(orderList))
-
-        ltvOrderList.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.HeaderSize)
-        ltvOrderList.AutoResizeColumn(3, ColumnHeaderAutoResizeStyle.ColumnContent)
-        ltvOrderList.AutoResizeColumn(4, ColumnHeaderAutoResizeStyle.ColumnContent)
-        ltvOrderList.AutoResizeColumn(5, ColumnHeaderAutoResizeStyle.HeaderSize)
+        BindIntoOrderedDataGridView(dgvOrderList, orderList)
 
         cookList.Columns.Add(New DataColumn("MaChuyen"))
         cookList.Columns.Add(New DataColumn("TenMon"))
@@ -50,41 +47,56 @@ Public Class frmChef
         currentUsedMaterial.Columns.Add("SoLuongMotMon")
 
         cantServeList = orderList.Clone()
-
-        ltvCantServeList.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.ColumnContent)
-        ltvCantServeList.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
-        ltvCantServeList.AutoResizeColumn(3, ColumnHeaderAutoResizeStyle.HeaderSize)
     End Sub
 
-    Private Sub ltvOrderList_Click(sender As Object, e As EventArgs) Handles ltvOrderList.Click
-        ClearListViewItemBackColor(exceptionList, ltvOrderList)
+    Private Sub dgvOrderList_Click(sender As Object, e As EventArgs) Handles dgvOrderList.Click
+        ClearListViewItemBackColor(exceptionList, dgvOrderList)
         currentTotalQuantity = 0
 
         Dim quantity As Integer = 0
-        If ltvOrderList.SelectedItems.Count > 0 Then
-            currentDish = ltvOrderList.SelectedItems(0).SubItems("MaMon").Text
+        Dim exceptionRow As Integer = 0, nonExeptionRow As Integer = 0
 
-            For Each item As ListViewItem In ltvOrderList.Items
-                If item.SubItems("MaMon").Text = currentDish Then
-                    quantity += item.SubItems("SoLuong").Text
+        If dgvOrderList.SelectedRows.Count > 0 Then
+            currentDish = dgvOrderList.SelectedRows(0).Cells("OrderDishID").Value
 
-                    If item.SubItems("GhiChu").Text <> "" Then
-                        item.Selected = False
-                        item.BackColor = Color.Red
-                        exceptionList.Add(item)
+            dgvOrderList.ClearSelection()
+
+            For Each row As DataGridViewRow In dgvOrderList.Rows
+                If row.Cells("OrderDishID").Value = currentDish Then
+                    quantity += row.Cells("OrderQuantity").Value
+
+                    If row.Cells("OrderNote").Value.ToString() <> "" Then
+                        row.DefaultCellStyle.BackColor = Color.Red
+
+                        exceptionRow += 1
+
+                        exceptionList.Add(row)
                     Else
-                        item.Selected = True
-                        currentTotalQuantity += Integer.Parse(item.SubItems("SoLuong").Text)
+                        row.Selected = True
+
+                        nonExeptionRow += 1
+
+                        currentTotalQuantity += Integer.Parse(row.Cells("OrderQuantity").Value)
                     End If
                 End If
             Next
+
+            If nonExeptionRow = 0 And exceptionRow <> 0 Then
+                exceptionList(0).Selected = True
+
+                For i As Integer = 1 To exceptionList.Count - 1 Step 1
+                    If exceptionList(i).Cells("OrderDishID").Value = currentDish And _
+                        exceptionList(i).Cells("OrderNote").Value = exceptionList(0).Cells("OrderNote").Value Then
+
+                        exceptionList(i).Selected = True
+                    End If
+                Next
+            End If
         End If
 
-        If ltvOrderList.SelectedItems.Count > 0 Then
-            materialList = LoadMaterial(ltvOrderList.SelectedItems(0).SubItems("MaMon").Text)
+        If dgvOrderList.SelectedRows.Count > 0 Then
+            materialList = LoadMaterial(currentDish)
             dgvMaterialList.DataSource = materialList
-
-            exceptionList.Reverse()
 
             currentUsedMaterial.Rows.Clear()
             currentUsedMaterial = AddTotalQuantity(materialList, GetAllColumnsName(currentUsedMaterial), currentTotalQuantity)
@@ -94,35 +106,35 @@ Public Class frmChef
     End Sub
 
     Private Sub btnCook_Click(sender As Object, e As EventArgs) Handles btnCook.Click
-        If ltvOrderList.SelectedItems.Count > 0 Then
+        If dgvOrderList.SelectedRows.Count > 0 Then
             dishTotal = 0
-            For Each item As ListViewItem In ltvOrderList.SelectedItems
-                Dim row As DataRow = cookList.NewRow
 
-                row("MaChuyen") = item.SubItems("MaChuyen").Text
-                row("TenMon") = item.SubItems("TenMon").Text
-                row("SoLuong") = item.SubItems("SoLuong").Text
+            For Each row As DataGridViewRow In dgvOrderList.SelectedRows
+                Dim dRow As DataRow = cookList.NewRow
 
-                cookList.Rows.Add(row)
+                dRow("MaChuyen") = row.Cells("OrderTransID").Value
+                dRow("TenMon") = row.Cells("OrderDishName").Value
+                dRow("SoLuong") = row.Cells("OrderQuantity").Value
 
-                dishTotal += row("SoLuong")
+                cookList.Rows.Add(dRow)
+
+                dishTotal += dRow("SoLuong")
             Next
-
-            dgvCookList.DataSource = cookList
 
             Try
                 db.Update("spSanPhamDaDungInsert", db.CreateParameter(New String() {"@DS"}, New Object() {currentUsedMaterial}))
             Catch ex As SqlException When ex.Number = 50001
-                AppendAllRowsDataTable(cantServeList, cookList)
+                AppendDataTable(cantServeList, cookList)
 
-                BindIntoListView(ltvCantServeList, cantServeList)
+
             Catch ex As SqlException
                 Throw ex
             End Try
 
-            For i As Integer = ltvOrderList.SelectedItems.Count - 1 To 0 Step -1
-                orderList.Rows(ltvOrderList.SelectedItems(i).Index).Delete()
-                ltvOrderList.SelectedItems(i).Remove()
+            dgvCookList.DataSource = cookList
+
+            For Each row As DataGridViewRow In dgvOrderList.SelectedRows
+                orderList.Rows(row.Index).Delete()
             Next
 
             txtTotalQuantity.Text = ""
@@ -165,19 +177,23 @@ Public Class frmChef
         End If
     End Sub
 
-    Private Sub ltvOrderList_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles ltvOrderList.MouseDoubleClick
+    Private Sub dgvOrderList_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles dgvOrderList.MouseDoubleClick
         ltbException.Items.Clear()
-        ltvOrderList.SelectedItems.Clear()
+        dgvOrderList.ClearSelection()
+
         currentTotalQuantity = 0
+        currentIndex = dgvOrderList.HitTest(e.X, e.Y).RowIndex
 
-        currentIndex = ltvOrderList.InsertionMark.NearestIndex(New Point(e.X, e.Y))
-        ltvOrderList.Items(currentIndex).Selected = True
-        If ltvOrderList.SelectedItems.Count > 0 Then
-            ltbException.Items.Add(ltvOrderList.SelectedItems(0).SubItems("GhiChu").Text)
+        If currentIndex >= 0 Then
+            dgvOrderList.Rows(currentIndex).Selected = True
+        End If
 
-            currentTotalQuantity = Integer.Parse(ltvOrderList.SelectedItems(0).SubItems("SoLuong").Text)
+        If dgvOrderList.SelectedRows.Count > 0 Then
+            ltbException.Items.Add(dgvOrderList.SelectedRows(0).Cells("OrderNote").Value)
 
-            materialList = LoadMaterial(ltvOrderList.SelectedItems(0).SubItems("MaMon").Text)
+            currentTotalQuantity = Integer.Parse(dgvOrderList.SelectedRows(0).Cells("OrderQuantity").Value)
+
+            materialList = LoadMaterial(dgvOrderList.SelectedRows(0).Cells("OrderDishID").Value)
             dgvMaterialList.DataSource = materialList
 
             currentUsedMaterial.Rows.Clear()
@@ -185,9 +201,9 @@ Public Class frmChef
         End If
     End Sub
 
-    Private Sub ltvOrderList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ltvOrderList.SelectedIndexChanged
-        If ltvOrderList.SelectedItems.Count <= 0 Then
-            ClearListViewItemBackColor(exceptionList, ltvOrderList)
+    Private Sub dgvOrderList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles dgvOrderList.SelectionChanged
+        If dgvOrderList.SelectedRows.Count <= 0 Then
+            ClearListViewItemBackColor(exceptionList, dgvOrderList)
 
             ltbException.Items.Clear()
             materialList.Rows.Clear()
@@ -230,5 +246,13 @@ Public Class frmChef
         Catch ex As Exception
             dgvMaterialList.Rows(currentMaterialRow).Cells("MaterialQuantity").Value = Math.Round(Double.Parse(lblMaterialQuantity.Text))
         End Try
+    End Sub
+
+    Private Sub dgvOrderList_MouseClick(sender As Object, e As MouseEventArgs) Handles dgvOrderList.MouseClick
+        Dim currentIndex As Integer = dgvOrderList.HitTest(e.X, e.Y).RowIndex
+
+        If currentIndex < 0 Then
+            dgvOrderList.ClearSelection()
+        End If
     End Sub
 End Class

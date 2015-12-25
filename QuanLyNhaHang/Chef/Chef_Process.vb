@@ -15,15 +15,122 @@ Module Chef_Process
     Public db As New DatabaseConnection()
 
     ''' <summary>
-    ''' Clears background color of rows in list view.
+    ''' Structure constains two parameters for query database.
     ''' </summary>
-    ''' <param name="listItem">List of items has background color.</param>
-    ''' <param name="listView">List view contains these list items.</param>
     ''' <remarks></remarks>
-    Public Sub ClearListViewItemBackColor(ByRef listItem As List(Of ListViewItem), ByRef listView As ListView)
-        For i As Integer = 0 To listItem.Count - 1 Step 1
-            listItem(i).BackColor = SystemColors.Window
-            listItem.RemoveAt(i)
+    Public Structure TransferDetail
+        Public TransID As String
+        Public Quantity As Integer
+        Private RealQuantity As Integer
+
+        Public Sub Add(ByVal transID As String, ByVal quantity As Integer)
+            Me.TransID = transID
+            Me.Quantity = quantity
+            Me.RealQuantity = quantity
+        End Sub
+
+        Public Sub UpdateRealQuantity(ByVal quantity As Integer)
+            RealQuantity = quantity
+        End Sub
+
+        Public Function GetRealQuantity() As Integer
+            Return RealQuantity
+        End Function
+
+        Public Sub Dispose()
+            Me.Dispose()
+        End Sub
+    End Structure
+
+    Public Class DishDetail
+        Private _DishID As String
+        Private _TotalQuantity As Integer = 0
+        Private _TransDetail() As TransferDetail
+
+        Public Property DishID As String
+            Get
+                Return _DishID
+            End Get
+            Set(value As String)
+                _DishID = value
+            End Set
+        End Property
+        Public Property TotalQuantity As Integer
+            Get
+                Return _TotalQuantity
+            End Get
+            Set(value As Integer)
+                _TotalQuantity = value
+            End Set
+        End Property
+        Public Property TransDetail As TransferDetail()
+            Get
+                Return _TransDetail
+            End Get
+            Set(value As TransferDetail())
+                _TransDetail = value
+            End Set
+        End Property
+
+        Public Sub Add(ByVal dishID As String, ByVal transID As String, ByVal quantity As Integer)
+            _DishID = dishID
+            _TotalQuantity += quantity
+
+            ReDim _TransDetail(_TransDetail.Length)
+
+            _TransDetail(_TransDetail.Length - 1).Add(transID, quantity)
+        End Sub
+
+        Public Function Subtract(ByVal quantity As Integer) As TransferDetail()
+            If _TransDetail.Length > 0 Then
+                Dim _TransferDetail(-1) As TransferDetail
+                Dim i As Integer = 0
+
+                While quantity > 0
+                    Dim value As Integer = Me._TransDetail(i).Quantity
+
+                    If value > quantity Then
+                        Me._TransDetail(i).Quantity -= quantity
+                        quantity = 0
+                    Else
+                        ReDim _TransferDetail(_TransferDetail.Length)
+
+                        _TransferDetail(_TransferDetail.Length - 1).TransID = Me._TransDetail(i).TransID
+                        _TransferDetail(_TransferDetail.Length - 1).Quantity = Me._TransDetail(i).Quantity
+
+                        quantity -= value
+                    End If
+                End While
+
+                If _TransferDetail.Length > 0 Then
+                    Return _TransferDetail
+                Else
+                    Return Nothing
+                End If
+            End If
+
+            Return Nothing
+        End Function
+
+        Public Sub Dispose()
+            For i As Integer = _TransDetail.Length - 1 To 0 Step -1
+                _TransDetail(i).Dispose()
+            Next
+
+            Me.Dispose()
+        End Sub
+    End Class
+
+    ''' <summary>
+    ''' Clears background color of rows in DataGridView.
+    ''' </summary>
+    ''' <param name="listRow">List of rows has background color.</param>
+    ''' <param name="sourceDataGridView">DataGridView contains these list rows.</param>
+    ''' <remarks></remarks>
+    Public Sub ClearListViewItemBackColor(ByRef listRow As List(Of DataGridViewRow), ByRef sourceDataGridView As DataGridView)
+        For i As Integer = listRow.Count - 1 To 0 Step -1
+            listRow(i).DefaultCellStyle.BackColor = SystemColors.Window
+            listRow.RemoveAt(i)
         Next
     End Sub
 
@@ -47,53 +154,23 @@ Module Chef_Process
     End Function
 
     ''' <summary>
-    ''' Binds data from DataTable into a Ordered ListView.
+    ''' Binds data from DataTable into a Ordered DataGridView.
     ''' </summary>
-    ''' <param name="destinationListView">Ordered ListView needs to be binded.</param>
+    ''' <param name="destinationDataGridView">Ordered DataGridView needs to be binded.</param>
     ''' <param name="sourceDataTable">DataTable is used to bind.</param>
-    ''' <param name="columnsName">Name of all columns for ListView</param>
     ''' <remarks></remarks>
-    Public Sub BindIntoOrderedListView(ByRef destinationListView As ListView, ByVal sourceDataTable As DataTable, _
-                                        ByVal columnsName() As String)
+    Public Sub BindIntoOrderedDataGridView(ByRef destinationDataGridView As DataGridView, ByVal sourceDataTable As DataTable)
+        destinationDataGridView.DataSource = sourceDataTable
+
         Dim index As Integer = 1
-        For Each row As DataRow In sourceDataTable.Rows
-            Dim item As New ListViewItem(index)
 
-            item.SubItems(0).Name = "STT"
+        For Each row As DataGridViewRow In destinationDataGridView.Rows
+            row.Cells("Ordered").Value = index
 
-            For i As Integer = 0 To columnsName.Length - 1 Step 1
-                item.SubItems.Add(row(columnsName(i)).ToString())
-                item.SubItems(i + 1).Name = columnsName(i)
-            Next
-
-            destinationListView.Items.Add(item)
             index += 1
         Next
-    End Sub
 
-    ''' <summary>
-    ''' Binds data from DataTable into ListView.
-    ''' </summary>
-    ''' <param name="destinationListView">ListView needs to be binded.</param>
-    ''' <param name="sourceDataTable">DataTable is used to bind.</param>
-    ''' <remarks></remarks>
-    Public Sub BindIntoListView(ByRef destinationListView As ListView, sourceDataTable As DataTable)
-        Dim columnsName() As String = GetAllColumnsName(sourceDataTable)
-
-        destinationListView.Items.Clear()
-
-        For Each row As DataRow In sourceDataTable.Rows
-            Dim item As New ListViewItem(row(0).ToString())
-
-            item.SubItems(0).Name = columnsName(0)
-
-            For i As Integer = 1 To columnsName.Length - 1 Step 1
-                item.SubItems.Add(row(columnsName(i)).ToString())
-                item.SubItems(i).Name = columnsName(i)
-            Next
-
-            destinationListView.Items.Add(item)
-        Next
+        destinationDataGridView.ClearSelection()
     End Sub
 
     ''' <summary>
@@ -165,7 +242,7 @@ Module Chef_Process
     ''' <param name="destinationDataTable">DataTable needs to be appended.</param>
     ''' <param name="sourceDataTable">DataTable is used to append.</param>
     ''' <remarks></remarks>
-    Public Sub AppendAllRowsDataTable(ByRef destinationDataTable As DataTable, ByVal sourceDataTable As DataTable)
+    Public Sub AppendDataTable(ByRef destinationDataTable As DataTable, ByVal sourceDataTable As DataTable)
         For Each row As DataRow In sourceDataTable.Rows
             Dim tRow As DataRow = destinationDataTable.NewRow()
 
@@ -177,7 +254,14 @@ Module Chef_Process
         Next
     End Sub
 
-    Public Function GetCantServeList(ByVal sourceDataGridView As DataGridView, ByVal dishQuantity As Integer) As DataTable
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="sourceDataGridView"></param>
+    ''' <param name="dishQuantity"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function GetCantServeList(ByRef sourceDataGridView As DataGridView, ByVal dishQuantity As Integer) As DataTable
         Dim cantServeList As DataTable = DirectCast(sourceDataGridView.DataSource, DataTable).Clone()
         Dim index As Integer = sourceDataGridView.SelectedRows.Count - 1
 
