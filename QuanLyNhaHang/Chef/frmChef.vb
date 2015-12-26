@@ -50,7 +50,6 @@ Public Class frmChef
 
     Private Sub dgvOrderList_Click(sender As Object, e As EventArgs) Handles dgvOrderList.Click
         ClearListViewItemBackColor(exceptionList, dgvOrderList)
-        currentTotalQuantity = 0
 
         Dim quantity As Integer = 0
         Dim exceptionRow As Integer = 0, nonExeptionRow As Integer = 0
@@ -74,8 +73,6 @@ Public Class frmChef
                         row.Selected = True
 
                         nonExeptionRow += 1
-
-                        currentTotalQuantity += Integer.Parse(row.Cells("OrderQuantity").Value)
                     End If
                 End If
             Next
@@ -97,16 +94,13 @@ Public Class frmChef
             materialList = LoadMaterial(currentDish)
             dgvMaterialList.DataSource = materialList
 
-            currentUsedMaterial.Rows.Clear()
-            currentUsedMaterial = AddTotalQuantity(materialList, GetAllColumnsName(currentUsedMaterial), currentTotalQuantity)
-
             txtTotalQuantity.Text = quantity.ToString()
         End If
     End Sub
 
     Private Sub btnCook_Click(sender As Object, e As EventArgs) Handles btnCook.Click
         If dgvOrderList.SelectedRows.Count > 0 Then
-            dishTotal = 0
+            currentTotalQuantity = 0
 
             Dim _DishDetail As New DishDetail()
             _DishDetail.DishID = dgvOrderList.SelectedRows(0).Cells("OrderDishID").Value
@@ -121,23 +115,31 @@ Public Class frmChef
 
                 cookList.Rows.Add(dRow)
 
-                dishTotal += dRow("SoLuong")
+                currentTotalQuantity += dRow("SoLuong")
             Next
 
             dishOrderList.Add(_DishDetail)
 
+            currentUsedMaterial.Rows.Clear()
+            currentUsedMaterial = AddTotalQuantity(materialList, GetAllColumnsName(currentUsedMaterial), currentTotalQuantity)
+
             Try
                 db.Update("spSanPhamDaDungInsert", db.CreateParameter(New String() {"@DS"}, New Object() {currentUsedMaterial}))
             Catch ex As SqlException When ex.Number = 50001
-                cantServeList = GetCantServeList(cookList, Integer.Parse(ex.Message))
+                Dim cantServeQuantity As Integer = Integer.Parse(ex.Message)
+                cantServeList = GetCantServeList(cookList, cantServeQuantity)
 
                 dgvCantServeList.DataSource = cantServeList
 
-
+                Dim dishDetail As DishDetail = GetFirstDetailByID(dishOrderList, dgvOrderList.SelectedRows(0).Cells("OrderDishID").Value)
+                If dishDetail IsNot Nothing Then
+                    dishDetail.SubtractCantServe(cantServeQuantity)
+                End If
             Catch ex As SqlException
                 Throw ex
             End Try
 
+            GroupDish(cookList)
             dgvCookList.DataSource = cookList
 
             For Each row As DataGridViewRow In dgvOrderList.SelectedRows

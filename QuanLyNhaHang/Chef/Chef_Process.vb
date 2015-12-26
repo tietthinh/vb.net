@@ -45,7 +45,7 @@ Module Chef_Process
     Public Class DishDetail
         Private _DishID As String
         Private _TotalQuantity As Integer = 0
-        Private _TransDetail() As TransferDetail
+        Private _TransDetail(-1) As TransferDetail
 
         Public Property DishID As String
             Get
@@ -75,7 +75,7 @@ Module Chef_Process
         Public Sub Add(ByVal transID As String, ByVal quantity As Integer)
             _TotalQuantity += quantity
 
-            ReDim Preserve _TransDetail(_TransDetail.Length)
+            Array.Resize(_TransDetail, _TransDetail.Length + 1)
 
             _TransDetail(_TransDetail.Length - 1).Add(transID, quantity)
         End Sub
@@ -84,7 +84,7 @@ Module Chef_Process
             _DishID = dishID
             _TotalQuantity += quantity
 
-            ReDim Preserve _TransDetail(_TransDetail.Length)
+            Array.Resize(_TransDetail, _TransDetail.Length + 1)
 
             _TransDetail(_TransDetail.Length - 1).Add(transID, quantity)
         End Sub
@@ -108,9 +108,7 @@ Module Chef_Process
 
                         Array.Copy(_TransDetail, 1, _TransDetail, 0, _TransDetail.Length - 1)
 
-                        _TransDetail(_TransDetail.Length - 1).Dispose()
-
-                        ReDim Preserve _TransDetail(_TransDetail.Length - 2)
+                        Array.Resize(_TransDetail, _TransDetail.Length - 1)
 
                         quantity -= value
                     End If
@@ -125,6 +123,22 @@ Module Chef_Process
 
             Return Nothing
         End Function
+
+        Public Sub SubtractCantServe(ByVal quantity As Integer)
+            While quantity <> 0
+                Dim currentQuantity As Integer = _TransDetail(_TransDetail.Length - 1).Quantity - quantity
+
+                If currentQuantity > 0 Then
+                    _TransDetail(_TransDetail.Length - 1).Quantity = currentQuantity
+
+                    quantity = 0
+                Else
+                    Array.Resize(_TransDetail, _TransDetail.Length - 1)
+
+                    quantity = currentQuantity * -1
+                End If
+            End While
+        End Sub
 
         Public Sub Dispose()
             For i As Integer = _TransDetail.Length - 1 To 0 Step -1
@@ -277,7 +291,8 @@ Module Chef_Process
         For i As Integer = sourceDataTable.Rows.Count - 1 To 1 Step -1
             For j As Integer = i - 1 To 0 Step -1
                 If sourceDataTable.Rows(i)("TenMon") = sourceDataTable(j)("TenMon") Then
-                    sourceDataTable.Rows(j)("SoLuong") += sourceDataTable.Rows(i)("SoLuong")
+                    sourceDataTable.Rows(j)("SoLuong") = _
+                        Integer.Parse(sourceDataTable.Rows(j)("SoLuong")) + Integer.Parse(sourceDataTable.Rows(i)("SoLuong"))
                     sourceDataTable.Rows(i).Delete()
 
                     Exit For
@@ -287,7 +302,7 @@ Module Chef_Process
     End Sub
 
     ''' <summary>
-    ''' Clone a DataRow.
+    ''' Clones a DataRow.
     ''' </summary>
     ''' <param name="sourceRow">Row is used to clone.</param>
     ''' <param name="sourceDataTable">DataTable contains the clone row.</param>
@@ -296,7 +311,9 @@ Module Chef_Process
     Public Function CloneDataRow(ByVal sourceRow As DataRow, ByVal sourceDataTable As DataTable) As DataRow
         Dim row As DataRow = sourceDataTable.NewRow()
 
-        row.ItemArray = sourceRow.ItemArray
+        For i As Integer = 0 To sourceRow.ItemArray.Length - 1 Step 1
+            row(i) = sourceRow(i).ToString()
+        Next
 
         Return row
     End Function
@@ -311,7 +328,6 @@ Module Chef_Process
     Public Function GetCantServeList(ByRef sourceDataTable As DataTable, ByVal dishQuantity As Integer) As DataTable
         Dim cantServeList As DataTable = sourceDataTable.Clone()
         Dim index As Integer = sourceDataTable.Rows.Count - 1
-        Dim quantity As Integer = 0
 
         While dishQuantity > 0
             Dim row As DataRow = cantServeList.NewRow()
@@ -321,15 +337,19 @@ Module Chef_Process
                 sourceDataTable.Rows(index)("SoLuong") = currentQuantity
 
                 row = CloneDataRow(sourceDataTable.Rows(index), cantServeList)
-                row("SoLuong") = quantity
+                row("SoLuong") = currentQuantity
 
-                quantity = 0
+                cantServeList.Rows.Add(row)
+
+                dishQuantity = 0
             Else
                 row = CloneDataRow(sourceDataTable.Rows(index), cantServeList)
 
                 sourceDataTable.Rows(index).Delete()
 
-                quantity = currentQuantity * -1
+                cantServeList.Rows.Add(row)
+
+                dishQuantity = currentQuantity * -1
                 index -= 1
             End If
 
@@ -338,4 +358,20 @@ Module Chef_Process
         Return cantServeList
     End Function
 
+    ''' <summary>
+    ''' Gets the first element in List of DishDetail by dish's identity.
+    ''' </summary>
+    ''' <param name="sourceDetailList">Source List DishDetail.</param>
+    ''' <param name="dishID">Dish's identity.</param>
+    ''' <returns>The first element in List of DishDetail matchs with dish's identity.</returns>
+    ''' <remarks></remarks>
+    Public Function GetFirstDetailByID(ByVal sourceDetailList As List(Of DishDetail), ByVal dishID As String) As DishDetail
+        For Each detail As DishDetail In sourceDetailList
+            If detail.DishID = dishID Then
+                Return detail
+            End If
+        Next
+
+        Return Nothing
+    End Function
 End Module
