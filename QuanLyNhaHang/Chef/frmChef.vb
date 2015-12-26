@@ -38,7 +38,6 @@ Public Class frmChef
 
         BindIntoOrderedDataGridView(dgvOrderList, orderList)
 
-        cookList.Columns.Add(New DataColumn("MaChuyen"))
         cookList.Columns.Add(New DataColumn("TenMon"))
         cookList.Columns.Add(New DataColumn("SoLuong"))
 
@@ -109,22 +108,30 @@ Public Class frmChef
         If dgvOrderList.SelectedRows.Count > 0 Then
             dishTotal = 0
 
-            For Each row As DataGridViewRow In dgvOrderList.SelectedRows
-                Dim dRow As DataRow = cookList.NewRow
+            Dim _DishDetail As New DishDetail()
+            _DishDetail.DishID = dgvOrderList.SelectedRows(0).Cells("OrderDishID").Value
 
-                dRow("MaChuyen") = row.Cells("OrderTransID").Value
+            For Each row As DataGridViewRow In dgvOrderList.SelectedRows
+                Dim dRow As DataRow = cookList.NewRow()
+
                 dRow("TenMon") = row.Cells("OrderDishName").Value
                 dRow("SoLuong") = row.Cells("OrderQuantity").Value
+
+                _DishDetail.Add(row.Cells("OrderTransID").Value, row.Cells("OrderQuantity").Value)
 
                 cookList.Rows.Add(dRow)
 
                 dishTotal += dRow("SoLuong")
             Next
 
+            dishOrderList.Add(_DishDetail)
+
             Try
                 db.Update("spSanPhamDaDungInsert", db.CreateParameter(New String() {"@DS"}, New Object() {currentUsedMaterial}))
             Catch ex As SqlException When ex.Number = 50001
-                AppendDataTable(cantServeList, cookList)
+                cantServeList = GetCantServeList(cookList, Integer.Parse(ex.Message))
+
+                dgvCantServeList.DataSource = cantServeList
 
 
             Catch ex As SqlException

@@ -72,11 +72,19 @@ Module Chef_Process
             End Set
         End Property
 
+        Public Sub Add(ByVal transID As String, ByVal quantity As Integer)
+            _TotalQuantity += quantity
+
+            ReDim Preserve _TransDetail(_TransDetail.Length)
+
+            _TransDetail(_TransDetail.Length - 1).Add(transID, quantity)
+        End Sub
+
         Public Sub Add(ByVal dishID As String, ByVal transID As String, ByVal quantity As Integer)
             _DishID = dishID
             _TotalQuantity += quantity
 
-            ReDim _TransDetail(_TransDetail.Length)
+            ReDim Preserve _TransDetail(_TransDetail.Length)
 
             _TransDetail(_TransDetail.Length - 1).Add(transID, quantity)
         End Sub
@@ -93,10 +101,16 @@ Module Chef_Process
                         Me._TransDetail(i).Quantity -= quantity
                         quantity = 0
                     Else
-                        ReDim _TransferDetail(_TransferDetail.Length)
+                        ReDim Preserve _TransferDetail(_TransferDetail.Length)
 
                         _TransferDetail(_TransferDetail.Length - 1).TransID = Me._TransDetail(i).TransID
                         _TransferDetail(_TransferDetail.Length - 1).Quantity = Me._TransDetail(i).Quantity
+
+                        Array.Copy(_TransDetail, 1, _TransDetail, 0, _TransDetail.Length - 1)
+
+                        _TransDetail(_TransDetail.Length - 1).Dispose()
+
+                        ReDim Preserve _TransDetail(_TransDetail.Length - 2)
 
                         quantity -= value
                     End If
@@ -255,19 +269,69 @@ Module Chef_Process
     End Sub
 
     ''' <summary>
-    ''' 
+    ''' Groups all records with similar name in DataTable.
     ''' </summary>
-    ''' <param name="sourceDataGridView"></param>
-    ''' <param name="dishQuantity"></param>
-    ''' <returns></returns>
+    ''' <param name="sourceDataTable">DataTable contains dish list.</param>
     ''' <remarks></remarks>
-    Public Function GetCantServeList(ByRef sourceDataGridView As DataGridView, ByVal dishQuantity As Integer) As DataTable
-        Dim cantServeList As DataTable = DirectCast(sourceDataGridView.DataSource, DataTable).Clone()
-        Dim index As Integer = sourceDataGridView.SelectedRows.Count - 1
+    Public Sub GroupDish(ByRef sourceDataTable As DataTable)
+        For i As Integer = sourceDataTable.Rows.Count - 1 To 1 Step -1
+            For j As Integer = i - 1 To 0 Step -1
+                If sourceDataTable.Rows(i)("TenMon") = sourceDataTable(j)("TenMon") Then
+                    sourceDataTable.Rows(j)("SoLuong") += sourceDataTable.Rows(i)("SoLuong")
+                    sourceDataTable.Rows(i).Delete()
+
+                    Exit For
+                End If
+            Next
+        Next
+    End Sub
+
+    ''' <summary>
+    ''' Clone a DataRow.
+    ''' </summary>
+    ''' <param name="sourceRow">Row is used to clone.</param>
+    ''' <param name="sourceDataTable">DataTable contains the clone row.</param>
+    ''' <returns>A row has values from source Row and fits with source DataTable.</returns>
+    ''' <remarks></remarks>
+    Public Function CloneDataRow(ByVal sourceRow As DataRow, ByVal sourceDataTable As DataTable) As DataRow
+        Dim row As DataRow = sourceDataTable.NewRow()
+
+        row.ItemArray = sourceRow.ItemArray
+
+        Return row
+    End Function
+
+    ''' <summary>
+    ''' Gets list dishes cannot serve from a DataGridView.
+    ''' </summary>
+    ''' <param name="sourceDataTable">DataTable contains list dishes.</param>
+    ''' <param name="dishQuantity">The quantity of dish cannot serve.</param>
+    ''' <returns>A DataTable has list dishes cannot serve.</returns>
+    ''' <remarks></remarks>
+    Public Function GetCantServeList(ByRef sourceDataTable As DataTable, ByVal dishQuantity As Integer) As DataTable
+        Dim cantServeList As DataTable = sourceDataTable.Clone()
+        Dim index As Integer = sourceDataTable.Rows.Count - 1
+        Dim quantity As Integer = 0
 
         While dishQuantity > 0
             Dim row As DataRow = cantServeList.NewRow()
+            Dim currentQuantity As Integer = sourceDataTable.Rows(index)("SoLuong") - dishQuantity
 
+            If currentQuantity > 0 Then
+                sourceDataTable.Rows(index)("SoLuong") = currentQuantity
+
+                row = CloneDataRow(sourceDataTable.Rows(index), cantServeList)
+                row("SoLuong") = quantity
+
+                quantity = 0
+            Else
+                row = CloneDataRow(sourceDataTable.Rows(index), cantServeList)
+
+                sourceDataTable.Rows(index).Delete()
+
+                quantity = currentQuantity * -1
+                index -= 1
+            End If
 
         End While
 
