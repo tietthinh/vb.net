@@ -8,25 +8,86 @@ Imports Library
 Imports System.Data.SqlClient
 
 Public Class frmChef
+    'Fields:
+    ''' <summary>
+    ''' Form Numpad.
+    ''' </summary>
+    ''' <remarks></remarks>
     Dim frmNumpad As frmNumPad
 
+    ''' <summary>
+    ''' Form Confirm.
+    ''' </summary>
+    ''' <remarks></remarks>
+    Dim frmConfirm As frmConfirm
+
+    ''' <summary>
+    ''' DataTable contains data from Order Table in database.
+    ''' </summary>
+    ''' <remarks></remarks>
     Dim orderList As DataTable
+
+    ''' <summary>
+    ''' DataTable contains data for DataGridView CookList.
+    ''' </summary>
+    ''' <remarks></remarks>
     Dim cookList As New DataTable()
+
+    ''' <summary>
+    ''' DataTable contains data for DataGridView CantServeList.
+    ''' </summary>
+    ''' <remarks></remarks>
     Dim cantServeList As New DataTable()
+
+    ''' <summary>
+    ''' DataTable contains data from Material Table in database.
+    ''' </summary>
+    ''' <remarks></remarks>
     Dim materialList As New DataTable()
+
+    ''' <summary>
+    ''' DataTable contains data for insert into Used Material Table in database.
+    ''' </summary>
+    ''' <remarks></remarks>
     Dim currentUsedMaterial As New DataTable()
 
-    Dim dishOrderList As New List(Of DishDetail)
-
+    ''' <summary>
+    ''' Element is used to query from Material Table in database.
+    ''' </summary>
+    ''' <remarks></remarks>
     Dim currentDish As String
 
-    Dim currentIndex As Integer
+    ''' <summary>
+    ''' Element is used to insert into Used Material Table in database.
+    ''' </summary>
+    ''' <remarks></remarks>
     Dim currentTotalQuantity As Integer
-    Dim dishTotal As Integer
+
+    ''' <summary>
+    ''' Element is used to save the current row for DataGridView Material List's events.
+    ''' </summary>
+    ''' <remarks></remarks>
     Dim currentMaterialRow As Integer
 
+    Public Shared doneQuantity As Integer
+
+    ''' <summary>
+    ''' List of DataGridViewRow has exception.
+    ''' </summary>
+    ''' <remarks></remarks>
     Dim exceptionList As New List(Of DataGridViewRow)
 
+    ''' <summary>
+    ''' List of DishDetail for transfering to Waitor.
+    ''' </summary>
+    ''' <remarks></remarks>
+    Dim dishOrderList As New List(Of DishDetail)
+
+    'Events:
+    '
+    'Form's Events
+    '
+    'Load: Occur when the form first load.
     Private Sub frmChef_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim parameter() As SqlClient.SqlParameter = db.CreateParameter(New String() {"@MaChuyen"}, New Object() {"01-0001"})
 
@@ -38,6 +99,7 @@ Public Class frmChef
 
         BindIntoOrderedDataGridView(dgvOrderList, orderList)
 
+        cookList.Columns.Add(New DataColumn("MaMon"))
         cookList.Columns.Add(New DataColumn("TenMon"))
         cookList.Columns.Add(New DataColumn("SoLuong"))
 
@@ -47,8 +109,52 @@ Public Class frmChef
 
         cantServeList = orderList.Clone()
     End Sub
+    '
+    'FormClosing: Occur while the form is closing.
+    Private Sub frmChef_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        db.Dispose()
 
+        orderList.Dispose()
+        orderList = Nothing
+
+        cookList.Dispose()
+        cookList = Nothing
+
+        cantServeList.Dispose()
+        cantServeList = Nothing
+
+        materialList.Dispose()
+        materialList = Nothing
+
+        currentDish = ""
+        currentDish = Nothing
+
+        currentTotalQuantity = Nothing
+    End Sub
+    '
+    'dgvOrderList's Events:
+    '
+    'Click: Occur when click a row in dgvOrderList.
     Private Sub dgvOrderList_Click(sender As Object, e As EventArgs) Handles dgvOrderList.Click
+        ltbException.Items.Clear()
+
+        currentTotalQuantity = 0
+
+        If dgvOrderList.SelectedRows.Count > 0 Then
+            ltbException.Items.Add(dgvOrderList.SelectedRows(0).Cells("OrderNote").Value)
+
+            currentTotalQuantity = Integer.Parse(dgvOrderList.SelectedRows(0).Cells("OrderQuantity").Value)
+
+            materialList = LoadMaterial(dgvOrderList.SelectedRows(0).Cells("OrderDishID").Value)
+            dgvMaterialList.DataSource = materialList
+
+            currentUsedMaterial.Rows.Clear()
+            currentUsedMaterial = AddTotalQuantity(materialList, GetAllColumnsName(currentUsedMaterial), currentTotalQuantity)
+        End If
+    End Sub
+    '
+    'DoubleClick: Occur when double click a row in dgvOrderList
+    Private Sub dgvOrderList_DoubleClick(sender As Object, e As EventArgs) Handles dgvOrderList.DoubleClick
         ClearListViewItemBackColor(exceptionList, dgvOrderList)
 
         Dim quantity As Integer = 0
@@ -87,17 +193,41 @@ Public Class frmChef
                         exceptionList(i).Selected = True
                     End If
                 Next
-            End If
-        End If
 
-        If dgvOrderList.SelectedRows.Count > 0 Then
+                ltbException.Items.Add(exceptionList(0).Cells("OrderNote").Value)
+            End If
+
             materialList = LoadMaterial(currentDish)
             dgvMaterialList.DataSource = materialList
 
             txtTotalQuantity.Text = quantity.ToString()
         End If
     End Sub
+    '
+    'SelectedIndexChanged: Occur when change selected row in dgvOrderList.
+    Private Sub dgvOrderList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles dgvOrderList.SelectionChanged
+        If dgvOrderList.SelectedRows.Count <= 0 Then
+            ClearListViewItemBackColor(exceptionList, dgvOrderList)
 
+            ltbException.Items.Clear()
+            materialList.Rows.Clear()
+
+            dgvMaterialList.DataSource = materialList
+        End If
+    End Sub
+    '
+    'MouseClick: Occur when use mouse to click inside dgvOrderList.
+    Private Sub dgvOrderList_MouseClick(sender As Object, e As MouseEventArgs) Handles dgvOrderList.MouseClick
+        Dim currentIndex As Integer = dgvOrderList.HitTest(e.X, e.Y).RowIndex
+
+        If currentIndex < 0 Then
+            dgvOrderList.ClearSelection()
+        End If
+    End Sub
+    '
+    'btnCook's Events:
+    '
+    'Click: Occur when click the button.
     Private Sub btnCook_Click(sender As Object, e As EventArgs) Handles btnCook.Click
         If dgvOrderList.SelectedRows.Count > 0 Then
             currentTotalQuantity = 0
@@ -108,6 +238,7 @@ Public Class frmChef
             For Each row As DataGridViewRow In dgvOrderList.SelectedRows
                 Dim dRow As DataRow = cookList.NewRow()
 
+                dRow("MaMon") = row.Cells("OrderDishID").Value
                 dRow("TenMon") = row.Cells("OrderDishName").Value
                 dRow("SoLuong") = row.Cells("OrderQuantity").Value
 
@@ -129,11 +260,16 @@ Public Class frmChef
                 Dim cantServeQuantity As Integer = Integer.Parse(ex.Message)
                 cantServeList = GetCantServeList(cookList, cantServeQuantity)
 
+                GroupDish(cantServeList)
                 dgvCantServeList.DataSource = cantServeList
 
                 Dim dishDetail As DishDetail = GetFirstDetailByID(dishOrderList, dgvOrderList.SelectedRows(0).Cells("OrderDishID").Value)
                 If dishDetail IsNot Nothing Then
                     dishDetail.SubtractCantServe(cantServeQuantity)
+
+                    If dishDetail.TransDetail.Length = 0 Then
+                        dishOrderList.Remove(dishDetail)
+                    End If
                 End If
             Catch ex As SqlException
                 Throw ex
@@ -149,79 +285,56 @@ Public Class frmChef
             txtTotalQuantity.Text = ""
         End If
     End Sub
-
-    Private Sub frmChef_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        db.Dispose()
-
-        orderList.Dispose()
-        orderList = Nothing
-
-        cookList.Dispose()
-        cookList = Nothing
-
-        cantServeList.Dispose()
-        cantServeList = Nothing
-
-        materialList.Dispose()
-        materialList = Nothing
-
-        currentDish = ""
-        currentDish = Nothing
-
-        currentIndex = Nothing
-
-        currentTotalQuantity = Nothing
-    End Sub
-
-    Private Sub dgvCookList_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCookList.CellContentClick
+    '
+    'dgvCookList's Events:
+    '
+    'CellClick: Occur when click a cell in dgvCookList.
+    Private Sub dgvCookList_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCookList.CellClick
         Dim dgv As DataGridView = DirectCast(sender, DataGridView)
         Dim column As DataGridViewColumn = dgv.Columns(e.ColumnIndex)
 
         If TypeOf column Is DataGridViewButtonColumn AndAlso e.RowIndex >= 0 Then
-            Dim parameterName() As String = New String() {"@MaChuyen", "@TinhTrang"}
-            Dim parameterValue() As Object = New Object() {dgv.Rows(e.RowIndex).Cells("CookListTransID").Value, 3}
-            Dim parameter() As SqlClient.SqlParameter = db.CreateParameter(parameterName, parameterValue)
-            db.Update("spDSDatMonTrongNgayUpdateTinhTrang", parameter)
-            dgv.Rows.RemoveAt(e.RowIndex)
+            Dim result As DialogResult
+
+            frmConfirm = New frmConfirm(dgv.Rows(e.RowIndex).Cells("CookListQuantity").Value)
+
+            result = frmConfirm.ShowDialog()
+
+            If result = Windows.Forms.DialogResult.OK Then
+                Dim dishDetail As DishDetail = GetFirstDetailByID(dishOrderList, dgv.Rows(e.RowIndex).Cells("CookListDishID").Value)
+                Dim transDetail() As TransferDetail = dishDetail.Subtract(doneQuantity)
+                If transDetail IsNot Nothing Then
+                    Dim listTransID(transDetail.Length - 1) As String
+
+                    For i As Integer = 0 To transDetail.Length - 1 Step 1
+                        listTransID(i) = transDetail(i).TransID
+                    Next
+
+                    For i As Integer = 0 To listTransID.Length - 1 Step 1
+                        Dim parameterName() As String = New String() {"@MaChuyen", "@TinhTrang"}
+                        Dim parameterValue() As Object = New Object() {listTransID(i), 3}
+                        Dim parameter() As SqlClient.SqlParameter = db.CreateParameter(parameterName, parameterValue)
+
+                        db.Update("spDSDatMonTrongNgayUpdateTinhTrang", parameter)
+
+                        Array.Resize(parameterName, 0)
+                        Array.Resize(parameterValue, 0)
+                        Array.Resize(parameter, 0)
+                    Next
+
+                    dgv.Rows(e.RowIndex).Cells("CookListQuantity").Value -= frmChef.doneQuantity
+                    If dgv.Rows(e.RowIndex).Cells("CookListQuantity").Value = 0 Then
+                        dgv.Rows.RemoveAt(e.RowIndex)
+                    End If
+                End If
+            End If
         End If
     End Sub
-
-    Private Sub dgvOrderList_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles dgvOrderList.MouseDoubleClick
-        ltbException.Items.Clear()
-        dgvOrderList.ClearSelection()
-
-        currentTotalQuantity = 0
-        currentIndex = dgvOrderList.HitTest(e.X, e.Y).RowIndex
-
-        If currentIndex >= 0 Then
-            dgvOrderList.Rows(currentIndex).Selected = True
-        End If
-
-        If dgvOrderList.SelectedRows.Count > 0 Then
-            ltbException.Items.Add(dgvOrderList.SelectedRows(0).Cells("OrderNote").Value)
-
-            currentTotalQuantity = Integer.Parse(dgvOrderList.SelectedRows(0).Cells("OrderQuantity").Value)
-
-            materialList = LoadMaterial(dgvOrderList.SelectedRows(0).Cells("OrderDishID").Value)
-            dgvMaterialList.DataSource = materialList
-
-            currentUsedMaterial.Rows.Clear()
-            currentUsedMaterial = AddTotalQuantity(materialList, GetAllColumnsName(currentUsedMaterial), currentTotalQuantity)
-        End If
-    End Sub
-
-    Private Sub dgvOrderList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles dgvOrderList.SelectionChanged
-        If dgvOrderList.SelectedRows.Count <= 0 Then
-            ClearListViewItemBackColor(exceptionList, dgvOrderList)
-
-            ltbException.Items.Clear()
-            materialList.Rows.Clear()
-
-            dgvMaterialList.DataSource = materialList
-        End If
-    End Sub
-
-    Private Sub dgvMaterialList_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvMaterialList.CellClick
+    '
+    'dgvMaterialList's Events:
+    '
+    'CellClick: Occur when click a cell in dgvMaterialList.
+    Private Sub dgvMaterialList_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvMaterialList.CellClick
         If e.ColumnIndex >= 0 Then
             Dim dgv As DataGridView = DirectCast(sender, DataGridView)
             Dim column As DataGridViewColumn = dgv.Columns(e.ColumnIndex)
@@ -243,25 +356,38 @@ Public Class frmChef
 
                 AddHandler lblMaterialQuantity.TextChanged, AddressOf lblMaterialQuantity_TextChanged
 
-                frmNumpad = New frmNumPad(lblMaterialQuantity)
+                frmNumpad = New frmNumPad(lblMaterialQuantity, dgv.Rows(e.RowIndex).Cells("IsDouble").Value)
+                frmNumpad.Location = New Point(dgv.Location.X - frmNumpad.Width, dgv.Location.Y)
                 frmNumpad.Show()
             End If
         End If
     End Sub
+    '
+    'SelectionChanged: Occur when select other cell in dgvMaterialList.
+    Private Sub dgvMaterialList_SelectionChanged(sender As Object, e As EventArgs) Handles dgvMaterialList.SelectionChanged
+        'If frmNumpad is showing then close and dispose it
+        If frmNumpad IsNot Nothing Then
+            frmNumpad.Focus()
 
+            If frmNumpad.ContainsFocus = True Then
+                frmNumpad.Close()
+                frmNumpad.Dispose()
+                frmNumpad = Nothing
+            End If
+        End If
+    End Sub
+    '
+    'lblMaterialQuantity's Events:
+    '
+    'TextChanged: Occur when the text of lblMaterialQuantity changes value.
     Private Sub lblMaterialQuantity_TextChanged(sender As Object, e As EventArgs)
         Try
+            Double.Parse(lblMaterialQuantity.Text)
             dgvMaterialList.Rows(currentMaterialRow).Cells("MaterialQuantity").Value = lblMaterialQuantity.Text
+        Catch ex As FormatException
+            lblMaterialQuantity.Text = lblMaterialQuantity.Text.Remove(lblMaterialQuantity.Text.Length - 1, 1)
         Catch ex As Exception
             dgvMaterialList.Rows(currentMaterialRow).Cells("MaterialQuantity").Value = Math.Round(Double.Parse(lblMaterialQuantity.Text))
         End Try
-    End Sub
-
-    Private Sub dgvOrderList_MouseClick(sender As Object, e As MouseEventArgs) Handles dgvOrderList.MouseClick
-        Dim currentIndex As Integer = dgvOrderList.HitTest(e.X, e.Y).RowIndex
-
-        If currentIndex < 0 Then
-            dgvOrderList.ClearSelection()
-        End If
     End Sub
 End Class

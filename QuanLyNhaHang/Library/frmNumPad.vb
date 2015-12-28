@@ -72,10 +72,15 @@ Public Class frmNumPad
     Public Sub Button_Click(sender As Object, e As EventArgs) Handles btn0.Click, btn1.Click, btn2.Click, _
              btn3.Click, btn4.Click, btn5.Click, btn6.Click, btn7.Click, btn8.Click, btn9.Click, btnDot.Click
         _SelectedButton = CType(sender, Button)
-        If _TempValue = "" Or Double.Parse(_TempValue) <= _MaxValue Then
+
+        Dim test As Double
+
+        If _TempValue = "" Or (Double.TryParse(_TempValue, test) = True AndAlso test <= _MaxValue) Then
             _TempValue += _SelectedButton.Text
-        Else
+        ElseIf Double.TryParse(_TempValue, test) = True Then
             _TempValue = _MaxValue.ToString()
+        Else
+            _TempValue = _Control.Text
         End If
         _Control.Text = _TempValue
     End Sub

@@ -195,6 +195,8 @@ Partial Class frmNumPad
         Me.Controls.Add(Me.btn2)
         Me.Controls.Add(Me.btn1)
         Me.Name = "frmNumPad"
+        Me.ShowIcon = False
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "NumPad"
         Me.ResumeLayout(False)
