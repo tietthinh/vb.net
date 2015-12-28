@@ -463,16 +463,4 @@ Module Chef_Process
 
         Return Nothing
     End Function
-
-    Public Function CreateParameterWithArray(ByVal listParameterName() As String, ByVal listParameterArrayValue(,) As Object) As SqlParameter()
-        Dim parameter(listParameterArrayValue.Length - 1) As SqlParameter
-
-        For i As Integer = 0 To listParameterName.Length - 1 Step 1
-            For j As Integer = 0 To parameter.Length - 1 Step 1
-                parameter(j) = New SqlParameter(listParameterName(i), listParameterArrayValue(j, i))
-            Next
-        Next
-
-        Return parameter
-    End Function
 End Module

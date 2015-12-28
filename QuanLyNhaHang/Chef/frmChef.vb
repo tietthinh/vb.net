@@ -52,6 +52,12 @@ Public Class frmChef
     Dim currentUsedMaterial As New DataTable()
 
     ''' <summary>
+    ''' DataTable contains all cancelled dishes.
+    ''' </summary>
+    ''' <remarks></remarks>
+    Dim cancelledDishList As DataTable
+
+    ''' <summary>
     ''' Element is used to query from Material Table in database.
     ''' </summary>
     ''' <remarks></remarks>
@@ -68,6 +74,12 @@ Public Class frmChef
     ''' </summary>
     ''' <remarks></remarks>
     Dim currentMaterialRow As Integer
+
+    ''' <summary>
+    ''' Current index of selected element in DataGridView Order List.
+    ''' </summary>
+    ''' <remarks></remarks>
+    Dim currentOrderRowIndex As Integer
 
     Public Shared doneQuantity As Integer
 
@@ -99,15 +111,23 @@ Public Class frmChef
 
         BindIntoOrderedDataGridView(dgvOrderList, orderList)
 
+        'Creates columns for cookList
         cookList.Columns.Add(New DataColumn("MaMon"))
         cookList.Columns.Add(New DataColumn("TenMon"))
         cookList.Columns.Add(New DataColumn("SoLuong"))
 
+        'Creates columns for currentUsedMaterial
         currentUsedMaterial.Columns.Add("MaSP")
         currentUsedMaterial.Columns.Add("SoLuong")
         currentUsedMaterial.Columns.Add("SoLuongMotMon")
 
-        cantServeList = orderList.Clone()
+        'Clones cantServeList from cookList
+        cantServeList = cookList.Clone()
+
+        'Clones cancelledDishList from cantServeList
+        cancelledDishList = cantServeList.Clone()
+
+        AddHandler lblMaterialQuantity.TextChanged, AddressOf lblMaterialQuantity_TextChanged
     End Sub
     '
     'FormClosing: Occur while the form is closing.
@@ -129,6 +149,28 @@ Public Class frmChef
         currentDish = ""
         currentDish = Nothing
 
+        cancelledDishList.Dispose()
+        cancelledDishList = Nothing
+
+        If frmConfirm IsNot Nothing Then
+            frmConfirm.Dispose()
+            frmConfirm = Nothing
+        End If
+
+        If frmNumpad IsNot Nothing Then
+            frmNumpad.Dispose()
+            frmNumpad = Nothing
+        End If
+
+        exceptionList.Clear()
+        exceptionList = Nothing
+
+        dishOrderList.Clear()
+        dishOrderList = Nothing
+
+        currentUsedMaterial.Dispose()
+        currentUsedMaterial = Nothing
+
         currentTotalQuantity = Nothing
     End Sub
     '
@@ -141,15 +183,23 @@ Public Class frmChef
         currentTotalQuantity = 0
 
         If dgvOrderList.SelectedRows.Count > 0 Then
+            currentOrderRowIndex = dgvOrderList.CurrentRow.Index
+
+            'Adds the exception of dish into listbox Exception
             ltbException.Items.Add(dgvOrderList.SelectedRows(0).Cells("OrderNote").Value)
 
+            'Sets current quantity by the dish's quantity
             currentTotalQuantity = Integer.Parse(dgvOrderList.SelectedRows(0).Cells("OrderQuantity").Value)
 
+            'Loads list material from database through Dish's Identity
             materialList = LoadMaterial(dgvOrderList.SelectedRows(0).Cells("OrderDishID").Value)
             dgvMaterialList.DataSource = materialList
 
             currentUsedMaterial.Rows.Clear()
+            'Clones data from materialList with a column total quantity
             currentUsedMaterial = AddTotalQuantity(materialList, GetAllColumnsName(currentUsedMaterial), currentTotalQuantity)
+
+            txtTotalQuantity.Text = currentTotalQuantity
         End If
     End Sub
     '
@@ -157,18 +207,21 @@ Public Class frmChef
     Private Sub dgvOrderList_DoubleClick(sender As Object, e As EventArgs) Handles dgvOrderList.DoubleClick
         ClearListViewItemBackColor(exceptionList, dgvOrderList)
 
-        Dim quantity As Integer = 0
-        Dim exceptionRow As Integer = 0, nonExeptionRow As Integer = 0
-
         If dgvOrderList.SelectedRows.Count > 0 Then
+            Dim quantity As Integer = 0
+            Dim exceptionRow As Integer = 0, nonExceptionRow As Integer = 0
+
+            'Sets current dish by the current selected dishes' identity
             currentDish = dgvOrderList.SelectedRows(0).Cells("OrderDishID").Value
 
-            dgvOrderList.ClearSelection()
-
+            'Selects the similar dishes with current dish
             For Each row As DataGridViewRow In dgvOrderList.Rows
                 If row.Cells("OrderDishID").Value = currentDish Then
                     quantity += row.Cells("OrderQuantity").Value
 
+                    'If current row has note/exception then sets background color by red
+                    'and adds into exceptionList
+                    'else selects it
                     If row.Cells("OrderNote").Value.ToString() <> "" Then
                         row.DefaultCellStyle.BackColor = Color.Red
 
@@ -178,34 +231,35 @@ Public Class frmChef
                     Else
                         row.Selected = True
 
-                        nonExeptionRow += 1
+                        nonExceptionRow += 1
                     End If
                 End If
             Next
 
-            If nonExeptionRow = 0 And exceptionRow <> 0 Then
-                exceptionList(0).Selected = True
-
-                For i As Integer = 1 To exceptionList.Count - 1 Step 1
-                    If exceptionList(i).Cells("OrderDishID").Value = currentDish And _
-                        exceptionList(i).Cells("OrderNote").Value = exceptionList(0).Cells("OrderNote").Value Then
+            'If nonExceptionRow is 0 and exceptionRow greater than 0, means there are only dishes have exception, then
+            'selects the dishes has similar note with the current dish
+            If nonExceptionRow = 0 And exceptionRow <> 0 Then
+                For i As Integer = 0 To exceptionList.Count - 1 Step 1
+                    If exceptionList(i).Cells("OrderDishID").Value = currentDish AndAlso _
+                        exceptionList(i).Cells("OrderNote").Value = _
+                        dgvOrderList.Rows(currentOrderRowIndex).Cells("OrderNote").Value Then
 
                         exceptionList(i).Selected = True
                     End If
                 Next
-
-                ltbException.Items.Add(exceptionList(0).Cells("OrderNote").Value)
             End If
 
+            'Loads material for current dish
             materialList = LoadMaterial(currentDish)
             dgvMaterialList.DataSource = materialList
 
-            txtTotalQuantity.Text = quantity.ToString()
+            txtTotalQuantity.Text = quantity
         End If
     End Sub
     '
     'SelectedIndexChanged: Occur when change selected row in dgvOrderList.
     Private Sub dgvOrderList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles dgvOrderList.SelectionChanged
+        'If there are no selected rows then clears all background color, list exception and material
         If dgvOrderList.SelectedRows.Count <= 0 Then
             ClearListViewItemBackColor(exceptionList, dgvOrderList)
 
@@ -220,8 +274,11 @@ Public Class frmChef
     Private Sub dgvOrderList_MouseClick(sender As Object, e As MouseEventArgs) Handles dgvOrderList.MouseClick
         Dim currentIndex As Integer = dgvOrderList.HitTest(e.X, e.Y).RowIndex
 
+        'If there are no selected rows in point then clears all current selected rows
         If currentIndex < 0 Then
             dgvOrderList.ClearSelection()
+
+            txtTotalQuantity.Text = ""
         End If
     End Sub
     '
@@ -233,37 +290,66 @@ Public Class frmChef
             currentTotalQuantity = 0
 
             Dim _DishDetail As New DishDetail()
+            'Creates new dish detail with the selected dish
             _DishDetail.DishID = dgvOrderList.SelectedRows(0).Cells("OrderDishID").Value
 
             For Each row As DataGridViewRow In dgvOrderList.SelectedRows
+                'Creates new row from cookList
                 Dim dRow As DataRow = cookList.NewRow()
 
+                'Clones data from row into dRow
                 dRow("MaMon") = row.Cells("OrderDishID").Value
                 dRow("TenMon") = row.Cells("OrderDishName").Value
                 dRow("SoLuong") = row.Cells("OrderQuantity").Value
 
+                'Adds new order into dish detail
                 _DishDetail.Add(row.Cells("OrderTransID").Value, row.Cells("OrderQuantity").Value)
 
+                'Adds dRow into cookList
                 cookList.Rows.Add(dRow)
 
+                'Increases current total quantity by quantity in dRow
                 currentTotalQuantity += dRow("SoLuong")
             Next
 
-            dishOrderList.Add(_DishDetail)
+            Dim dishDetail As DishDetail = GetFirstDetailByID(dishOrderList, dgvOrderList.SelectedRows(0).Cells("OrderDishID").Value)
+
+            If dishDetail IsNot Nothing Then
+                'Adds all detail into dishDetail (an element in dishOrderList)
+                For i As Integer = 0 To _DishDetail.TransDetail.Length - 1 Step 1
+                    Array.Resize(dishDetail.TransDetail, dishDetail.TransDetail.Length + 1)
+
+                    dishDetail.TransDetail(dishDetail.TransDetail.Length - 1).Add(_DishDetail.TransDetail(i).TransID, _DishDetail.TransDetail(i).Quantity)
+                Next
+            Else
+                'Adds dish detail into List of order
+                dishOrderList.Add(_DishDetail)
+            End If
 
             currentUsedMaterial.Rows.Clear()
+            'Adds list material with column total quantity into currentUsedMaterial
             currentUsedMaterial = AddTotalQuantity(materialList, GetAllColumnsName(currentUsedMaterial), currentTotalQuantity)
 
             Try
                 db.Update("spSanPhamDaDungInsert", db.CreateParameter(New String() {"@DS"}, New Object() {currentUsedMaterial}))
             Catch ex As SqlException When ex.Number = 50001
+                'Gets the number cannot serve
                 Dim cantServeQuantity As Integer = Integer.Parse(ex.Message)
-                cantServeList = GetCantServeList(cookList, cantServeQuantity)
 
+                'Gets dishes cannot serve
+                Dim _TempCantServeList As DataTable = GetCantServeList(cookList, cantServeQuantity)
+
+                'Adds those dishes into cantServeList
+                AppendDataTable(cantServeList, _TempCantServeList)
+
+                'Groups all dishes
                 GroupDish(cantServeList)
                 dgvCantServeList.DataSource = cantServeList
 
-                Dim dishDetail As DishDetail = GetFirstDetailByID(dishOrderList, dgvOrderList.SelectedRows(0).Cells("OrderDishID").Value)
+                'Gets the dish detail by id in dishOrderList
+                dishDetail = GetFirstDetailByID(dishOrderList, dgvOrderList.SelectedRows(0).Cells("OrderDishID").Value)
+
+                'If exists the dish detail then subtracts and removes the dishes cannot serve
                 If dishDetail IsNot Nothing Then
                     dishDetail.SubtractCantServe(cantServeQuantity)
 
@@ -275,11 +361,13 @@ Public Class frmChef
                 Throw ex
             End Try
 
+            'Groups all data in cookList
             GroupDish(cookList)
             dgvCookList.DataSource = cookList
 
+            'Removes all selected rows in DataGridView OrderList
             For Each row As DataGridViewRow In dgvOrderList.SelectedRows
-                orderList.Rows(row.Index).Delete()
+                orderList.Rows.RemoveAt(row.Index)
             Next
 
             txtTotalQuantity.Text = ""
@@ -296,20 +384,26 @@ Public Class frmChef
         If TypeOf column Is DataGridViewButtonColumn AndAlso e.RowIndex >= 0 Then
             Dim result As DialogResult
 
+            'Creates new form Confirm
             frmConfirm = New frmConfirm(dgv.Rows(e.RowIndex).Cells("CookListQuantity").Value)
 
             result = frmConfirm.ShowDialog()
 
             If result = Windows.Forms.DialogResult.OK Then
+                'Gets the dish detail by id in dishOrderList
                 Dim dishDetail As DishDetail = GetFirstDetailByID(dishOrderList, dgv.Rows(e.RowIndex).Cells("CookListDishID").Value)
+                'Gets the dishes are done
                 Dim transDetail() As TransferDetail = dishDetail.Subtract(doneQuantity)
+
                 If transDetail IsNot Nothing Then
                     Dim listTransID(transDetail.Length - 1) As String
 
+                    'Clones transfer's identity into listTransID
                     For i As Integer = 0 To transDetail.Length - 1 Step 1
                         listTransID(i) = transDetail(i).TransID
                     Next
 
+                    'Update records in database
                     For i As Integer = 0 To listTransID.Length - 1 Step 1
                         Dim parameterName() As String = New String() {"@MaChuyen", "@TinhTrang"}
                         Dim parameterValue() As Object = New Object() {listTransID(i), 3}
@@ -322,7 +416,10 @@ Public Class frmChef
                         Array.Resize(parameter, 0)
                     Next
 
+                    'Decreases the quantity of the current row
                     dgv.Rows(e.RowIndex).Cells("CookListQuantity").Value -= frmChef.doneQuantity
+
+                    'If the quantity of current row is 0 then removes it
                     If dgv.Rows(e.RowIndex).Cells("CookListQuantity").Value = 0 Then
                         dgv.Rows.RemoveAt(e.RowIndex)
                     End If
@@ -341,9 +438,12 @@ Public Class frmChef
 
             If TypeOf column Is DataGridViewButtonColumn AndAlso e.RowIndex >= 0 Then
                 If column.Name = "Increase" Then
+                    'If click the button + then increases the quantity by default increase
                     dgv.Rows(e.RowIndex).Cells("MaterialQuantity").Value += dgv.Rows(e.RowIndex).Cells("DefaultIncrease").Value
                 Else
+                    'Else decreases the quantity by default increase
                     Dim i As Double = dgv.Rows(e.RowIndex).Cells("MaterialQuantity").Value - dgv.Rows(e.RowIndex).Cells("DefaultIncrease").Value
+
                     If i >= 0 Then
                         dgv.Rows(e.RowIndex).Cells("MaterialQuantity").Value = i
                     Else
@@ -354,8 +454,7 @@ Public Class frmChef
             ElseIf TypeOf column Is DataGridViewTextBoxColumn AndAlso e.RowIndex >= 0 And column.Name = "MaterialQuantity" Then
                 currentMaterialRow = e.RowIndex
 
-                AddHandler lblMaterialQuantity.TextChanged, AddressOf lblMaterialQuantity_TextChanged
-
+                'If current row is material's quantity then show the form numpad
                 frmNumpad = New frmNumPad(lblMaterialQuantity, dgv.Rows(e.RowIndex).Cells("IsDouble").Value)
                 frmNumpad.Location = New Point(dgv.Location.X - frmNumpad.Width, dgv.Location.Y)
                 frmNumpad.Show()
