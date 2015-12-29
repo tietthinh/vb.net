@@ -3,6 +3,7 @@
     Dim _Query As String = ""
     Dim _ParameterInput As New SqlClient.SqlParameter
     Private _Connect As New Library.DatabaseConnection()
+    Dim _Stt As Integer = 1
 
     ''' <summary>
     ''' Load DataGridview
@@ -92,7 +93,7 @@
             Else
                 _TinhTrang = "Chưa"
             End If
-            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString, dt(2).ToString, dt(3).ToString, dt(4).ToString, dt(5).ToString, dt(6).ToString, Double.Parse(dt(7).ToString()).ToString("#,###"), dt(8).ToString, _TinhTrang})
+            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString, dt(2).ToString, dt(3).ToString, dt(4).ToString, dt(5).ToString, dt(6).ToString, Double.Parse(dt(7).ToString()).ToString("#,###VND"), dt(8).ToString, _TinhTrang})
         Next
 
         Return _Table
@@ -105,11 +106,14 @@
     End Sub
 
     'Load Chi Tiết Hóa Đơn
-    Function LoadCTHoaDon(ByRef sourceDataGridView As DataGridView) As DataTable
-        Dim Table1 As New DataTable
-        Table1 = _Connect.Query("Select CTHD.MaHoaDon, MADU.TenMon, CTHD.GiaMotMon, CTHD.MaCT, CTHD.GhiChu, CTHD.SoLuong, CTHD.ThanhTien, MADU.MaMon From ChiTietHoaDon CTHD, MonAnDoUong MADU Where MADU.MaMon = CTHD.MaMon")
-        For Each dt As DataRow In Table1.Rows
-            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString, dt(2).ToString, dt(3).ToString, dt(4).ToString, dt(5).ToString, Double.Parse(dt(6).ToString).ToString("#,###"), dt(7).ToString})
+    Function LoadCTHoaDon(ByRef sourceDataGridView As DataGridView, ByVal Text As String) As DataTable
+        Dim _Table As New DataTable
+        Dim _Name() As String = New String() {"@MaHD"}
+        Dim _Value() As String = New String() {Text}
+        Dim _Query As String = "spChiTietHoaDonSelect"
+        _Table = _Connect.Query(_Query, _Connect.CreateParameter(_Name, _Value))
+        For Each dt As DataRow In _Table.Rows
+            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString, dt(2).ToString, Double.Parse(dt(3).ToString).ToString("#,###"), Double.Parse(dt(4).ToString).ToString("#,###VND"), Double.Parse(dt(5).ToString).ToString("#,###VND"), dt(6).ToString})
         Next
         Return _Table
     End Function
@@ -122,9 +126,11 @@
 
     'Load Món Ăn Đồ Uống
     Public Function LoadMonAnDoUong(ByRef sourceDataGridView As DataGridView) As DataTable
-        Dim _Table As New DataTable
-        _Table = _Connect.Query("Select MaMon, TenMon, GiaTienHienTai, ThucDonMon From MonAnDoUong ")
+        sourceDataGridView.Rows.Clear()
 
+        Dim _Table As New DataTable
+        Dim _Query As String = "spMonAnDoUongSelectAll"
+        _Table = _Connect.Query(_Query)
 
 
         For Each dt As DataRow In _Table.Rows
@@ -158,17 +164,163 @@
     End Sub
 
     'Load Chi Tiết Món Ăn Đồ Uống
-    Public Function LoadCTMonAnDoUong(ByRef sourceDataGridView As DataGridView) As DataTable
-        _Table = _Connect.Query("Select CTLM.MaMon, MADU.TenMon, CTLM.MaSP, SP.TenSP, CTLM.SoLuong, LDVT.TenDV, CTLM.MaDV From ChiTietLamMon CTLM, MonAnDoUong MADU, SanPham SP, LoaiDonViTinh LDVT Where CTLM.MaMon = MADU.MaMon and CTLM.MaSP = SP.MaSP and CTLM.MaDV = LDVT.MaDV")
+    Public Function LoadCTMonAnDoUong(ByRef sourceDataGridView As DataGridView, ByVal Text As String) As DataTable
+        sourceDataGridView.Rows.Clear()
 
+        Dim _Table As New DataTable
+        Dim _Name() As String = New String() {"@MaMon"}
+        Dim _Value() As String = New String() {Text}
+        Dim _Query As String = "spCTLamMonSelectQuanLy"
+        _Table = _Connect.Query(_Query, _Connect.CreateParameter(_Name, _Value))
         For Each dt As DataRow In _Table.Rows
-            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString, dt(2).ToString, dt(3).ToString, dt(4).ToString, dt(5).ToString, dt(6).ToString})
+            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString, dt(2).ToString, dt(3).ToString, dt(4).ToString})
         Next
-     
+
         Return _Table
 
     End Function
     Public Sub ReLoadCTMonAnDoUong(ByRef sourceDataGridView As DataGridView, ByVal dataSource As DataTable)
+        sourceDataGridView.Rows.Clear()
+
+        sourceDataGridView.DataSource = dataSource
+
+    End Sub
+
+    'Load Phiếu Nhập
+    Public Function LoadPhieuNhap(ByRef sourceDataGridView As DataGridView) As DataTable
+        sourceDataGridView.Rows.Clear()
+
+        Dim _Table As New DataTable
+        Dim _Query As String = "spPhieuNhapSelect"
+
+        _Table = _Connect.Query(_Query)
+
+        For Each dt As DataRow In _Table.Rows
+            sourceDataGridView.Rows.Add(New String() {_Stt, dt(0).ToString(), dt(1).ToString, dt(2).ToString, dt(3).ToString, dt(4).ToString, dt(5), dt(6), dt(7).ToString, Double.Parse(dt(8).ToString).ToString("#,### VND")})
+            _Stt = _Stt + 1
+        Next
+
+        Return _Table
+
+    End Function
+    Public Sub ReLoadPhieuNhap(ByRef sourceDataGridView As DataGridView, ByVal dataSource As DataTable)
+        sourceDataGridView.Rows.Clear()
+
+        sourceDataGridView.DataSource = dataSource
+
+    End Sub
+
+    'Load Chi Tiết Phiếu Nhập
+    Public Function LoadCTPhieuNhap(ByRef sourceDataGridView As DataGridView, ByVal Text As String) As DataTable
+        sourceDataGridView.Rows.Clear()
+
+        Dim _Table As New DataTable
+        Dim _Query As String = "spChiTietPhieuNhapSelect"
+        Dim _Name() As String = New String() {"@MaPN"}
+        Dim _Value() As String = New String() {Text}
+
+        _Table = _Connect.Query(_Query, _Connect.CreateParameter(_Name, _Value))
+
+        For Each dt As DataRow In _Table.Rows
+            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString, dt(2).ToString, Double.Parse(dt(3).ToString).ToString("#,###"), dt(4).ToString, dt(5).ToString, Double.Parse(dt(6).ToString).ToString("#,###VND"), Double.Parse(dt(7).ToString).ToString("#,### VND")})
+        Next
+
+        Return _Table
+
+    End Function
+    Public Sub ReLoadCTPhieuNhap(ByRef sourceDataGridView As DataGridView, ByVal dataSource As DataTable)
+        sourceDataGridView.Rows.Clear()
+
+        sourceDataGridView.DataSource = dataSource
+
+    End Sub
+
+    'Load Phiếu Nhận
+    Public Function LoadPhieuNhan(ByRef sourceDataGridView As DataGridView) As DataTable
+        sourceDataGridView.Rows.Clear()
+
+        Dim _Table As New DataTable
+        Dim _Query As String = "spPhieuNhanSelect"
+
+
+        _Table = _Connect.Query(_Query)
+        For Each dt As DataRow In _Table.Rows
+            sourceDataGridView.Rows.Add(New String() {_Stt, dt(0).ToString, dt(1).ToString, dt(2).ToString, dt(3).ToString, dt(4), Double.Parse(dt(5).ToString).ToString("#,###"), dt(6).ToString})
+            _Stt = _Stt + 1
+        Next
+
+        Return _Table
+
+    End Function
+    Public Sub ReLoadPhieuNhan(ByRef sourceDataGridView As DataGridView, ByVal dataSource As DataTable)
+        sourceDataGridView.Rows.Clear()
+
+        sourceDataGridView.DataSource = dataSource
+
+    End Sub
+
+    'Load Chi Tiết Phiếu Nhận
+    Public Function LoadCTPhieuNhan(ByRef sourceDataGridView As DataGridView, ByVal Text As String) As DataTable
+        sourceDataGridView.Rows.Clear()
+
+        Dim _Table As New DataTable
+        Dim _Query As String = "spChiTietPhieuNhanSelect"
+        Dim _Name() As String = New String() {"@MaPG"}
+        Dim _Value() As String = New String() {Text}
+
+        _Table = _Connect.Query(_Query, _Connect.CreateParameter(_Name, _Value))
+        For Each dt As DataRow In _Table.Rows
+            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString, dt(2).ToString, dt(3).ToString, dt(4).ToString, dt(5).ToString(), dt(6).ToString()})
+        Next
+
+        Return _Table
+
+    End Function
+    Public Sub ReLoadCTPhieuNhan(ByRef sourceDataGridView As DataGridView, ByVal dataSource As DataTable)
+        sourceDataGridView.Rows.Clear()
+
+        sourceDataGridView.DataSource = dataSource
+
+    End Sub
+
+    'Load Chức Vụ
+    Public Function LoadChucVu(ByRef sourceDataGridView As DataGridView) As DataTable
+        sourceDataGridView.Rows.Clear()
+
+        Dim _Table As New DataTable
+        Dim _Query As String = "spChucVuNhanVienSelect"
+
+        _Table = _Connect.Query(_Query)
+        For Each dt As DataRow In _Table.Rows
+            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString})
+        Next
+
+        Return _Table
+
+    End Function
+    Public Sub ReLoadChucVu(ByRef sourceDataGridView As DataGridView, ByVal dataSource As DataTable)
+        sourceDataGridView.Rows.Clear()
+
+        sourceDataGridView.DataSource = dataSource
+
+    End Sub
+
+    'Load Loại Đơn Vị Tính
+    Public Function LoadLoaiDV(ByRef sourceDataGridView As DataGridView) As DataTable
+        sourceDataGridView.Rows.Clear()
+
+        Dim _Table As New DataTable
+        Dim _Query As String = "spLoaiDonViTinhSelect"
+
+        _Table = _Connect.Query(_Query)
+        For Each dt As DataRow In _Table.Rows
+            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString(), dt(2).ToString(), dt(3).ToString()})
+        Next
+
+        Return _Table
+
+    End Function
+    Public Sub ReLoadLoaiDV(ByRef sourceDataGridView As DataGridView, ByVal dataSource As DataTable)
         sourceDataGridView.Rows.Clear()
 
         sourceDataGridView.DataSource = dataSource
