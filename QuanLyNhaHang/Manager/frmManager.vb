@@ -247,7 +247,7 @@ Public Class frmManager
 
     'Xóa NhanVien 
     Private Sub btnXoaNV_Click(sender As Object, e As EventArgs) Handles btnXoaNV.Click, btnXoa_KhaNangViTinh.Click
-        If (_location < 0) Then
+        If (_location = 0) Then
             MessageBox.Show("Bạn chưa chọn Nhân Viên", "Thông Báo")
 
         Else
@@ -314,7 +314,7 @@ Public Class frmManager
 
             End If
 
-            End If
+        End If
     End Sub
 
     'Nhập lại thông tin Nhân Viên
@@ -506,7 +506,7 @@ Public Class frmManager
 
     'Xóa dữ liệu Hóa Đơn
     Private Sub btnXoa_HoaDon_Click(sender As Object, e As EventArgs) Handles btnXoa_HoaDon.Click
-        If (_location < 0) Then
+        If (_location = 0) Then
             MessageBox.Show("Bạn chưa chọn Hóa Đơn", "Thông Báo")
         Else
             DialogResult = MessageBox.Show("Bạn muốn thực hiện thao tác xóa thông tin nhân viên?", "Thông Báo", MessageBoxButtons.OKCancel)
@@ -752,7 +752,7 @@ Public Class frmManager
 
     'Xoa MonAnDoUong
     Private Sub btnXoa_Mon_Click(sender As Object, e As EventArgs) Handles btnXoa_Mon.Click
-        If (_location < 0) Then
+        If (_location = 0) Then
             MessageBox.Show("Bạn chưa chọn Món", "Thông Báo")
         Else
 
@@ -996,7 +996,7 @@ Public Class frmManager
 
     'Xóa dữ liệu ChiTIetMonAnDoUong
     Private Sub btnXoa_CTMon_Click(sender As Object, e As EventArgs) Handles btnXoa_CTMon.Click
-        If (_location < 0) Then
+        If (_location = 0) Then
             MessageBox.Show("Bạn chưa chọn Chi Tiết Món", "Thông Báo")
 
         Else
@@ -1156,10 +1156,10 @@ Public Class frmManager
             MessageBox.Show("Bạn chưa chọn thông tin", "Thông Báo")
 
         Else
-            'Dim _Query As String = "usp_CapNhapTinhTrangPhieuNhap"
-            'Dim _Name() As String = New String() {"@MaPN", "@TinhTrang"}
-            'Dim _Value() As String = New String() {txtMaPhieuNhap_PhieuNhap.Text, 0}
-            '_connect.Update(_Query, _connect.CreateParameter(_Name, _Value))
+            Dim _Query As String = "usp_CapNhapTinhTrangPhieuNhap"
+            Dim _Name() As String = New String() {"@MaPN", "@TinhTrang"}
+            Dim _Value() As String = New String() {txtMaPhieuNhap_PhieuNhap.Text, 0}
+            _connect.Update(_Query, _connect.CreateParameter(_Name, _Value))
             gpbDanhSachCTPhieuNhap.Enabled = True
             gpbThongTinPhieuNhap.Enabled = True
         End If
@@ -1173,10 +1173,10 @@ Public Class frmManager
             MessageBox.Show("Bạn chưa chọn thông tin", "Thông Báo")
 
         Else
-            'Dim _Query As String = "usp_CapNhapTinhTrangPhieuNhap"
-            'Dim _Name() As String = New String() {"@MaPN", "@TinhTrang"}
-            'Dim _Value() As String = New String() {txtMaPhieuNhap_PhieuNhap.Text, 1}
-            '_connect.Update(_Query, _connect.CreateParameter(_Name, _Value))
+            Dim _Query As String = "usp_CapNhapTinhTrangPhieuNhap"
+            Dim _Name() As String = New String() {"@MaPN", "@TinhTrang"}
+            Dim _Value() As String = New String() {txtMaPhieuNhap_PhieuNhap.Text, 1}
+            _connect.Update(_Query, _connect.CreateParameter(_Name, _Value))
             gpbDanhSachCTPhieuNhap.Enabled = False
             gpbThongTinPhieuNhap.Enabled = False
         End If
@@ -1246,7 +1246,7 @@ Public Class frmManager
 
     'Xóa dữ liệu phiếu nhập
     Private Sub btnXoa_CTPhieuNhap_Click(sender As Object, e As EventArgs) Handles btnXoa_CTPhieuNhap.Click
-        If (_location < 0) Then
+        If (_location = 0) Then
             MessageBox.Show("Bạn chưa chọn Chi Tiết Phiếu Nhập", "Thông Báo")
 
         Else
@@ -1269,10 +1269,10 @@ Public Class frmManager
                 txtDonGia_CTPhieuNhap.Text = ""
                 txtThanhTIen_CTPhieuNhap.Text = ""
 
-                LoadCTPhieuNhap(dgvChiTietPhieuNhap, txtMaPhieuNhap_PhieuNhap.Text)
+                LoadCTPhieuNhap(dgvChiTietPhieuNhap, _word)
 
                 Dim kq As Boolean = False
-                
+
                 For Each dt As DataRow In _TableCTPhieuNhap.Rows
                     If (_word <> dt("MaPN").ToString.Trim) Then
                         kq = True
@@ -1477,7 +1477,7 @@ Public Class frmManager
                 Next
                 If (kq = True) Then
                     MessageBox.Show("Xóa Thành Công", "Thông Báo")
-                    LoadCTPhieuNhan(dgvChiTietPhieuNhan, txtMaPhieuNhan_PhieuNhan.Text)
+                    LoadCTPhieuNhan(dgvChiTietPhieuNhan, _word)
 
                     If _location = dgvChiTietPhieuNhan.Rows.Count Then
                         dgvChiTietPhieuNhan.Rows(_location - 1).Selected = True
@@ -1505,10 +1505,10 @@ Public Class frmManager
     Private Sub ChucVu_LoaiDonViTinh_Enter(sender As Object, e As EventArgs) Handles ChucVu_LoaiDonViTinh.Enter
 
         'Load Chức Vụ
-        LoadChucVu(dgvChucVu)
+        _TableChucVu = LoadChucVu(dgvChucVu)
 
         'Load Loại Đơn Vị Tính
-        LoadLoaiDV(dgvLoaiDonVi)
+        _TableLoaiDV = LoadLoaiDV(dgvLoaiDonVi)
         cboKieuGiaTri_LDVT.Items.Insert(0, "Số Nguyên")
         cboKieuGiaTri_LDVT.Items.Insert(1, "Số Thực")
         cboKieuGiaTri_LDVT.SelectedIndex = 0
@@ -1526,18 +1526,16 @@ Public Class frmManager
             If DialogResult = Windows.Forms.DialogResult.OK Then
                 Dim _Query As String = "spLoaiDonViTinhDelete"
                 Dim _Name() As String = New String() {"@MaDV"}
-                Dim _Value() As String = New String() {txtMaDV_LoaiDonVi.Text}
+                Dim _Value() As String = New String() {txtMaDV_LoaiDonVi.Text.Trim}
                 _connect.Update(_Query, _connect.CreateParameter(_Name, _Value))
 
-                Dim _word As String = txtMaDV_LoaiDonVi.Text
+                Dim _word As String = txtMaDV_LoaiDonVi.Text.Trim
 
                 txtMaDV_LoaiDonVi.Text = ""
                 txtTenDV_LoaiDonVi.Text = ""
                 txtDoTang_LoaiDonVi.Text = ""
 
 
-
-                Dim Table As New DataTable
                 Dim kq As Boolean = True
 
                 For Each dt As DataRow In _TableLoaiDV.Rows
@@ -1597,63 +1595,54 @@ Public Class frmManager
     Private Sub btnThem_LoaiDV_Click(sender As Object, e As EventArgs) Handles btnThem_LoaiDV.Click
         Dim _KT As Boolean = True
 
-        If txtDoTang_LoaiDonVi.Text.Trim.Length = 0 Or IsNumeric(txtDoTang_LoaiDonVi.Text.Trim) = False Then
-
-            ErrorProvider1.SetError(txtDoTang_LoaiDonVi, "Bạn chưa nhập độ tăng")
-            _KT = False
-        Else
-            ErrorProvider1.Clear()
-        End If
-
-
-        If txtTenDV_LoaiDonVi.Text.Length = 0 Then
-            ErrorProvider2.SetError(txtTenDV_LoaiDonVi, "Bạn chưa nhập tên đơn vị")
-            _KT = False
-        Else
-            ErrorProvider2.Clear()
-        End If
-
-        Dim _KieuGiaTri As Boolean
-        If cboKieuGiaTri_LDVT.SelectedIndex.ToString = "Số Thực" Then
-            _KieuGiaTri = True
-        Else
-            _KieuGiaTri = False
-        End If
-
-
-
-        Dim rowCount As Integer
-
-        Try
-            If _KT = False Then
-                Return
+            If txtTenDV_LoaiDonVi.Text.Length = 0 Then
+            ErrorProvider1.SetError(txtTenDV_LoaiDonVi, "Bạn chưa nhập tên đơn vị")
+                _KT = False
             Else
-
-
-                DialogResult = MessageBox.Show("Bạn muốn thực hiện thao tác thêm?", "Thông Báo", MessageBoxButtons.OKCancel)
-
-                If DialogResult = Windows.Forms.DialogResult.OK Then
-
-                    Dim _Name() As String = New String() {"@TenDV"}
-                    Dim _Value() As String = New String() {txtTenDV_LoaiDonVi.Text}
-                    _Query = "spLoaiDonViTinhInsert"
-                    rowCount = _connect.Update(_Query, _connect.CreateParameter(_Name, _Value))
-                Else
-                    Return
-                End If
+            ErrorProvider1.Clear()
             End If
 
-            LoadLoaiDV(dgvLoaiDonVi)
+            Dim _KieuGiaTri As Boolean
+            If cboKieuGiaTri_LDVT.SelectedIndex.ToString = "Số Thực" Then
+                _KieuGiaTri = True
+            Else
+                _KieuGiaTri = False
+            End If
 
-        Catch ex As SqlException
-            MessageBox.Show("Dữ liệu nhập sai!")
-        End Try
 
-        If rowCount > 0 Then
-            MessageBox.Show("Thêm Thành Công", "Thông Báo")
-        Else
-            MessageBox.Show("Thêm Thất Bại", "Thông Báo")
-        End If
+
+            Dim rowCount As Integer
+
+            Try
+                If _KT = False Then
+                    Return
+                Else
+
+
+                    DialogResult = MessageBox.Show("Bạn muốn thực hiện thao tác thêm?", "Thông Báo", MessageBoxButtons.OKCancel)
+
+                    If DialogResult = Windows.Forms.DialogResult.OK Then
+
+                    Dim _Name() As String = New String() {"@TenDV"}
+                    Dim _Value() As String = New String() {txtTenDV_LoaiDonVi.Text.ToString.Trim}
+                    _Query = "spLoaiDonViTinhInsert"
+                    rowCount = _connect.Update(_Query, _connect.CreateParameter(_Name, _Value))
+                    Else
+                        Return
+                    End If
+                End If
+
+                LoadLoaiDV(dgvLoaiDonVi)
+
+            Catch ex As SqlException
+                MessageBox.Show("Dữ liệu nhập sai!")
+            End Try
+
+            If rowCount > 0 Then
+                MessageBox.Show("Thêm Thành Công", "Thông Báo")
+            Else
+                MessageBox.Show("Thêm Thất Bại", "Thông Báo")
+            End If
 
 
     End Sub
@@ -1664,13 +1653,13 @@ Public Class frmManager
 
         txtMaDV_LoaiDonVi.Text = dgvLoaiDonVi.Rows(e.RowIndex).Cells("MaDV_LDVT").Value.ToString
         txtTenDV_LoaiDonVi.Text = dgvLoaiDonVi.Rows(e.RowIndex).Cells("TenDV_LDVT").Value.ToString
-        txtDoTang_LoaiDonVi.Text = dgvLoaiDonVi.Rows(e.RowIndex).Cells("DoTangMacDinh_LDVT").Value.ToString
-        Dim _KieuGT As Boolean = dgvLoaiDonVi.Rows(e.RowIndex).Cells("SoThuc_LDVT").Value.ToString
-        If _KieuGT = True Then
-            cboKieuGiaTri_LDVT.SelectedIndex = 1
-        Else
-            cboKieuGiaTri_LDVT.SelectedIndex = 0
-        End If
+        'txtDoTang_LoaiDonVi.Text = dgvLoaiDonVi.Rows(e.RowIndex).Cells("DoTangMacDinh_LDVT").Value.ToString
+        'Dim _KieuGT As Boolean = dgvLoaiDonVi.Rows(e.RowIndex).Cells("SoThuc_LDVT").Value.ToString
+        'If _KieuGT = True Then
+        '    cboKieuGiaTri_LDVT.SelectedIndex = 1
+        'Else
+        '    cboKieuGiaTri_LDVT.SelectedIndex = 0
+        'End If
 
     End Sub
 

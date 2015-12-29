@@ -189,7 +189,7 @@
     'Load Phiếu Nhập
     Public Function LoadPhieuNhap(ByRef sourceDataGridView As DataGridView) As DataTable
         sourceDataGridView.Rows.Clear()
-
+        _Stt = 1
         Dim _Table As New DataTable
         Dim _Query As String = "spPhieuNhapSelect"
 
@@ -238,7 +238,7 @@
     'Load Phiếu Nhận
     Public Function LoadPhieuNhan(ByRef sourceDataGridView As DataGridView) As DataTable
         sourceDataGridView.Rows.Clear()
-
+        _Stt = 1
         Dim _Table As New DataTable
         Dim _Query As String = "spPhieuNhanSelect"
 
@@ -314,7 +314,7 @@
 
         _Table = _Connect.Query(_Query)
         For Each dt As DataRow In _Table.Rows
-            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString(), dt(2).ToString(), dt(3).ToString()})
+            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString()})
         Next
 
         Return _Table
