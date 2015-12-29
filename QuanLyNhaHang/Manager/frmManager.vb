@@ -1385,7 +1385,7 @@ Public Class frmManager
                 Dim _Value() As String = New String() {txtMaPhieuNhan_PhieuNhan.Text}
                 _connect.Update(_Query, _connect.CreateParameter(_Name, _Value))
 
-                Dim _word As String = txtMaPhieuNhap_PhieuNhap.Text
+                Dim _word As String = txtMaPhieuNhan_PhieuNhan.Text
 
                 txtMaPhieuNhap_PhieuNhan.Text = ""
                 txtMaPhieuNhan_PhieuNhan.Text = ""
@@ -1404,7 +1404,7 @@ Public Class frmManager
                 Next
                 If (kq = True) Then
                     MessageBox.Show("Xóa Thành Công", "Thông Báo")
-                    LoadPhieuNhan(dgvCTMon)
+                    LoadPhieuNhan(dgvPhieuNhan)
                     If _location = dgvPhieuNhan.Rows.Count Then
                         dgvPhieuNhan.Rows(_location - 1).Selected = True
                         dgvPhieuNhan.FirstDisplayedScrollingRowIndex = _location - 1
@@ -1416,9 +1416,9 @@ Public Class frmManager
                     MessageBox.Show("Xóa thất bại", "Thông Báo")
                     Return
                 End If
-                
+
             End If
-            End If
+        End If
     End Sub
 
 
@@ -1453,7 +1453,7 @@ Public Class frmManager
             If DialogResult = Windows.Forms.DialogResult.OK Then
                 Dim _Query As String = "spChiTietPhieuNhanDelete"
                 Dim _Name() As String = New String() {"@MaPG", "@MaPN", "@MaSP"}
-                Dim _Value() As String = New String() {txtMaPhieuNhan_ChiTietPhieuNhan.Text, txtMaPhieuNhan_ChiTietPhieuNhan.Text, txtMaSP_CTPhieuNhan.Text}
+                Dim _Value() As String = New String() {txtMaPhieuNhan_ChiTietPhieuNhan.Text, txtMaPhieuNhap_ChiTietPhieuNhan.Text, txtMaSP_CTPhieuNhan.Text}
                 _connect.Update(_Query, _connect.CreateParameter(_Name, _Value))
 
                 Dim _word As String = txtMaPhieuNhap_ChiTietPhieuNhan.Text
@@ -1477,7 +1477,7 @@ Public Class frmManager
                 Next
                 If (kq = True) Then
                     MessageBox.Show("Xóa Thành Công", "Thông Báo")
-                    LoadCTPhieuNhan(dgvChiTietPhieuNhan, txtMaPhieuNhan_PhieuNhan.Text.Trim)
+                    LoadCTPhieuNhan(dgvChiTietPhieuNhan, txtMaPhieuNhan_PhieuNhan.Text)
 
                     If _location = dgvChiTietPhieuNhan.Rows.Count Then
                         dgvChiTietPhieuNhan.Rows(_location - 1).Selected = True
