@@ -311,10 +311,16 @@
 
         Dim _Table As New DataTable
         Dim _Query As String = "spLoaiDonViTinhSelect"
-
+        Dim _Sothuc As String = ""
         _Table = _Connect.Query(_Query)
+
         For Each dt As DataRow In _Table.Rows
-            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString()})
+            If dt(3) = True Then
+                _Sothuc = "Số Thực"
+            Else
+                _Sothuc = "Số Nguyên"
+            End If
+            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString(), dt(2).ToString(), _Sothuc})
         Next
 
         Return _Table
