@@ -362,7 +362,7 @@ Module Chef_Process
                 'If the row at i has the name similar to the row at j 
                 'then increases the quantity at row j equal the quantity of row at i
                 'Deletes the row at i and end loop after that
-                If sourceDataTable.Rows(i)("TenMon") = sourceDataTable(j)("TenMon") Then
+                If sourceDataTable.Rows(i)("MaMon") = sourceDataTable(j)("MaMon") Then
                     'Increases the quantity at row j equal the quantity of row at i
                     sourceDataTable.Rows(j)("SoLuong") = _
                         Integer.Parse(sourceDataTable.Rows(j)("SoLuong")) + Integer.Parse(sourceDataTable.Rows(i)("SoLuong"))
@@ -463,4 +463,25 @@ Module Chef_Process
 
         Return Nothing
     End Function
+
+    ''' <summary>
+    ''' Adds the cancelled dishes from CantServeDataTable into CancelledDataTable.
+    ''' </summary>
+    ''' <param name="cancelledDataTable">DataTable contains cancelled dishes.</param>
+    ''' <param name="cantServeDataTable">DataTable contains cant serve dishes.</param>
+    ''' <remarks></remarks>
+    Public Sub GetCancelledDish(ByRef cancelledDataTable As DataTable, ByVal cantServeDataTable As DataTable)
+        For i As Integer = cantServeDataTable.Rows.Count - 1 To 0 Step -1
+            If True Then
+                Dim dRow As DataRow = cancelledDataTable.NewRow()
+
+                dRow("MaMon") = cantServeDataTable.Rows(i)("MaMon")
+                dRow("SoLuong") = cantServeDataTable.Rows(i)("SoLuong")
+
+                cancelledDataTable.Rows.Add(dRow)
+
+                cantServeDataTable.Rows.RemoveAt(i)
+            End If
+        Next
+    End Sub
 End Module

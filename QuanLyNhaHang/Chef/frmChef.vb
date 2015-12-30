@@ -55,7 +55,7 @@ Public Class frmChef
     ''' DataTable contains all cancelled dishes.
     ''' </summary>
     ''' <remarks></remarks>
-    Dim cancelledDishList As DataTable
+    Dim cancelledDishList As New DataTable()
 
     ''' <summary>
     ''' Element is used to query from Material Table in database.
@@ -125,13 +125,22 @@ Public Class frmChef
         cantServeList = cookList.Clone()
 
         'Clones cancelledDishList from cantServeList
-        cancelledDishList = cantServeList.Clone()
+        cancelledDishList.Columns.Add(New DataColumn("MaMon"))
+        cancelledDishList.Columns.Add(New DataColumn("SoLuong"))
 
         AddHandler lblMaterialQuantity.TextChanged, AddressOf lblMaterialQuantity_TextChanged
     End Sub
     '
     'FormClosing: Occur while the form is closing.
     Private Sub frmChef_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        If MessageBox.Show("Bạn có muốn đóng chương trình không?", "", MessageBoxButtons.OKCancel) = Windows.Forms.DialogResult.Cancel Then
+            e.Cancel = True
+            Exit Sub
+        End If
+
+        GetCancelledDish(cancelledDishList, cantServeList)
+        db.Update("spDanhSachMonAnKhongHoanThanhInsert", db.CreateParameter(New String() {"@DS"}, New Object() {cancelledDishList}))
+
         db.Dispose()
 
         orderList.Dispose()
