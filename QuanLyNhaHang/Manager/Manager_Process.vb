@@ -66,8 +66,8 @@
     ''' </summary>
     ''' <param name="comboBox">ComboBox load dữ liệu thông tin</param>
     ''' <param name="source">Dữ liệu ComboBox</param>
-    ''' <param name="displayMember"></param>
-    ''' <param name="valueMember"></param>
+    ''' <param name="displayMember">giá trị hiển thị</param>
+    ''' <param name="valueMember">giá trị phần tử hiển thị</param>
     ''' <remarks></remarks>
     Public Sub LoadComboBox(ByRef comboBox As ComboBox, ByVal source As Object, ByVal displayMember As String, ByVal valueMember As String)
 
@@ -193,14 +193,23 @@
         Dim _Table As New DataTable
         Dim _Query As String = "spPhieuNhapSelect"
 
-        _Table = _Connect.Query(_Query)
+        'Khai báo tên tình trạng phiếu nhập
+        Dim _TinhTrangPN As String = ""
+
+        
+            _Table = _Connect.Query(_Query)
 
         For Each dt As DataRow In _Table.Rows
-            sourceDataGridView.Rows.Add(New String() {_Stt, dt(0).ToString(), dt(1).ToString, dt(2).ToString, dt(3).ToString, dt(4).ToString, dt(5), dt(6), dt(7).ToString, Double.Parse(dt(8).ToString).ToString("#,### VND")})
+            If dt(7).ToString.Trim = 1 Then
+                _TinhTrangPN = "Đã Khóa"
+            Else
+                _TinhTrangPN = "Đang Mở"
+            End If
+            sourceDataGridView.Rows.Add(New String() {_Stt, dt(0).ToString(), dt(1).ToString, dt(2).ToString, dt(3).ToString, dt(4).ToString, dt(5), dt(6), _TinhTrangPN, dt(8).ToString})
             _Stt = _Stt + 1
         Next
 
-        Return _Table
+            Return _Table
 
     End Function
     Public Sub ReLoadPhieuNhap(ByRef sourceDataGridView As DataGridView, ByVal dataSource As DataTable)
