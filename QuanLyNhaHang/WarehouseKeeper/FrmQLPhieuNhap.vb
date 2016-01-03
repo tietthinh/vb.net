@@ -1,107 +1,129 @@
 ﻿Public Class FrmQLPhieuNhap
+
+    Dim Connection As New Library.DatabaseConnection
     Private Sub btnThemPN_Click(sender As Object, e As EventArgs) Handles btnThemPN.Click
-        erNCC.Clear()
-        If cbNhaCC.Text = "" Then
-            erNCC.SetError(cbNhaCC, "Chọn tên nhà cung cấp!")
+        errPhieuNhap.Clear()
+        If cboNCC.Text = "" Then
+            errPhieuNhap.SetError(cboNCC, "Chọn tên nhà cung cấp!")
         End If
+        'Dim _Name() As String = New String() {"@MaNV", "@MaNCC", "@NgayGiaoDK"}
+        'Dim _Value() As String = New String() {"NV0001", cboNCC.SelectedValue, dtpNgayGiao.Text}
+        'Connection.Update("spPhieuNhapInsert", Connection.CreateParameter(_Name, _Value))
+        'loadDSPhieuNhap()
+
     End Sub
 
     Private Sub btnTimPN_Click(sender As Object, e As EventArgs) Handles btnTimPN.Click
-        erNCC.Clear()
-        If cbNhaCC.Text = "" Then
-            erNCC.SetError(cbNhaCC, "Chọn tên nhà cung cấp!")
+        errPhieuNhap.Clear()
+        If cboNCC.Text = "" Then
+            errPhieuNhap.SetError(cboNCC, "Chọn tên nhà cung cấp!")
         End If
     End Sub
 
     Private Sub btnTimCT_Click(sender As Object, e As EventArgs) Handles btnTimCT.Click
-        erTenSP.Clear()
-        erSoLuong.Clear()
-        erDonVi.Clear()
-        erDonGia.Clear()
-        erTongTien.Clear()
+        errPhieuNhap.Clear()
         If txtTenSP.Text = "" And txtSoLuong.Text = "" And cbDonVi.Text = "" And txtDonGia.Text = "" And
-            txtTongTien.Text = "" Then
-            erTenSP.SetError(txtTenSP, "Nhập tên sản phẩm!")
-            erSoLuong.SetError(txtSoLuong, "Nhập số lượng!")
-            erDonVi.SetError(cbDonVi, "Chọn đơn vị!")
-            erDonGia.SetError(txtDonGia, "Nhập đơn giá!")
-            erTongTien.SetError(txtTongTien, "Nhập tổng tiền!")
+            txtThanhTien.Text = "" Then
+            errPhieuNhap.SetError(txtTenSP, "Nhập tên sản phẩm!")
+            errPhieuNhap.SetError(txtSoLuong, "Nhập số lượng!")
+            errPhieuNhap.SetError(cbDonVi, "Chọn đơn vị!")
+            errPhieuNhap.SetError(txtDonGia, "Nhập đơn giá!")
+            errPhieuNhap.SetError(txtThanhTien, "Nhập tổng tiền!")
         End If
 
         If txtSoLuong.Text = "" Then
         Else
             If IsNumeric(txtSoLuong.Text) = False Then
-                erSoLuong.SetError(txtSoLuong, "Chỉ được nhập số!")
+                errPhieuNhap.SetError(txtSoLuong, "Chỉ được nhập số!")
             End If
         End If
         If txtDonGia.Text = "" Then
         Else
             If IsNumeric(txtDonGia.Text) = False Then
-                erDonGia.SetError(txtDonGia, "Chỉ được nhập số!")
+                errPhieuNhap.SetError(txtDonGia, "Chỉ được nhập số!")
             End If
         End If
-        If txtTongTien.Text = "" Then
+        If txtThanhTien.Text = "" Then
         Else
-            If IsNumeric(txtTongTien.Text) = False Then
-                erTongTien.SetError(txtTongTien, "Chỉ được nhập số!")
+            If IsNumeric(txtThanhTien.Text) = False Then
+                errPhieuNhap.SetError(txtThanhTien, "Chỉ được nhập số!")
             End If
         End If
 
     End Sub
 
     Private Sub btnThemCT_Click(sender As Object, e As EventArgs) Handles btnThemCT.Click
-        erTenSP.Clear()
-        erSoLuong.Clear()
-        erDonVi.Clear()
-        erDonGia.Clear()
-        erTongTien.Clear()
+        errPhieuNhap.Clear()
         If txtTenSP.Text = "" Then
-            erTenSP.SetError(txtTenSP, "Chọn tên sản phẩm!")
+            errPhieuNhap.SetError(txtTenSP, "Chọn tên sản phẩm!")
         End If
         If txtSoLuong.Text = "" Then
-            erSoLuong.SetError(txtSoLuong, "Nhập số lượng!")
+            errPhieuNhap.SetError(txtSoLuong, "Nhập số lượng!")
         Else
             If IsNumeric(txtSoLuong.Text) = False Then
-                erSoLuong.SetError(txtSoLuong, "Chỉ được nhập số!")
+                errPhieuNhap.SetError(txtSoLuong, "Chỉ được nhập số!")
             End If
         End If
         If cbDonVi.Text = "" Then
-            erDonVi.SetError(cbDonVi, "Chọn đơn vị!")
+            errPhieuNhap.SetError(cbDonVi, "Chọn đơn vị!")
         End If
         If txtDonGia.Text = "" Then
-            erDonGia.SetError(txtDonGia, "Nhập đơn giá!")
+            errPhieuNhap.SetError(txtDonGia, "Nhập đơn giá!")
         Else
             If IsNumeric(txtDonGia.Text) = False Then
-                erDonGia.SetError(txtDonGia, "Chỉ được nhập số!")
+                errPhieuNhap.SetError(txtDonGia, "Chỉ được nhập số!")
             End If
         End If
-        If txtTongTien.Text = "" Then
-            erTongTien.SetError(txtTongTien, "Nhập tổng tiền!")
+        If txtThanhTien.Text = "" Then
+            errPhieuNhap.SetError(txtThanhTien, "Nhập tổng tiền!")
         Else
-            If IsNumeric(txtTongTien.Text) = False Then
-                erTongTien.SetError(txtTongTien, "Chỉ được nhập số!")
+            If IsNumeric(txtThanhTien.Text) = False Then
+                errPhieuNhap.SetError(txtThanhTien, "Chỉ được nhập số!")
             End If
         End If
+
+        If errPhieuNhap.GetError(txtTenSP) = "" And errPhieuNhap.GetError(txtSoLuong) = "" And errPhieuNhap.GetError(cbDonVi) = "" And
+           errPhieuNhap.GetError(txtDonGia) = "" And errPhieuNhap.GetError(txtThanhTien) = "" Then
+            'Dim _Name() As String = New String() {"@MaPN", "@MaSP", "@SoLuong", "@MaDV", "@DonGia", "@ThanhTien"}
+            'Dim _Value() As String = New String() {dgvDSPhieuNhap.SelectedRows(0).Cells("colMaPN").Value(), lstTimKiem.Columns("MaSPTimKiem").Text}
+            'Connection.Update("spChiTietPhieuNhapInsert", Connection.CreateParameter(_Name, _Value))
+            'loadDSPhieuNhap()
+        End If
+
     End Sub
 
     Private Sub btnTimLB_Click(sender As Object, e As EventArgs) Handles btnTimLB.Click
         If txtTimLB.Text = "" Then
-            erTimKiem.SetError(txtTimLB, "Nhập sản phẩm cần tìm!")
+            errPhieuNhap.SetError(txtTimLB, "Nhập sản phẩm cần tìm!")
         End If
     End Sub
 
     Private Sub FrmQLPhieuNhap_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim Connection As New Library.DatabaseConnection
-        Dim Table As New DataTable
-        Table = Connection.Query("Select PN.MaPN, NV.HoTen, NCC.TenNCC, PN.NgayLap, PN.NgayGiaoDK, PN.TinhTrang From PhieuNhap PN, NhaCungCap NCC, NhanVien NV Where PN.MaNV = NV.MaNV and PN.MaNCC=NCC.MaNCC")
-        dgvDSPhieuNhap.DataSource = Table
 
-        Dim Table1 As New DataTable
-        Table1 = Connection.Query("Select SP.MaSP, SP.TenSP, CT.SoLuong, DV.TenDV, CT.DonGia, CT.TongTien From ChiTietPhieuNhap CT, SanPham SP, LoaiDonViTinh DV Where CT.MaSP = SP.MaSP and SP.MaDV = DV.MaDV")
-        dgvDSChiTietPhieuNhap.DataSource = Table1
-        dgvDSChiTietPhieuNhap.Columns("TongTien").DefaultCellStyle.Format = "#,###"
-        dgvDSChiTietPhieuNhap.Columns("DonGia").DefaultCellStyle.Format = "#,###"
+        loadDSPhieuNhap()
+        loadCTPhieuNhap()
+        loadDSSanPham()
 
+        cboNCC.DataSource = Connection.Query("Select TenNCC From NhaCungCap")
+        cboNCC.DisplayMember = "TenNCC"
+        cboNCC.ValueMember = "MaNCC"
+
+    End Sub
+
+    Private Sub loadDSPhieuNhap()
+        Dim _dtDSPhieuNhap As DataTable = Connection.Query("spPhieuNhapSelect")
+        dgvDSPhieuNhap.DataSource = _dtDSPhieuNhap
+    End Sub
+
+    Private Sub loadCTPhieuNhap()
+        Dim _Name() As String = New String() {"@MaPN"}
+        Dim _Value() As Object = New Object() {dgvDSPhieuNhap.SelectedRows(0).Cells("colMaPN").Value().ToString}
+        dgvDSChiTietPhieuNhap.DataSource = Connection.Query("spChiTietPhieuNhapSelect", Connection.CreateParameter(_Name, _Value))
+        dgvDSChiTietPhieuNhap.Columns("colThanhTien").DefaultCellStyle.Format = "#,###"
+        dgvDSChiTietPhieuNhap.Columns("colDonGia").DefaultCellStyle.Format = "#,###"
+    End Sub
+
+    Private Sub loadDSSanPham()
         Dim dt As New DataTable
         dt = Connection.Query("Select MaSP, TenSP, SoLuongTon From SanPham")
         For Each row As DataRow In dt.Rows
@@ -111,5 +133,14 @@
                 lst.SubItems.Add(row(i))
             Next
         Next
+    End Sub
+
+    Private Sub dgvDSPhieuNhap_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDSPhieuNhap.CellClick
+        If IsNothing(dgvDSPhieuNhap.SelectedRows(0).Cells("colMaPN").Value().ToString()) = False Then
+            loadCTPhieuNhap()
+            cboNCC.Text = dgvDSPhieuNhap.SelectedRows(0).Cells("colTenNCC").Value.ToString()
+            dtpNgayLap.Text = dgvDSPhieuNhap.SelectedRows(0).Cells("colNgayLap").Value.ToString()
+            dtpNgayGiao.Text = dgvDSPhieuNhap.SelectedRows(0).Cells("colNgayGiaoDK").Value.ToString()
+        End If
     End Sub
 End Class

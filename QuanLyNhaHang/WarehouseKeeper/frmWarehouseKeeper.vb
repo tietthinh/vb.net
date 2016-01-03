@@ -8,9 +8,11 @@ Public Class frmWarehouseKeeper
     ''' </summary>
     ''' <remarks></remarks>
     Dim frmEmail As New frmContact()
+    Dim frmDienThoai As New frmContact()
 
     Private Connection As New DatabaseConnection()
     Dim rowIndex As New Integer
+    Dim login As New frmLogin
 
     Private Sub btnPhieuNhan_Click(sender As Object, e As EventArgs) Handles btnPhieuNhan.Click
         Dim f = New FrmQLPhieuNhan()
@@ -23,42 +25,37 @@ Public Class frmWarehouseKeeper
     End Sub
 
     Private Sub btnThemSP_Click(sender As Object, e As EventArgs) Handles btnThemSP.Click
-        erTenSP.Clear()
-        erSoLuong.Clear()
-        erDonVi.Clear()
+        errMain.Clear()
         If txtTenSanPham.Text = "" Then
-            erTenSP.SetError(txtTenSanPham, "Tên sản phẩm khác rỗng!")
+            errMain.SetError(txtTenSanPham, "Tên sản phẩm khác rỗng!")
         End If
         If txtSoLuong.Text = "" Then
-            erSoLuong.SetError(txtSoLuong, "Nhập số lượng!")
+            errMain.SetError(txtSoLuong, "Nhập số lượng!")
         Else
             If IsNumeric(txtSoLuong.Text) = False Then
-                erSoLuong.SetError(txtSoLuong, "Chỉ được nhập số!")
+                errMain.SetError(txtSoLuong, "Chỉ được nhập số!")
             End If
         End If
         If cboDonVi.Text = "" Then
-            erDonVi.SetError(cboDonVi, "Chọn đơn vị!")
+            errMain.SetError(cboDonVi, "Chọn đơn vị!")
         End If
 
-        If erTenSP.GetError(txtTenSanPham) = "" And erSoLuong.GetError(txtSoLuong) = "" And erDonVi.GetError(cboDonVi) = "" Then
+        If errMain.GetError(txtTenSanPham) = "" And errMain.GetError(txtSoLuong) = "" And errMain.GetError(cboDonVi) = "" Then
             Dim _Query As String = "spSanPhamInsert"
             Dim _Name() As String = {("@TenSP"), ("@SoLuongTon"), ("@DonViTinh")}
             Dim _Value() As Object = {txtTenSanPham.Text, txtSoLuong.Text, cboDonVi.SelectedValue}
-            Connection.Query(_Query, Connection.CreateParameter(_Name, _Value))
+            Connection.Update(_Query, Connection.CreateParameter(_Name, _Value))
 
             loadDSSanPham()
         End If
     End Sub
 
     Private Sub btnTimSP_Click(sender As Object, e As EventArgs) Handles btnTimSP.Click
-        erTenSP.Clear()
-        erSoLuong.Clear()
-        erDonVi.Clear()
-        erTimSP.Clear()
+        errMain.Clear()
         If txtTimSP.Text = "" Then
-            erTimSP.SetError(txtTimSP, "Nhập thông tin sản phẩm cần tìm!")
+            errMain.SetError(txtTimSP, "Nhập thông tin sản phẩm cần tìm!")
         End If
-        If erTimSP.GetError(txtTimSP) = "" Then
+        If errMain.GetError(txtTimSP) = "" Then
             Dim _colName As String = ""
             If IsNumeric(txtTimSP.Text) = True Then
                 _colName = "SoLuongTon"
@@ -76,62 +73,83 @@ Public Class frmWarehouseKeeper
     End Sub
 
     Private Sub btnThemNCC_Click(sender As Object, e As EventArgs) Handles btnThemNCC.Click
-        erNCC.Clear()
-        erChietKhau.Clear()
-        erDiaChi.Clear()
-        erEmail.Clear()
-        erDienThoai.Clear()
+        errMain.Clear()
         If txtTenNCC.Text = "" Then
-            erNCC.SetError(txtTenNCC, "Tên nhà cung cấp khác rỗng!")
+            errMain.SetError(txtTenNCC, "Tên nhà cung cấp khác rỗng!")
         End If
         If txtChietKhau.Text = "" Then
-            erChietKhau.SetError(txtChietKhau, "Chọn chiết khấu!")
-        End If
-        If txtDiaChi.Text = "" Then
-            erDiaChi.SetError(txtDiaChi, "Nhập địa chỉ!")
-        End If
-        If txtEmail.Text = "" Then
-            erEmail.SetError(txtEmail, "Nhập email!")
-        End If
-        If txtDienThoai.Text = "" Then
-            erDienThoai.SetError(txtDienThoai, "Nhập điện thoại!")
+            errMain.SetError(txtChietKhau, "Chọn chiết khấu!")
         Else
-            If IsNumeric(txtDienThoai.Text) = False Then
-                erDienThoai.SetError(txtDienThoai, "Điện thoại phải là số!")
+            If txtChietKhau.Text > 10 Then
+                errMain.SetError(txtChietKhau, "Chiết khấu bé hơn hoặc bằng 10!")
             End If
         End If
-        If erNCC.GetError(txtTenNCC) = "" And erChietKhau.GetError(txtChietKhau) = "" And erDiaChi.GetError(txtDiaChi) Then
+        If txtDiaChi.Text = "" Then
+            errMain.SetError(txtDiaChi, "Nhập địa chỉ!")
+        End If
 
+        If errMain.GetError(txtTenNCC) = "" And errMain.GetError(txtChietKhau) = "" And errMain.GetError(txtDiaChi) = "" Then
+            Dim _Name() As String = New String() {"@TenNCC", "@DiaChi", "@ChietKhau", "@GhiChu"}
+            Dim _Value() As Object = New Object() {txtTenNCC.Text, txtDiaChi.Text, txtChietKhau.Text, txtGhiChu.Text}
+            Connection.Update("spNhaCungCapInsert", Connection.CreateParameter(_Name, _Value))
+            loadDSNCC()
+        End If
+    End Sub
+
+    Private Sub btnXoaNCC_Click(sender As Object, e As EventArgs) Handles btnXoaNCC.Click
+        If (MessageBox.Show("Bạn chắc rằng muốn xóa thông tin nhà cung cấp này?", "Thông báo", MessageBoxButtons.OKCancel) = DialogResult.OK) Then
+            Dim _Name() As String = {"@MaNCC"}
+            Dim _Value() As Object = {dgvDSNhaCungCap.SelectedRows(0).Cells(0).Value.ToString.Trim}
+            Try
+                Connection.Update("spNhaCungCapDelete", Connection.CreateParameter(_Name, _Value))
+            Catch ex As Exception
+                MessageBox.Show(ex.Message)
+            End Try
+
+            loadDSNCC()
+        End If
+    End Sub
+
+    Private Sub btnSuaNCC_Click(sender As Object, e As EventArgs) Handles btnSuaNCC.Click
+        errMain.Clear()
+        If txtTenNCC.Text = "" Then
+            errMain.SetError(txtTenNCC, "Tên nhà cung cấp khác rỗng!")
+        End If
+        If txtChietKhau.Text = "" Then
+            errMain.SetError(txtChietKhau, "Chọn chiết khấu!")
+        Else
+            If txtChietKhau.Text > 10 Then
+                errMain.SetError(txtChietKhau, "Chiết khấu bé hơn hoặc bằng 10!")
+            End If
+        End If
+        If txtDiaChi.Text = "" Then
+            errMain.SetError(txtDiaChi, "Nhập địa chỉ!")
+        End If
+
+        If errMain.GetError(txtTenNCC) = "" And errMain.GetError(txtChietKhau) = "" And errMain.GetError(txtDiaChi) = "" Then
+            Dim _Name() As String = New String() {"@MaNCC", "@TenNCC", "@DiaChi", "@ChietKhau", "@GhiChu"}
+            Dim _Value() As Object = New Object() {dgvDSNhaCungCap.SelectedRows(0).Cells("colMaNCC").Value(), txtTenNCC.Text, txtDiaChi.Text, txtChietKhau.Text, txtGhiChu.Text}
+            Connection.Update("spNhaCungCapUpdate", Connection.CreateParameter(_Name, _Value))
+            loadDSNCC()
         End If
     End Sub
 
     Private Sub btnTimNCC_Click(sender As Object, e As EventArgs) Handles btnTimNCC.Click
-        erNCC.Clear()
-        erChietKhau.Clear()
-        erDiaChi.Clear()
-        erEmail.Clear()
-        erDienThoai.Clear()
-        If txtTenNCC.Text = "" And txtChietKhau.Text = "" And txtDiaChi.Text = "" And txtEmail.Text = "" And txtDienThoai.Text = "" Then
-            erNCC.SetError(txtTenNCC, "Nhập tên nhà cung cấp!")
-            erChietKhau.SetError(txtChietKhau, "Chọn chiết khấu!")
-            erDiaChi.SetError(txtDiaChi, "Nhập địa chỉ!")
-            erEmail.SetError(txtEmail, "Nhập email!")
-            erDienThoai.SetError(txtDienThoai, "Nhập điện thoại!")
-        End If
-        If txtDienThoai.Text = "" Then
-        Else
-            If IsNumeric(txtDienThoai.Text) = False Then
-                erDienThoai.SetError(txtDienThoai, "Điện thoại phải là số!")
-            End If
-        End If
+
     End Sub
 
     Private Sub frmWarehouseKeeper_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        login.Show()
 
         loadDSSanPham()
 
         loadDSNCC()
 
+        Dim _dtDonVi As DataTable = Connection.Query("spLoaiDonViTinhSelect")
+        cboDonVi.DataSource = _dtDonVi
+        cboDonVi.DisplayMember = "TenDV"
+        cboDonVi.ValueMember = "MaDV"
 
     End Sub
     '
@@ -144,6 +162,13 @@ Public Class frmWarehouseKeeper
         If txtTenNCC.Text <> "" Then
             frmEmail._SupplierName = txtTenNCC.Text
             frmEmail.Show()
+        End If
+    End Sub
+
+    Private Sub btnCong2_Click(sender As Object, e As EventArgs) Handles btnCong2.Click
+        If txtTenNCC.Text <> "" Then
+            frmDienThoai._SupplierName = txtTenNCC.Text
+            frmDienThoai.Show()
         End If
     End Sub
 
@@ -167,14 +192,14 @@ Public Class frmWarehouseKeeper
 
             Dim cellMail As DataGridViewComboBoxCell = New DataGridViewComboBoxCell()
 
-            BindDataGridViewComboBox(cellMail, _Email, "Email", "MaNCC")
+            BindDataGridViewComboBox(cellMail, _Email, "Email", "MaNCC", row.Cells("colMaNCC").Value, "Không có")
             row.Cells("colEmail") = cellMail
 
             _Phone = Connection.Query("spNhaCungCap_DienThoaiSelect", Connection.CreateParameter(_Name, _Value))
 
             Dim cellPhone As DataGridViewComboBoxCell = New DataGridViewComboBoxCell()
 
-            BindDataGridViewComboBox(cellPhone, _Phone, "SDT", "MaNCC")
+            BindDataGridViewComboBox(cellPhone, _Phone, "SDT", "MaNCC", row.Cells("colMaNCC").Value, "Không có")
             row.Cells("colSDT") = cellPhone
 
             cellMail.Dispose()
@@ -185,24 +210,22 @@ Public Class frmWarehouseKeeper
     End Sub
 
     Private Sub btnSuaSP_Click(sender As Object, e As EventArgs) Handles btnSuaSP.Click
-        erTenSP.Clear()
-        erSoLuong.Clear()
-        erDonVi.Clear()
+        errMain.Clear()
         If txtTenSanPham.Text = "" Then
-            erTenSP.SetError(txtTenSanPham, "Tên sản phẩm khác rỗng!")
+            errMain.SetError(txtTenSanPham, "Tên sản phẩm khác rỗng!")
         End If
         If txtSoLuong.Text = "" Then
-            erSoLuong.SetError(txtSoLuong, "Nhập số lượng!")
+            errMain.SetError(txtSoLuong, "Nhập số lượng!")
         Else
             If IsNumeric(txtSoLuong.Text) = False Then
-                erSoLuong.SetError(txtSoLuong, "Chỉ được nhập số!")
+                errMain.SetError(txtSoLuong, "Chỉ được nhập số!")
             End If
         End If
         If cboDonVi.Text = "" Then
-            erDonVi.SetError(cboDonVi, "Chọn đơn vị!")
+            errMain.SetError(cboDonVi, "Chọn đơn vị!")
         End If
 
-        If erTenSP.GetError(txtTenSanPham) = "" And erSoLuong.GetError(txtSoLuong) = "" And erDonVi.GetError(cboDonVi) = "" Then
+        If errMain.GetError(txtTenSanPham) = "" And errMain.GetError(txtSoLuong) = "" And errMain.GetError(cboDonVi) = "" Then
             Dim _Query As String = "spSanPhamUpdate"
             Dim _Name() As String = {("@MaSP"), ("@TenSP"), ("@SoLuong"), ("@MaDV")}
             Dim _Value() As Object = {dgvDSSanPham.Rows(rowIndex).Cells(0).Value(), txtTenSanPham.Text, txtSoLuong.Text, cboDonVi.SelectedValue}
@@ -247,12 +270,53 @@ Public Class frmWarehouseKeeper
         End If
     End Function
 
-    Private Sub btnXoaNCC_Click(sender As Object, e As EventArgs) Handles btnXoaNCC.Click
-        Dim _Query As String = "spNhaCungCap_EmailSelect"
-        Dim _Name() As String = {"@MaNCC"}
-        Dim _Value() As Object = {dgvDSNhaCungCap.Rows(0).Cells(0).Value().ToString()}
-        colEmail.DataSource = Connection.Query(_Query, Connection.CreateParameter(_Name, _Value))
-        colEmail.DisplayMember = "Email"
-        colEmail.ValueMember = "MaNCC"
+    Private Function timKiemNCC(ByVal _colName As String) As Integer
+        Dim _dt As DataTable = Connection.Query("spSanPhamSelect")
+        Dim _dv As DataView = New DataView(_dt, _colName + "=" + "'" + txtTimSP.Text + "'", "SoLuongTon Desc", DataViewRowState.CurrentRows)
+        dgvDSSanPham.DataSource = _dv
+        If dgvDSSanPham.Rows(rowIndex).Cells(0).Value() = "" Then
+            Return 0
+        Else
+            Return 1
+        End If
+    End Function
+
+    Private Sub txtTimSP_TextChanged(sender As Object, e As EventArgs) Handles txtTimSP.TextChanged
+        loadDSSanPham()
     End Sub
+
+    Private Sub dgvDSNhaCungCap_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDSNhaCungCap.CellClick
+        rowIndex = e.RowIndex
+        If IsNothing(dgvDSNhaCungCap.SelectedRows(0).Cells("colMaNCC").Value()) = False Then
+            txtTenNCC.Text = dgvDSNhaCungCap.SelectedRows(0).Cells("colTenNCC").Value().ToString
+            txtChietKhau.Text = dgvDSNhaCungCap.SelectedRows(0).Cells("colChietKhau").Value().ToString
+            txtDiaChi.Text = dgvDSNhaCungCap.SelectedRows(0).Cells("colDiaChi").Value().ToString
+            txtGhiChu.Text = dgvDSNhaCungCap.SelectedRows(0).Cells("colGhiChu").Value().ToString
+
+            Dim cmbEmail As DataGridViewComboBoxCell = dgvDSNhaCungCap.Rows(e.RowIndex).Cells("colEmail")
+            cboEmail.DataSource = cmbEmail.DataSource
+            cboEmail.DisplayMember = "Email"
+            cboEmail.ValueMember = "MaNCC"
+
+            Dim cmbSDT As DataGridViewComboBoxCell = dgvDSNhaCungCap.Rows(e.RowIndex).Cells("colSDT")
+            cboDienThoai.DataSource = cmbSDT.DataSource
+            cboDienThoai.ValueMember = "MaNCC"
+            cboDienThoai.DisplayMember = "SDT"
+        Else
+            txtTenNCC.Text = ""
+            txtChietKhau.Text = ""
+            txtDiaChi.Text = ""
+            txtGhiChu.Text = ""
+
+            cboEmail.DataSource = Nothing
+            cboEmail.DisplayMember = Nothing
+            cboEmail.ValueMember = Nothing
+
+            cboDienThoai.DataSource = Nothing
+            cboDienThoai.ValueMember = Nothing
+            cboDienThoai.DisplayMember = Nothing
+        End If
+    End Sub
+
+
 End Class
