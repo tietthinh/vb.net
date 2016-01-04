@@ -2040,9 +2040,10 @@ Public Class frmManager
         ThongKeThangMonHT(dgvMonHT, nbrThang_TKThan_MonHT.Value.ToString)
         gpbThongKeHT.Text = "Thông Tin Thống Kê Theo Tháng"
     End Sub
-    'Thống Kê Theo Thứ Món Hoàn Thành
-    Private Sub btnThongKeThu_ThongKe_Click(sender As Object, e As EventArgs)
-
+    'Thống Kê Theo Ngày Món Hoàn Thành
+    Private Sub bntThongKeNgay_MonHT_Click(sender As Object, e As EventArgs) Handles bntThongKeNgay_MonHT.Click
+        ThongKeNgayMonHT(dgvMonHT, dtpNgay_MonHT.Value)
+        gpbThongKeHT.Text = "Thông Tin Thống Kê Theo Ngày"
     End Sub
 
 
@@ -2066,8 +2067,9 @@ Public Class frmManager
         gpbThongKeHT.Text = "Thông Tin Thống Kê Theo Tháng"
     End Sub
     'Thống Kê Theo Thứ Món Không Hoàn Thành
-    Private Sub bntThongKeThu_MonKHT_Click(sender As Object, e As EventArgs) Handles bntThongKeThu_MonKHT.Click
-
+    Private Sub bntThongKeNgay_MonKHT_Click(sender As Object, e As EventArgs) Handles bntThongKeNgay_MonKHT.Click
+        ThongKeNgayMonKHT(dgvMonKHT, dtpNgay_MonKHT.Value)
+        gpbThongKeHT.Text = "Thông Tin Thống Kê Theo Ngày"
     End Sub
 
     '------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2104,6 +2106,7 @@ Public Class frmManager
     Private Sub frmManager_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         _connect.Dispose()
     End Sub
+
 
 
 End Class
