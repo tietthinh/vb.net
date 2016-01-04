@@ -24,13 +24,19 @@ Public Class frmLogin
     ''' <remarks></remarks>
     Private _IsIDNull As Boolean
 
-    Private _ReturnUser As User
+    Private _FormID As Integer
 
     ''' <summary>
     ''' Create a connected object for this form.
     ''' </summary>
     ''' <remarks></remarks>
     Private db As New DatabaseConnection()
+
+    Public Sub New(ByVal formID As Integer)
+        Me.InitializeComponent()
+
+        _FormID = formID
+    End Sub
 
     'Events:
     '
@@ -141,15 +147,17 @@ Public Class frmLogin
     '
     'Click: Occur when the btnLogin is clicked
     Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
-        If db.CheckInvalidAccount(txtID.Text, txtPW.Text, DatabaseConnection._User) Then
-            MessageBox.Show("Đăng nhập thành công", "", MessageBoxButtons.OK)
+        Dim notice As String = ""
+
+        If db.CheckInvalidAccount(txtID.Text, txtPW.Text, _FormID, DatabaseConnection._User, notice) Then
+            MessageBox.Show(notice, "", MessageBoxButtons.OK)
 
             db.Dispose()
 
             Me.DialogResult = Windows.Forms.DialogResult.OK
             Me.Close()
         Else
-            MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu", "", MessageBoxButtons.OK)
+            MessageBox.Show(notice, "", MessageBoxButtons.OK)
         End If
     End Sub
     '
