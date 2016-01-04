@@ -11,6 +11,8 @@ Imports System.Text
 Imports Library
 Imports System.Globalization
 Imports System.Exception
+Imports Microsoft.Reporting.WinForms
+
 
 Public Class frmManager
     'Khai báo các DataTable
@@ -27,6 +29,17 @@ Public Class frmManager
     Dim _TableLoaiDV As DataTable = Nothing
     Dim _TableMonHT As DataTable = Nothing
     Dim _TableMonKHT As DataTable = Nothing
+    Dim _TableThongKeNam_MonHT As DataTable = Nothing
+    Dim _TableThongKeQuy_MonHT As DataTable = Nothing
+    Dim _TableThongKeThang_MonHT As DataTable = Nothing
+    Dim _TableThongKeNgay_MonHT As DataTable = Nothing
+    Dim _TableThongKeNam_MonKHT As DataTable = Nothing
+    Dim _TableThongKeQuy_MonKHT As DataTable = Nothing
+    Dim _TableThongKeThang_MonKHT As DataTable = Nothing
+    Dim _TableThongKeNgay_MonKHT As DataTable = Nothing
+
+    Dim _Report As Report
+
 
     'Khai bóa vị trí cell
     Dim _location As Integer
@@ -2072,6 +2085,14 @@ Public Class frmManager
         gpbThongKeHT.Text = "Thông Tin Thống Kê Theo Ngày"
     End Sub
 
+    'Báo Cáo Món Không Hoàn Thành
+    Private Sub btnBaoCao_MonKHT_Click(sender As Object, e As EventArgs) Handles btnBaoCao_MonKHT.Click
+        _Report.Refresh()
+
+
+    End Sub
+ 
+
     '------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     'Tìm Kiếm
@@ -2106,7 +2127,5 @@ Public Class frmManager
     Private Sub frmManager_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         _connect.Dispose()
     End Sub
-
-
 
 End Class
