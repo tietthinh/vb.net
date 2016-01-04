@@ -28,12 +28,6 @@ Partial Class FrmQLPhieuNhan
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.dgvDanhSachPG = New System.Windows.Forms.DataGridView()
-        Me.colMaPG = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colMaPN = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colHoTen = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colTongTien = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colNgayLap = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colGhiChu = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.txtGhiChu = New System.Windows.Forms.TextBox()
@@ -73,6 +67,13 @@ Partial Class FrmQLPhieuNhan
         Me.txtTimPG = New System.Windows.Forms.TextBox()
         Me.txtTimCT = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
+        Me.colMaPG = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMaPN = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMaNV = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colHoTen = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colTongTien = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colNgayLap = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colGhiChu = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dgvDanhSachPG, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvChiTietPG, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.errPhieuNhan, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -91,7 +92,7 @@ Partial Class FrmQLPhieuNhan
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvDanhSachPG.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvDanhSachPG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvDanhSachPG.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colMaPG, Me.colMaPN, Me.colHoTen, Me.colTongTien, Me.colNgayLap, Me.colGhiChu})
+        Me.dgvDanhSachPG.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colMaPG, Me.colMaPN, Me.colMaNV, Me.colHoTen, Me.colTongTien, Me.colNgayLap, Me.colGhiChu})
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -107,54 +108,6 @@ Partial Class FrmQLPhieuNhan
         Me.dgvDanhSachPG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvDanhSachPG.Size = New System.Drawing.Size(560, 302)
         Me.dgvDanhSachPG.TabIndex = 7
-        '
-        'colMaPG
-        '
-        Me.colMaPG.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colMaPG.DataPropertyName = "MaPG"
-        Me.colMaPG.HeaderText = "Mã phiếu nhận"
-        Me.colMaPG.Name = "colMaPG"
-        Me.colMaPG.ReadOnly = True
-        '
-        'colMaPN
-        '
-        Me.colMaPN.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colMaPN.DataPropertyName = "MaPN"
-        Me.colMaPN.HeaderText = "Mã phiếu nhập"
-        Me.colMaPN.Name = "colMaPN"
-        Me.colMaPN.ReadOnly = True
-        '
-        'colHoTen
-        '
-        Me.colHoTen.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colHoTen.DataPropertyName = "HoTen"
-        Me.colHoTen.HeaderText = "Tên nhân viên"
-        Me.colHoTen.Name = "colHoTen"
-        Me.colHoTen.ReadOnly = True
-        '
-        'colTongTien
-        '
-        Me.colTongTien.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colTongTien.DataPropertyName = "TongTien"
-        Me.colTongTien.HeaderText = "Tổng tiền"
-        Me.colTongTien.Name = "colTongTien"
-        Me.colTongTien.ReadOnly = True
-        '
-        'colNgayLap
-        '
-        Me.colNgayLap.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colNgayLap.DataPropertyName = "NgayLap"
-        Me.colNgayLap.HeaderText = "Ngày lập"
-        Me.colNgayLap.Name = "colNgayLap"
-        Me.colNgayLap.ReadOnly = True
-        '
-        'colGhiChu
-        '
-        Me.colGhiChu.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colGhiChu.DataPropertyName = "GhiChu"
-        Me.colGhiChu.HeaderText = "Ghi chú"
-        Me.colGhiChu.Name = "colGhiChu"
-        Me.colGhiChu.ReadOnly = True
         '
         'Label1
         '
@@ -542,6 +495,60 @@ Partial Class FrmQLPhieuNhan
         Me.Label8.TabIndex = 111
         Me.Label8.Text = "Tìm kiếm"
         '
+        'colMaPG
+        '
+        Me.colMaPG.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colMaPG.DataPropertyName = "MaPG"
+        Me.colMaPG.HeaderText = "Mã phiếu nhận"
+        Me.colMaPG.Name = "colMaPG"
+        Me.colMaPG.ReadOnly = True
+        '
+        'colMaPN
+        '
+        Me.colMaPN.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colMaPN.DataPropertyName = "MaPN"
+        Me.colMaPN.HeaderText = "Mã phiếu nhập"
+        Me.colMaPN.Name = "colMaPN"
+        Me.colMaPN.ReadOnly = True
+        '
+        'colMaNV
+        '
+        Me.colMaNV.DataPropertyName = "MaNV"
+        Me.colMaNV.HeaderText = "Mã nhân viên"
+        Me.colMaNV.Name = "colMaNV"
+        '
+        'colHoTen
+        '
+        Me.colHoTen.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colHoTen.DataPropertyName = "HoTen"
+        Me.colHoTen.HeaderText = "Tên nhân viên"
+        Me.colHoTen.Name = "colHoTen"
+        Me.colHoTen.ReadOnly = True
+        '
+        'colTongTien
+        '
+        Me.colTongTien.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colTongTien.DataPropertyName = "TongTien"
+        Me.colTongTien.HeaderText = "Tổng tiền"
+        Me.colTongTien.Name = "colTongTien"
+        Me.colTongTien.ReadOnly = True
+        '
+        'colNgayLap
+        '
+        Me.colNgayLap.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colNgayLap.DataPropertyName = "NgayLap"
+        Me.colNgayLap.HeaderText = "Ngày lập"
+        Me.colNgayLap.Name = "colNgayLap"
+        Me.colNgayLap.ReadOnly = True
+        '
+        'colGhiChu
+        '
+        Me.colGhiChu.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colGhiChu.DataPropertyName = "GhiChu"
+        Me.colGhiChu.HeaderText = "Ghi chú"
+        Me.colGhiChu.Name = "colGhiChu"
+        Me.colGhiChu.ReadOnly = True
+        '
         'FrmQLPhieuNhan
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -617,12 +624,6 @@ Partial Class FrmQLPhieuNhan
     Friend WithEvents Label7 As Label
     Friend WithEvents cboMaPN As ComboBox
     Friend WithEvents errPhieuNhan As ErrorProvider
-    Friend WithEvents colMaPG As DataGridViewTextBoxColumn
-    Friend WithEvents colMaPN As DataGridViewTextBoxColumn
-    Friend WithEvents colHoTen As DataGridViewTextBoxColumn
-    Friend WithEvents colTongTien As DataGridViewTextBoxColumn
-    Friend WithEvents colNgayLap As DataGridViewTextBoxColumn
-    Friend WithEvents colGhiChu As DataGridViewTextBoxColumn
     Friend WithEvents colMaPG_CT As DataGridViewTextBoxColumn
     Friend WithEvents colMaPN_CT As DataGridViewTextBoxColumn
     Friend WithEvents colMaSP As DataGridViewTextBoxColumn
@@ -637,4 +638,11 @@ Partial Class FrmQLPhieuNhan
     Friend WithEvents Label8 As Label
     Friend WithEvents txtTimPG As TextBox
     Friend WithEvents Label3 As Label
+    Friend WithEvents colMaPG As DataGridViewTextBoxColumn
+    Friend WithEvents colMaPN As DataGridViewTextBoxColumn
+    Friend WithEvents colMaNV As DataGridViewTextBoxColumn
+    Friend WithEvents colHoTen As DataGridViewTextBoxColumn
+    Friend WithEvents colTongTien As DataGridViewTextBoxColumn
+    Friend WithEvents colNgayLap As DataGridViewTextBoxColumn
+    Friend WithEvents colGhiChu As DataGridViewTextBoxColumn
 End Class

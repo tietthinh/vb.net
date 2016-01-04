@@ -71,6 +71,9 @@
         cboMaPN.DataSource = Connection.Query("Select MaPN From PhieuNhap Where TinhTrang = 0")
         cboMaPN.DisplayMember = "MaPN"
         cboMaPN.ValueMember = "MaPN"
+
+
+
     End Sub
 
     Private Sub loadDSPhieuNhan()

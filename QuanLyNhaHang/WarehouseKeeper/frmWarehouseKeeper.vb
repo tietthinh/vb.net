@@ -234,20 +234,15 @@ Public Class frmWarehouseKeeper
         If errMain.GetError(txtTenSanPham) = "" And errMain.GetError(txtSoLuong) = "" And errMain.GetError(cboDonVi) = "" Then
             Dim _Query As String = "spSanPhamUpdate"
             Dim _Name() As String = {("@MaSP"), ("@TenSP"), ("@SoLuong"), ("@MaDV")}
-            Dim _Value() As Object = {dgvDSSanPham.Rows(rowIndex).Cells(0).Value(), txtTenSanPham.Text, txtSoLuong.Text, cboDonVi.SelectedValue}
+            Dim _Value() As Object = {dgvDSSanPham.SelectedRows(0).Cells("colMaSP").Value(), txtTenSanPham.Text, txtSoLuong.Text, cboDonVi.SelectedValue}
             Connection.Query(_Query, Connection.CreateParameter(_Name, _Value))
 
             loadDSSanPham()
         End If
     End Sub
 
-    Public Sub dgvDSSanPham_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDSSanPham.CellClick
-        rowIndex = e.RowIndex
-        If IsNothing((dgvDSSanPham.Rows(e.RowIndex).Cells(1).Value()).ToString()) = False Then
-            txtTenSanPham.Text = (dgvDSSanPham.Rows(e.RowIndex).Cells(1).Value()).ToString
-            txtSoLuong.Text = (dgvDSSanPham.Rows(e.RowIndex).Cells(2).Value()).ToString
-            cboDonVi.SelectedValue = dgvDSSanPham.Rows(e.RowIndex).Cells(3).Value()
-        End If
+    Public Sub dgvDSSanPham_CellClick(sender As Object, e As DataGridViewCellEventArgs)
+
     End Sub
 
     Private Sub btnXoaSP_Click(sender As Object, e As EventArgs) Handles btnXoaSP.Click
@@ -324,5 +319,16 @@ Public Class frmWarehouseKeeper
         End If
     End Sub
 
-
+    Private Sub dgvDSSanPham_CellClick_1(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDSSanPham.CellClick
+        If IsNothing(dgvDSSanPham.SelectedRows(0).Cells("colMaSP").Value()) = False Then
+            txtTenSanPham.Text = dgvDSSanPham.SelectedRows(0).Cells("colTenSP").Value().ToString
+            txtSoLuong.Text = dgvDSSanPham.SelectedRows(0).Cells("colSoLuongTon").Value().ToString
+            txtDiaChi.Text = dgvDSNhaCungCap.SelectedRows(0).Cells("colDiaChi").Value().ToString
+            cboDonVi.Text = dgvDSSanPham.SelectedRows(0).Cells("colTenDV").Value.ToString
+        Else
+            txtTenSanPham.Text = ""
+            txtSoLuong.Text = ""
+            txtDiaChi.Text = ""
+        End If
+    End Sub
 End Class
