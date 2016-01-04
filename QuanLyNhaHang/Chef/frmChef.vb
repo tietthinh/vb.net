@@ -58,6 +58,12 @@ Public Class frmChef
     Dim cancelledDishList As New DataTable()
 
     ''' <summary>
+    ''' DataTable contains all done dishes.
+    ''' </summary>
+    ''' <remarks></remarks>
+    Dim doneDishList As New DataTable()
+
+    ''' <summary>
     ''' Element is used to query from Material Table in database.
     ''' </summary>
     ''' <remarks></remarks>
@@ -124,9 +130,13 @@ Public Class frmChef
         'Clones cantServeList from cookList
         cantServeList = cookList.Clone()
 
-        'Clones cancelledDishList from cantServeList
+        'Creates columns for cancelledDishList
         cancelledDishList.Columns.Add(New DataColumn("MaMon"))
         cancelledDishList.Columns.Add(New DataColumn("SoLuong"))
+
+        'Creates columns for doneDishList
+        doneDishList.Columns.Add(New DataColumn("MaMon"))
+        doneDishList.Columns.Add(New DataColumn("SoLuong"))
 
         AddHandler lblMaterialQuantity.TextChanged, AddressOf lblMaterialQuantity_TextChanged
     End Sub
@@ -140,6 +150,9 @@ Public Class frmChef
 
         GetCancelledDish(cancelledDishList, cantServeList)
         db.Update("spDanhSachMonAnKhongHoanThanhInsert", db.CreateParameter(New String() {"@DS"}, New Object() {cancelledDishList}))
+
+        GroupDish(doneDishList)
+        db.Update("spDanhSachMonAnHoanThanhInsert", db.CreateParameter(New String() {"@DS"}, New Object() {doneDishList}))
 
         db.Dispose()
 
@@ -160,6 +173,9 @@ Public Class frmChef
 
         cancelledDishList.Dispose()
         cancelledDishList = Nothing
+
+        doneDishList.Dispose()
+        doneDishList = Nothing
 
         If frmConfirm IsNot Nothing Then
             frmConfirm.Dispose()
@@ -418,7 +434,11 @@ Public Class frmChef
                         Dim parameterValue() As Object = New Object() {listTransID(i), 3}
                         Dim parameter() As SqlClient.SqlParameter = db.CreateParameter(parameterName, parameterValue)
 
-                        db.Update("spDSDatMonTrongNgayUpdateTinhTrang", parameter)
+                        Try
+                            db.Update("spDSDatMonTrongNgayUpdateTinhTrang", parameter)
+                        Catch ex As SqlException
+                            MessageBox.Show(ex.ToString())
+                        End Try
 
                         Array.Resize(parameterName, 0)
                         Array.Resize(parameterValue, 0)
@@ -427,6 +447,14 @@ Public Class frmChef
 
                     'Decreases the quantity of the current row
                     dgv.Rows(e.RowIndex).Cells("CookListQuantity").Value -= frmChef.doneQuantity
+
+                    'Adds the done dishes into doneDishList
+                    Dim dRow As DataRow = doneDishList.NewRow()
+
+                    dRow("MaMon") = dgv.Rows(e.RowIndex).Cells("CookListDishID").Value
+                    dRow("SoLuong") = frmChef.doneQuantity
+
+                    doneDishList.Rows.Add(dRow)
 
                     'If the quantity of current row is 0 then removes it
                     If dgv.Rows(e.RowIndex).Cells("CookListQuantity").Value = 0 Then
