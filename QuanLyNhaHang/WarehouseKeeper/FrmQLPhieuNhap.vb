@@ -1,6 +1,6 @@
 ﻿Public Class FrmQLPhieuNhap
-
     Dim Connection As New Library.DatabaseConnection
+
     Private Sub btnThemPN_Click(sender As Object, e As EventArgs) Handles btnThemPN.Click
         errPhieuNhap.Clear()
         If cboNCC.Text = "" Then
@@ -100,6 +100,8 @@
 
     Private Sub FrmQLPhieuNhap_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        tslMaNV.Text = frmWarehouseKeeper._CurrentUser.Identity
+        tslTenNV.Text = frmWarehouseKeeper._CurrentUser.EmployeeName
         loadDSPhieuNhap()
         loadCTPhieuNhap()
         loadDSSanPham()
@@ -116,11 +118,13 @@
     End Sub
 
     Private Sub loadCTPhieuNhap()
-        Dim _Name() As String = New String() {"@MaPN"}
-        Dim _Value() As Object = New Object() {dgvDSPhieuNhap.SelectedRows(0).Cells("colMaPN").Value().ToString}
-        dgvDSChiTietPhieuNhap.DataSource = Connection.Query("spChiTietPhieuNhapSelect", Connection.CreateParameter(_Name, _Value))
-        dgvDSChiTietPhieuNhap.Columns("colThanhTien").DefaultCellStyle.Format = "#,###"
-        dgvDSChiTietPhieuNhap.Columns("colDonGia").DefaultCellStyle.Format = "#,###"
+        If dgvDSPhieuNhap.SelectedRows(0).Cells("colMaPN").Value().ToString <> "" Then
+            Dim _Name() As String = New String() {"@MaPN"}
+            Dim _Value() As Object = New Object() {dgvDSPhieuNhap.SelectedRows(0).Cells("colMaPN").Value().ToString}
+            dgvDSChiTietPhieuNhap.DataSource = Connection.Query("spChiTietPhieuNhapSelect", Connection.CreateParameter(_Name, _Value))
+            dgvDSChiTietPhieuNhap.Columns("colThanhTien").DefaultCellStyle.Format = "#,###"
+            dgvDSChiTietPhieuNhap.Columns("colDonGia").DefaultCellStyle.Format = "#,###"
+        End If
     End Sub
 
     Private Sub loadDSSanPham()

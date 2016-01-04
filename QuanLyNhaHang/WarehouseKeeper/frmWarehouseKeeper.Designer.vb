@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmWarehouseKeeper
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class frmWarehouseKeeper
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -81,7 +81,8 @@ Partial Class frmWarehouseKeeper
         Me.cboEmail = New System.Windows.Forms.ComboBox()
         Me.cboDienThoai = New System.Windows.Forms.ComboBox()
         Me.stsMain = New System.Windows.Forms.StatusStrip()
-        Me.tslMain = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.tslMaNV = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.tslTenNV = New System.Windows.Forms.ToolStripStatusLabel()
         CType(Me.dgvDSSanPham, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvDSNhaCungCap, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.errMain, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -139,7 +140,7 @@ Partial Class frmWarehouseKeeper
         Me.dgvDSSanPham.Name = "dgvDSSanPham"
         Me.dgvDSSanPham.RowHeadersVisible = False
         Me.dgvDSSanPham.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvDSSanPham.Size = New System.Drawing.Size(479, 338)
+        Me.dgvDSSanPham.Size = New System.Drawing.Size(479, 375)
         Me.dgvDSSanPham.TabIndex = 6
         '
         'colMaSP
@@ -458,7 +459,7 @@ Partial Class frmWarehouseKeeper
         Me.dgvDSNhaCungCap.Name = "dgvDSNhaCungCap"
         Me.dgvDSNhaCungCap.RowHeadersVisible = False
         Me.dgvDSNhaCungCap.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvDSNhaCungCap.Size = New System.Drawing.Size(842, 225)
+        Me.dgvDSNhaCungCap.Size = New System.Drawing.Size(842, 262)
         Me.dgvDSNhaCungCap.TabIndex = 88
         '
         'colMaNCC
@@ -630,18 +631,24 @@ Partial Class frmWarehouseKeeper
         '
         'stsMain
         '
-        Me.stsMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tslMain})
-        Me.stsMain.Location = New System.Drawing.Point(0, 634)
+        Me.stsMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tslMaNV, Me.tslTenNV})
+        Me.stsMain.Location = New System.Drawing.Point(0, 684)
         Me.stsMain.Name = "stsMain"
         Me.stsMain.Size = New System.Drawing.Size(1354, 22)
         Me.stsMain.TabIndex = 103
         Me.stsMain.Text = "StatusStrip1"
         '
-        'tslMain
+        'tslMaNV
         '
-        Me.tslMain.Name = "tslMain"
-        Me.tslMain.Size = New System.Drawing.Size(121, 17)
-        Me.tslMain.Text = "ToolStripStatusLabel1"
+        Me.tslMaNV.Name = "tslMaNV"
+        Me.tslMaNV.Size = New System.Drawing.Size(121, 17)
+        Me.tslMaNV.Text = "ToolStripStatusLabel1"
+        '
+        'tslTenNV
+        '
+        Me.tslTenNV.Name = "tslTenNV"
+        Me.tslTenNV.Size = New System.Drawing.Size(121, 17)
+        Me.tslTenNV.Text = "ToolStripStatusLabel1"
         '
         'frmWarehouseKeeper
         '
@@ -649,7 +656,7 @@ Partial Class frmWarehouseKeeper
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(1354, 656)
+        Me.ClientSize = New System.Drawing.Size(1354, 706)
         Me.Controls.Add(Me.stsMain)
         Me.Controls.Add(Me.cboDienThoai)
         Me.Controls.Add(Me.cboEmail)
@@ -694,7 +701,6 @@ Partial Class frmWarehouseKeeper
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Name = "frmWarehouseKeeper"
         Me.Text = "Thủ kho - Quản lý"
-        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.dgvDSSanPham, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvDSNhaCungCap, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.errMain, System.ComponentModel.ISupportInitialize).EndInit()
@@ -758,5 +764,6 @@ Partial Class frmWarehouseKeeper
     Friend WithEvents colEmail As DataGridViewComboBoxColumn
     Friend WithEvents colSDT As DataGridViewComboBoxColumn
     Friend WithEvents stsMain As StatusStrip
-    Friend WithEvents tslMain As ToolStripStatusLabel
+    Friend WithEvents tslMaNV As ToolStripStatusLabel
+    Friend WithEvents tslTenNV As ToolStripStatusLabel
 End Class

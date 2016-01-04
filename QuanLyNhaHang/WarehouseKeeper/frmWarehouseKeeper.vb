@@ -9,7 +9,7 @@ Public Class frmWarehouseKeeper
     ''' <remarks></remarks>
     Dim frmEmail As New frmContact()
     Dim frmDienThoai As New frmContact()
-
+    Public _CurrentUser As User = Nothing
     Private Connection As New DatabaseConnection()
     Dim rowIndex As New Integer
     Dim login As New frmLogin
@@ -139,18 +139,24 @@ Public Class frmWarehouseKeeper
     End Sub
 
     Private Sub frmWarehouseKeeper_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim _Login As New frmLogin()
+        _Login.ShowDialog()
+        _CurrentUser = DatabaseConnection._User
+        If (_Login.DialogResult = 1) Then
+            loadDSSanPham()
 
-        login.Show()
+            loadDSNCC()
 
-        loadDSSanPham()
+            Dim _dtDonVi As DataTable = Connection.Query("spLoaiDonViTinhSelect")
+            cboDonVi.DataSource = _dtDonVi
+            cboDonVi.DisplayMember = "TenDV"
+            cboDonVi.ValueMember = "MaDV"
 
-        loadDSNCC()
-
-        Dim _dtDonVi As DataTable = Connection.Query("spLoaiDonViTinhSelect")
-        cboDonVi.DataSource = _dtDonVi
-        cboDonVi.DisplayMember = "TenDV"
-        cboDonVi.ValueMember = "MaDV"
-
+            tslMaNV.Text = _CurrentUser.Identity
+            tslTenNV.Text = _CurrentUser.EmployeeName
+        Else
+            Me.Close()
+        End If
     End Sub
     '
     'btnCong1's Events:
