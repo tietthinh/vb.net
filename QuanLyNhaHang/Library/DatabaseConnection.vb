@@ -357,14 +357,18 @@ Public Class DatabaseConnection
     ''' <returns>True if match, else false.</returns>
     ''' <remarks></remarks>
     Public Function CheckInvalidAccount(ByVal username As String, ByVal password As String, _
-                                        ByRef user As User) As Boolean
+                                        ByVal formID As Integer, ByRef user As User, ByRef notice As String) As Boolean
         Dim accountList As New DataTable()
+        Dim employeeType As New DataTable()
 
         Try
             Me.Open()
-            accountList = Query("Select TKNV.TenDN, TKNV.MatKhau, NV.cmnd, NV.MaNV, NV.HoTen " + _
+            accountList = Query("Select TKNV.TenDN, TKNV.MatKhau, NV.cmnd, NV.MaChucVu, NV.MaNV, NV.HoTen " + _
                                 "From TaiKhoanNhanVien TKNV, NhanVien NV " + _
-                                "Where NV.MaNV = TKNV.MaNV")
+                                "Where NV.MaNV = TKNV.MaNV And TKNV.TenDN = '" + username.Trim() + "'")
+            employeeType = Query("Select MaChucVu, TenChucVu " + _
+                                 "From ChucVuNhanVien " + _
+                                 "Where MaChucVu = '" + formID.ToString() + "'")
         Catch ex As SqlException
             Throw ex
         Finally
@@ -372,19 +376,33 @@ Public Class DatabaseConnection
         End Try
 
         For Each row As DataRow In accountList.Rows
-            If username = row("TenDN") And GetMd5Hash(password, row("cmnd").ToString().Trim()) = row("MatKhau") Then
-                user = New User(row("MaNV"), row("HoTen"))
+            If username = row("TenDN").ToString().Trim() And GetMd5Hash(password, row("cmnd").ToString().Trim()) = row("MatKhau") Then
+                If formID = row("MaChucVu") Then
+                    user = New User(row("MaNV"), row("HoTen"))
 
-                accountList.Dispose()
-                accountList = Nothing
+                    accountList.Dispose()
+                    accountList = Nothing
 
-                Return True
+                    notice = "Đăng nhập thành công"
+
+                    Return True
+                Else
+                    notice = "Chương trình chỉ dành riêng cho " + employeeType.Rows(0)("TenChucVu") + ". Vui lòng đổi chương trình để làm việc."
+
+                    Return False
+                End If
             End If
         Next
 
         accountList.Dispose()
         accountList = Nothing
+
+        employeeType.Dispose()
+        employeeType = Nothing
+
         user = Nothing
+
+        notice = "Đăng nhập thất bại"
 
         Return False
     End Function
