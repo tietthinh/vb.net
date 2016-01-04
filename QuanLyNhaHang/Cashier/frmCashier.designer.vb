@@ -50,9 +50,9 @@ Partial Class frmCashier
         'Label1
         '
         Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label1.BackColor = System.Drawing.Color.RoyalBlue
+        Me.Label1.BackColor = System.Drawing.SystemColors.Control
         Me.Label1.Font = New System.Drawing.Font("Roboto Condensed", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(163, Byte))
-        Me.Label1.ForeColor = System.Drawing.Color.Transparent
+        Me.Label1.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label1.Location = New System.Drawing.Point(-2, 9)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(1365, 90)
@@ -64,18 +64,18 @@ Partial Class frmCashier
         '
         Me.lblTien.AutoSize = True
         Me.lblTien.Font = New System.Drawing.Font("Roboto", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTien.ForeColor = System.Drawing.Color.Red
+        Me.lblTien.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblTien.Location = New System.Drawing.Point(407, 639)
         Me.lblTien.Name = "lblTien"
-        Me.lblTien.Size = New System.Drawing.Size(0, 35)
+        Me.lblTien.Size = New System.Drawing.Size(0, 33)
         Me.lblTien.TabIndex = 3
         '
         'btnGopBan
         '
-        Me.btnGopBan.BackColor = System.Drawing.Color.SkyBlue
+        Me.btnGopBan.BackColor = System.Drawing.SystemColors.Control
         Me.btnGopBan.Enabled = False
         Me.btnGopBan.Font = New System.Drawing.Font("Roboto", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnGopBan.ForeColor = System.Drawing.Color.Red
+        Me.btnGopBan.ForeColor = System.Drawing.SystemColors.ControlText
         Me.btnGopBan.Location = New System.Drawing.Point(1171, 186)
         Me.btnGopBan.Name = "btnGopBan"
         Me.btnGopBan.Size = New System.Drawing.Size(170, 50)
@@ -85,10 +85,10 @@ Partial Class frmCashier
         '
         'btnThanhToan
         '
-        Me.btnThanhToan.BackColor = System.Drawing.Color.SkyBlue
+        Me.btnThanhToan.BackColor = System.Drawing.SystemColors.Control
         Me.btnThanhToan.Enabled = False
         Me.btnThanhToan.Font = New System.Drawing.Font("Roboto", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnThanhToan.ForeColor = System.Drawing.Color.Red
+        Me.btnThanhToan.ForeColor = System.Drawing.SystemColors.ControlText
         Me.btnThanhToan.Location = New System.Drawing.Point(1171, 270)
         Me.btnThanhToan.Name = "btnThanhToan"
         Me.btnThanhToan.Size = New System.Drawing.Size(170, 50)
@@ -112,9 +112,9 @@ Partial Class frmCashier
         '
         'Label2
         '
-        Me.Label2.BackColor = System.Drawing.Color.SkyBlue
+        Me.Label2.BackColor = System.Drawing.SystemColors.Control
         Me.Label2.Font = New System.Drawing.Font("Roboto", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.ForeColor = System.Drawing.Color.Red
+        Me.Label2.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label2.Location = New System.Drawing.Point(7, 113)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(169, 31)
@@ -124,7 +124,7 @@ Partial Class frmCashier
         '
         'ltvBan
         '
-        Me.ltvBan.BackColor = System.Drawing.Color.PaleTurquoise
+        Me.ltvBan.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.ltvBan.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.Table, Me.MaHoaDon, Me.MaDau, Me.MaCuoi})
         Me.ltvBan.FullRowSelect = True
         Me.ltvBan.GridLines = True
@@ -155,9 +155,9 @@ Partial Class frmCashier
         '
         'Label3
         '
-        Me.Label3.BackColor = System.Drawing.Color.SkyBlue
+        Me.Label3.BackColor = System.Drawing.SystemColors.Control
         Me.Label3.Font = New System.Drawing.Font("Roboto", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.ForeColor = System.Drawing.Color.Red
+        Me.Label3.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label3.Location = New System.Drawing.Point(456, 113)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(487, 31)
@@ -167,7 +167,7 @@ Partial Class frmCashier
         '
         'dgvChiTietHoaDon
         '
-        Me.dgvChiTietHoaDon.BackgroundColor = System.Drawing.Color.PaleTurquoise
+        Me.dgvChiTietHoaDon.BackgroundColor = System.Drawing.SystemColors.ControlLightLight
         Me.dgvChiTietHoaDon.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvChiTietHoaDon.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IDMon, Me.TenMon, Me.SoLuong, Me.GiaMon, Me.ThanhTien, Me.GhiChu})
         Me.dgvChiTietHoaDon.GridColor = System.Drawing.Color.Black
@@ -215,12 +215,12 @@ Partial Class frmCashier
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.BackColor = System.Drawing.Color.SkyBlue
+        Me.Label4.BackColor = System.Drawing.SystemColors.Control
         Me.Label4.Font = New System.Drawing.Font("Roboto", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.ForeColor = System.Drawing.Color.Red
+        Me.Label4.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label4.Location = New System.Drawing.Point(222, 639)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(134, 35)
+        Me.Label4.Size = New System.Drawing.Size(138, 33)
         Me.Label4.TabIndex = 15
         Me.Label4.Text = "Tổng tiền:"
         '
@@ -228,7 +228,7 @@ Partial Class frmCashier
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.RoyalBlue
+        Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(1362, 716)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.dgvChiTietHoaDon)

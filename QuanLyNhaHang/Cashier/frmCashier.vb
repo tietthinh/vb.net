@@ -8,6 +8,7 @@ Imports System.Threading
 Imports System.Net
 Imports System.Configuration
 Imports System.Runtime.Remoting.Channels.Http
+
 Public Class frmCashier
     Dim db As New DatabaseConnection
     Private _MaHD As String
@@ -20,6 +21,8 @@ Public Class frmCashier
     Private _ServerObject As ServerObject
     Private _Thread As Thread
     Private _Data As String = ""
+    Private _Logging As String = ""
+    Private _CurrentUser As User = Nothing
     Public Function HD(ByVal _MaNV As String, ByVal _SoBan As Integer, ByVal _SLKhach As Integer, ByVal _GhiChu As String) As String
         Dim _HD As String = "spHoaDonInsert"
         _ParameterInput = {New SqlParameter("@MaNV", _MaNV), New SqlParameter("@SoBan", _SoBan), New SqlParameter("@SoLuongKhach", _SLKhach), New SqlParameter("@GhiChu", _GhiChu)}
@@ -73,6 +76,16 @@ Public Class frmCashier
             MessageBox.Show("Kết nối thất bại!", "Lỗi")
             Me.Close()
         End Try
+
+        Dim _Login As New frmLogin()
+        _Login.ShowDialog()
+        _CurrentUser = DatabaseConnection._User
+        If (_Login.DialogResult = 1) Then
+            StartService(New ThreadStart(Sub() Process()))
+            Me.Text = "Nhân Viên " + _CurrentUser.EmployeeName.ToString
+        Else
+            Me.Close()
+        End If
     End Sub
 
 
