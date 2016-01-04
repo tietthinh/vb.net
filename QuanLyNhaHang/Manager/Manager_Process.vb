@@ -342,4 +342,113 @@
 
     End Sub
 
+    'Load Thống Kê Món Hoàn Thành Theo Năm
+    Public Function ThongKeNamMonHT(ByRef sourceDataGridView As DataGridView, ByVal nam As Object) As DataTable
+        sourceDataGridView.Rows.Clear()
+
+        Dim _Table As New DataTable
+        _Query = "usp_ThongKeMonAnHoanThanhTheoNam"
+        Dim _Name() As String = New String() {"@Nam"}
+        Dim _Value() As String = New String() {nam}
+
+        _Table = _Connect.Query(_Query, _Connect.CreateParameter(_Name, _Value))
+
+        For Each dt As DataRow In _Table.Rows
+            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString(), dt(2).ToString()})
+        Next
+
+        Return _Table
+
+    End Function
+    'Load Thống Kê Món Hoàn Thành Theo Quý
+    Public Function ThongKeQuyMonHT(ByRef sourceDataGridView As DataGridView, ByVal quy As Object, ByVal nam As Object) As DataTable
+        sourceDataGridView.Rows.Clear()
+
+        Dim _Table As New DataTable
+        _Query = "usp_ThongKeMonAnHoanThanhTheoQuy"
+        Dim _Name() As String = New String() {"@Quy", "@Nam"}
+        Dim _Value() As String = New String() {quy, nam}
+
+        _Table = _Connect.Query(_Query, _Connect.CreateParameter(_Name, _Value))
+
+        For Each dt As DataRow In _Table.Rows
+            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString(), dt(2).ToString()})
+        Next
+
+        Return _Table
+
+    End Function
+    'Load Thống Kê Món Hoàn Thành Theo Tháng
+    Public Function ThongKeThangMonHT(ByRef sourceDataGridView As DataGridView, ByVal thang As Object) As DataTable
+        sourceDataGridView.Rows.Clear()
+
+        Dim _Table As New DataTable
+        _Query = "usp_ThongKeMonAnHoanThanhTheoThang"
+        Dim _Name() As String = New String() {"@Thang"}
+        Dim _Value() As String = New String() {thang}
+
+        _Table = _Connect.Query(_Query, _Connect.CreateParameter(_Name, _Value))
+
+        For Each dt As DataRow In _Table.Rows
+            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString(), dt(2).ToString()})
+        Next
+
+        Return _Table
+
+    End Function
+
+    'Load Thống Kê Món Không Hoàn Thành Theo Năm
+    Public Function ThongKeNamMonKHT(ByRef sourceDataGridView As DataGridView, ByVal nam As Object) As DataTable
+        sourceDataGridView.Rows.Clear()
+
+        Dim _Table As New DataTable
+        _Query = "usp_ThongKeMonAnKhongHoanThanhTheoNam"
+        Dim _Name() As String = New String() {"@Nam"}
+        Dim _Value() As String = New String() {nam}
+
+        _Table = _Connect.Query(_Query, _Connect.CreateParameter(_Name, _Value))
+
+        For Each dt As DataRow In _Table.Rows
+            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString(), dt(2).ToString()})
+        Next
+
+        Return _Table
+
+    End Function
+    'Load Thống Kê Món Không Hoàn Thành Theo Quý
+    Public Function ThongKeQuyMonKHT(ByRef sourceDataGridView As DataGridView, ByVal quy As Object, ByVal nam As Object) As DataTable
+        sourceDataGridView.Rows.Clear()
+
+        Dim _Table As New DataTable
+        _Query = "usp_ThongKeMonAnKhongHoanThanhTheoQuy"
+        Dim _Name() As String = New String() {"@Quy", "@Nam"}
+        Dim _Value() As String = New String() {quy, nam}
+
+        _Table = _Connect.Query(_Query, _Connect.CreateParameter(_Name, _Value))
+
+        For Each dt As DataRow In _Table.Rows
+            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString(), dt(2).ToString()})
+        Next
+
+        Return _Table
+
+    End Function
+    'Load Thống Kê Món Không Hoàn Thành Theo Tháng
+    Public Function ThongKeThangMonKHT(ByRef sourceDataGridView As DataGridView, ByVal thang As Object) As DataTable
+        sourceDataGridView.Rows.Clear()
+
+        Dim _Table As New DataTable
+        _Query = "usp_ThongKeMonAnKhongHoanThanhTheoThang"
+        Dim _Name() As String = New String() {"@Thang"}
+        Dim _Value() As String = New String() {thang}
+
+        _Table = _Connect.Query(_Query, _Connect.CreateParameter(_Name, _Value))
+
+        For Each dt As DataRow In _Table.Rows
+            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString(), dt(2).ToString()})
+        Next
+
+        Return _Table
+
+    End Function
 End Module
