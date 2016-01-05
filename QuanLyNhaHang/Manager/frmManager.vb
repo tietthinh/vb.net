@@ -9,10 +9,11 @@ Imports System.Data.SqlClient
 Imports System.Data
 Imports System.Text
 Imports Library
+Imports Remote
 Imports System.Globalization
 Imports System.Exception
 Imports Microsoft.Reporting.WinForms
-
+Imports System.Threading
 
 Public Class frmManager
     'Khai báo các DataTable
@@ -29,16 +30,11 @@ Public Class frmManager
     Dim _TableLoaiDV As DataTable = Nothing
     Dim _TableMonHT As DataTable = Nothing
     Dim _TableMonKHT As DataTable = Nothing
-    Dim _TableThongKeNam_MonHT As DataTable = Nothing
-    Dim _TableThongKeQuy_MonHT As DataTable = Nothing
-    Dim _TableThongKeThang_MonHT As DataTable = Nothing
-    Dim _TableThongKeNgay_MonHT As DataTable = Nothing
-    Dim _TableThongKeNam_MonKHT As DataTable = Nothing
-    Dim _TableThongKeQuy_MonKHT As DataTable = Nothing
-    Dim _TableThongKeThang_MonKHT As DataTable = Nothing
-    Dim _TableThongKeNgay_MonKHT As DataTable = Nothing
+    Dim _TableThongKe As DataTable = Nothing
+    Dim _TableThongKeNguyenLieu As DataTable = Nothing
 
-    Dim _Report As Report
+    'Khai báo form Report
+    Dim _Report As rptThongKe
 
 
     'Khai bóa vị trí cell
@@ -80,16 +76,37 @@ Public Class frmManager
 
     '----------------------------------------------------------------------------------Bảng Nhân Viên---------------------------------------------------------
 
+
+    Private Sub Listener()
+        While (True)
+            Thread.Sleep(0)
+            If (Me.IsAccessible = True) Then
+                Me.Invoke(New MethodInvoker(Sub()
+                                                Dim _ReceiveData As String = GetData()
+                                                ''Handles event here.
+
+                                                ''
+                                            End Sub
+                ))
+            Else
+                Exit While
+            End If
+        End While
+    End Sub
+
     ''' <summary>
     '''  Load dữ liệu bảng nhân viên
     ''' </summary>
     ''' <remarks></remarks>
+    ''' 
     Private Sub frmManager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'Dim _Login As New frmLogin()
+        'Dim _Login As New frmLogin(EmployeeType.Manager)
         '_Login.ShowDialog()
         '_CurrentUser = DatabaseConnection._User
 
-        'If (_Login.DialogResult = Windows.Forms.DialogResult.OK) Then
+        'If (_Login.DialogResult = 1) Then
+        '    StartService(New ThreadStart(Sub() Listener()))
+        '    Me.Text = "Nhân viên" + _CurrentUser.EmployeeName.ToString
         Try
             _TableNhanVien = LoadNV(dgvNhanVien)
 
@@ -112,9 +129,8 @@ Public Class frmManager
             Throw ex
         End Try
         'Else
-        'MessageBox.Show("Bạn chưa đăng nhập", "Thông Báo")
+        '    Me.Close()
         'End If
-
     End Sub
 
     'Thêm NhanVien
@@ -377,19 +393,26 @@ Public Class frmManager
 
             Dim _Word As String = txtTimKiem_NhanVien.Text.ToString.Trim
             Dim temp As Integer = 0
-            'For Each dt As DataRow In _TableNhanVien.Rows
-
-            '    If _Word = dt("MaNV").ToString.Trim Or _Word = dgvNhanVien.Rows(_location).Cells("CMND").Value.ToString() _
-            '        Or _Word = dgvNhanVien.Rows(_location).Cells("NgaySinh").Value.ToString() _
-            '        Or _Word = dgvNhanVien.Rows(_location).Cells("LoaiNhanVien").Value.ToString Or _Word = dgvNhanVien.Rows(_location).Cells("HoTen").Value.ToString() Then
-            '        _KQ = True
-            '        _location = temp
-            '    End If
-            '    temp = temp + 1
-            'Next
+           
             For i As Integer = 0 To _TableNhanVien.Rows.Count - 1 Step 1
                 For j As Integer = 0 To _TableNhanVien.Columns.Count - 1 Step 1
                     If _TableNhanVien.Rows(i).Item(j).ToString.Contains(_Word) Then
+                        Dim _LoaiNV As String = ""
+                        If _TableNhanVien.Rows(i).Item(7).ToString = "True" Then
+                            _LoaiNV = "Fulltime"
+                        Else
+                            _LoaiNV = "Parttime"
+                        End If
+                        Dim TinhTrangNV As String = ""
+                        If _TableNhanVien.Rows(i).Item(4).ToString = "True" Then
+                            TinhTrangNV = "Đã Nghỉ"
+                        Else
+                            TinhTrangNV = "Đang Làm"
+                        End If
+
+                        If j = 7 Then
+
+                        End If
                         _TableResult.Rows.Add(_TableNhanVien.Rows(i).ItemArray)
                         _KQ = True
                         _location = temp
@@ -405,43 +428,6 @@ Public Class frmManager
             Else
                 MessageBox.Show("Không tồn tại nhân viên với dữ liệu tìm kiếm đã nhập", "Thông Báo")
             End If
-            'hiển thị thông tin tìm được trên textbox
-            '    txtMaNV.Text = dgvNhanVien.Rows(_location).Cells("MaNV").Value.ToString()
-            '    txtcmnd.Text = dgvNhanVien.Rows(_location).Cells("CMND").Value.ToString()
-            '    dtpNgaySinh.Text = dgvNhanVien.Rows(_location).Cells("NgaySinh").Value.ToString()
-
-            '    Dim LoaiNV As String = ""
-
-            '    cboKhaNang_NV.Text = dgvNhanVien.Rows(_location).Cells("LoaiNhanVien").Value.ToString
-            '    If LoaiNV = "True" Then
-            '        cboKhaNang_NV.SelectedIndex = 1
-            '    Else
-            '        cboKhaNang_NV.SelectedIndex = 0
-            '    End If
-            '    txtTen.Text = dgvNhanVien.Rows(_location).Cells("HoTen").Value.ToString()
-
-            '    cboKhaNang_NV.SelectedValue = dgvNhanVien.Rows(_location).Cells("LoaiNhanVien").Value
-            '    cboTenChucVu.SelectedValue = dgvNhanVien.Rows(_location).Cells("MaChucVu").Value
-            '    dtpNgaySinh.Value = dgvNhanVien.Rows(_location).Cells("NgaySinh").Value.ToString
-
-            '    If dgvNhanVien.Rows(_location).Cells("GioiTinh").Value.ToString = "Nam" Then
-            '        rdoNam.Checked = True
-
-            '    Else
-            '        rdoNu.Checked = True
-            '    End If
-
-            '    If dgvNhanVien.Rows(_location).Cells("TinhTrang").Value.ToString = "Đã Nghỉ" Then
-            '        rdoDaNghi.Checked = True
-
-            '    Else
-            '        rdoDangLam.Checked = True
-            '    End If
-
-
-            '    If (_KQ = False) Then
-            '        MessageBox.Show("Không tồn tại Nhân Viên", "Thông Báo")
-            '    End If
         End If
 
     End Sub
@@ -505,8 +491,6 @@ Public Class frmManager
         cboDaThanhToan_HoaDon.Items.Insert(0, "Đã Thanh Toán")
         cboDaThanhToan_HoaDon.Items.Insert(1, "Chưa Thanh Toán")
         cboDaThanhToan_HoaDon.SelectedIndex = 0
-
-
     End Sub
 
     'Chọn dữ liệu Hóa Đơn
@@ -541,6 +525,7 @@ Public Class frmManager
 
         'Load dữ liệu chi tiết hóa đơn
         _TableCTHoaDon = LoadCTHoaDon(dgvCTHoaDon, txtMaHoaDon_HoaDon.Text)
+        'dgvCTHoaDon.Rows(0).Selected = False
     End Sub
 
     'Xóa dữ liệu Hóa Đơn
@@ -699,6 +684,7 @@ Public Class frmManager
         cboLoai_MADU.Items.Insert(0, "Đồ Ăn")
         cboLoai_MADU.Items.Insert(1, "Đồ Uống")
         cboLoai_MADU.SelectedIndex = 0
+
 
       
     End Sub
@@ -899,6 +885,8 @@ Public Class frmManager
     Private Sub btnNhapLai_Mon_Click(sender As Object, e As EventArgs) Handles btnNhapLai_Mon.Click
         txtTenMon_Mon.Text = ""
         txtGiaHienTai_Mon.Text = ""
+        cboLoai_MADU.SelectedIndex = 0
+        cboThucDonMon_Mon.SelectedIndex = 0
     End Sub
 
     'Kiểm tra thông tin textbox bảng MonAnDoUong
@@ -1163,6 +1151,8 @@ Public Class frmManager
     Private Sub btnNhapLai_CTMon_Click(sender As Object, e As EventArgs) Handles btnNhapLai_CTMon.Click
         txtTenMon_CTMon.Text = ""
         txtSoLuong_CTMon.Text = ""
+        cboTenSP_CTMon.SelectedIndex = 0
+        cboDonVi_CTMon.SelectedIndex = 0
     End Sub
 
 
@@ -2035,64 +2025,151 @@ Public Class frmManager
 
     'Món Hoàn Thành
 
-    Private Sub ThongKeHT_Enter(sender As Object, e As EventArgs) Handles ThongKeHT.Enter
-    End Sub
-
     'Thống Kê Theo Năm Món Hoàn Thành
     Private Sub btnThongKeNam_MonHT_Click(sender As Object, e As EventArgs) Handles btnThongKeNam_MonHT.Click
-        ThongKeNamMonHT(dgvMonHT, nbrNam_TKNam_MonHT.Value.ToString)
+        _TableThongKe = Nothing
+        _TableThongKe = ThongKeNamMonHT(dgvMonHT, nbrNam_TKNam_MonHT.Value.ToString)
         gpbThongKeHT.Text = "Thông Tin Thống Kê Theo Năm"
     End Sub
+
     ''Thống Kê Theo Quý Món Hoàn Thành
     Private Sub bntThongKeQuy_MonHT_Click(sender As Object, e As EventArgs) Handles bntThongKeQuy_MonHT.Click
-        ThongKeQuyMonHT(dgvMonHT, nbrQuy_TKQuy_MonHT.Value.ToString, nbrNam_TKNam_MonHT.Value.ToString)
+        _TableThongKe = Nothing
+        _TableThongKe = ThongKeQuyMonHT(dgvMonHT, nbrQuy_TKQuy_MonHT.Value.ToString, nbrNam_TKNam_MonHT.Value.ToString)
         gpbThongKeHT.Text = "Thông Tin Thống Kê Theo Quý"
     End Sub
+
     'Thống Kê Theo Tháng Món Hoàn Thành
     Private Sub bntThongKeThang_MonHT_Click(sender As Object, e As EventArgs) Handles bntThongKeThang_MonHT.Click
-        ThongKeThangMonHT(dgvMonHT, nbrThang_TKThan_MonHT.Value.ToString)
+        _TableThongKe = Nothing
+        _TableThongKe = ThongKeThangMonHT(dgvMonHT, nbrThang_TKThang_MonHT.Value.ToString, nbrNam_TKThang_MonHT.Value.ToString)
         gpbThongKeHT.Text = "Thông Tin Thống Kê Theo Tháng"
     End Sub
+
     'Thống Kê Theo Ngày Món Hoàn Thành
     Private Sub bntThongKeNgay_MonHT_Click(sender As Object, e As EventArgs) Handles bntThongKeNgay_MonHT.Click
-        ThongKeNgayMonHT(dgvMonHT, dtpNgay_MonHT.Value)
+        _TableThongKe = Nothing
+        _TableThongKe = ThongKeNgayMonHT(dgvMonHT, dtpNgay_MonHT.Value)
         gpbThongKeHT.Text = "Thông Tin Thống Kê Theo Ngày"
     End Sub
 
+    'Báo Cáo Món Hoàn Thành
+    Private Sub btnBaoCao_MonHT_Click(sender As Object, e As EventArgs) Handles btnBaoCao_MonHT.Click
+        'For i As Integer = 0 To _TableThongKe.Rows.Count - 1   
+        '    With _TableThongKe.Rows(i)
+        '        _DataReportViwe.Tables("ThongKe").Rows.Add(
+        '    End With
+        'Next
+
+        _Report = New rptThongKe(_TableThongKe)
+        _Report.Show()
+
+    End Sub
 
     'Món Không Hoàn Thành
-    Private Sub ThongKeKHT_Enter(sender As Object, e As EventArgs) Handles ThongKeKHT.Enter
-
-    End Sub
     'Thống Kê Theo Năm Món Không Hoàn Thành
-    Private Sub bntThongKeNam_MonKHT_Click(sender As Object, e As EventArgs) Handles bntThongKeNam_MonKHT.Click
-        ThongKeNamMonKHT(dgvMonKHT, nbrNam_TKNam_MonKHT.Value.ToString)
+    Private Sub bntThongKeNam_MonKHT_Click(sender As Object, e As EventArgs)
+        _TableThongKe = Nothing
+        _TableThongKe = ThongKeNamMonKHT(dgvMonKHT, nbrNam_TKNam_MonKHT.Value.ToString)
         gpbThongKeHT.Text = "Thông Tin Thống Kê Theo Năm"
     End Sub
+
     'Thống Kê Theo Quý Món Không Hoàn Thành
-    Private Sub bntThongKeQuy_MonKHT_Click(sender As Object, e As EventArgs) Handles bntThongKeQuy_MonKHT.Click
-        ThongKeQuyMonKHT(dgvMonKHT, nbrQuy_TKQuy_MonKHT.Value.ToString, nbrNam_TKNam_MonKHT.Value.ToString)
+    Private Sub bntThongKeQuy_MonKHT_Click(sender As Object, e As EventArgs)
+        _TableThongKe = Nothing
+        _TableThongKe = ThongKeQuyMonKHT(dgvMonKHT, nbrQuy_TKQuy_MonKHT.Value.ToString, nbrNam_TKNam_MonKHT.Value.ToString)
         gpbThongKeHT.Text = "Thông Tin Thống Kê Theo Quý"
     End Sub
+
     'Thống Kê Theo Tháng Món Không Hoàn Thành
-    Private Sub bntThongKeThang_MonKHT_Click(sender As Object, e As EventArgs) Handles bntThongKeThang_MonKHT.Click
-        ThongKeThangMonKHT(dgvMonKHT, nbrThang_TKThang_MonKHT.Value.ToString)
+    Private Sub bntThongKeThang_MonKHT_Click(sender As Object, e As EventArgs)
+        _TableThongKe = Nothing
+        _TableThongKe = ThongKeThangMonKHT(dgvMonKHT, nbrThang_TKThang_MonKHT.Value.ToString, nbrNam_TKThang_MonKHT.Value.ToString)
         gpbThongKeHT.Text = "Thông Tin Thống Kê Theo Tháng"
     End Sub
-    'Thống Kê Theo Thứ Món Không Hoàn Thành
-    Private Sub bntThongKeNgay_MonKHT_Click(sender As Object, e As EventArgs) Handles bntThongKeNgay_MonKHT.Click
-        ThongKeNgayMonKHT(dgvMonKHT, dtpNgay_MonKHT.Value)
+
+    'Thống Kê Theo Ngày Món Không Hoàn Thành
+    Private Sub bntThongKeNgay_MonKHT_Click(sender As Object, e As EventArgs)
+        _TableThongKe = Nothing
+        _TableThongKe = ThongKeNgayMonKHT(dgvMonKHT, dtpNgay_MonKHT.Value)
         gpbThongKeHT.Text = "Thông Tin Thống Kê Theo Ngày"
     End Sub
 
     'Báo Cáo Món Không Hoàn Thành
-    Private Sub btnBaoCao_MonKHT_Click(sender As Object, e As EventArgs) Handles btnBaoCao_MonKHT.Click
+    Private Sub btnBaoCao_MonKHT_Click(sender As Object, e As EventArgs)
         _Report.Refresh()
 
 
     End Sub
- 
 
+
+    '-------------------------------------------------------------------------------------------Thống Kê Nguyên Liệu---------------------------------------------------------
+    'Thống Kê Theo Năm Nguyên Liệu Sử Dụng
+    Private Sub btnThongKeNam_NL_Click(sender As Object, e As EventArgs) Handles btnThongKeNam_NL.Click
+        _TableThongKeNguyenLieu = Nothing
+        _TableThongKeNguyenLieu = ThongKeNamNguyenLieu(dgvNguyenLieu, nbrNam_ThongKeNam_NL.Value.ToString)
+        gpbNguyenLieu.Text = "Thông Tin Thống Kê Theo Năm"
+    End Sub
+
+    'Thống Kê Theo Quý Nguyên Liệu Sử Dụng
+    Private Sub btnThongKeQuy_NL_Click(sender As Object, e As EventArgs) Handles btnThongKeQuy_NL.Click
+        _TableThongKeNguyenLieu = Nothing
+        _TableThongKeNguyenLieu = ThongKeQuyNguyenLieu(dgvNguyenLieu, nbrQuy_ThongKeQuy_NL.Value.ToString, nbrNam_ThongKeQuy_NL.Value.ToString)
+        gpbNguyenLieu.Text = "Thông Tin Thống Kê Theo Quý"
+    End Sub
+
+    'Thống Kê Theo Tháng Nguyên Liệu Sử Dụng
+    Private Sub btnThongKeThang_NL_Click(sender As Object, e As EventArgs) Handles btnThongKeThang_NL.Click
+        _TableThongKeNguyenLieu = Nothing
+        _TableThongKeNguyenLieu = ThongKeThangNguyenLieu(dgvNguyenLieu, nbrThang_ThongKeThang_NL.Value.ToString, nbrNam_ThongKeThang_NL.Value.ToString)
+        gpbNguyenLieu.Text = "Thông Tin Thống Kê Theo Tháng"
+    End Sub
+
+    'Thống Kê Theo Ngày Nguyên Liệu Sử Dụng
+    Private Sub btnThongKeNgay_NL_Click(sender As Object, e As EventArgs) Handles btnThongKeNgay_NL.Click
+        _TableThongKeNguyenLieu = Nothing
+        _TableThongKeNguyenLieu = ThongKeNgayNguyenLieu(dgvNguyenLieu, dtpNgay_ThongKeNgay_NL.Value)
+        gpbNguyenLieu.Text = "Thông Tin Thống Kê Theo Ngày"
+    End Sub
+
+    'Báo Cáo Nguyên Liệu Sử Dụng
+    Private Sub btnBaoCao_NL_Click(sender As Object, e As EventArgs) Handles btnBaoCao_NL.Click
+
+    End Sub
+
+    '------------------------------------------------------------------------------------Thống Ke Khách Theo Bàn-------------------------------------------------------------
+    'Thống Kê Theo Năm Nguyên Liệu Sử Dụng
+    Private Sub btnThongKeNam_Khach_Ban_Click(sender As Object, e As EventArgs) Handles btnThongKeNam_Khach_Ban.Click
+        _TableThongKeNguyenLieu = Nothing
+        _TableThongKeNguyenLieu = ThongKeNamNguyenLieu(dgvNguyenLieu, nbrNam_ThongKeNam_NL.Value.ToString)
+        gpbNguyenLieu.Text = "Thông Tin Thống Kê Theo Năm"
+    End Sub
+
+    'Thống Kê Theo Quý Nguyên Liệu Sử Dụng
+    Private Sub btnThongKeQuy_Khach_Ban_Click(sender As Object, e As EventArgs) Handles btnThongKeQuy_Khach_Ban.Click
+        _TableThongKeNguyenLieu = Nothing
+        _TableThongKeNguyenLieu = ThongKeQuyNguyenLieu(dgvKhac_Ban, nbrQuy_ThongKeQuy_NL.Value.ToString, nbrNam_ThongKeQuy_NL.Value.ToString)
+        gpbNguyenLieu.Text = "Thông Tin Thống Kê Theo Quý"
+    End Sub
+
+    'Thống Kê Theo Tháng Nguyên Liệu Sử Dụng
+    Private Sub btnThongKeThang_Khach_Ban_Click(sender As Object, e As EventArgs) Handles btnThongKeThang_Khach_Ban.Click
+        _TableThongKeNguyenLieu = Nothing
+        _TableThongKeNguyenLieu = ThongKeThangNguyenLieu(dgvNguyenLieu, nbrThang_ThongKeThang_NL.Value.ToString, nbrNam_ThongKeThang_NL.Value.ToString)
+        gpbNguyenLieu.Text = "Thông Tin Thống Kê Theo Tháng"
+    End Sub
+
+    'Thống Kê Theo Ngày Nguyên Liệu Sử Dụng
+    Private Sub btnThongKeNgay_Khach_Ban_Click(sender As Object, e As EventArgs) Handles btnThongKeNgay_Khach_Ban.Click
+        _TableThongKeNguyenLieu = Nothing
+        _TableThongKeNguyenLieu = ThongKeNgayNguyenLieu(dgvNguyenLieu, dtpNgay_ThongKeNgay_NL.Value)
+        gpbNguyenLieu.Text = "Thông Tin Thống Kê Theo Ngày"
+    End Sub
+
+    'Báo Cáo Nguyên Liệu Sử Dụng
+    Private Sub btnBaoCao_Khach_Ban_Click(sender As Object, e As EventArgs) Handles btnBaoCao_Khach_Ban.Click
+
+    End Sub
     '------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     'Tìm Kiếm
@@ -2128,4 +2205,6 @@ Public Class frmManager
         _connect.Dispose()
     End Sub
 
+    
+   
 End Class

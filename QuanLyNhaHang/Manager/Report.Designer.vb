@@ -27,10 +27,11 @@ Partial Class rptThongKe
         '
         'ReportViewer1
         '
-        Me.ReportViewer1.Location = New System.Drawing.Point(12, 12)
+        Me.ReportViewer1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ReportViewer1.Location = New System.Drawing.Point(0, 0)
         Me.ReportViewer1.Name = "ReportViewer1"
         Me.ReportViewer1.ProcessingMode = Microsoft.Reporting.WinForms.ProcessingMode.Remote
-        Me.ReportViewer1.Size = New System.Drawing.Size(643, 491)
+        Me.ReportViewer1.Size = New System.Drawing.Size(668, 515)
         Me.ReportViewer1.TabIndex = 0
         '
         'rptThongKe

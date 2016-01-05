@@ -12,11 +12,11 @@
   <xs:element name="QuanLyNhaHang" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="QuanLyNhaHang" msprop:Generator_UserDSName="QuanLyNhaHang">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="ThongKe" msprop:Generator_TableClassName="ThongKeDataTable" msprop:Generator_TableVarName="tableThongKe" msprop:Generator_RowChangedName="ThongKeRowChanged" msprop:Generator_TablePropName="ThongKe" msprop:Generator_RowDeletingName="ThongKeRowDeleting" msprop:Generator_RowChangingName="ThongKeRowChanging" msprop:Generator_RowEvHandlerName="ThongKeRowChangeEventHandler" msprop:Generator_RowDeletedName="ThongKeRowDeleted" msprop:Generator_RowClassName="ThongKeRow" msprop:Generator_UserTableName="ThongKe" msprop:Generator_RowEvArgName="ThongKeRowChangeEvent">
+        <xs:element name="ThongKe" msprop:Generator_TableClassName="ThongKeDataTable" msprop:Generator_TableVarName="tableThongKe" msprop:Generator_TablePropName="ThongKe" msprop:Generator_RowDeletingName="ThongKeRowDeleting" msprop:Generator_RowChangingName="ThongKeRowChanging" msprop:Generator_RowEvHandlerName="ThongKeRowChangeEventHandler" msprop:Generator_RowDeletedName="ThongKeRowDeleted" msprop:Generator_UserTableName="ThongKe" msprop:Generator_RowChangedName="ThongKeRowChanged" msprop:Generator_RowEvArgName="ThongKeRowChangeEvent" msprop:Generator_RowClassName="ThongKeRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="TenMon" msprop:Generator_ColumnVarNameInTable="columnTenMon" msprop:Generator_ColumnPropNameInRow="TenMon" msprop:Generator_ColumnPropNameInTable="TenMonColumn" msprop:Generator_UserColumnName="TenMon" type="xs:string" minOccurs="0" />
-              <xs:element name="SoLuong" msprop:Generator_ColumnVarNameInTable="columnSoLuong" msprop:Generator_ColumnPropNameInRow="SoLuong" msprop:Generator_ColumnPropNameInTable="SoLuongColumn" msprop:Generator_UserColumnName="SoLuong" type="xs:string" minOccurs="0" />
+              <xs:element name="SoLuong" msprop:Generator_ColumnVarNameInTable="columnSoLuong" msprop:Generator_ColumnPropNameInRow="SoLuong" msprop:Generator_ColumnPropNameInTable="SoLuongColumn" msprop:Generator_UserColumnName="SoLuong" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
