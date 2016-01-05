@@ -375,7 +375,7 @@
         _Table = _Connect.Query(_Query, _Connect.CreateParameter(_Name, _Value))
 
         If _Table.Rows.Count = 0 Then
-            MessageBox.Show("Năm nhập không tồn tại", "Thông Báo")
+            MessageBox.Show("Qúy nhập không tồn tại", "Thông Báo")
         Else
             For Each dt As DataRow In _Table.Rows
                 sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString(), dt(2).ToString()})
@@ -603,4 +603,249 @@
         Return _Table
 
     End Function
+
+
+    'Load Thống Kê Khách Theo Bàn Theo Năm
+    Public Function ThongKeNamKhach_Ban(ByRef sourceDataGridView As DataGridView, ByVal nam As Object) As DataTable
+        sourceDataGridView.Rows.Clear()
+
+        Dim _Table As New DataTable
+        _Query = "usp_ThongKeKhachTheoBanNam"
+        Dim _Name() As String = New String() {"@Nam"}
+        Dim _Value() As String = New String() {nam}
+
+        _Table = _Connect.Query(_Query, _Connect.CreateParameter(_Name, _Value))
+        If _Table.Rows.Count = 0 Then
+            MessageBox.Show("Năm nhập không tồn tại", "Thông Báo")
+        Else
+            For Each dt As DataRow In _Table.Rows
+                sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString()})
+            Next
+        End If
+
+        Return _Table
+
+    End Function
+    'Load Thống Kê Khách Theo Bàn Theo Quý
+    Public Function ThongKeQuyKhach_Ban(ByRef sourceDataGridView As DataGridView, ByVal quy As Object, ByVal nam As Object) As DataTable
+        sourceDataGridView.Rows.Clear()
+
+        Dim _Table As New DataTable
+        _Query = "usp_ThongKeKhachTheoBanQuy"
+        Dim _Name() As String = New String() {"@Quy", "@Nam"}
+        Dim _Value() As String = New String() {quy, nam}
+
+        _Table = _Connect.Query(_Query, _Connect.CreateParameter(_Name, _Value))
+
+        If _Table.Rows.Count = 0 Then
+            MessageBox.Show("Quý nhập không tồn tại", "Thông Báo")
+        Else
+            For Each dt As DataRow In _Table.Rows
+                sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString()})
+            Next
+        End If
+        Return _Table
+
+    End Function
+    'Load Thống Kê Khách Theo Bàn Theo Tháng
+    Public Function ThongKeThangKhach_Ban(ByRef sourceDataGridView As DataGridView, ByVal thang As Object, ByVal nam As Object) As DataTable
+        sourceDataGridView.Rows.Clear()
+
+        Dim _Table As New DataTable
+        _Query = "usp_ThongKeKhachTheoBanThang"
+        Dim _Name() As String = New String() {"@Thang", "@Nam"}
+        Dim _Value() As String = New String() {thang, nam}
+
+        _Table = _Connect.Query(_Query, _Connect.CreateParameter(_Name, _Value))
+
+
+        If _Table.Rows.Count = 0 Then
+            MessageBox.Show("Tháng nhập không tồn tại", "Thông Báo")
+        Else
+            For Each dt As DataRow In _Table.Rows
+                sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString(), dt(2).ToString()})
+            Next
+        End If
+        Return _Table
+
+    End Function
+    'Load Thống Kê Khách Theo Bàn Theo Ngày
+    Public Function ThongKeNgayKhach_Ban(ByRef sourceDataGridView As DataGridView, ByVal ngay As Object) As DataTable
+        sourceDataGridView.Rows.Clear()
+
+        Dim _Table As New DataTable
+        _Query = "usp_ThongKeSanPhamDaDungTheoNgay"
+        Dim _Name() As String = New String() {"@Ngay"}
+        Dim _Value() As String = New String() {ngay}
+
+        _Table = _Connect.Query(_Query, _Connect.CreateParameter(_Name, _Value))
+
+
+        If _Table.Rows.Count = 0 Then
+            MessageBox.Show("Ngày nhập không tồn tại", "Thông Báo")
+        Else
+            For Each dt As DataRow In _Table.Rows
+                sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString(), dt(2).ToString()})
+            Next
+        End If
+        Return _Table
+
+    End Function
+
+    'Load Thống Kê Khách Theo Nhân Viên Theo Tuần
+    Public Function ThongKeTuanKhach_NhanVien(ByRef sourceDataGridView As DataGridView, ByVal ngay As Object) As DataTable
+        sourceDataGridView.Rows.Clear()
+
+        Dim _Table As New DataTable
+        _Query = "usp_ThongKeSoLuongKhachTheoNhanVienTrongMotTuan"
+        Dim _Name() As String = New String() {"@Ngay"}
+        Dim _Value() As String = New String() {ngay}
+
+        _Table = _Connect.Query(_Query, _Connect.CreateParameter(_Name, _Value))
+
+
+        If _Table.Rows.Count = 0 Then
+            MessageBox.Show("Ngày nhập không tồn tại", "Thông Báo")
+        Else
+            For Each dt As DataRow In _Table.Rows
+                sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString(), dt(2).ToString(), dt(3).ToString()})
+            Next
+        End If
+        Return _Table
+
+    End Function
+
+
+    'Load Thống Kê Khách Theo Món Theo Năm
+    Public Function ThongKeNamKhach_Mon(ByRef sourceDataGridView As DataGridView, ByVal nam As Object) As DataTable
+        sourceDataGridView.Rows.Clear()
+        Dim _Table As New DataTable
+        _Query = "usp_ThongKeKhachTheoMonAnTheoNam"
+        Dim _Name() As String = New String() {"@Nam"}
+        Dim _Value() As String = New String() {nam}
+
+        _Table = _Connect.Query(_Query, _Connect.CreateParameter(_Name, _Value))
+        If _Table.Rows.Count = 0 Then
+            MessageBox.Show("Năm nhập không tồn tại", "Thông Báo")
+        Else
+            For Each dt As DataRow In _Table.Rows
+                sourceDataGridView.Rows.Add(New String() {dt(0).ToString, dt(1).ToString, dt(2).ToString})
+            Next
+        End If
+
+        Return _Table
+
+    End Function
+    'Load Thống Kê Khách Theo Món Theo Quý
+    Public Function ThongKeQuyKhach_Mon(ByRef sourceDataGridView As DataGridView, ByVal quy As Object, ByVal nam As Object) As DataTable
+        sourceDataGridView.Rows.Clear()
+
+        Dim _Table As New DataTable
+        _Query = "usp_ThongKeKhachTheoMonAnTheoQuy"
+        Dim _Name() As String = New String() {"@Quy", "@Nam"}
+        Dim _Value() As String = New String() {quy, nam}
+
+        _Table = _Connect.Query(_Query, _Connect.CreateParameter(_Name, _Value))
+
+        If _Table.Rows.Count = 0 Then
+            MessageBox.Show("Quý nhập không tồn tại", "Thông Báo")
+        Else
+            For Each dt As DataRow In _Table.Rows
+                sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString(), dt(2).ToString()})
+            Next
+        End If
+        Return _Table
+
+    End Function
+    'Load Thống Kê Khách Theo Món Theo Tháng
+    Public Function ThongKeThangKhach_Mon(ByRef sourceDataGridView As DataGridView, ByVal thang As Object, ByVal nam As Object) As DataTable
+        sourceDataGridView.Rows.Clear()
+
+        Dim _Table As New DataTable
+        _Query = "usp_ThongKeKhachTheoMonAnTheoThang"
+        Dim _Name() As String = New String() {"@Thang", "@Nam"}
+        Dim _Value() As String = New String() {thang, nam}
+
+        _Table = _Connect.Query(_Query, _Connect.CreateParameter(_Name, _Value))
+
+
+        If _Table.Rows.Count = 0 Then
+            MessageBox.Show("Tháng nhập không tồn tại", "Thông Báo")
+        Else
+            For Each dt As DataRow In _Table.Rows
+                sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString(), dt(2).ToString()})
+            Next
+        End If
+        Return _Table
+
+    End Function
+
+
+    'Load Thống Kê Doanh Thu Theo Năm
+    Public Function ThongKeNamDoanhThu(ByRef sourceDataGridView As DataGridView, ByVal nam As Object) As DataTable
+        sourceDataGridView.Rows.Clear()
+        Dim _Table As New DataTable
+        _Query = "usp_ThongKeDoanhThuTheoNam"
+        Dim _Name() As String = New String() {"@Nam"}
+        Dim _Value() As String = New String() {nam}
+
+        _Table = _Connect.Query(_Query, _Connect.CreateParameter(_Name, _Value))
+        If _Table.Rows.Count = 0 Then
+            MessageBox.Show("Năm nhập không tồn tại", "Thông Báo")
+        Else
+            For Each dt As DataRow In _Table.Rows
+                sourceDataGridView.Rows.Add(New String() {dt(0).ToString})
+            Next
+        End If
+
+        Return _Table
+
+    End Function
+    'Load Thống Kê Doanh Thu Theo Quý
+    Public Function ThongKeQuyDoanhThu(ByRef sourceDataGridView As DataGridView, ByVal quy As Object, ByVal nam As Object) As DataTable
+        sourceDataGridView.Rows.Clear()
+
+        Dim _Table As New DataTable
+        _Query = "usp_ThongKeDoanhThuTheoQuy"
+        Dim _Name() As String = New String() {"@Quy", "@Nam"}
+        Dim _Value() As String = New String() {quy, nam}
+
+        _Table = _Connect.Query(_Query, _Connect.CreateParameter(_Name, _Value))
+
+        If _Table.Rows.Count = 0 Then
+            MessageBox.Show("Quý nhập không tồn tại", "Thông Báo")
+        Else
+            For Each dt As DataRow In _Table.Rows
+                sourceDataGridView.Rows.Add(New String() {dt(0).ToString()})
+            Next
+        End If
+        Return _Table
+
+    End Function
+    'Load Thống Kê Doanh Thu Theo Tháng
+    Public Function ThongKeThangDoanhThu(ByRef sourceDataGridView As DataGridView, ByVal thang As Object, ByVal nam As Object) As DataTable
+        sourceDataGridView.Rows.Clear()
+
+        Dim _Table As New DataTable
+        _Query = "usp_ThongKeDoanhThuTheoThang"
+        Dim _Name() As String = New String() {"@Thang", "@Nam"}
+        Dim _Value() As String = New String() {thang, nam}
+
+        _Table = _Connect.Query(_Query, _Connect.CreateParameter(_Name, _Value))
+
+
+        If _Table.Rows.Count = 0 Then
+            MessageBox.Show("Tháng nhập không tồn tại", "Thông Báo")
+        Else
+            For Each dt As DataRow In _Table.Rows
+                sourceDataGridView.Rows.Add(New String() {dt(0).ToString()})
+            Next
+        End If
+        Return _Table
+
+    End Function
+
+
+  
+
 End Module
