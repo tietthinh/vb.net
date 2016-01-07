@@ -12,7 +12,6 @@ Public Class frmWarehouseKeeper
     Public _CurrentUser As User = Nothing
     Private Connection As New DatabaseConnection()
     Dim rowIndex As New Integer
-    Dim login As New frmLogin
 
     Private Sub btnPhieuNhan_Click(sender As Object, e As EventArgs) Handles btnPhieuNhan.Click
         Dim f = New FrmQLPhieuNhan()
@@ -135,11 +134,29 @@ Public Class frmWarehouseKeeper
     End Sub
 
     Private Sub btnTimNCC_Click(sender As Object, e As EventArgs) Handles btnTimNCC.Click
-
+        errMain.Clear()
+        If txtTimNCC.Text = "" Then
+            errMain.SetError(txtTimNCC, "Nhập thông tin cần tìm!")
+        End If
+        If errMain.GetError(txtTimNCC) = "" Then
+            Dim temp As Integer = 0
+            For i As Integer = 0 To dgvDSNhaCungCap.RowCount - 1
+                For j As Integer = 0 To dgvDSNhaCungCap.ColumnCount - 1
+                    If dgvDSNhaCungCap.Rows(i).Cells(j).Value.ToString = txtTimNCC.Text Then
+                        MsgBox("Item found")
+                        temp = 1
+                        dgvDSNhaCungCap.CurrentCell = dgvDSNhaCungCap.Rows(i).Cells(j)
+                    End If
+                Next
+            Next
+            If temp = 0 Then
+                MsgBox("Item not found")
+            End If
+        End If
     End Sub
 
     Private Sub frmWarehouseKeeper_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim _Login As New frmLogin()
+        Dim _Login As New frmLogin(EmployeeType.Waitor)
         _Login.ShowDialog()
         _CurrentUser = DatabaseConnection._User
         If (_Login.DialogResult = 1) Then
@@ -155,7 +172,7 @@ Public Class frmWarehouseKeeper
             tslMaNV.Text = _CurrentUser.Identity
             tslTenNV.Text = _CurrentUser.EmployeeName
         Else
-            Me.Close()
+        Me.Close()
         End If
     End Sub
     '
@@ -241,8 +258,16 @@ Public Class frmWarehouseKeeper
         End If
     End Sub
 
-    Public Sub dgvDSSanPham_CellClick(sender As Object, e As DataGridViewCellEventArgs)
-
+    Public Sub dgvDSSanPham_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDSSanPham.CellClick
+        If dgvDSSanPham.SelectedRows(0).Cells("colMaSP").Value.ToString <> "" Then
+            txtTenSanPham.Text = dgvDSSanPham.SelectedRows(0).Cells("colTenSP").Value.ToString
+            txtSoLuong.Text = dgvDSSanPham.SelectedRows(0).Cells("colSoLuongTon").Value.ToString
+            cboDonVi.Text = dgvDSSanPham.SelectedRows(0).Cells("colTenDV").Value.ToString
+        Else
+            txtTenSanPham.Text = ""
+            txtSoLuong.Text = ""
+            cboDonVi.Text = ""
+        End If
     End Sub
 
     Private Sub btnXoaSP_Click(sender As Object, e As EventArgs) Handles btnXoaSP.Click
@@ -261,17 +286,6 @@ Public Class frmWarehouseKeeper
     End Sub
 
     Private Function timKiemSP(ByVal _colName As String) As Integer
-        Dim _dt As DataTable = Connection.Query("spSanPhamSelect")
-        Dim _dv As DataView = New DataView(_dt, _colName + "=" + "'" + txtTimSP.Text + "'", "SoLuongTon Desc", DataViewRowState.CurrentRows)
-        dgvDSSanPham.DataSource = _dv
-        If dgvDSSanPham.Rows(rowIndex).Cells(0).Value() = "" Then
-            Return 0
-        Else
-            Return 1
-        End If
-    End Function
-
-    Private Function timKiemNCC(ByVal _colName As String) As Integer
         Dim _dt As DataTable = Connection.Query("spSanPhamSelect")
         Dim _dv As DataView = New DataView(_dt, _colName + "=" + "'" + txtTimSP.Text + "'", "SoLuongTon Desc", DataViewRowState.CurrentRows)
         dgvDSSanPham.DataSource = _dv
@@ -319,16 +333,5 @@ Public Class frmWarehouseKeeper
         End If
     End Sub
 
-    Private Sub dgvDSSanPham_CellClick_1(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDSSanPham.CellClick
-        If IsNothing(dgvDSSanPham.SelectedRows(0).Cells("colMaSP").Value()) = False Then
-            txtTenSanPham.Text = dgvDSSanPham.SelectedRows(0).Cells("colTenSP").Value().ToString
-            txtSoLuong.Text = dgvDSSanPham.SelectedRows(0).Cells("colSoLuongTon").Value().ToString
-            txtDiaChi.Text = dgvDSNhaCungCap.SelectedRows(0).Cells("colDiaChi").Value().ToString
-            cboDonVi.Text = dgvDSSanPham.SelectedRows(0).Cells("colTenDV").Value.ToString
-        Else
-            txtTenSanPham.Text = ""
-            txtSoLuong.Text = ""
-            txtDiaChi.Text = ""
-        End If
-    End Sub
+
 End Class

@@ -77,7 +77,7 @@ Partial Class frmWarehouseKeeper
         Me.Label3 = New System.Windows.Forms.Label()
         Me.txtTimSP = New System.Windows.Forms.TextBox()
         Me.Label11 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.txtTimNCC = New System.Windows.Forms.TextBox()
         Me.cboEmail = New System.Windows.Forms.ComboBox()
         Me.cboDienThoai = New System.Windows.Forms.ComboBox()
         Me.stsMain = New System.Windows.Forms.StatusStrip()
@@ -455,11 +455,11 @@ Partial Class frmWarehouseKeeper
         DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgvDSNhaCungCap.DefaultCellStyle = DataGridViewCellStyle4
-        Me.dgvDSNhaCungCap.Location = New System.Drawing.Point(500, 419)
+        Me.dgvDSNhaCungCap.Location = New System.Drawing.Point(504, 419)
         Me.dgvDSNhaCungCap.Name = "dgvDSNhaCungCap"
         Me.dgvDSNhaCungCap.RowHeadersVisible = False
         Me.dgvDSNhaCungCap.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvDSNhaCungCap.Size = New System.Drawing.Size(842, 262)
+        Me.dgvDSNhaCungCap.Size = New System.Drawing.Size(838, 262)
         Me.dgvDSNhaCungCap.TabIndex = 88
         '
         'colMaNCC
@@ -603,13 +603,13 @@ Partial Class frmWarehouseKeeper
         Me.Label11.TabIndex = 99
         Me.Label11.Text = "Tìm kiếm"
         '
-        'TextBox1
+        'txtTimNCC
         '
-        Me.TextBox1.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.TextBox1.Location = New System.Drawing.Point(683, 298)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(600, 20)
-        Me.TextBox1.TabIndex = 100
+        Me.txtTimNCC.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.txtTimNCC.Location = New System.Drawing.Point(683, 298)
+        Me.txtTimNCC.Name = "txtTimNCC"
+        Me.txtTimNCC.Size = New System.Drawing.Size(600, 20)
+        Me.txtTimNCC.TabIndex = 100
         '
         'cboEmail
         '
@@ -660,7 +660,7 @@ Partial Class frmWarehouseKeeper
         Me.Controls.Add(Me.stsMain)
         Me.Controls.Add(Me.cboDienThoai)
         Me.Controls.Add(Me.cboEmail)
-        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.txtTimNCC)
         Me.Controls.Add(Me.Label11)
         Me.Controls.Add(Me.txtTimSP)
         Me.Controls.Add(Me.Label3)
@@ -752,7 +752,7 @@ Partial Class frmWarehouseKeeper
     Friend WithEvents colSoLuongTon As DataGridViewTextBoxColumn
     Friend WithEvents colMaDV As DataGridViewTextBoxColumn
     Friend WithEvents colTenDV As DataGridViewTextBoxColumn
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents txtTimNCC As TextBox
     Friend WithEvents Label11 As Label
     Friend WithEvents cboDienThoai As ComboBox
     Friend WithEvents cboEmail As ComboBox

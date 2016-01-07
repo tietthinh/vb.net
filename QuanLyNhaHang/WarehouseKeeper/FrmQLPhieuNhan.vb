@@ -1,26 +1,8 @@
-﻿Public Class FrmQLPhieuNhan
+﻿Imports System.Data.SqlClient
+
+Public Class FrmQLPhieuNhan
     Dim Connection As New Library.DatabaseConnection
-    Private Sub btnThemPG_Click(sender As Object, e As EventArgs) Handles btnThemPG.Click
-        errPhieuNhan.Clear()
-        If cboMaPN.Text = "" Then
-            errPhieuNhan.SetError(cboMaPN, "Chọn mã phiếu nhập!")
-        End If
-        If txtTongTien.Text = "" Then
-            errPhieuNhan.SetError(txtTongTien, "Nhập tổng tiền!")
-        Else
-            If IsNumeric(txtTongTien.Text) = False Then
-                errPhieuNhan.SetError(txtTongTien, "Chỉ được nhập số!")
-            End If
-        End If
 
-        If errPhieuNhan.GetError(cboMaPN) = "" And errPhieuNhan.GetError(txtTongTien) = "" Then
-            Dim _Name() As String = New String() {"@MaPN", "@MaNV", "@GhiChu"}
-            Dim _Value() As Object = New Object() {cboMaPN.SelectedValue, "NV0001", txtGhiChu.Text}
-            Connection.Update("spPhieuNhanInsert", Connection.CreateParameter(_Name, _Value))
-            loadDSPhieuNhan()
-        End If
-
-    End Sub
 
     Private Sub btnTimPG_Click(sender As Object, e As EventArgs) Handles btnTimPG.Click
         errPhieuNhan.Clear()
@@ -44,6 +26,12 @@
                 errPhieuNhan.SetError(txtSoLuong, "Chỉ được nhập số!")
             End If
         End If
+        If errPhieuNhan.GetError(cboTenSP) = "" And errPhieuNhan.GetError(txtSoLuong) = "" Then
+            Dim _Name() As String = New String() {"@MaPG", "@MaSP", "@SoLuong", "@MaPN"}
+            Dim _Value() As Object = New Object() {dgvChiTietPG.Rows(0).Cells(0).Value().ToString(), cboTenSP.SelectedValue, txtSoLuong.Text, dgvChiTietPG.Rows(0).Cells(1).Value().ToString()}
+            Connection.Update("spChiTietPhieuNhanInsert", Connection.CreateParameter(_Name, _Value))
+        End If
+
     End Sub
 
     Private Sub btnTimCT_Click(sender As Object, e As EventArgs) Handles btnTimCT.Click
@@ -72,7 +60,9 @@
         cboMaPN.DisplayMember = "MaPN"
         cboMaPN.ValueMember = "MaPN"
 
-
+        cboTenSP.DataSource = Connection.Query("Select MaSP, TenSP From SanPham")
+        cboTenSP.DisplayMember = "TenSP"
+        cboTenSP.ValueMember = "MaSP"
 
     End Sub
 
@@ -95,7 +85,6 @@
             txtTongTien.Text = dgvDanhSachPG.SelectedRows(0).Cells("colTongTien").Value.ToString()
             dtpNgayLap.Text = dgvDanhSachPG.SelectedRows(0).Cells("colNgayLap").Value.ToString()
             txtGhiChu.Text = dgvDanhSachPG.SelectedRows(0).Cells("colGhiChu").Value.ToString()
-            cboMaPN.Text = dgvDanhSachPG.SelectedRows(0).Cells("colMaPN").Value.ToString()
         End If
     End Sub
 
@@ -139,4 +128,36 @@
             Return 1
         End If
     End Function
+
+    Private Sub cboMaPN_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles cboMaPN.SelectionChangeCommitted
+        Dim _Name() As String = New String() {"@MaPN"}
+        Dim _Value() As Object = New Object() {cboMaPN.SelectedValue.ToString}
+        dgvChiTietPG.DataSource = Connection.Query("usp_LoadChiTietPhieuNhanSelect", Connection.CreateParameter(_Name, _Value))
+    End Sub
+
+    Private Sub btnHoanThanh_Click(sender As Object, e As EventArgs) Handles btnHoanThanh.Click
+
+    End Sub
+
+    Private Sub btnXoaCT_Click(sender As Object, e As EventArgs) Handles btnXoaCT.Click
+        If (MessageBox.Show("Bạn muốn xóa chi tiết phiếu nhận này?", "Thông báo", MessageBoxButtons.OKCancel) = DialogResult.OK) Then
+            Dim _return As SqlParameter = New SqlParameter
+            Dim _Name() As String = New String() {"@MaPG", "@MaPN", "@MaSP"}
+            Dim _Value() As Object = New Object() {dgvChiTietPG.SelectedRows(0).Cells(0).Value().ToString(), dgvChiTietPG.SelectedRows(0).Cells(1).Value().ToString(), dgvChiTietPG.SelectedRows(0).Cells(2).Value().ToString()}
+            Connection.Update("spChiTietPhieuNhanDelete", _return, Connection.CreateParameter(_Name, _Value))
+            Dim kq As Integer = _return.Value
+            If kq = 1 Then
+                MessageBox.Show("Phiếu nhập đã hoàn thành không thể xóa chi tiết!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            End If
+            loadDSPhieuNhan()
+        End If
+    End Sub
+
+    Private Sub btnSuaCT_Click(sender As Object, e As EventArgs) Handles btnSuaCT.Click
+
+    End Sub
+
+    Private Sub dgvChiTietPG_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvChiTietPG.CellClick
+
+    End Sub
 End Class
