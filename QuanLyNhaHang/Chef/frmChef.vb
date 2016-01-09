@@ -6,6 +6,14 @@
 
 Imports Library
 Imports System.Data.SqlClient
+Imports ServerHost
+Imports System
+Imports System.Threading
+Imports Remote
+Imports System.Runtime.Remoting.Channels.Http
+Imports System.Runtime.Remoting.Channels.ChannelServices
+Imports System.Configuration
+Imports System.Runtime.Remoting
 
 Public Class frmChef
     'Fields:
@@ -101,12 +109,53 @@ Public Class frmChef
     ''' <remarks></remarks>
     Dim dishOrderList As New List(Of DishDetail)
 
+    Private _ServerObject As New ServerObject()
+
+    Private _Thread As Thread
+
+    Private Sub ChefListener(ByVal Inteval As Integer, ByVal SleepTime As Integer)
+        Dim _Timer = New Timers.Timer()
+        _Timer.Interval = Inteval
+
+        _Timer.Start()
+        While (True)
+            Thread.Sleep(0)
+            If (Me.IsAccessible = True) Then
+                Me.Invoke(New MethodInvoker(Sub()
+                                                Dim _ReceiveData As String = GetData()
+                                                If (_ReceiveData <> "" And _ReceiveData.Length > 2) Then
+                                                    MessageBox.Show(_ReceiveData)
+                                                    CheckWaitorToChefBartender(_ReceiveData)
+                                                    CheckWaitorToChefBartenderConfirm(_ReceiveData)
+                                                    CheckWarehouseToChefBartenderConfirm(_ReceiveData)
+                                                End If
+                                                If (_Timer.Interval >= Inteval) Then
+                                                    Thread.Sleep(1600000)
+                                                    _Timer.Interval = Inteval
+                                                    _Timer.Start()
+                                                End If
+                                            End Sub
+                                        ))
+            Else
+                Exit While
+            End If
+        End While
+    End Sub
+
     'Events:
     '
     'Form's Events
     '
     'Load: Occur when the form first load.
     Private Sub frmChef_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.IsAccessible = True
+
+        Try
+            StartService(New ThreadStart(Sub() ChefListener(30000, 2000)))
+        Catch ex As Exception
+            MessageBox.Show(ex.ToString())
+        End Try
+
         Dim parameter() As SqlClient.SqlParameter = db.CreateParameter(New String() {"@MaChuyen"}, New Object() {"01-0001"})
 
         Try
@@ -143,10 +192,12 @@ Public Class frmChef
     '
     'FormClosing: Occur while the form is closing.
     Private Sub frmChef_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        If MessageBox.Show("Bạn có muốn đóng chương trình không?", "", MessageBoxButtons.OKCancel) = Windows.Forms.DialogResult.Cancel Then
+        If MessageBox.Show("Bạn có muốn đóng chương trình không?", "", MessageBoxButtons.OKCancel) = System.Windows.Forms.DialogResult.Cancel Then
             e.Cancel = True
             Exit Sub
         End If
+
+        Me.IsAccessible = False
 
         GetCancelledDish(cancelledDishList, cantServeList)
         db.Update("spDanhSachMonAnKhongHoanThanhInsert", db.CreateParameter(New String() {"@DS"}, New Object() {cancelledDishList}))
@@ -414,7 +465,7 @@ Public Class frmChef
 
             result = frmConfirm.ShowDialog()
 
-            If result = Windows.Forms.DialogResult.OK Then
+            If result = System.Windows.Forms.DialogResult.OK Then
                 'Gets the dish detail by id in dishOrderList
                 Dim dishDetail As DishDetail = GetFirstDetailByID(dishOrderList, dgv.Rows(e.RowIndex).Cells("CookListDishID").Value)
                 'Gets the dishes are done

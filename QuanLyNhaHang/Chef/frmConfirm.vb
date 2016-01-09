@@ -1,4 +1,5 @@
 ﻿Imports Library
+Imports System.Windows
 
 Public Class frmConfirm
 
@@ -58,7 +59,7 @@ Public Class frmConfirm
     '
     'Click: Occur when clicks the button Cancel.
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
-        Me.DialogResult = Windows.Forms.DialogResult.Cancel
+        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
     End Sub
     '
     'btnOK's Events
@@ -67,7 +68,7 @@ Public Class frmConfirm
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         frmChef.doneQuantity = Integer.Parse(nudQuantity.Value)
 
-        Me.DialogResult = Windows.Forms.DialogResult.OK
+        Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()
     End Sub
 End Class

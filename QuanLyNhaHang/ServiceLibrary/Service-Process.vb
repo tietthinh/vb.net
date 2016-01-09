@@ -5,6 +5,8 @@ Imports System.Threading
 Imports System.Windows.Forms
 Imports System.Configuration
 Imports System.Runtime.Remoting
+Imports System.Runtime.Remoting.Channels
+Imports System.Net
 
 Public Module Service_Process
     Private _ServerObject As ServerObject

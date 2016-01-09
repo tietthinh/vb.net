@@ -164,12 +164,12 @@ Public Class Waitor
             '            Exit For
             '        End If
             '    Next
-            '    ''Send Chef/Bartender signal.
-            '    Dim _Query2 As String = "spDemMonDaDat"
-            '    Dim _SoLuongMon As Integer = Integer.Parse(_Connection.Query(_Query2).Rows(0).Item(0).ToString)
-            '    If (_SoLuongMon = 0) Then
-            '        _ServerObject.AddData("2+" + dgvList.Item(5, 0).Value + "*")
-            '    End If
+            ''Send Chef/Bartender signal.
+            Dim _Query2 As String = "spDemMonDaDat"
+            Dim _SoLuongMon As Integer = Integer.Parse(_Connection.Query(_Query2).Rows(0).Item(0).ToString)
+            If (_SoLuongMon = 0) Then
+                SendData("2+" + dgvList.Item(5, 0).Value + "*")
+            End If
         Else
             MessageBox.Show("Danh sách món ăn trống!", "Thông báo")
         End If
