@@ -88,7 +88,7 @@ Public Class Waitor
             lstMenu.Enabled = True
             _IsSelected = True
             AppProvider._IsCommitted = False
-            'UpdateTableStatus(1)
+            UpdateTableStatus(1, _SelectedTable)
             LoadMenu()
         End If
     End Sub
@@ -156,20 +156,16 @@ Public Class Waitor
             Next
             AppProvider._IsCommitted = True
             MessageBox.Show("Gửi danh sách thành công!", "Thông báo", MessageBoxButtons.OK)
-            ''Counting on waiting order.
 
-            '    For i As Integer = 0 To dgvList.Rows.Count - 1 Step 1
-            '        If (dgvList.Item(4, i).Value = "Chưa làm") Then
-            '            _ServerObject.AddData(dgvList.Item(5, i).Value.ToString.Trim + "*")
-            '            Exit For
-            '        End If
-            '    Next
-            '    ''Send Chef/Bartender signal.
-            '    Dim _Query2 As String = "spDemMonDaDat"
-            '    Dim _SoLuongMon As Integer = Integer.Parse(_Connection.Query(_Query2).Rows(0).Item(0).ToString)
-            '    If (_SoLuongMon = 0) Then
-            '        _ServerObject.AddData("2+" + dgvList.Item(5, 0).Value + "*")
-            '    End If
+            ''Send Chef/Bartender signal.
+            Dim _Query2 As String = "spDemMonDaDat"
+            Dim dataTable As DataTable = Nothing
+            dataTable = _Connection.Query(_Query2)
+
+            Dim _SoLuongMon As Integer = Integer.Parse(_Connection.Query(_Query2).Rows(0).Item(0).ToString)
+            If (_SoLuongMon = 0) Then
+                SendData("2+" + dgvList.Item(5, 0).Value + "*")
+            End If
         Else
             MessageBox.Show("Danh sách món ăn trống!", "Thông báo")
         End If
@@ -177,7 +173,7 @@ Public Class Waitor
     Private Sub btnPay_Click(sender As Object, e As EventArgs) Handles btnPay.Click
         If (AppProvider._IsCommitted = True And _IsSelected = True) Then
             ''Commit the list to Cashier
-            _ServerObject.AddData("1+" + dgvList.Item(5, 0).Value.ToString.Trim + "_" + dgvList.Item(5, dgvList.RowCount - 1).Value.ToString.Trim + "_" + _CurrentUser.Identity.ToString.Trim + "_" + nudGuestCount.Value.ToString.Trim + "*")
+            SendData("1+" + dgvList.Item(5, 0).Value.ToString.Trim + "_" + dgvList.Item(5, dgvList.RowCount - 1).Value.ToString.Trim + "_" + _CurrentUser.Identity.ToString.Trim + "_" + nudGuestCount.Value.ToString.Trim + "*")
             ''Remove Effect & Clear list orders
             _PictureBoxEffect.BackColor = Color.White
             dgvList.Rows.Clear()

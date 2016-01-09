@@ -24,7 +24,7 @@ Public Module Waitor_Process
     ''' <returns></returns>
     Public Function GetMenuList(ByVal _TinhTrang As Integer) As DataTable
         Dim _Query As String = "spMonAnDoUongSelect"
-        Dim _Parameter As New SqlClient.SqlParameter("@TinhTrang", _TinhTrang)
+        Dim _Parameter As New SqlParameter("@TinhTrang", _TinhTrang)
         Return _Connection.Query(_Query, _Parameter)
     End Function
     ''' <summary>
@@ -109,7 +109,7 @@ Public Module Waitor_Process
                         End If
                     End If
                 Next
-                SendData("3+" + _Item + "0*")
+                SendData("3+" + _Item + "_0*")
             Next
         End If
     End Sub
