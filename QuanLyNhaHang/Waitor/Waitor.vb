@@ -27,56 +27,8 @@ Public Class Waitor
         picTable05.Click, picTable06.Click, picTable07.Click, picTable08.Click, picTable09.Click
         _SelectedTable = CType(sender, PictureBox)
         Dim _Index As Integer = 0
-        ''Save
-        'If existed
-        If (dgvList.Rows.Count > 0 And CheckExistedTable(_PreviousTable, _Index, _ListTable) = True) Then
-            Dim _Order As New Order
-            Dim _ContinuesPosition As Integer = _ListTable(_Index).GetLength
-            For i As Integer = _ContinuesPosition To dgvList.Rows.Count - 1 Step 1
-                _Order = New Order
-                _Order.STT = dgvList.Rows(i).Cells(0).Value.ToString
-                _Order.TenMon = dgvList.Rows(i).Cells(1).Value.ToString
-                _Order.SoLuong = dgvList.Rows(i).Cells(2).Value.ToString
-                _Order.GhiChu = dgvList.Rows(i).Cells(3).Value.ToString
-                _Order.TinhTrang = dgvList.Rows(i).Cells(4).Value.ToString
-                _Order.MaChuyen = dgvList.Rows(i).Cells(5).Value.ToString
-                _Order.MaMon = dgvList.Rows(i).Cells(6).Value.ToString
-                _ListTable(_Index).Add(_Order)
-            Next
-            dgvList.Rows.Clear()
-        End If
-        'If not existed
-        If (dgvList.Rows.Count > 0 And CheckExistedTable(_PreviousTable, _Index, _ListTable) = False) Then
-            Dim _Table As New Table
-            _Table.TableNumber = Integer.Parse(_PreviousTable.Name.Last.ToString())
-            Dim _Order As New Order
-            For i As Integer = 0 To dgvList.Rows.Count - 1 Step 1
-                _Order = New Order
-                _Order.STT = dgvList.Rows(i).Cells(0).Value.ToString
-                _Order.TenMon = dgvList.Rows(i).Cells(1).Value.ToString
-                _Order.SoLuong = dgvList.Rows(i).Cells(2).Value.ToString
-                _Order.GhiChu = dgvList.Rows(i).Cells(3).Value.ToString
-                _Order.TinhTrang = dgvList.Rows(i).Cells(4).Value.ToString
-                _Order.MaChuyen = dgvList.Rows(i).Cells(5).Value.ToString
-                _Order.MaMon = dgvList.Rows(i).Cells(6).Value.ToString
-                _Table.Add(_Order)
-            Next
-            _ListTable.Add(_Table)
-            dgvList.Rows.Clear()
-        End If
-        ''Load
-        If (CheckExistedTable(_SelectedTable, _Index, _ListTable) = True) Then
-            dgvList.Rows.Clear()
-            For i As Integer = 0 To _ListTable(_Index).GetLength - 1 Step 1
-                dgvList.Rows.Add(_ListTable(_Index).GetOrder(i).STT,
-                                 _ListTable(_Index).GetOrder(i).TenMon,
-                                  _ListTable(_Index).GetOrder(i).SoLuong,
-                                  _ListTable(_Index).GetOrder(i).GhiChu,
-                                  _ListTable(_Index).GetOrder(i).TinhTrang,
-                                  _ListTable(_Index).GetOrder(i).MaChuyen,
-                                  _ListTable(_Index).GetOrder(i).MaMon)
-            Next
-        End If
+        SaveTable(_PreviousTable, _Index, _ListTable)
+        LoadTable(_SelectedTable, _Index, _ListTable)
         Dim a As Integer = MessageBox.Show("Vui lòng kiểm tra số bàn!" + vbCrLf + "Bạn đang chọn bàn số " + _SelectedTable.Name.Last, "Xác Nhận", MessageBoxButtons.OKCancel)
         If (a = 1) Then
             _PreviousTable.BackColor = Color.White
