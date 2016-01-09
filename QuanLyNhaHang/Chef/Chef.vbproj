@@ -84,6 +84,12 @@
     <Compile Include="frmChef.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmConfirm.Designer.vb">
+      <DependentUpon>frmConfirm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmConfirm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -104,6 +110,9 @@
     <EmbeddedResource Include="frmChef.resx">
       <DependentUpon>frmChef.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmConfirm.resx">
+      <DependentUpon>frmConfirm.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -122,7 +131,9 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Library\Library.vbproj">

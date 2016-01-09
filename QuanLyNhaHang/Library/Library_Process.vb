@@ -11,6 +11,20 @@ Imports System.Text
 Public Module Library_Process
 
     ''' <summary>
+    ''' List types of Employee for login form.
+    ''' </summary>
+    ''' <remarks></remarks>
+    Enum EmployeeType As Integer
+        Waitor = 1
+        Bartender
+        Manager
+        Receptionist
+        WarehouseKeeper
+        Employee
+        Cashier
+    End Enum
+
+    ''' <summary>
     ''' Gets MD5 Hash code from two parameters.
     ''' </summary>
     ''' <param name="password">First parameter (for Form Login is Employee's Password).</param>

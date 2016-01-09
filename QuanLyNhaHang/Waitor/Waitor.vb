@@ -62,7 +62,7 @@ Public Class Waitor
         add.ShowDialog()
     End Sub
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim _Login As New frmLogin()
+        Dim _Login As New frmLogin(EmployeeType.Waitor)
         _Login.ShowDialog()
         _CurrentUser = DatabaseConnection._User
         If (_Login.DialogResult = 1) Then
