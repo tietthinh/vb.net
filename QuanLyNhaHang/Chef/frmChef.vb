@@ -462,7 +462,7 @@ Public Class frmChef
             Dim result As DialogResult
 
             'Creates new form Confirm
-            frmConfirm = New frmConfirm(dgv.Rows(e.RowIndex).Cells("CookListQuantity").Value)
+            frmConfirm = New frmConfirm(dgv.Rows(e.RowIndex).Cells("CookListQuantity").Value, dgv.Rows(e.RowIndex).Cells("CookListDishName").Value)
 
             result = frmConfirm.ShowDialog()
 
