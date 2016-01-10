@@ -58,15 +58,15 @@ Public Class frmCashier
     Private Sub frmCashier_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         MaDau.Width = 0
         MaCuoi.Width = 0
-        'Dim _Login As New frmLogin(EmployeeType.Cashier)
-        '_Login.ShowDialog()
-        '_CurrentUser = DatabaseConnection._User
-        'If (_Login.DialogResult = 1) Then
-        StartService(New ThreadStart(Sub() Listener()))
-        'Me.Text = "Nhân Viên " + _CurrentUser.EmployeeName.ToString
-        'Else
-        'Me.Close()
-        'End If
+        Dim _Login As New frmLogin(EmployeeType.Cashier)
+        _Login.ShowDialog()
+        _CurrentUser = DatabaseConnection._User
+        If (_Login.DialogResult = 1) Then
+            StartService(New ThreadStart(Sub() Listener()))
+            Me.Text = "Nhân Viên " + _CurrentUser.EmployeeName.ToString
+        Else
+            Me.Close()
+        End If
     End Sub
 
 
@@ -144,6 +144,8 @@ Public Class frmCashier
                                                     Dim _ReceiveData As String = GetData()
                                                     ''Handles event here.
                                                     If (_ReceiveData <> "" And _ReceiveData.Length > 2) Then
+                                                        MessageBox.Show(_ReceiveData)
+
                                                         CheckWaitorToCashierSignal(_ReceiveData)
                                                     End If
                                                 End Sub
