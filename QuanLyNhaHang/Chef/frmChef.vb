@@ -114,7 +114,7 @@ Public Class frmChef
     Private _Thread As Thread
 
     Private Sub ChefListener(ByVal Inteval As Integer, ByVal SleepTime As Integer)
-        Dim _Timer = New Timers.Timer()
+        Dim _Timer = New System.Threading.Timer()
         _Timer.Interval = Inteval
 
         _Timer.Start()
@@ -130,7 +130,7 @@ Public Class frmChef
                                                     CheckWarehouseToChefBartenderConfirm(_ReceiveData)
                                                 End If
                                                 If (_Timer.Interval >= Inteval) Then
-                                                    Thread.Sleep(1600000)
+                                                    Thread.Sleep(2000)
                                                     _Timer.Interval = Inteval
                                                     _Timer.Start()
                                                 End If
