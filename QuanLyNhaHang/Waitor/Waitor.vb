@@ -109,22 +109,11 @@ Public Class Waitor
             AppProvider._IsCommitted = True
             MessageBox.Show("Gửi danh sách thành công!", "Thông báo", MessageBoxButtons.OK)
 
-<<<<<<< HEAD
-            '    For i As Integer = 0 To dgvList.Rows.Count - 1 Step 1
-            '        If (dgvList.Item(4, i).Value = "Chưa làm") Then
-            '            _ServerObject.AddData(dgvList.Item(5, i).Value.ToString.Trim + "*")
-            '            Exit For
-            '        End If
-            '    Next
-            ''Send Chef/Bartender signal.
-            Dim _Query2 As String = "spDemMonDaDat"
-=======
             ''Send Chef/Bartender signal.
             Dim _Query2 As String = "spDemMonDaDat"
             Dim dataTable As DataTable = Nothing
             dataTable = _Connection.Query(_Query2)
 
->>>>>>> 419766f106ef62857a0143aefbaba0d54f5c8eae
             Dim _SoLuongMon As Integer = Integer.Parse(_Connection.Query(_Query2).Rows(0).Item(0).ToString)
             If (_SoLuongMon = 0) Then
                 SendData("2+" + dgvList.Item(5, 0).Value + "*")

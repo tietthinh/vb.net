@@ -109,14 +109,14 @@ Public Class frmChef
     ''' <remarks></remarks>
     Dim dishOrderList As New List(Of DishDetail)
 
-    Private _ServerObject As New ServerObject()
-
     Private _Thread As Thread
 
-    Private Sub ChefListener(ByVal Inteval As Integer, ByVal SleepTime As Integer)
-        Dim _Timer = New System.Threading.Timer()
-        _Timer.Interval = Inteval
+    Private _ServerObject As New ServerObject()
 
+    Private Sub ChefListener(ByVal Inteval As Integer, ByVal SleepTime As Integer)
+        Dim _Timer = New System.Timers.Timer()
+        _Timer.Interval = Inteval
+        MessageBox.Show("OK")
         _Timer.Start()
         While (True)
             Thread.Sleep(0)
@@ -130,7 +130,7 @@ Public Class frmChef
                                                     CheckWarehouseToChefBartenderConfirm(_ReceiveData)
                                                 End If
                                                 If (_Timer.Interval >= Inteval) Then
-                                                    Thread.Sleep(2000)
+                                                    Thread.Sleep(SleepTime)
                                                     _Timer.Interval = Inteval
                                                     _Timer.Start()
                                                 End If
@@ -148,13 +148,6 @@ Public Class frmChef
     '
     'Load: Occur when the form first load.
     Private Sub frmChef_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Me.IsAccessible = True
-
-        Try
-            StartService(New ThreadStart(Sub() ChefListener(30000, 2000)))
-        Catch ex As Exception
-            MessageBox.Show(ex.ToString())
-        End Try
 
         Dim parameter() As SqlClient.SqlParameter = db.CreateParameter(New String() {"@MaChuyen"}, New Object() {"01-0001"})
 
@@ -188,6 +181,12 @@ Public Class frmChef
         doneDishList.Columns.Add(New DataColumn("SoLuong"))
 
         AddHandler lblMaterialQuantity.TextChanged, AddressOf lblMaterialQuantity_TextChanged
+
+        Try
+            StartService(New ThreadStart(Sub() ChefListener(30000, 2000)))
+        Catch ex As Exception
+            MessageBox.Show(ex.ToString())
+        End Try
     End Sub
     '
     'FormClosing: Occur while the form is closing.
