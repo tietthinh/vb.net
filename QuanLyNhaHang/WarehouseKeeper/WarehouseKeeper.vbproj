@@ -70,11 +70,29 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.vb">
+    <Compile Include="frmWarehouseKeeper.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.vb">
-      <DependentUpon>Form1.vb</DependentUpon>
+    <Compile Include="frmWarehouseKeeper.Designer.vb">
+      <DependentUpon>frmWarehouseKeeper.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmContact.Designer.vb">
+      <DependentUpon>frmContact.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmContact.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmQLPhieuNhan.Designer.vb">
+      <DependentUpon>FrmQLPhieuNhan.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmQLPhieuNhan.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmQLPhieuNhap.Designer.vb">
+      <DependentUpon>FrmQLPhieuNhap.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmQLPhieuNhap.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -92,8 +110,21 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="WarehouseKeeper_Process.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="frmContact.resx">
+      <DependentUpon>frmContact.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmWarehouseKeeper.resx">
+      <DependentUpon>frmWarehouseKeeper.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmQLPhieuNhan.resx">
+      <DependentUpon>FrmQLPhieuNhan.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmQLPhieuNhap.resx">
+      <DependentUpon>FrmQLPhieuNhap.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
