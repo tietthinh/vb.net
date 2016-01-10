@@ -10,7 +10,6 @@ Public Class Waitor
     Private _PictureBoxEffect As PictureBox
     Private _SelectedTable As PictureBox
     Private _PreviousTable As New PictureBox
-    Private _ServerObject As ServerObject
     Private _Thread As Thread
     Private _Data As String = ""
     Private _Logging As String = ""
@@ -44,12 +43,6 @@ Public Class Waitor
             LoadMenu()
         End If
     End Sub
-    ''' <summary>
-    ''' Check if clicked table is existed then return position of table in the array
-    ''' </summary>
-    ''' <param name="_table"></param>
-    ''' <returns></returns>
-
     Private Sub listMenu_Click(sender As Object, e As EventArgs) Handles lstMenu.Click
         AppProvider._IsUpdate = False
         AppProvider._SelectedItem = lstMenu.SelectedItems(0).SubItems(1).Text.ToString
@@ -62,16 +55,16 @@ Public Class Waitor
         add.ShowDialog()
     End Sub
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim _Login As New frmLogin(EmployeeType.Waitor)
-        _Login.ShowDialog()
-        _CurrentUser = DatabaseConnection._User
-        If (_Login.DialogResult = 1) Then
+        'Dim _Login As New frmLogin(EmployeeType.Waitor)
+        '_Login.ShowDialog()
+        '_CurrentUser = DatabaseConnection._User
+        'If (_Login.DialogResult = 1) Then
+        '    Me.Text = "Nhân Viên " + _CurrentUser.EmployeeName.ToString
+        LoadMenu()
             StartService(New ThreadStart(Sub() Listener()))
-            Me.Text = "Nhân Viên " + _CurrentUser.EmployeeName.ToString
-            LoadMenu()
-        Else
-            Me.Close()
-        End If
+        'Else
+        '    Me.Close()
+        'End If
     End Sub
     Private Sub btnLamMon_Click(sender As Object, e As EventArgs) Handles btnLamMon.Click
         ''Commit the list to Chef
@@ -125,8 +118,8 @@ Public Class Waitor
     Private Sub btnPay_Click(sender As Object, e As EventArgs) Handles btnPay.Click
         If (AppProvider._IsCommitted = True And _IsSelected = True) Then
             ''Commit the list to Cashier
-            SendData("1+" + dgvList.Item(5, 0).Value.ToString.Trim + "_" + dgvList.Item(5, dgvList.RowCount - 1).Value.ToString.Trim + "_" + _CurrentUser.Identity.ToString.Trim + "_" + nudGuestCount.Value.ToString.Trim + "*")
-            ''Remove Effect & Clear list orders
+            SendData("1+" + dgvList.Item(5, 0).Value.ToString.Trim + "_" + dgvList.Item(5, dgvList.RowCount - 1).Value.ToString.Trim + "_" + nudGuestCount.Value.ToString.Trim + "*")
+            ''Remove effect & Clear list orders
             _PictureBoxEffect.BackColor = Color.White
             dgvList.Rows.Clear()
             MessageBox.Show("Thanh toán thành công", "Thông báo", MessageBoxButtons.OK)
@@ -206,17 +199,21 @@ Public Class Waitor
     Private Sub Listener()
         While (True)
             Thread.Sleep(0)
-            If (Me.IsAccessible = True) Then
-                Me.Invoke(New MethodInvoker(Sub()
-                                                Dim _ReceiveData As String = GetData()
-                                                ''Handles event here.
-                                                If (_ReceiveData <> "" And _ReceiveData.Length > 2) Then
-                                                    CheckChefBartenderToWaitor(_ReceiveData.Substring(2))
-                                                    CheckChefBartenderToWaitorConfirm(_ReceiveData.Substring(2))
-                                                End If
-                                                ''
-                                            End Sub
-                ))
+            If (Me.IsDisposed = False) Then
+                Try
+                    Me.Invoke(New MethodInvoker(Sub()
+                                                    Dim _ReceiveData As String = GetData()
+                                                    ''Handles event here.
+                                                    If (_ReceiveData <> "" And _ReceiveData.Length > 2) Then
+                                                        CheckChefBartenderToWaitor(_ReceiveData.Substring(2))
+                                                        CheckChefBartenderToWaitorConfirm(_ReceiveData.Substring(2))
+                                                    End If
+                                                    ''
+                    End Sub
+            ))
+                Catch e As Exception
+                    Exit While
+                End Try
             Else
                 Exit While
             End If
