@@ -120,7 +120,7 @@ Public Class Waitor
     Private Sub btnPay_Click(sender As Object, e As EventArgs) Handles btnPay.Click
         If (AppProvider._IsCommitted = True And _IsSelected = True) Then
             ''Commit the list to Cashier
-            SendData("1+" + dgvList.Item(5, 0).Value.ToString.Trim + "_" + dgvList.Item(5, dgvList.RowCount - 1).Value.ToString.Trim + "_" + nudGuestCount.Value.ToString.Trim + "*")
+            SendData("1+" + dgvList.Item(5, 0).Value.ToString.Trim + "_" + dgvList.Item(5, dgvList.RowCount - 1).Value.ToString.Trim + "_" + _CurrentUser.Identity + "_" + nudGuestCount.Value.ToString.Trim + "*")
             ''Remove effect & Clear list orders
             _PictureBoxEffect.BackColor = Color.White
             dgvList.Rows.Clear()
