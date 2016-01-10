@@ -81,6 +81,14 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ds_ThongKe.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ds_ThongKe.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ds_ThongKe.vb">
+      <DependentUpon>ds_ThongKe.xsd</DependentUpon>
+    </Compile>
     <Compile Include="frmManager.Designer.vb">
       <DependentUpon>frmManager.vb</DependentUpon>
     </Compile>
@@ -111,11 +119,24 @@
     <Compile Include="QuanLyNhaHang.vb">
       <DependentUpon>QuanLyNhaHang.xsd</DependentUpon>
     </Compile>
+    <Compile Include="QuanLyNhaHangDataSet.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QuanLyNhaHangDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Report.Designer.vb">
       <DependentUpon>Report.vb</DependentUpon>
     </Compile>
     <Compile Include="Report.vb">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ThongKeMonHoanThanh.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ThongKeMonHoanThanh.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ThongKeMonHoanThanh.vb">
+      <DependentUpon>ThongKeMonHoanThanh.xsd</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +155,17 @@
     <EmbeddedResource Include="Report1.rdlc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ds_ThongKe.xsc">
+      <DependentUpon>ds_ThongKe.xsd</DependentUpon>
+    </None>
+    <None Include="ds_ThongKe.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ds_ThongKe.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="ds_ThongKe.xss">
+      <DependentUpon>ds_ThongKe.xsd</DependentUpon>
+    </None>
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -154,6 +186,28 @@
     </None>
     <None Include="QuanLyNhaHang.xss">
       <DependentUpon>QuanLyNhaHang.xsd</DependentUpon>
+    </None>
+    <None Include="QuanLyNhaHangDataSet.xsc">
+      <DependentUpon>QuanLyNhaHangDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="QuanLyNhaHangDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>QuanLyNhaHangDataSet.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="QuanLyNhaHangDataSet.xss">
+      <DependentUpon>QuanLyNhaHangDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ThongKeMonHoanThanh.xsc">
+      <DependentUpon>ThongKeMonHoanThanh.xsd</DependentUpon>
+    </None>
+    <None Include="ThongKeMonHoanThanh.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ThongKeMonHoanThanh.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="ThongKeMonHoanThanh.xss">
+      <DependentUpon>ThongKeMonHoanThanh.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
