@@ -81,7 +81,7 @@
     <Compile Include="frmNumPad.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Library_Process.vb" />
+    <Compile Include="MD5_Hash.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

@@ -35,7 +35,11 @@ Public Class frmLogin
     Public Sub New(ByVal formID As Integer)
         Me.InitializeComponent()
 
+<<<<<<< HEAD
         _FormID = formID
+=======
+        user = _ReturnUser
+>>>>>>> TietThinh-NhanVien
     End Sub
 
     'Events:

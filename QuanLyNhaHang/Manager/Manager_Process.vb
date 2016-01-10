@@ -4,16 +4,21 @@
     Dim _ParameterInput As New SqlClient.SqlParameter
     Private _Connect As New Library.DatabaseConnection()
     Dim _Stt As Integer = 1
+<<<<<<< HEAD
     Private Table As DataTable
     Private AbilityComputer As DataTable
     Private _LoaiNhanVienColumnIndex As Integer
     Private _TinhTrangNhanVienColumnIndex As Integer
+=======
+
+>>>>>>> TietThinh-NhanVien
     ''' <summary>
     ''' Load DataGridview
     ''' </summary>
     ''' <param name="sourceDataGridView"></param>
     ''' <remarks></remarks>
     Public Function LoadNV(ByRef sourceDataGridView As DataGridView) As DataTable
+<<<<<<< HEAD
 
 
         Dim StaffTable As DataTable = New DataTable()
@@ -35,11 +40,38 @@
             cmbAbilityComputer.DisplayMember = "TenPhanMem"
             cmbAbilityComputer.ValueMember = "MaNV"
             i = i + 1
+=======
+        sourceDataGridView.Rows.Clear()
+
+        _Query = "spNhanVienSelect"
+        _Table = _Connect.Query(_Query)
+        'Return _Table
+
+        'Dim Table As New DataTable
+        '_Table = _connect.Query("Select NV.MaNV, NV.HoTen, NV.TGBatDau, NV.cmnd, NV.TinhTrang, NV.NgaySinh, NV.GioiTinh, NV.LoaiNhanVien, CV.TenChucVu, CV.MaChucVu  From  NhanVien NV, ChucVuNhanVien CV Where CV.MaChucVu = NV.MaChucVu ")
+        'dgvNhanVien.DataSource = Table
+        For Each dt As DataRow In _Table.Rows
+            Dim _LoaiNV As String = ""
+            If dt(7).ToString = "True" Then
+                _LoaiNV = "Fulltime"
+            Else
+                _LoaiNV = "Parttime"
+            End If
+            Dim TinhTrangNV As String = ""
+            If dt(4).ToString = "True" Then
+                TinhTrangNV = "Đã Nghỉ"
+            Else
+                TinhTrangNV = "Đang Làm"
+            End If
+
+            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString, dt(2), dt(3).ToString, TinhTrangNV, dt(5), dt(6).ToString, _LoaiNV, dt(8).ToString, dt(9).ToString})
+>>>>>>> TietThinh-NhanVien
         Next
 
         Return _Table
     End Function
 
+<<<<<<< HEAD
     Public Sub ReLoadNV(ByRef sourceDataGridView As DataGridView, ByVal StaffTable As DataTable)
         _Table = StaffTable
         sourceDataGridView.DataSource = StaffTable
@@ -64,6 +96,37 @@
 
     'Load combobox thường
 
+=======
+    Public Sub ReLoadNV(ByRef sourceDataGridView As DataGridView, ByVal dataSource As DataTable)
+        sourceDataGridView.Rows.Clear()
+
+        For Each dt As DataRow In _Table.Rows
+            Dim _LoaiNV As String = ""
+            If dt(7).ToString = "True" Then
+                _LoaiNV = "Fulltime"
+            Else
+                _LoaiNV = "Parttime"
+            End If
+            Dim _TinhTrangNV As String = ""
+            If dt(4).ToString = "True" Then
+                _TinhTrangNV = "Đã Nghỉ"
+            Else
+                _TinhTrangNV = "Đang Làm"
+            End If
+
+            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString, dt(2), dt(3).ToString, _TinhTrangNV, dt(5), dt(6).ToString, _LoaiNV, dt(8).ToString, dt(9).ToString})
+        Next
+    End Sub
+
+    ''' <summary>
+    ''' Load dữ liệu ComboBox
+    ''' </summary>
+    ''' <param name="comboBox">ComboBox load dữ liệu thông tin</param>
+    ''' <param name="source">Dữ liệu ComboBox</param>
+    ''' <param name="displayMember">giá trị hiển thị</param>
+    ''' <param name="valueMember">giá trị phần tử hiển thị</param>
+    ''' <remarks></remarks>
+>>>>>>> TietThinh-NhanVien
     Public Sub LoadComboBox(ByRef comboBox As ComboBox, ByVal source As Object, ByVal displayMember As String, ByVal valueMember As String)
 
 
@@ -72,6 +135,7 @@
         comboBox.ValueMember = valueMember
     End Sub
 
+<<<<<<< HEAD
     'Load combobox cho datagridview có combobox
     Public Sub LoadComboBox(ByRef comboBox As ComboBox, ByVal NameStoreProcedure As String, ByVal displayMember As String, ByVal valueMember As String)
 
@@ -82,6 +146,8 @@
         comboBox.ValueMember = valueMember
     End Sub
 
+=======
+>>>>>>> TietThinh-NhanVien
     'Load Hóa Đơn
     Public Function LoadHoaDon(ByRef sourceDataGridView As DataGridView) As DataTable
 
@@ -112,7 +178,10 @@
 
     'Load Chi Tiết Hóa Đơn
     Function LoadCTHoaDon(ByRef sourceDataGridView As DataGridView, ByVal Text As String) As DataTable
+<<<<<<< HEAD
         sourceDataGridView.Rows.Clear()
+=======
+>>>>>>> TietThinh-NhanVien
         Dim _Table As New DataTable
         Dim _Name() As String = New String() {"@MaHD"}
         Dim _Value() As String = New String() {Text}
@@ -211,7 +280,11 @@
             Else
                 _TinhTrangPN = "Đang Mở"
             End If
+<<<<<<< HEAD
             sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString, dt(2).ToString, dt(3).ToString, dt(4).ToString, dt(5), dt(6), _TinhTrangPN, dt(8).ToString})
+=======
+            sourceDataGridView.Rows.Add(New String() {_Stt, dt(0).ToString(), dt(1).ToString, dt(2).ToString, dt(3).ToString, dt(4).ToString, dt(5), dt(6), _TinhTrangPN, dt(8).ToString})
+>>>>>>> TietThinh-NhanVien
             _Stt = _Stt + 1
         Next
 
@@ -260,7 +333,11 @@
 
         _Table = _Connect.Query(_Query)
         For Each dt As DataRow In _Table.Rows
+<<<<<<< HEAD
             sourceDataGridView.Rows.Add(New String() {dt(0).ToString, dt(1).ToString, dt(2).ToString, dt(3).ToString, dt(4).ToString, Double.Parse(dt(5).ToString).ToString("#,###"), dt(6).ToString})
+=======
+            sourceDataGridView.Rows.Add(New String() {_Stt, dt(0).ToString, dt(1).ToString, dt(2).ToString, dt(3).ToString, dt(4), Double.Parse(dt(5).ToString).ToString("#,###"), dt(6).ToString})
+>>>>>>> TietThinh-NhanVien
             _Stt = _Stt + 1
         Next
 
@@ -359,6 +436,7 @@
 
         _Table = _Connect.Query(_Query, _Connect.CreateParameter(_Name, _Value))
 
+<<<<<<< HEAD
         If _Table.Rows.Count = 0 Then
             MessageBox.Show("Năm nhập không tồn tại", "Thông Báo")
         Else
@@ -366,6 +444,12 @@
                 sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString(), dt(2).ToString()})
             Next
         End If
+=======
+        For Each dt As DataRow In _Table.Rows
+            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString(), dt(2).ToString()})
+        Next
+
+>>>>>>> TietThinh-NhanVien
         Return _Table
 
     End Function
@@ -380,6 +464,7 @@
 
         _Table = _Connect.Query(_Query, _Connect.CreateParameter(_Name, _Value))
 
+<<<<<<< HEAD
         If _Table.Rows.Count = 0 Then
             MessageBox.Show("Qúy nhập không tồn tại", "Thông Báo")
         Else
@@ -387,15 +472,26 @@
                 sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString(), dt(2).ToString()})
             Next
         End If
+=======
+        For Each dt As DataRow In _Table.Rows
+            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString(), dt(2).ToString()})
+        Next
+
+>>>>>>> TietThinh-NhanVien
         Return _Table
 
     End Function
     'Load Thống Kê Món Hoàn Thành Theo Tháng
+<<<<<<< HEAD
     Public Function ThongKeThangMonHT(ByRef sourceDataGridView As DataGridView, ByVal thang As Object, ByVal nam As Object) As DataTable
+=======
+    Public Function ThongKeThangMonHT(ByRef sourceDataGridView As DataGridView, ByVal thang As Object) As DataTable
+>>>>>>> TietThinh-NhanVien
         sourceDataGridView.Rows.Clear()
 
         Dim _Table As New DataTable
         _Query = "usp_ThongKeMonAnHoanThanhTheoThang"
+<<<<<<< HEAD
         Dim _Name() As String = New String() {"@Thang", "@Nam"}
         Dim _Value() As String = New String() {thang, nam}
 
@@ -429,12 +525,26 @@
                 sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString(), dt(2).ToString()})
             Next
         End If
+=======
+        Dim _Name() As String = New String() {"@Thang"}
+        Dim _Value() As String = New String() {thang}
+
+        _Table = _Connect.Query(_Query, _Connect.CreateParameter(_Name, _Value))
+
+        For Each dt As DataRow In _Table.Rows
+            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString(), dt(2).ToString()})
+        Next
+
+>>>>>>> TietThinh-NhanVien
         Return _Table
 
     End Function
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> TietThinh-NhanVien
     'Load Thống Kê Món Không Hoàn Thành Theo Năm
     Public Function ThongKeNamMonKHT(ByRef sourceDataGridView As DataGridView, ByVal nam As Object) As DataTable
         sourceDataGridView.Rows.Clear()
@@ -445,6 +555,7 @@
         Dim _Value() As String = New String() {nam}
 
         _Table = _Connect.Query(_Query, _Connect.CreateParameter(_Name, _Value))
+<<<<<<< HEAD
         If _Table.Rows.Count = 0 Then
             MessageBox.Show("Năm nhập không tồn tại", "Thông Báo")
         Else
@@ -452,6 +563,12 @@
                 sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString(), dt(2).ToString()})
             Next
         End If
+=======
+
+        For Each dt As DataRow In _Table.Rows
+            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString(), dt(2).ToString()})
+        Next
+>>>>>>> TietThinh-NhanVien
 
         Return _Table
 
@@ -467,6 +584,7 @@
 
         _Table = _Connect.Query(_Query, _Connect.CreateParameter(_Name, _Value))
 
+<<<<<<< HEAD
         If _Table.Rows.Count = 0 Then
             MessageBox.Show("Quý nhập không tồn tại", "Thông Báo")
         Else
@@ -474,15 +592,26 @@
                 sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString(), dt(2).ToString()})
             Next
         End If
+=======
+        For Each dt As DataRow In _Table.Rows
+            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString(), dt(2).ToString()})
+        Next
+
+>>>>>>> TietThinh-NhanVien
         Return _Table
 
     End Function
     'Load Thống Kê Món Không Hoàn Thành Theo Tháng
+<<<<<<< HEAD
     Public Function ThongKeThangMonKHT(ByRef sourceDataGridView As DataGridView, ByVal thang As Object, ByVal nam As Object) As DataTable
+=======
+    Public Function ThongKeThangMonKHT(ByRef sourceDataGridView As DataGridView, ByVal thang As Object) As DataTable
+>>>>>>> TietThinh-NhanVien
         sourceDataGridView.Rows.Clear()
 
         Dim _Table As New DataTable
         _Query = "usp_ThongKeMonAnKhongHoanThanhTheoThang"
+<<<<<<< HEAD
         Dim _Name() As String = New String() {"@Thang", "@Nam"}
         Dim _Value() As String = New String() {thang, nam}
 
@@ -854,4 +983,18 @@
 
   
 
+=======
+        Dim _Name() As String = New String() {"@Thang"}
+        Dim _Value() As String = New String() {thang}
+
+        _Table = _Connect.Query(_Query, _Connect.CreateParameter(_Name, _Value))
+
+        For Each dt As DataRow In _Table.Rows
+            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString(), dt(2).ToString()})
+        Next
+
+        Return _Table
+
+    End Function
+>>>>>>> TietThinh-NhanVien
 End Module

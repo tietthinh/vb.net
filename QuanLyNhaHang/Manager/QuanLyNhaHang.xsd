@@ -16,7 +16,11 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="TenMon" msprop:Generator_ColumnVarNameInTable="columnTenMon" msprop:Generator_ColumnPropNameInRow="TenMon" msprop:Generator_ColumnPropNameInTable="TenMonColumn" msprop:Generator_UserColumnName="TenMon" type="xs:string" minOccurs="0" />
+<<<<<<< HEAD
               <xs:element name="TongSoLuong" msprop:Generator_ColumnVarNameInTable="columnTongSoLuong" msprop:Generator_ColumnPropNameInRow="TongSoLuong" msprop:Generator_ColumnPropNameInTable="TongSoLuongColumn" msprop:Generator_UserColumnName="TongSoLuong" type="xs:int" minOccurs="0" />
+=======
+              <xs:element name="SoLuong" msprop:Generator_ColumnVarNameInTable="columnSoLuong" msprop:Generator_ColumnPropNameInRow="SoLuong" msprop:Generator_ColumnPropNameInTable="SoLuongColumn" msprop:Generator_UserColumnName="SoLuong" type="xs:string" minOccurs="0" />
+>>>>>>> TietThinh-NhanVien
             </xs:sequence>
           </xs:complexType>
         </xs:element>

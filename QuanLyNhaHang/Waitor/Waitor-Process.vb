@@ -5,6 +5,7 @@ Public Module Waitor_Process
     Public _Connection As New DatabaseConnection
     Private _ParameterInput() As SqlParameter
     Private _ParameterOutput() As SqlParameter
+<<<<<<< HEAD
 
     Public Sub SaveTable(_PreviousTable As PictureBox, _Index As Integer, _ListTable As List(Of Table))
         ''Save
@@ -61,12 +62,17 @@ Public Module Waitor_Process
             Next
         End If
     End Sub
+=======
+>>>>>>> TietThinh-NhanVien
     ''' <summary>
     ''' Cập nhật tình trạng bàn.
     ''' </summary>
     ''' <param name="_TinhTrang">1:Bàn đã đặt. 0:Bàn đang trống</param>
     ''' <param name="SelectedTable">Bàn.</param>
+<<<<<<< HEAD
     ''' 
+=======
+>>>>>>> TietThinh-NhanVien
     Public Sub UpdateTableStatus(ByVal _TinhTrang As Integer, ByVal SelectedTable As PictureBox)
         Dim _Query1 As String = "usp_CapNhapTinhTrangBan"
         _ParameterInput = {New SqlParameter("@SoBan", Integer.Parse(SelectedTable.Name.Last)), New SqlParameter("@TinhTrang", _TinhTrang)}
