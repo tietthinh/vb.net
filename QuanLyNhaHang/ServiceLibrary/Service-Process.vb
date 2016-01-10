@@ -9,7 +9,7 @@ Imports System.Runtime.Remoting.Channels
 Imports System.Net
 
 Public Module Service_Process
-    Private _ServerObject As ServerObject
+    Private _ServerObject As New ServerObject
     Private _Thread As Thread
     Private _Data As String = ""
     Private _Logging As String = ""
@@ -48,8 +48,6 @@ Public Module Service_Process
         Dim _Length As Integer = _Data.Length
         Dim _ReceiveData As String = _Text.Substring(_Length)
         _Data = _Text
-        '' For manager only
-        _Logging += DateTime.Now.ToString() + _ReceiveData
         Return _ReceiveData
     End Function
     ''' <summary>
@@ -58,6 +56,8 @@ Public Module Service_Process
     ''' <param name="Data"></param>
     Public Sub SendData(ByVal Data As String)
         _ServerObject.AddData(Data)
+        '' For manager only
+        _Logging += DateTime.Now.ToString() + " $" + Data + "^"
     End Sub
     ''' <summary>
     ''' Lọc dữ liệu cho từng loại 
@@ -89,60 +89,64 @@ Public Module Service_Process
     '    Dim _Timer = New Timers.Timer
     '    _Timer.Start()
     '    While (True)
-    '        Thread.Sleep(0)
-    '        If (Me.IsAccessible = True) Then
-    '            Me.Invoke(New MethodInvoker(Sub()
-
-    '                                            Dim _ReceiveData As String = GetData()
-    '                                            If (_ReceiveData <> "" And _ReceiveData.Length > 2) Then
-    '                                                CheckWaitorToChefBartender(_ReceiveData)
-    '                                                CheckWaitorToChefBartenderConfirm(_ReceiveData)
-    '                                                CheckWarehouseToChefBartenderConfirm(_ReceiveData)
-    '                                            End If
-    '                                            If (_Timer.Interval >= Inteval) Then
-    '                                                Thread.Sleep(SleepTime)
-    '                                                _Timer.Interval = 0
-    '                                                _Timer.Start()
-    '                                            End If
-    '                                        End Sub
-    '                        ))
+    '        If (Me.IsDisposed = False) Then
+    '            Thread.Sleep(0)
+    '            Try
+    '                Me.Invoke(New MethodInvoker(Sub()
+    '                                                Dim _ReceiveData As String = GetData()
+    '                                                If (_ReceiveData <> "" And _ReceiveData.Length > 2) Then
+    '                                                    CheckWaitorToChefBartender(_ReceiveData)
+    '                                                    CheckWaitorToChefBartenderConfirm(_ReceiveData)
+    '                                                    CheckWarehouseToChefBartenderConfirm(_ReceiveData)
+    '                                                End If
+    '                                                If (_Timer.Interval >= Inteval) Then
+    '                                                    Thread.Sleep(SleepTime)
+    '                                                    _Timer.Interval = 0
+    '                                                    _Timer.Start()
+    '                                                End If
+    '                                            End Sub
+    '                            ))
+    '            Catch e As Exception
+    '                Exit While
+    '            End Try
     '        Else
     '            Exit While
     '        End If
     '    End While
     'End Sub
-
-
-
-    'For Manager logging all service. Only add to Manager
-    'Private Sub Waitor_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-    '    Dim file As IO.StreamWriter
-    '    Dim _LogData As String = ""
-    '    Dim _Data() As String = {}
-    '    _Data = _Logging.Split("-")
-    '    For i As ULong = 0 To _Data.Count - 2 Step 1
-    '        Select Case (_Data(i).Substring(0, 2))
-    '            Case "1+"
-    '                _LogData += "Waitor => ThuNgan " + _Data(i).Substring(2) + vbCrLf
-    '            Case "2+"
-    '                _LogData += "Waitor => Bep/PhaChe " + _Data(i).Substring(2) + vbCrLf
-    '            Case "3+"
-    '                _LogData += "QuanLy => Waitor " + _Data(i).Substring(2) + vbCrLf
-    '            Case "4+"
-    '                _LogData += "Bep/PhaChe => Waitor " + _Data(i).Substring(2) + vbCrLf
-    '            Case "5+"
-    '                _LogData += "Bep/PhaChe => ThuKho" + _Data(i).Substring(2) + vbCrLf
-    '            Case "6+"
-    '                _LogData += "ThuKho => Bep/PhaChe " + _Data(i).Substring(2) + vbCrLf
-    '        End Select
-    '    Next
-    '    file = My.Computer.FileSystem.OpenTextFileWriter("Path", True)
-    '    file.Write(_LogData)
-    '    file.Close()
-    'End Sub
-
-
-
+    Public Sub Logging()
+        'For Manager logging all service. Only add To Manager
+        Dim file As IO.StreamWriter
+        Dim _LogData As String = ""
+        Dim _Data() As String = Nothing
+        _Data = _Logging.Split("^")
+        For i As ULong = 0 To _Data.Length - 2 Step 1
+            Select Case (_Data(i).Split("$")(1).Substring(0, 2))
+                Case "1+"
+                    _LogData += "Waitor => ThuNgan " + _Data(i).Substring(2)
+                    _LogData = _LogData.Replace("$1+", " ")
+                Case "2+"
+                    _LogData += "Waitor => Bep/PhaChe " + _Data(i).Substring(2)
+                    _LogData = _LogData.Replace("$2+", " ")
+                Case "3+"
+                    _LogData += "QuanLy => Waitor " + _Data(i).Substring(2)
+                    _LogData = _LogData.Replace("$3+", " ")
+                Case "4+"
+                    _LogData += "Bep/PhaChe => Waitor " + _Data(i).Substring(2)
+                    _LogData = _LogData.Replace("$4+", " ")
+                Case "5+"
+                    _LogData += "Bep/PhaChe => ThuKho" + _Data(i).Substring(2)
+                    _LogData = _LogData.Replace("$5+", " ")
+                Case "6+"
+                    _LogData += "ThuKho => Bep/PhaChe " + _Data(i).Substring(2)
+                    _LogData = _LogData.Replace("$6+", " ")
+            End Select
+        Next
+        _LogData = _LogData.Replace("*", vbCrLf)
+        file = My.Computer.FileSystem.OpenTextFileWriter("Path", True)
+        file.Write(_LogData)
+        file.Close()
+    End Sub
     Private Sub CheckWaitorToCashierSignal(ByVal Data As String)
         Dim _DataArray As List(Of String) = DataFilter(Data, 1)
         ''TODO your code here
