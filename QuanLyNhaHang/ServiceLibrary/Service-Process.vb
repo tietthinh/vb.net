@@ -5,9 +5,11 @@ Imports System.Threading
 Imports System.Windows.Forms
 Imports System.Configuration
 Imports System.Runtime.Remoting
+Imports System.Runtime.Remoting.Channels
+Imports System.Net
 
 Public Module Service_Process
-    Private _ServerObject As New ServerObject
+    Private _ServerObject As ServerObject
     Private _Thread As Thread
     Private _Data As String = ""
     Private _Logging As String = ""
@@ -28,8 +30,8 @@ Public Module Service_Process
             Dim _Channel As New HttpChannel
             RegisterChannel(_Channel, True)
             InitializeRemoteServer()
+            _ServerObject = New ServerObject
             ''Start thread listening
-            _ServerObject = New ServerObject()
             _Thread = New Thread(_ThreadStart)
             _Thread.Start()
         Catch ex As Exception
