@@ -69,6 +69,11 @@ Public Class Waitor
         End If
     End Sub
     Private Sub btnLamMon_Click(sender As Object, e As EventArgs) Handles btnLamMon.Click
+        Dim _SoLuongMonAn As Integer = CountOrder("DA")
+        Dim _SoLuongThucUong As Integer = CountOrder("DU")
+        If (_SoLuongMonAn = 0 And _SoLuongThucUong = 0) Then
+            Exit Sub
+        End If
         ''Commit the list to Chef
         If (dgvList.Rows.Count <> 0) Then
             Dim index As Integer = 0
@@ -88,6 +93,8 @@ Public Class Waitor
             For Each _Row In dgvList.Rows
                 ''Preparing for fixing update order list procedure.
                 Dim _Code As String = dgvList.Item(5, index).Value
+                Dim _FoodFlag As Boolean = False
+                Dim _DrinkFlag As Boolean = False
                 If (_Code = Nothing) Then
                     _ParameterOutput = {New SqlParameter("@MaMoi", SqlDbType.Char, 10)}
                     _ParameterInput = {
@@ -98,6 +105,14 @@ Public Class Waitor
                         New SqlParameter("@SoBan", Integer.Parse(_SelectedTable.Name.Last()))}
                     _Connection.Query(_Query1, _ParameterOutput, _ParameterInput)
                     dgvList.Item(5, index).Value = _ParameterOutput(0).SqlValue.ToString
+                    If (_SoLuongMonAn <> 0 And dgvList.Item(6, index).Value.ToString.Substring(0, 2) = "DA" And _FoodFlag = False) Then
+                        SendData("2+" + dgvList.Item(5, index).Value + "*")
+                        _FoodFlag = True
+                    End If
+                    If (_SoLuongThucUong <> 0 And dgvList.Item(6, index).Value.ToString.Substring(0, 2) = "DU" And _DrinkFlag = False) Then
+                        SendData("8+" + dgvList.Item(5, index).Value + "*")
+                        _DrinkFlag = True
+                    End If
                 End If
                 index += 1
             Next
@@ -105,14 +120,6 @@ Public Class Waitor
             MessageBox.Show("Gửi danh sách thành công!", "Thông báo", MessageBoxButtons.OK)
 
             ''Send Chef/Bartender signal.
-            Dim _Query2 As String = "spDemMonDaDat"
-            Dim dataTable As DataTable = Nothing
-            dataTable = _Connection.Query(_Query2)
-
-            Dim _SoLuongMon As Integer = Integer.Parse(_Connection.Query(_Query2).Rows(0).Item(0).ToString)
-            If (_SoLuongMon = 0) Then
-                SendData("2+" + dgvList.Item(5, 0).Value + "*")
-            End If
         Else
             MessageBox.Show("Danh sách món ăn trống!", "Thông báo")
         End If
