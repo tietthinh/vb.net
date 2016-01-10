@@ -66,7 +66,7 @@ Public Class frmConfirm
     '
     'Click: Occur when clicks the button OK.
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
-        frmChef.doneQuantity = Integer.Parse(nudQuantity.Value)
+        frmBartender.doneQuantity = Integer.Parse(nudQuantity.Value)
 
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()
