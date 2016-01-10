@@ -112,7 +112,7 @@ Public Class frmChef
 
     Private _Thread As Thread
 
-    Private _ServerObject As New ServerObject()
+
 
     Private Sub ChefListener(ByVal Inteval As Integer, ByVal SleepTime As Integer)
         Dim _Timer = New Timers.Timer
@@ -124,7 +124,7 @@ Public Class frmChef
                     Me.Invoke(New MethodInvoker(Sub()
                                                     Dim _ReceiveData As String = GetData()
                                                     If (_ReceiveData <> "" And _ReceiveData.Length > 2) Then
-                                                        MessageBox.Show("Fuck")
+                                                        MessageBox.Show("Test")
                                                         CheckWaitorToChefBartender(_ReceiveData)
                                                         CheckWaitorToChefBartenderConfirm(_ReceiveData)
                                                         CheckWarehouseToChefBartenderConfirm(_ReceiveData)
@@ -383,6 +383,16 @@ Public Class frmChef
 
                 'Adds new order into dish detail
                 _DishDetail.Add(row.Cells("OrderTransID").Value, row.Cells("OrderQuantity").Value)
+
+                Dim parameterName() As String = New String() {"@MaChuyen", "@TinhTrang"}
+                Dim parameterValue() As Object = New Object() {row.Cells("OrderTransID").Value, 2}
+                Dim parameter() As SqlClient.SqlParameter = db.CreateParameter(parameterName, parameterValue)
+
+                Try
+                    db.Update("spDSDatMonTrongNgayUpdateTinhTrang", parameter)
+                Catch ex As SqlException
+                    MessageBox.Show(ex.ToString())
+                End Try
 
                 'Adds dRow into cookList
                 cookList.Rows.Add(dRow)
