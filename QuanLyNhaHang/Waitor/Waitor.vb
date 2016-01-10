@@ -10,10 +10,6 @@ Public Class Waitor
     Private _PictureBoxEffect As PictureBox
     Private _SelectedTable As PictureBox
     Private _PreviousTable As New PictureBox
-<<<<<<< HEAD
-=======
-    Private _ServerObject As ServerObject
->>>>>>> TietThinh-NhanVien
     Private _Thread As Thread
     Private _Data As String = ""
     Private _Logging As String = ""
@@ -26,16 +22,12 @@ Public Class Waitor
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
     End Sub
-<<<<<<< HEAD
 
 
-=======
->>>>>>> TietThinh-NhanVien
     Private Sub picTable01_Click(sender As Object, e As EventArgs) Handles picTable01.Click, picTable02.Click, picTable03.Click, picTable04.Click,
         picTable05.Click, picTable06.Click, picTable07.Click, picTable08.Click, picTable09.Click
         _SelectedTable = CType(sender, PictureBox)
         Dim _Index As Integer = 0
-<<<<<<< HEAD
         SaveTable(_PreviousTable, _Index, _ListTable)
         LoadTable(_SelectedTable, _Index, _ListTable)
         Dim a As Integer = MessageBox.Show("Vui lòng kiểm tra số bàn!" + vbCrLf + "Bạn đang chọn bàn số " + _SelectedTable.Name.Last, "Xác Nhận", MessageBoxButtons.OKCancel)
@@ -53,79 +45,6 @@ Public Class Waitor
             LoadMenu()
         End If
     End Sub
-=======
-        ''Save
-        'If existed
-        If (dgvList.Rows.Count > 0 And CheckExistedTable(_PreviousTable, _Index, _ListTable) = True) Then
-            Dim _Order As New Order
-            Dim _ContinuesPosition As Integer = _ListTable(_Index).GetLength
-            For i As Integer = _ContinuesPosition To dgvList.Rows.Count - 1 Step 1
-                _Order = New Order
-                _Order.STT = dgvList.Rows(i).Cells(0).Value.ToString
-                _Order.TenMon = dgvList.Rows(i).Cells(1).Value.ToString
-                _Order.SoLuong = dgvList.Rows(i).Cells(2).Value.ToString
-                _Order.GhiChu = dgvList.Rows(i).Cells(3).Value.ToString
-                _Order.TinhTrang = dgvList.Rows(i).Cells(4).Value.ToString
-                _Order.MaChuyen = dgvList.Rows(i).Cells(5).Value.ToString
-                _Order.MaMon = dgvList.Rows(i).Cells(6).Value.ToString
-                _ListTable(_Index).Add(_Order)
-            Next
-            dgvList.Rows.Clear()
-        End If
-        'If not existed
-        If (dgvList.Rows.Count > 0 And CheckExistedTable(_PreviousTable, _Index, _ListTable) = False) Then
-            Dim _Table As New Table
-            _Table.TableNumber = Integer.Parse(_PreviousTable.Name.Last.ToString())
-            Dim _Order As New Order
-            For i As Integer = 0 To dgvList.Rows.Count - 1 Step 1
-                _Order = New Order
-                _Order.STT = dgvList.Rows(i).Cells(0).Value.ToString
-                _Order.TenMon = dgvList.Rows(i).Cells(1).Value.ToString
-                _Order.SoLuong = dgvList.Rows(i).Cells(2).Value.ToString
-                _Order.GhiChu = dgvList.Rows(i).Cells(3).Value.ToString
-                _Order.TinhTrang = dgvList.Rows(i).Cells(4).Value.ToString
-                _Order.MaChuyen = dgvList.Rows(i).Cells(5).Value.ToString
-                _Order.MaMon = dgvList.Rows(i).Cells(6).Value.ToString
-                _Table.Add(_Order)
-            Next
-            _ListTable.Add(_Table)
-            dgvList.Rows.Clear()
-        End If
-        ''Load
-        If (CheckExistedTable(_SelectedTable, _Index, _ListTable) = True) Then
-            dgvList.Rows.Clear()
-            For i As Integer = 0 To _ListTable(_Index).GetLength - 1 Step 1
-                dgvList.Rows.Add(_ListTable(_Index).GetOrder(i).STT,
-                                 _ListTable(_Index).GetOrder(i).TenMon,
-                                  _ListTable(_Index).GetOrder(i).SoLuong,
-                                  _ListTable(_Index).GetOrder(i).GhiChu,
-                                  _ListTable(_Index).GetOrder(i).TinhTrang,
-                                  _ListTable(_Index).GetOrder(i).MaChuyen,
-                                  _ListTable(_Index).GetOrder(i).MaMon)
-            Next
-        End If
-        Dim a As Integer = MessageBox.Show("Vui lòng kiểm tra số bàn!" + vbCrLf + "Bạn đang chọn bàn số " + _SelectedTable.Name.Last, "Xác Nhận", MessageBoxButtons.OKCancel)
-        If (a = 1) Then
-            _PreviousTable.BackColor = Color.White
-            Dim _Number As String = "BÀN " + _SelectedTable.Name.Last
-            _PictureBoxEffect = _SelectedTable
-            _PreviousTable = _SelectedTable
-            _PictureBoxEffect.BackColor = Color.RoyalBlue
-            lblTittle.Text = "DANH SÁCH MÓN ĂN " + _Number
-            lstMenu.Enabled = True
-            _IsSelected = True
-            AppProvider._IsCommitted = False
-            UpdateTableStatus(1, _SelectedTable)
-            LoadMenu()
-        End If
-    End Sub
-    ''' <summary>
-    ''' Check if clicked table is existed then return position of table in the array
-    ''' </summary>
-    ''' <param name="_table"></param>
-    ''' <returns></returns>
-
->>>>>>> TietThinh-NhanVien
     Private Sub listMenu_Click(sender As Object, e As EventArgs) Handles lstMenu.Click
         AppProvider._IsUpdate = False
         AppProvider._SelectedItem = lstMenu.SelectedItems(0).SubItems(1).Text.ToString
@@ -138,7 +57,6 @@ Public Class Waitor
         add.ShowDialog()
     End Sub
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-<<<<<<< HEAD
         Dim _Login As New frmLogin(EmployeeType.Waitor)
         _Login.ShowDialog()
         _CurrentUser = DatabaseConnection._User
@@ -146,15 +64,6 @@ Public Class Waitor
             Me.Text = "Nhân Viên " + _CurrentUser.EmployeeName.ToString
             LoadMenu()
             StartService(New ThreadStart(Sub() Listener()))
-=======
-        Dim _Login As New frmLogin()
-        _Login.ShowDialog()
-        _CurrentUser = DatabaseConnection._User
-        If (_Login.DialogResult = 1) Then
-            StartService(New ThreadStart(Sub() Listener()))
-            Me.Text = "Nhân Viên " + _CurrentUser.EmployeeName.ToString
-            LoadMenu()
->>>>>>> TietThinh-NhanVien
         Else
             Me.Close()
         End If
@@ -211,13 +120,8 @@ Public Class Waitor
     Private Sub btnPay_Click(sender As Object, e As EventArgs) Handles btnPay.Click
         If (AppProvider._IsCommitted = True And _IsSelected = True) Then
             ''Commit the list to Cashier
-<<<<<<< HEAD
             SendData("1+" + dgvList.Item(5, 0).Value.ToString.Trim + "_" + dgvList.Item(5, dgvList.RowCount - 1).Value.ToString.Trim + "_" + _CurrentUser.Identity + "_" + nudGuestCount.Value.ToString.Trim + "*")
             ''Remove effect & Clear list orders
-=======
-            SendData("1+" + dgvList.Item(5, 0).Value.ToString.Trim + "_" + dgvList.Item(5, dgvList.RowCount - 1).Value.ToString.Trim + "_" + _CurrentUser.Identity.ToString.Trim + "_" + nudGuestCount.Value.ToString.Trim + "*")
-            ''Remove Effect & Clear list orders
->>>>>>> TietThinh-NhanVien
             _PictureBoxEffect.BackColor = Color.White
             dgvList.Rows.Clear()
             MessageBox.Show("Thanh toán thành công", "Thông báo", MessageBoxButtons.OK)
@@ -297,7 +201,6 @@ Public Class Waitor
     Private Sub Listener()
         While (True)
             Thread.Sleep(0)
-<<<<<<< HEAD
             If (Me.IsDisposed = False) Then
                 Try
                     Me.Invoke(New MethodInvoker(Sub()
@@ -313,19 +216,6 @@ Public Class Waitor
                 Catch e As Exception
                     Exit While
                 End Try
-=======
-            If (Me.IsAccessible = True) Then
-                Me.Invoke(New MethodInvoker(Sub()
-                                                Dim _ReceiveData As String = GetData()
-                                                ''Handles event here.
-                                                If (_ReceiveData <> "" And _ReceiveData.Length > 2) Then
-                                                    CheckChefBartenderToWaitor(_ReceiveData.Substring(2))
-                                                    CheckChefBartenderToWaitorConfirm(_ReceiveData.Substring(2))
-                                                End If
-                                                ''
-                                            End Sub
-                ))
->>>>>>> TietThinh-NhanVien
             Else
                 Exit While
             End If
