@@ -9,16 +9,11 @@ Imports System.Data.SqlClient
 Imports System.Data
 Imports System.Text
 Imports Library
-<<<<<<< HEAD
 Imports Remote
 Imports System.Globalization
 Imports System.Exception
 Imports Microsoft.Reporting.WinForms
 Imports System.Threading
-=======
-Imports System.Globalization
-Imports System.Exception
->>>>>>> TietThinh-NhanVien
 
 Public Class frmManager
     'Khai báo các DataTable
@@ -35,7 +30,6 @@ Public Class frmManager
     Dim _TableLoaiDV As DataTable = Nothing
     Dim _TableMonHT As DataTable = Nothing
     Dim _TableMonKHT As DataTable = Nothing
-<<<<<<< HEAD
     Dim _TableThongKe As DataTable = Nothing
     Dim _TableThongKeNguyenLieu As DataTable = Nothing
     Dim _TableThongKeKhach_Mon As DataTable = Nothing
@@ -51,8 +45,6 @@ Public Class frmManager
     'Khai báo form Report
     Dim _Report As rptThongKe
 
-=======
->>>>>>> TietThinh-NhanVien
 
     'Khai bóa vị trí cell
     Dim _location As Integer
@@ -93,7 +85,6 @@ Public Class frmManager
 
     '----------------------------------------------------------------------------------Bảng Nhân Viên---------------------------------------------------------
 
-<<<<<<< HEAD
 
     Private Sub Listener()
         While (True)
@@ -112,13 +103,10 @@ Public Class frmManager
         End While
     End Sub
 
-=======
->>>>>>> TietThinh-NhanVien
     ''' <summary>
     '''  Load dữ liệu bảng nhân viên
     ''' </summary>
     ''' <remarks></remarks>
-<<<<<<< HEAD
     ''' 
      Private Sub frmManager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         cboTenPhanMem.SelectedIndex = 0
@@ -269,207 +257,6 @@ Public Class frmManager
     End Sub
     'Xóa NhanVien 
     Private Sub btnXoaNV_Click(sender As Object, e As EventArgs) Handles btnXoaNV.Click
-=======
-    Private Sub frmManager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'Dim _Login As New frmLogin()
-        '_Login.ShowDialog()
-        '_CurrentUser = DatabaseConnection._User
-
-        'If (_Login.DialogResult = Windows.Forms.DialogResult.OK) Then
-        Try
-            _TableNhanVien = LoadNV(dgvNhanVien)
-
-            cboLoaiNV.Items.Insert(0, "Parttime")
-            cboLoaiNV.Items.Insert(1, "Fulltime")
-            cboLoaiNV.SelectedIndex = 0
-
-
-            'ComboBox Khả Năng Vi Tính Nhân Viên
-            cboKhaNang_NV.Items.Insert(0, "Word")
-            cboKhaNang_NV.Items.Insert(1, "Excel")
-            cboKhaNang_NV.Items.Insert(2, "Khác")
-            cboKhaNang_NV.SelectedIndex = 0
-
-            Dim _CoboBoxChucVu As New DataTable
-            _CoboBoxChucVu = _connect.Query("Select distinct CV.TenChucVu, CV.MaChucVu From  NhanVien NV, ChucVuNhanVien CV Where CV.MaChucVu = NV.MaChucVu")
-
-            LoadComboBox(cboTenChucVu, _CoboBoxChucVu, "TenChucVu", "MaChucVu")
-        Catch ex As SqlException
-            Throw ex
-        End Try
-        'Else
-        'MessageBox.Show("Bạn chưa đăng nhập", "Thông Báo")
-        'End If
-
-    End Sub
-
-    'Thêm NhanVien
-    Private Sub btnThemNV_Click(sender As Object, e As EventArgs) Handles btnThemNV.Click, btnThem_KhaNangViTinh.Click
-        Dim _KT As Boolean = True
-
-        If txtTen.Text.Length = 0 Then
-
-            ErrorProvider1.SetError(txtTen, "Bạn chưa nhập Tên Nhân Viên.")
-            _KT = False
-        Else
-            ErrorProvider1.Clear()
-        End If
-
-        Dim _Cmnd As String = txtcmnd.Text
-
-        If _Cmnd.Trim.Length = 0 Or _Cmnd.Trim.Length <> 9 Or IsNumeric(_Cmnd) = False Then
-
-            ErrorProvider2.SetError(txtcmnd, "CMND của Nhân Viên phải là 9 số.")
-            _KT = False
-        Else
-            ErrorProvider2.Clear()
-        End If
-
-        Dim _Tinhtrang As Boolean
-
-        If rdoDaNghi.Checked = True Then
-            _Tinhtrang = True
-        End If
-        If rdoDangLam.Checked = True Then
-            _Tinhtrang = False
-        End If
-
-        Dim _Gioitinh As String = ""
-        If rdoNam.Checked = True Then
-            _Gioitinh = "Nam"
-        End If
-        If rdoNu.Checked = True Then
-            _Gioitinh = "Nữ"
-        End If
-
-        Dim _LoaiNV As Boolean
-        If cboLoaiNV.SelectedIndex.ToString = "Fulltime" Then
-            _LoaiNV = True
-        Else
-            _LoaiNV = False
-        End If
-        Dim _Ngay As Boolean = True
-        If dtpThoiGianBD.Value.ToString("yyyy-MM-dd") <= dtpNgaySinh.Value.ToString("yyyy-MM-dd") Then
-            ErrorProvider3.SetError(dtpNgaySinh, "Ngày sinh phải nhỏ hơn thời gian bắt đầu!")
-            ErrorProvider4.SetError(dtpThoiGianBD, "Ngày sinh phải nhỏ hơn thời gian bắt đầu!")
-            _KT = False
-            _Ngay = False
-        Else
-            ErrorProvider3.Clear()
-            ErrorProvider4.Clear()
-
-
-        End If
-
-        Dim rowCount As Integer
-
-        Try
-            If _KT = False Then
-                Return
-            Else
-
-
-                DialogResult = MessageBox.Show("Bạn muốn thực hiện thao tác thêm?", "Thông Báo", MessageBoxButtons.OKCancel)
-
-                If DialogResult = Windows.Forms.DialogResult.OK Then
-
-                    '_connect.Open()
-                    '_query = "Insert into NhanVien(MaNV, TGBatDau, cmnd, HoTen, TinhTrang, NgaySinh, GioiTinh, LoaiNhanVien, MaChucVu) values('NV0031'," + "'" + dtpThoiGianBD.Value.ToString("yyyy-MM-dd") + "','" +
-                    '    txtcmnd.Text.ToString + "', N'" + txtTen.Text.ToString + "','" + _tinhtrang + "','" + dtpNgaySinh.Value.ToString("yyyy-MM-dd") + "','" + _gioitinh + "','" +
-                    '    cboKhaNang_NV.SelectedIndex.ToString + "','" + cboTenChucVu.SelectedValue.ToString + "')"
-                    '_connect.Query(_query)
-                    '_connect.Close()
-
-                    Dim _Name() As String = New String() {"@HoTen", "@CMND", "@TGBatDau", "@NgaySinh", "@GioiTinh", "@LoaiNhanVien", "@MaChucVu"}
-                    Dim _Value() As String = New String() {txtTen.Text, txtcmnd.Text, dtpThoiGianBD.Value.ToString("yyyy-MM-dd"), dtpNgaySinh.Value.ToString("yyyy-MM-dd"), _
-                                                           _Gioitinh, _LoaiNV, cboTenChucVu.SelectedValue}
-                    _Query = "spNhanVienInsert"
-                    rowCount = _connect.Update(_Query, _connect.CreateParameter(_Name, _Value))
-                Else
-                    Return
-                End If
-            End If
-
-
-
-            ReLoadNV(dgvNhanVien, _TableNhanVien)
-        Catch ex As SqlException
-            MessageBox.Show("Dữ liệu nhập sai!")
-        End Try
-
-        If rowCount > 0 Then
-            MessageBox.Show("Thêm Thành Công", "Thông Báo")
-        End If
-
-        dgvNhanVien.Rows(0).Selected = False
-        dgvNhanVien.Rows(_location).Selected = True
-        dgvNhanVien.FirstDisplayedScrollingRowIndex = _location
-
-    End Sub
-
-    'Sửa NhanVien
-    Private Sub btnSuaNV_Click(sender As Object, e As EventArgs) Handles btnSuaNV.Click, btnSua_KhaNangViTinh.Click
-        If txtMaNV.Text = "" And txtTen.Text = "" And txtcmnd.Text = "" Then
-            MessageBox.Show("Bạn chưa chọn Chi Tiết Phiếu Nhận", "Thông Báo")
-
-        Else
-            DialogResult = MessageBox.Show("Bạn muốn thực hiện thao tác sửa thông tin nhân viên?", "Thông Báo", MessageBoxButtons.OKCancel)
-
-            If DialogResult = Windows.Forms.DialogResult.OK Then
-
-                'dgvNhanVien.Items.Add(New ListViewItem(New String() {TxtMSSV.Text, txtTen.Text, TxtDT.Text, TxtLop.Text, TxtDC.Text}))
-                Dim _Tinhtrang As String = ""
-
-                If rdoDaNghi.Checked = True Then
-                    _Tinhtrang = True
-                End If
-                If rdoDangLam.Checked = True Then
-                    _Tinhtrang = False
-                End If
-
-                Dim _Gioitinh As String = ""
-                If rdoNam.Checked = True Then
-                    _Gioitinh = "Nam"
-                End If
-                If rdoNu.Checked = True Then
-                    _Gioitinh = "Nữ"
-                End If
-
-                Dim _LoaiNV As Boolean
-                If cboLoaiNV.SelectedIndex.ToString = "Fulltime" Then
-                    _LoaiNV = True
-                Else
-                    _LoaiNV = False
-                End If
-
-                Try
-
-                    _Query = "spNhanVienUpdate"
-                    Dim _Name() As String = New String() {"@MaNV ", "@TenNV ", "@TGBatDau ", "@CMND ", "@TinhTrang ", "@GioiTinh ", "@NgaySinh ", "@LoaiNhanVien ", "@MaChucVu "}
-                    Dim _Value() As String = New String() {txtMaNV.Text, txtTen.Text, dtpThoiGianBD.Value.ToString("yyyy-MM-dd"), txtcmnd.Text, _Tinhtrang, _Gioitinh, _
-                                                           dtpNgaySinh.Value.ToString("yyyy-MM-dd"), _LoaiNV, cboTenChucVu.SelectedValue}
-
-                    _connect.Update(_Query, _connect.CreateParameter(_Name, _Value))
-
-                Catch ex As Exception
-                    Throw ex
-                End Try
-
-                MessageBox.Show("Sửa thành công", "Thông báo")
-                ReLoadNV(dgvNhanVien, _TableNhanVien)
-
-                dgvNhanVien.Rows(0).Selected = False
-                dgvNhanVien.Rows(_location).Selected = True
-                dgvNhanVien.FirstDisplayedScrollingRowIndex = _location
-            End If
-        End If
-
-        ''-------------------------------------------------------------------------------------Hien Thi dong da sua--------------------------------------------------------
-    End Sub
-
-    'Xóa NhanVien 
-    Private Sub btnXoaNV_Click(sender As Object, e As EventArgs) Handles btnXoaNV.Click, btnXoa_KhaNangViTinh.Click
->>>>>>> TietThinh-NhanVien
         If txtMaNV.Text = "" And txtTen.Text = "" And txtcmnd.Text = "" Then
             MessageBox.Show("Bạn chưa chọn Chi Tiết Phiếu Nhận", "Thông Báo")
 
@@ -479,7 +266,6 @@ Public Class frmManager
 
             If DialogResult = Windows.Forms.DialogResult.OK Then
 
-<<<<<<< HEAD
                 Dim _Word As String = txtMaNV.Text.ToString.Trim
                 '_Query = "Delete From NhanVien Where MaNV ='" + _Word + "'"
                 '_connect.Query(_Query)
@@ -489,38 +275,6 @@ Public Class frmManager
                 Dim _Value() As String = New String() {_Word}
 
                 _connect.Update(_Query, _connect.CreateParameter(_Name, _Value))
-=======
-                'Dim _query As String = ""
-                '_connect.Open()
-                Dim _tinhtrang As String = ""
-
-
-
-
-                If rdoDaNghi.Checked = True Then
-                    _tinhtrang = True
-                End If
-                If rdoDangLam.Checked = True Then
-                    _tinhtrang = False
-                End If
-
-                Dim _gioitinh As String = ""
-                If rdoNam.Checked = True Then
-                    _gioitinh = "Nam"
-                End If
-                If rdoNu.Checked = True Then
-                    _gioitinh = "Nữ"
-                End If
-                Dim _Word As String = txtMaNV.Text.ToString.Trim
-                _Query = "Delete From NhanVien Where MaNV ='" + _Word + "'"
-                _connect.Query(_Query)
-                '_connect.Close()
-                '_Query = "spNhanVienDelete"
-                'Dim _Name() As String = New String() {"@MaNV"}
-                'Dim _Value() As String = New String() {_Word}
-
-                '_connect.Update(_Query, _connect.CreateParameter(_Name, _Value))
->>>>>>> TietThinh-NhanVien
 
                 txtMaNV.Text = ""
                 txtTen.Text = ""
@@ -564,15 +318,9 @@ Public Class frmManager
     End Sub
 
     'Tìm NhanVien
-<<<<<<< HEAD
     Private Sub btnTimKiemNV_Click(sender As Object, e As EventArgs) Handles btnTimKiemNV.Click
 
         If txtTimKiem_NhanVien.Text.Trim.Count = 0 Or txtTimKiem_NhanVien.Text.Trim = "Nhập thông tin cần tìm vào đây" Then
-=======
-    Private Sub btnTimKiem_Click(sender As Object, e As EventArgs) Handles btnTimKiemNV.Click
-
-        If txtTimKiem_NhanVien.Text.Trim.Count = 0 Then
->>>>>>> TietThinh-NhanVien
             MessageBox.Show("Chưa có thông tin tim kiếm", "Thông Báo")
         Else
 
@@ -582,7 +330,6 @@ Public Class frmManager
 
             Dim _Word As String = txtTimKiem_NhanVien.Text.ToString.Trim
             Dim temp As Integer = 0
-<<<<<<< HEAD
 
             For i As Integer = 0 To _TableNhanVien.Rows.Count - 1 Step 1
                 For j As Integer = 0 To _TableNhanVien.Columns.Count - 1 Step 1
@@ -616,67 +363,6 @@ Public Class frmManager
             Else
                 MessageBox.Show("Không tồn tại nhân viên với dữ liệu tìm kiếm đã nhập", "Thông Báo")
             End If
-=======
-            'For Each dt As DataRow In _TableNhanVien.Rows
-
-            '    If _Word = dt("MaNV").ToString.Trim Or _Word = dgvNhanVien.Rows(_location).Cells("CMND").Value.ToString() _
-            '        Or _Word = dgvNhanVien.Rows(_location).Cells("NgaySinh").Value.ToString() _
-            '        Or _Word = dgvNhanVien.Rows(_location).Cells("LoaiNhanVien").Value.ToString Or _Word = dgvNhanVien.Rows(_location).Cells("HoTen").Value.ToString() Then
-            '        _KQ = True
-            '        _location = temp
-            '    End If
-            '    temp = temp + 1
-            'Next
-            For i As Integer = 0 To _TableNhanVien.Rows.Count - 1 Step 1
-                For j As Integer = 0 To _TableNhanVien.Columns.Count - 1 Step 1
-                    If _TableNhanVien.Rows(i).Item(j).ToString.Contains(_Word) Then
-                        _TableResult.Rows.Add(_TableNhanVien.Rows(i).ItemArray)
-                        Exit For
-                    End If
-                Next
-            Next
-            dgvNhanVien.Rows.Clear()
-            For Each Row As DataRow In _TableResult.Rows
-                dgvNhanVien.Rows.Add(Row.ItemArray)
-            Next
-            'hiển thị thông tin tìm được trên textbox
-            '    txtMaNV.Text = dgvNhanVien.Rows(_location).Cells("MaNV").Value.ToString()
-            '    txtcmnd.Text = dgvNhanVien.Rows(_location).Cells("CMND").Value.ToString()
-            '    dtpNgaySinh.Text = dgvNhanVien.Rows(_location).Cells("NgaySinh").Value.ToString()
-
-            '    Dim LoaiNV As String = ""
-
-            '    cboKhaNang_NV.Text = dgvNhanVien.Rows(_location).Cells("LoaiNhanVien").Value.ToString
-            '    If LoaiNV = "True" Then
-            '        cboKhaNang_NV.SelectedIndex = 1
-            '    Else
-            '        cboKhaNang_NV.SelectedIndex = 0
-            '    End If
-            '    txtTen.Text = dgvNhanVien.Rows(_location).Cells("HoTen").Value.ToString()
-
-            '    cboKhaNang_NV.SelectedValue = dgvNhanVien.Rows(_location).Cells("LoaiNhanVien").Value
-            '    cboTenChucVu.SelectedValue = dgvNhanVien.Rows(_location).Cells("MaChucVu").Value
-            '    dtpNgaySinh.Value = dgvNhanVien.Rows(_location).Cells("NgaySinh").Value.ToString
-
-            '    If dgvNhanVien.Rows(_location).Cells("GioiTinh").Value.ToString = "Nam" Then
-            '        rdoNam.Checked = True
-
-            '    Else
-            '        rdoNu.Checked = True
-            '    End If
-
-            '    If dgvNhanVien.Rows(_location).Cells("TinhTrang").Value.ToString = "Đã Nghỉ" Then
-            '        rdoDaNghi.Checked = True
-
-            '    Else
-            '        rdoDangLam.Checked = True
-            '    End If
-
-
-            '    If (_KQ = False) Then
-            '        MessageBox.Show("Không tồn tại Nhân Viên", "Thông Báo")
-            '    End If
->>>>>>> TietThinh-NhanVien
         End If
 
     End Sub
@@ -685,7 +371,6 @@ Public Class frmManager
     Private Sub dgvNhanVien_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvNhanVien.CellClick
         'Dim row As DataRow = ds.Select("HoTen = " + dgvNhanVien(0, dgvNhanVien.CurrentCell.RowIndex).Value)(0)
         _location = e.RowIndex
-<<<<<<< HEAD
         Dim _Check As Boolean = True
 
         If e.RowIndex >= 0 Then
@@ -719,39 +404,6 @@ Public Class frmManager
             End If
 
 
-=======
-        If e.RowIndex = dgvNhanVien.Rows.Count Then
-            Return
-        End If
-
-        If e.RowIndex >= 0 Then
-            txtMaNV.Text = dgvNhanVien.Rows(e.RowIndex).Cells("MaNV").Value.ToString()
-            txtcmnd.Text = dgvNhanVien.Rows(e.RowIndex).Cells("CMND").Value.ToString()
-            dtpNgaySinh.Text = dgvNhanVien.Rows(e.RowIndex).Cells("NgaySinh").Value.ToString()
-
-            Dim LoaiNV As String = ""
-            cboKhaNang_NV.Text = dgvNhanVien.Rows(e.RowIndex).Cells("LoaiNhanVien").Value.ToString
-            If LoaiNV = "True" Then
-                cboKhaNang_NV.SelectedIndex = 1
-            Else
-                cboKhaNang_NV.SelectedIndex = 0
-            End If
-            txtTen.Text = dgvNhanVien.Rows(e.RowIndex).Cells("HoTen").Value.ToString()
-
-            'If GioiTinh.ToString = "Nam" Then
-            '    rdoNam.Checked = True
-            'Else
-            '    rdoNu.Checked = True
-            'End If
-
-            'If TinhTrang.ToString = "Đã Nghỉ" Then
-            '    rdoDaNghi.Checked = True
-            'Else
-            '    rdoDangLam.Checked = True
-            'End If
-
-            cboKhaNang_NV.SelectedValue = dgvNhanVien.Rows(e.RowIndex).Cells("LoaiNhanVien").Value
->>>>>>> TietThinh-NhanVien
             cboTenChucVu.SelectedValue = dgvNhanVien.Rows(e.RowIndex).Cells("MaChucVu").Value
             dtpNgaySinh.Value = dgvNhanVien.Rows(e.RowIndex).Cells("NgaySinh").Value.ToString
 
@@ -762,7 +414,6 @@ Public Class frmManager
                 rdoNu.Checked = True
             End If
 
-<<<<<<< HEAD
         End If
     End Sub
 
@@ -914,18 +565,6 @@ Public Class frmManager
             txtPhanMem_NV.Clear()
         End If
     End Sub
-=======
-            If dgvNhanVien.Rows(e.RowIndex).Cells("TinhTrang").Value.ToString = "Đã Nghỉ" Then
-                rdoDaNghi.Checked = True
-
-            Else
-                rdoDangLam.Checked = True
-            End If
-        End If
-    End Sub
-
-
->>>>>>> TietThinh-NhanVien
 
     '--------------------------------------------------------------------Bảng Hóa Đơn------------------------------------------------------------------------------
     'Bảng hóa đơn
@@ -941,19 +580,10 @@ Public Class frmManager
         cboDaThanhToan_HoaDon.Items.Insert(0, "Đã Thanh Toán")
         cboDaThanhToan_HoaDon.Items.Insert(1, "Chưa Thanh Toán")
         cboDaThanhToan_HoaDon.SelectedIndex = 0
-<<<<<<< HEAD
-=======
-
-
->>>>>>> TietThinh-NhanVien
     End Sub
 
     'Chọn dữ liệu Hóa Đơn
     Private Sub dgvHoaDon_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvHoaDon.CellClick
-<<<<<<< HEAD
-=======
-        dgvCTHoaDon.Rows.Clear()
->>>>>>> TietThinh-NhanVien
         _location = dgvHoaDon.SelectedRows(0).Index
         If e.RowIndex = dgvHoaDon.Rows.Count Then
             Return
@@ -983,10 +613,7 @@ Public Class frmManager
 
         'Load dữ liệu chi tiết hóa đơn
         _TableCTHoaDon = LoadCTHoaDon(dgvCTHoaDon, txtMaHoaDon_HoaDon.Text)
-<<<<<<< HEAD
         'dgvCTHoaDon.Rows(0).Selected = False
-=======
->>>>>>> TietThinh-NhanVien
     End Sub
 
     'Xóa dữ liệu Hóa Đơn
@@ -1042,7 +669,6 @@ Public Class frmManager
 
     'Tìm kiếm HoaDon
     Private Sub btnTimKiem_HoaDon_Click(sender As Object, e As EventArgs) Handles btnTimKiem_HoaDon.Click
-<<<<<<< HEAD
 
         If txtTimKiem_HoaDon.Text.Trim.Count = 0 Or txtTimKiem_HoaDon.Text.Trim = "Nhập thông tin cần tìm vào đây" Then
             MessageBox.Show("Chưa có thông tin tim kiếm", "Thông Báo")
@@ -1075,18 +701,12 @@ Public Class frmManager
             Else
                 MessageBox.Show("Không tồn tại dữ liệu tìm kiếm đã nhập", "Thông Báo")
             End If
-=======
-        If txtTimKiem_CTHD.Text.Length = 0 Then
-            ErrorProvider4.SetError(txtTimKiem_HoaDon, "Bạn chưa chọn giá trị.")
-
->>>>>>> TietThinh-NhanVien
         End If
     End Sub
 
     'Bảng Chi Tiết Hóa Đơn
     'Tìm dữ liệu hóa đơn
     Private Sub btnTimKiem_CTHD_Click(sender As Object, e As EventArgs) Handles btnTimKiem_CTHD.Click
-<<<<<<< HEAD
     
         If txtTimKiem_CTHD.Text.Trim.Count = 0 Then
             MessageBox.Show("Chưa có thông tin tim kiếm", "Thông Báo")
@@ -1119,11 +739,6 @@ Public Class frmManager
             Else
                 MessageBox.Show("Không tồn tại dữ liệu tìm kiếm đã nhập", "Thông Báo")
             End If
-=======
-        If txtTimKiem_CTHD.Text.Length = 0 Then
-            ErrorProvider4.SetError(txtTimKiem_CTHD, "Bạn chưa chọn Đơn Vị.")
-
->>>>>>> TietThinh-NhanVien
         End If
     End Sub
 
@@ -1189,21 +804,12 @@ Public Class frmManager
         _location = dgvHoaDon.SelectedRows(0).Index
 
         If e.RowIndex >= 0 Then
-<<<<<<< HEAD
             txtMaHoaDon_CTHD.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("MaHoaDon_CTHoaDon").Value.ToString()
             txtTenMon_CTHD.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("TenMon_CTHoaDon").Value.ToString()
             txtSoLuong_CTHD.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("SoLuong_CTHoaDon").Value.ToString()
             txtGiaMotMon_CTHD.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("GiaMotMon_CTHoaDon").Value.ToString()
             txtGhiChuCTHoaDon.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("GhiChu_CTHoaDon").Value.ToString()
             txtTongTien_CTHD.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("ThanhTien_CTHoaDon").Value.ToString()
-=======
-            txtMaHoaDon_CTHD.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("MaHoaDon").Value.ToString()
-            txtTenMon_CTHD.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("TenMon_CTHD").Value.ToString()
-            txtSoLuong_CTHD.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("SoLuong").Value.ToString()
-            txtGiaMotMon_CTHD.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("GiaMotMon_CTHD").Value.ToString()
-            txtGhiChuCTHoaDon.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("GhiChu_CTHD").Value.ToString()
-            txtTongTien_CTHD.Text = dgvCTHoaDon.Rows(e.RowIndex).Cells("TongTien_CTHD").Value.ToString()
->>>>>>> TietThinh-NhanVien
         End If
     End Sub
 
@@ -1225,16 +831,8 @@ Public Class frmManager
         cboLoai_MADU.Items.Insert(1, "Đồ Uống")
         cboLoai_MADU.SelectedIndex = 0
 
-<<<<<<< HEAD
 
       
-=======
-        Dim _CoboBoxSanPham As New DataTable
-        _CoboBoxSanPham = _connect.Query("Select MaSP, TenSP From SanPham ")
-
-        LoadComboBox(cboTenSP_CTMon, _CoboBoxSanPham, "TenSP", "MaSP")
-
->>>>>>> TietThinh-NhanVien
     End Sub
 
     'Thêm dữ liệu MonAnDoUong
@@ -1249,11 +847,7 @@ Public Class frmManager
             ErrorProvider1.Clear()
         End If
 
-<<<<<<< HEAD
         If txtGiaHienTai_Mon.Text.Trim.Length = 0 Or IsNumeric(txtGiaHienTai_Mon.Text.Trim) = False Then
-=======
-        If txtGiaHienTai_Mon.Text.Length = 0 Then
->>>>>>> TietThinh-NhanVien
 
             ErrorProvider2.SetError(txtGiaHienTai_Mon, "Bạn chưa nhập Giá Món.")
             _KT = False
@@ -1303,11 +897,7 @@ Public Class frmManager
 
     End Sub
 
-<<<<<<< HEAD
     'Sửa MonAnDoUong
-=======
-    'Sua MonAnDoUong
->>>>>>> TietThinh-NhanVien
     Private Sub btnSua_Mon_Click(sender As Object, e As EventArgs) Handles btnSua_Mon.Click
         If txtMaHoaDon_HoaDon.Text = "" And txtSoBan_HoaDon.Text = "" And txtMaHoaDonChung_HoaDon.Text = "" _
             And txtTenNV_HoaDon.Text = "" And txtGhiChu_HoaDon.Text = "" And txtTongTien_HoaDon.Text = "" Then
@@ -1333,11 +923,7 @@ Public Class frmManager
 
     End Sub
 
-<<<<<<< HEAD
     'Xóa MonAnDoUong
-=======
-    'Xoa MonAnDoUong
->>>>>>> TietThinh-NhanVien
     Private Sub btnXoa_Mon_Click(sender As Object, e As EventArgs) Handles btnXoa_Mon.Click
         If txtMaHoaDon_HoaDon.Text = "" And txtSoBan_HoaDon.Text = "" And txtMaHoaDonChung_HoaDon.Text = "" _
            And txtTenNV_HoaDon.Text = "" And txtGhiChu_HoaDon.Text = "" And txtTongTien_HoaDon.Text = "" Then
@@ -1355,18 +941,8 @@ Public Class frmManager
 
                 Dim _word As String = txtMaMon_Mon.Text
 
-<<<<<<< HEAD
                 txtTenMon_Mon.Text = ""
                 txtGiaHienTai_Mon.Text = ""
-=======
-                txtMaHoaDon_HoaDon.Text = ""
-                txtSoBan_HoaDon.Text = ""
-                txtMaHoaDonChung_HoaDon.Text = ""
-                txtTenNV_HoaDon.Text = ""
-                txtGhiChu_HoaDon.Text = ""
-                txtTongTien_HoaDon.Text = ""
-                txtTimKiem_HoaDon.Text = ""
->>>>>>> TietThinh-NhanVien
 
 
                 Dim Table As New DataTable
@@ -1400,7 +976,6 @@ Public Class frmManager
 
     'Tìm kiếm MonAnDoUong
     Private Sub btnTimKiem_Mon_Click(sender As Object, e As EventArgs) Handles btnTimKiem_Mon.Click
-<<<<<<< HEAD
 
         If txtTimKiem_Mon.Text.Trim.Count = 0 Then
             MessageBox.Show("Chưa có thông tin tim kiếm", "Thông Báo")
@@ -1433,11 +1008,6 @@ Public Class frmManager
             Else
                 MessageBox.Show("Không tồn tại dữ liệu tìm kiếm đã nhập", "Thông Báo")
             End If
-=======
-        If txtTimKiem_Mon.Text = "Nhập thông tin cần tìm vào đây" Then
-            ErrorProvider4.SetError(txtTimKiem_Mon, "Bạn chưa chọn Đơn Vị.")
-
->>>>>>> TietThinh-NhanVien
         End If
     End Sub
 
@@ -1479,7 +1049,6 @@ Public Class frmManager
         _ComboBoxLoaiDonViTinh = _connect.Query("Select LDVT.TenDV, LDVT.MaDV From LoaiDonViTinh LDVT")
         LoadComboBox(cboDonVi_CTMon, _ComboBoxLoaiDonViTinh, "TenDV", "MaDV")
 
-<<<<<<< HEAD
         Dim _CoboBoxSanPham As New DataTable
         _CoboBoxSanPham = _connect.Query("Select MaSP, TenSP From SanPham ")
 
@@ -1495,11 +1064,6 @@ Public Class frmManager
         cboThucDonMon_Mon.SelectedIndex = 0
     End Sub
 
-=======
-
-    End Sub
-
->>>>>>> TietThinh-NhanVien
     'Kiểm tra thông tin textbox bảng MonAnDoUong
 
     Private Sub txtTenMon_Mon_TextChanged(sender As Object, e As EventArgs) Handles txtTenMon_Mon.TextChanged
@@ -1516,20 +1080,12 @@ Public Class frmManager
     End Sub
 
     Private Sub txtGiaHienTai_Mon_TextChanged(sender As Object, e As EventArgs) Handles txtGiaHienTai_Mon.TextChanged
-<<<<<<< HEAD
             ErrorProvider2.Clear()
     End Sub
 
     Private Sub txtGiaHienTai_Mon_Leave(sender As Object, e As EventArgs) Handles txtGiaHienTai_Mon.Leave
         If txtGiaHienTai_Mon.Text.Trim = "" Or IsNumeric(txtGiaHienTai_Mon.Text.Trim) = False Then
 
-=======
-        ErrorProvider2.Clear()
-    End Sub
-
-    Private Sub txtGiaHienTai_Mon_Leave(sender As Object, e As EventArgs) Handles txtGiaHienTai_Mon.Leave
-        If txtGiaHienTai_Mon.Text = "" Then
->>>>>>> TietThinh-NhanVien
             ErrorProvider2.SetError(txtGiaHienTai_Mon, "Bạn chưa nhập Giá Món.")
         Else
             ErrorProvider2.Clear()
@@ -1738,11 +1294,8 @@ Public Class frmManager
     End Sub
 
     'Chọn ChiTietMonAnDoUong
-<<<<<<< HEAD
         
 
-=======
->>>>>>> TietThinh-NhanVien
     Private Sub dgvCTMon_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCTMon.CellClick
         _location = dgvCTMon.SelectedRows(0).Index
 
@@ -1752,27 +1305,17 @@ Public Class frmManager
 
         If e.RowIndex >= 0 Then
 
-<<<<<<< HEAD
             cboTenSP_CTMon.Text = dgvCTMon.Rows(e.RowIndex).Cells("TenSP_CTMonAn").Value.ToString()
             txtSoLuong_CTMon.Text = dgvCTMon.Rows(e.RowIndex).Cells("SoLuong_CTMonAn").Value.ToString()
             cboDonVi_CTMon.Text = dgvCTMon.Rows(e.RowIndex).Cells("TenDV_CTMonAn").Value.ToString()
 
             _MaSPCu = dgvCTMon.Rows(e.RowIndex).Cells("MaSP_CTMonAn").Value.ToString()
-=======
-            cboTenSP_CTMon.SelectedValue = dgvCTMon.Rows(e.RowIndex).Cells("MaSP_CTM").Value.ToString()
-            txtSoLuong_CTMon.Text = dgvCTMon.Rows(e.RowIndex).Cells("SoLuong_CTMon").Value.ToString()
-            cboDonVi_CTMon.Text = dgvCTMon.Rows(e.RowIndex).Cells("DonVi_CTMon").Value.ToString()
-            txtMaMon_CTMon.Text = dgvCTMon.Rows(e.RowIndex).Cells("MaMon_CTM").Value.ToString()
-
-            _MaSPCu = dgvCTMon.Rows(e.RowIndex).Cells("MaSP_CTM").Value.ToString()
->>>>>>> TietThinh-NhanVien
 
         End If
     End Sub
 
     'Tim ChiTietMonAnDoUong
     Private Sub btnTim_CTMon_Click(sender As Object, e As EventArgs) Handles btnTim_CTMon.Click
-<<<<<<< HEAD
       
         If txtTimKiem_CTMon.Text.Trim.Count = 0 Or txtTimKiem_CTMon.Text.Trim = "Nhập thông tin cần tìm vào đây" Then
             MessageBox.Show("Chưa có thông tin tim kiếm", "Thông Báo")
@@ -1817,14 +1360,6 @@ Public Class frmManager
         cboDonVi_CTMon.SelectedIndex = 0
     End Sub
 
-=======
-        If txtTimKiem_CTMon.Text.Length = 0 Then
-            ErrorProvider4.SetError(txtTimKiem_CTMon, "Bạn chưa chọn Đơn Vị.")
-
-        End If
-    End Sub
-
->>>>>>> TietThinh-NhanVien
 
 
 
@@ -1977,7 +1512,6 @@ Public Class frmManager
         End If
 
         If e.RowIndex >= 0 Then
-<<<<<<< HEAD
             txtMaPhieuNhap_PhieuNhap.Text = dgvPhieuNhap.Rows(e.RowIndex).Cells("MaPN_PNhap").Value.ToString()
             txtTenNV_PhieuNhap.Text = dgvPhieuNhap.Rows(e.RowIndex).Cells("TenNV_PNhap").Value.ToString()
             txtTenNCC_PhieuNhap.Text = dgvPhieuNhap.Rows(e.RowIndex).Cells("TenNCC_PNhap").Value.ToString()
@@ -1985,15 +1519,6 @@ Public Class frmManager
             dtpNgayGiaoDK_PhieuNhap.Text = dgvPhieuNhap.Rows(e.RowIndex).Cells("NgayGiaoDK_PNhap").Value.ToString()
             cboTinhTrang_PhieuNhap.Text = dgvPhieuNhap.Rows(e.RowIndex).Cells("TinhTrang_PNhap").Value.ToString()
             txtTongTien_PhieuNhap.Text = dgvPhieuNhap.Rows(e.RowIndex).Cells("TongTien_PNhap").Value.ToString()
-=======
-            txtMaPhieuNhap_PhieuNhap.Text = dgvPhieuNhap.Rows(e.RowIndex).Cells("MaPN_PhieuNhap").Value.ToString()
-            txtTenNV_PhieuNhap.Text = dgvPhieuNhap.Rows(e.RowIndex).Cells("TenNV_PhieuNhap").Value.ToString()
-            txtTenNCC_PhieuNhap.Text = dgvPhieuNhap.Rows(e.RowIndex).Cells("TenNCC_PhieuNhap").Value.ToString()
-            dtpNgayLap_PhieuNhap.Text = dgvPhieuNhap.Rows(e.RowIndex).Cells("NgayLap_PhieuNhap").Value.ToString()
-            dtpNgayGiaoDK_PhieuNhap.Text = dgvPhieuNhap.Rows(e.RowIndex).Cells("NgayGiaoDK_PhieuNhap").Value.ToString()
-            cboTinhTrang_PhieuNhap.Text = dgvPhieuNhap.Rows(e.RowIndex).Cells("TinhTrang_PhieuNhap").Value.ToString()
-            txtTongTien_PhieuNhap.Text = dgvPhieuNhap.Rows(e.RowIndex).Cells("TongTien_PhieuNhap").Value.ToString()
->>>>>>> TietThinh-NhanVien
 
 
         End If
@@ -2016,7 +1541,6 @@ Public Class frmManager
         cboDonVi_CTPhieuNhap.Items.Insert(9, "Bịch")
         cboDonVi_CTPhieuNhap.Items.Insert(10, "Con")
         cboDonVi_CTPhieuNhap.SelectedIndex = 0
-<<<<<<< HEAD
         'Làm trống textbox Chi Tiết Phiếu Nhập
         txtMaPhieuNhap_CTPhieuNhap.Text = ""
         txtTenSP_CTPhieuNhap.Text = ""
@@ -2062,12 +1586,6 @@ Public Class frmManager
         End If
     End Sub
 
-=======
-
-    End Sub
-
-
->>>>>>> TietThinh-NhanVien
     '--------------------------------------------------------------------------Bảng Chi Tiết Phiếu Nhập-----------------------------------------------------------------
 
     'Chọn dòng dữ liệu chi tiết phiếu nhập
@@ -2089,11 +1607,7 @@ Public Class frmManager
 
     End Sub
 
-<<<<<<< HEAD
     'Xóa dữ liệu chi tiết phiếu nhập
-=======
-    'Xóa dữ liệu phiếu nhập
->>>>>>> TietThinh-NhanVien
     Private Sub btnXoa_CTPhieuNhap_Click(sender As Object, e As EventArgs) Handles btnXoa_CTPhieuNhap.Click
         If txtMaPhieuNhap_CTPhieuNhap.Text = "" And txtTenSP_CTPhieuNhap.Text = "" And txtSoLuong_CTPhieuNhap.Text = "" And _
             txtDonGia_CTPhieuNhap.Text = "" And txtThanhTIen_CTPhieuNhap.Text = "" Then
@@ -2121,11 +1635,7 @@ Public Class frmManager
                 txtMaPhieuNhap_CTPhieuNhap.Text = ""
                 txtTenSP_CTPhieuNhap.Text = ""
                 txtSoLuong_CTPhieuNhap.Text = ""
-<<<<<<< HEAD
                 cboDonVi_CTPhieuNhap.SelectedIndex = 0
-=======
-                cboDonVi_CTPhieuNhap.Text = ""
->>>>>>> TietThinh-NhanVien
                 txtDonGia_CTPhieuNhap.Text = ""
                 txtThanhTIen_CTPhieuNhap.Text = ""
 
@@ -2186,11 +1696,7 @@ Public Class frmManager
 
     End Sub
 
-<<<<<<< HEAD
     'Hoàn thành chi tiết phiếu nhập
-=======
-    'Hoàn thành phiếu nhập
->>>>>>> TietThinh-NhanVien
     Private Sub btnKhoa_CTPhieuNhap_Click(sender As Object, e As EventArgs) Handles btnKhoa_CTPhieuNhap.Click
         If txtMaPhieuNhap_CTPhieuNhap.Text = "" And txtTenSP_CTPhieuNhap.Text = "" And txtSoLuong_CTPhieuNhap.Text = "" And _
             txtDonGia_CTPhieuNhap.Text = "" And txtThanhTIen_CTPhieuNhap.Text = "" Then
@@ -2216,7 +1722,6 @@ Public Class frmManager
         End If
     End Sub
 
-<<<<<<< HEAD
     'Hoàn thành chi tiết phiếu nhập
     Private Sub btnTim_CTPhieuNhap_Click(sender As Object, e As EventArgs) Handles btnTim_CTPhieuNhap.Click
         If txtTim_CTPhieuNhap.Text.Trim.Count = 0 Or txtTim_CTPhieuNhap.Text.Trim = "Nhập thông tin cần tìm vào đây" Then
@@ -2252,8 +1757,6 @@ Public Class frmManager
             End If
         End If
     End Sub
-=======
->>>>>>> TietThinh-NhanVien
 
     '-----------------------------------------------------------------------------Bảng Phiếu Nhận------------------------------------------------------------------
     'Load dữ liệu phiếu nhận-chi tiết phiếu nhận
@@ -2298,10 +1801,7 @@ Public Class frmManager
         cboDonVi_ChiTietPhieuNhan.Items.Insert(10, "Con")
         cboDonVi_ChiTietPhieuNhan.SelectedIndex = 0
     End Sub
-<<<<<<< HEAD
 
-=======
->>>>>>> TietThinh-NhanVien
     'Xóa dữ liệu phiếu nhận
     Private Sub btnXoa_PhieuNhan_Click(sender As Object, e As EventArgs) Handles btnXoa_PhieuNhan.Click
         If txtMaPhieuNhap_PhieuNhan.Text = "" And txtMaPhieuNhan_PhieuNhan.Text = "" And txtTenNV_PhieuNhan.Text = "" _
@@ -2361,7 +1861,6 @@ Public Class frmManager
         End If
     End Sub
 
-<<<<<<< HEAD
     'Tìm phiếu nhận
     Private Sub btnTim_PhieuNhan_Click(sender As Object, e As EventArgs) Handles btnTim_PhieuNhan.Click
         If txtTim_PhieuNhan.Text.Trim.Count = 0 Or txtTim_PhieuNhan.Text.Trim = "Nhập thông tin cần tìm vào đây" Then
@@ -2397,9 +1896,6 @@ Public Class frmManager
             End If
         End If
     End Sub
-=======
-
->>>>>>> TietThinh-NhanVien
 
     '------------------------------------------------------------------------Bảng Chi Tiết Phiếu Nhận------------------------------------------------------------------
     'Chọn dòng dữ liệu chi tiết phiếu nhận
@@ -2477,7 +1973,6 @@ Public Class frmManager
 
     End Sub
 
-<<<<<<< HEAD
     'Tìm chi tiết phiếu nhận
     Private Sub btnTimChiTietPhieuNhan_Click(sender As Object, e As EventArgs) Handles btnTimChiTietPhieuNhan.Click
         If txtTim_ChiTietPhieuNhan.Text.Trim.Count = 0 Or txtTim_ChiTietPhieuNhan.Text.Trim = "Nhập thông tin cần tìm vào đây" Then
@@ -2513,9 +2008,6 @@ Public Class frmManager
             End If
         End If
     End Sub
-=======
-
->>>>>>> TietThinh-NhanVien
 
     '---------------------------------------------------------------------Bảng Chức Vụ - Loại Đơn Vị Tính--------------------------------------------------------
     'Load dữ liệu cho bảng
@@ -2560,11 +2052,7 @@ Public Class frmManager
 
                 txtMaDV_LoaiDonVi.Text = ""
                 txtTenDV_LoaiDonVi.Text = ""
-<<<<<<< HEAD
                 cboKieuGiaTri_LDVT.SelectedIndex = 0
-=======
-                cboKieuGiaTri_LDVT.Text = ""
->>>>>>> TietThinh-NhanVien
 
 
                 Dim kq As Boolean = True
@@ -2710,7 +2198,6 @@ Public Class frmManager
 
     End Sub
 
-<<<<<<< HEAD
     'Tìm đơn vị
     Private Sub btnTimKiem_LoaiDonVi_Click(sender As Object, e As EventArgs) Handles btnTimKiem_LoaiDonVi.Click
         If txtTimKiem_LoaiDonVi.Text.Trim.Count = 0 Or txtTimKiem_LoaiDonVi.Text.Trim = "Nhập thông tin cần tìm vào đây" Then
@@ -2753,8 +2240,6 @@ Public Class frmManager
         txtTenDV_LoaiDonVi.Text = ""
         cboKieuGiaTri_LDVT.SelectedIndex = 0
     End Sub
-=======
->>>>>>> TietThinh-NhanVien
 
 
     'Kiểm tra dữ liệu trong textbox ChucVu
@@ -2909,7 +2394,6 @@ Public Class frmManager
         End If
     End Sub
 
-<<<<<<< HEAD
     'Làm trống textbox
 
     Private Sub btnNhapLai_ChucVuNV_Click(sender As Object, e As EventArgs) Handles btnNhapLai_ChucVuNV.Click
@@ -2952,15 +2436,11 @@ Public Class frmManager
             End If
         End If
     End Sub
-=======
-
->>>>>>> TietThinh-NhanVien
 
     '----------------------------------------------------------------------------------Thống Kê Món Ăn----------------------------------------------------------------------
 
     'Món Hoàn Thành
 
-<<<<<<< HEAD
     'Thống Kê Theo Năm Món Hoàn Thành
     Private Sub btnThongKeNam_MonHT_Click(sender As Object, e As EventArgs) Handles btnThongKeNam_MonHT.Click
         _TableThongKe = Nothing
@@ -3173,53 +2653,6 @@ Public Class frmManager
 
     'Báo Cáo Doanh Thu
     Private Sub btnBaoCao_DoanhThu_Click(sender As Object, e As EventArgs) Handles btnBaoCao_DoanhThu.Click
-=======
-    Private Sub ThongKeHT_Enter(sender As Object, e As EventArgs) Handles ThongKeHT.Enter
-    End Sub
-
-    'Thống Kê Theo Năm Món Hoàn Thành
-    Private Sub btnThongKeNam_MonHT_Click(sender As Object, e As EventArgs) Handles btnThongKeNam_MonHT.Click
-        ThongKeNamMonHT(dgvMonHT, nbrNam_TKNam_MonHT.Value.ToString)
-        gpbThongKeHT.Text = "Thông Tin Thống Kê Theo Năm"
-    End Sub
-    ''Thống Kê Theo Quý Món Hoàn Thành
-    Private Sub bntThongKeQuy_MonHT_Click(sender As Object, e As EventArgs) Handles bntThongKeQuy_MonHT.Click
-        ThongKeQuyMonHT(dgvMonHT, nbrQuy_TKQuy_MonHT.Value.ToString, nbrNam_TKNam_MonHT.Value.ToString)
-        gpbThongKeHT.Text = "Thông Tin Thống Kê Theo Quý"
-    End Sub
-    'Thống Kê Theo Tháng Món Hoàn Thành
-    Private Sub bntThongKeThang_MonHT_Click(sender As Object, e As EventArgs) Handles bntThongKeThang_MonHT.Click
-        ThongKeThangMonHT(dgvMonHT, nbrThang_TKThan_MonHT.Value.ToString)
-        gpbThongKeHT.Text = "Thông Tin Thống Kê Theo Tháng"
-    End Sub
-    'Thống Kê Theo Thứ Món Hoàn Thành
-    Private Sub btnThongKeThu_ThongKe_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-
-    'Món Không Hoàn Thành
-    Private Sub ThongKeKHT_Enter(sender As Object, e As EventArgs) Handles ThongKeKHT.Enter
-
-    End Sub
-    'Thống Kê Theo Năm Món Không Hoàn Thành
-    Private Sub bntThongKeNam_MonKHT_Click(sender As Object, e As EventArgs) Handles bntThongKeNam_MonKHT.Click
-        ThongKeNamMonKHT(dgvMonKHT, nbrNam_TKNam_MonKHT.Value.ToString)
-        gpbThongKeHT.Text = "Thông Tin Thống Kê Theo Năm"
-    End Sub
-    'Thống Kê Theo Quý Món Không Hoàn Thành
-    Private Sub bntThongKeQuy_MonKHT_Click(sender As Object, e As EventArgs) Handles bntThongKeQuy_MonKHT.Click
-        ThongKeQuyMonKHT(dgvMonKHT, nbrQuy_TKQuy_MonKHT.Value.ToString, nbrNam_TKNam_MonKHT.Value.ToString)
-        gpbThongKeHT.Text = "Thông Tin Thống Kê Theo Quý"
-    End Sub
-    'Thống Kê Theo Tháng Món Không Hoàn Thành
-    Private Sub bntThongKeThang_MonKHT_Click(sender As Object, e As EventArgs) Handles bntThongKeThang_MonKHT.Click
-        ThongKeThangMonKHT(dgvMonKHT, nbrThang_TKThang_MonKHT.Value.ToString)
-        gpbThongKeHT.Text = "Thông Tin Thống Kê Theo Tháng"
-    End Sub
-    'Thống Kê Theo Thứ Món Không Hoàn Thành
-    Private Sub bntThongKeThu_MonKHT_Click(sender As Object, e As EventArgs) Handles bntThongKeThu_MonKHT.Click
->>>>>>> TietThinh-NhanVien
 
     End Sub
 
@@ -3228,11 +2661,7 @@ Public Class frmManager
     'Tìm Kiếm
     Private Sub TextBoxSearch_Enter(sender As Object, e As EventArgs) Handles txtTimKiem_Mon.Enter, txtTimKiem_CTHD.Enter, _
        txtTimKiem_CTMon.Enter, txtTim_CTPhieuNhap.Enter, txtTimKiem_HoaDon.Enter, txtTimKiem_NhanVien.Enter, txtTimKiem_PhieuNhap.Enter, _
-<<<<<<< HEAD
        txtTimKiem_ChucVu.Enter, txtTimKiem_LoaiDonVi.Enter, txtTim_PhieuNhan.Enter, txtTim_ChiTietPhieuNhan.Enter, txtTimKiem_LoaiDonVi.Leave, txtTimKiem_ChucVu.Enter
-=======
-       txtTimKiem_ChucVu.Enter, txtTimKiem_LoaiDonVi.Enter
->>>>>>> TietThinh-NhanVien
 
         Dim textBox As TextBox = DirectCast(sender, TextBox)
 
@@ -3245,16 +2674,10 @@ Public Class frmManager
 
     End Sub
 
-<<<<<<< HEAD
 
     Private Sub TextBoxSearch_Leave(sender As Object, e As EventArgs) Handles txtTimKiem_Mon.Leave, txtTimKiem_CTHD.Leave, _
        txtTimKiem_CTMon.Leave, txtTim_CTPhieuNhap.Leave, txtTimKiem_HoaDon.Leave, txtTimKiem_NhanVien.Leave, txtTimKiem_PhieuNhap.Leave, _
        txtTimKiem_ChucVu.Leave, txtTimKiem_LoaiDonVi.Leave, txtTim_PhieuNhan.Leave, txtTim_ChiTietPhieuNhan.Leave, txtTimKiem_LoaiDonVi.Leave, txtTimKiem_ChucVu.Leave
-=======
-    Private Sub TextBoxSearch_Leave(sender As Object, e As EventArgs) Handles txtTimKiem_Mon.Leave, txtTimKiem_CTHD.Leave, _
-       txtTimKiem_CTMon.Leave, txtTim_CTPhieuNhap.Leave, txtTimKiem_HoaDon.Leave, txtTimKiem_NhanVien.Leave, txtTimKiem_PhieuNhap.Leave, _
-       txtTimKiem_ChucVu.Leave, txtTimKiem_LoaiDonVi.Leave
->>>>>>> TietThinh-NhanVien
         Dim textBox As TextBox = DirectCast(sender, TextBox)
 
         If textBox.Text.Trim = "" Then
@@ -3269,8 +2692,4 @@ Public Class frmManager
         _connect.Dispose()
     End Sub
 
-<<<<<<< HEAD
-=======
-   
->>>>>>> TietThinh-NhanVien
 End Class

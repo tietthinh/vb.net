@@ -26,7 +26,6 @@ Partial Public Class QuanLyNhaHang
     Inherits Global.System.Data.DataSet
     
     Private tableThongKe As ThongKeDataTable
-<<<<<<< HEAD
     
     Private _schemaSerializationMode As Global.System.Data.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
     
@@ -48,39 +47,12 @@ Partial Public Class QuanLyNhaHang
         MyBase.New(info, context, false)
         If (Me.IsBinarySerialized(info, context) = true) Then
             Me.InitVars(false)
-=======
-
-    Private _schemaSerializationMode As Global.System.Data.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-    Public Sub New()
-        MyBase.New()
-        Me.BeginInit()
-        Me.InitClass()
-        Dim schemaChangedHandler As Global.System.ComponentModel.CollectionChangeEventHandler = AddressOf Me.SchemaChanged
-        AddHandler MyBase.Tables.CollectionChanged, schemaChangedHandler
-        AddHandler MyBase.Relations.CollectionChanged, schemaChangedHandler
-        Me.EndInit()
-    End Sub
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-    Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
-        MyBase.New(info, context, False)
-        If (Me.IsBinarySerialized(info, context) = True) Then
-            Me.InitVars(False)
->>>>>>> TietThinh-NhanVien
             Dim schemaChangedHandler1 As Global.System.ComponentModel.CollectionChangeEventHandler = AddressOf Me.SchemaChanged
             AddHandler Me.Tables.CollectionChanged, schemaChangedHandler1
             AddHandler Me.Relations.CollectionChanged, schemaChangedHandler1
             Return
         End If
-<<<<<<< HEAD
         Dim strSchema As String = CType(info.GetValue("XmlSchema", GetType(String)),String)
-=======
-        Dim strSchema As String = CType(info.GetValue("XmlSchema", GetType(String)), String)
->>>>>>> TietThinh-NhanVien
         If (Me.DetermineSchemaSerializationMode(info, context) = Global.System.Data.SchemaSerializationMode.IncludeSchema) Then
             Dim ds As Global.System.Data.DataSet = New Global.System.Data.DataSet()
             ds.ReadXmlSchema(New Global.System.Xml.XmlTextReader(New Global.System.IO.StringReader(strSchema)))
@@ -93,13 +65,8 @@ Partial Public Class QuanLyNhaHang
             Me.Locale = ds.Locale
             Me.CaseSensitive = ds.CaseSensitive
             Me.EnforceConstraints = ds.EnforceConstraints
-<<<<<<< HEAD
             Me.Merge(ds, false, Global.System.Data.MissingSchemaAction.Add)
             Me.InitVars
-=======
-            Me.Merge(ds, False, Global.System.Data.MissingSchemaAction.Add)
-            Me.InitVars()
->>>>>>> TietThinh-NhanVien
         Else
             Me.ReadXmlSchema(New Global.System.Xml.XmlTextReader(New Global.System.IO.StringReader(strSchema)))
         End If
@@ -108,42 +75,25 @@ Partial Public Class QuanLyNhaHang
         AddHandler MyBase.Tables.CollectionChanged, schemaChangedHandler
         AddHandler Me.Relations.CollectionChanged, schemaChangedHandler
     End Sub
-<<<<<<< HEAD
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
      Global.System.ComponentModel.Browsable(false),  _
      Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
-=======
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
-     Global.System.ComponentModel.Browsable(False), _
-     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)> _
->>>>>>> TietThinh-NhanVien
     Public ReadOnly Property ThongKe() As ThongKeDataTable
         Get
             Return Me.tableThongKe
         End Get
     End Property
-<<<<<<< HEAD
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
      Global.System.ComponentModel.BrowsableAttribute(true),  _
      Global.System.ComponentModel.DesignerSerializationVisibilityAttribute(Global.System.ComponentModel.DesignerSerializationVisibility.Visible)>  _
-=======
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
-     Global.System.ComponentModel.BrowsableAttribute(True), _
-     Global.System.ComponentModel.DesignerSerializationVisibilityAttribute(Global.System.ComponentModel.DesignerSerializationVisibility.Visible)> _
->>>>>>> TietThinh-NhanVien
     Public Overrides Property SchemaSerializationMode() As Global.System.Data.SchemaSerializationMode
         Get
             Return Me._schemaSerializationMode
         End Get
-<<<<<<< HEAD
         Set
             Me._schemaSerializationMode = value
         End Set
@@ -152,38 +102,20 @@ Partial Public Class QuanLyNhaHang
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
      Global.System.ComponentModel.DesignerSerializationVisibilityAttribute(Global.System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-=======
-        Set(value As Global.System.Data.SchemaSerializationMode)
-            Me._schemaSerializationMode = value
-        End Set
-    End Property
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
-     Global.System.ComponentModel.DesignerSerializationVisibilityAttribute(Global.System.ComponentModel.DesignerSerializationVisibility.Hidden)> _
->>>>>>> TietThinh-NhanVien
     Public Shadows ReadOnly Property Tables() As Global.System.Data.DataTableCollection
         Get
             Return MyBase.Tables
         End Get
     End Property
-<<<<<<< HEAD
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
      Global.System.ComponentModel.DesignerSerializationVisibilityAttribute(Global.System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-=======
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
-     Global.System.ComponentModel.DesignerSerializationVisibilityAttribute(Global.System.ComponentModel.DesignerSerializationVisibility.Hidden)> _
->>>>>>> TietThinh-NhanVien
     Public Shadows ReadOnly Property Relations() As Global.System.Data.DataRelationCollection
         Get
             Return MyBase.Relations
         End Get
     End Property
-<<<<<<< HEAD
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
@@ -219,43 +151,6 @@ Partial Public Class QuanLyNhaHang
     Protected Overrides Sub ReadXmlSerializable(ByVal reader As Global.System.Xml.XmlReader)
         If (Me.DetermineSchemaSerializationMode(reader) = Global.System.Data.SchemaSerializationMode.IncludeSchema) Then
             Me.Reset
-=======
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-    Protected Overrides Sub InitializeDerivedDataSet()
-        Me.BeginInit()
-        Me.InitClass()
-        Me.EndInit()
-    End Sub
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-    Public Overrides Function Clone() As Global.System.Data.DataSet
-        Dim cln As QuanLyNhaHang = CType(MyBase.Clone, QuanLyNhaHang)
-        cln.InitVars()
-        cln.SchemaSerializationMode = Me.SchemaSerializationMode
-        Return cln
-    End Function
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-    Protected Overrides Function ShouldSerializeTables() As Boolean
-        Return False
-    End Function
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-    Protected Overrides Function ShouldSerializeRelations() As Boolean
-        Return False
-    End Function
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-    Protected Overrides Sub ReadXmlSerializable(ByVal reader As Global.System.Xml.XmlReader)
-        If (Me.DetermineSchemaSerializationMode(reader) = Global.System.Data.SchemaSerializationMode.IncludeSchema) Then
-            Me.Reset()
->>>>>>> TietThinh-NhanVien
             Dim ds As Global.System.Data.DataSet = New Global.System.Data.DataSet()
             ds.ReadXml(reader)
             If (Not (ds.Tables("ThongKe")) Is Nothing) Then
@@ -267,7 +162,6 @@ Partial Public Class QuanLyNhaHang
             Me.Locale = ds.Locale
             Me.CaseSensitive = ds.CaseSensitive
             Me.EnforceConstraints = ds.EnforceConstraints
-<<<<<<< HEAD
             Me.Merge(ds, false, Global.System.Data.MissingSchemaAction.Add)
             Me.InitVars
         Else
@@ -278,25 +172,12 @@ Partial Public Class QuanLyNhaHang
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-=======
-            Me.Merge(ds, False, Global.System.Data.MissingSchemaAction.Add)
-            Me.InitVars()
-        Else
-            Me.ReadXml(reader)
-            Me.InitVars()
-        End If
-    End Sub
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
->>>>>>> TietThinh-NhanVien
     Protected Overrides Function GetSchemaSerializable() As Global.System.Xml.Schema.XmlSchema
         Dim stream As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
         Me.WriteXmlSchema(New Global.System.Xml.XmlTextWriter(stream, Nothing))
         stream.Position = 0
         Return Global.System.Xml.Schema.XmlSchema.Read(New Global.System.Xml.XmlTextReader(stream), Nothing)
     End Function
-<<<<<<< HEAD
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
@@ -317,42 +198,15 @@ Partial Public Class QuanLyNhaHang
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-=======
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-    Friend Overloads Sub InitVars()
-        Me.InitVars(True)
-    End Sub
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-    Friend Overloads Sub InitVars(ByVal initTable As Boolean)
-        Me.tableThongKe = CType(MyBase.Tables("ThongKe"), ThongKeDataTable)
-        If (initTable = True) Then
-            If (Not (Me.tableThongKe) Is Nothing) Then
-                Me.tableThongKe.InitVars()
-            End If
-        End If
-    End Sub
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
->>>>>>> TietThinh-NhanVien
     Private Sub InitClass()
         Me.DataSetName = "QuanLyNhaHang"
         Me.Prefix = ""
         Me.Namespace = "http://tempuri.org/QuanLyNhaHang.xsd"
-<<<<<<< HEAD
         Me.EnforceConstraints = true
-=======
-        Me.EnforceConstraints = True
->>>>>>> TietThinh-NhanVien
         Me.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
         Me.tableThongKe = New ThongKeDataTable()
         MyBase.Tables.Add(Me.tableThongKe)
     End Sub
-<<<<<<< HEAD
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
@@ -370,25 +224,6 @@ Partial Public Class QuanLyNhaHang
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-=======
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-    Private Function ShouldSerializeThongKe() As Boolean
-        Return False
-    End Function
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-    Private Sub SchemaChanged(ByVal sender As Object, ByVal e As Global.System.ComponentModel.CollectionChangeEventArgs)
-        If (e.Action = Global.System.ComponentModel.CollectionChangeAction.Remove) Then
-            Me.InitVars()
-        End If
-    End Sub
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
->>>>>>> TietThinh-NhanVien
     Public Shared Function GetTypedDataSetSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
         Dim ds As QuanLyNhaHang = New QuanLyNhaHang()
         Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
@@ -401,44 +236,27 @@ Partial Public Class QuanLyNhaHang
         If xs.Contains(dsSchema.TargetNamespace) Then
             Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
             Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-<<<<<<< HEAD
             Try 
-=======
-            Try
->>>>>>> TietThinh-NhanVien
                 Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
                 dsSchema.Write(s1)
                 Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
                 Do While schemas.MoveNext
-<<<<<<< HEAD
                     schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
-=======
-                    schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
->>>>>>> TietThinh-NhanVien
                     s2.SetLength(0)
                     schema.Write(s2)
                     If (s1.Length = s2.Length) Then
                         s1.Position = 0
                         s2.Position = 0
-<<<<<<< HEAD
                         
                         Do While ((s1.Position <> s1.Length)  _
                                     AndAlso (s1.ReadByte = s2.ReadByte))
                             
                             
-=======
-
-                        Do While ((s1.Position <> s1.Length) _
-                                    AndAlso (s1.ReadByte = s2.ReadByte))
-
-
->>>>>>> TietThinh-NhanVien
                         Loop
                         If (s1.Position = s1.Length) Then
                             Return type
                         End If
                     End If
-<<<<<<< HEAD
                     
                 Loop
             Finally
@@ -447,23 +265,12 @@ Partial Public Class QuanLyNhaHang
                 End If
                 If (Not (s2) Is Nothing) Then
                     s2.Close
-=======
-
-                Loop
-            Finally
-                If (Not (s1) Is Nothing) Then
-                    s1.Close()
-                End If
-                If (Not (s2) Is Nothing) Then
-                    s2.Close()
->>>>>>> TietThinh-NhanVien
                 End If
             End Try
         End If
         xs.Add(dsSchema)
         Return type
     End Function
-<<<<<<< HEAD
     
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Public Delegate Sub ThongKeRowChangeEventHandler(ByVal sender As Object, ByVal e As ThongKeRowChangeEvent)
@@ -494,38 +301,6 @@ Partial Public Class QuanLyNhaHang
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Friend Sub New(ByVal table As Global.System.Data.DataTable)
             MyBase.New
-=======
-
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-    Public Delegate Sub ThongKeRowChangeEventHandler(ByVal sender As Object, ByVal e As ThongKeRowChangeEvent)
-
-    '''<summary>
-    '''Represents the strongly named DataTable class.
-    '''</summary>
-    <Global.System.Serializable(), _
-     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")> _
-    Partial Public Class ThongKeDataTable
-        Inherits Global.System.Data.TypedTableBase(Of ThongKeRow)
-
-        Private columnTenMon As Global.System.Data.DataColumn
-
-        Private columnSoLuong As Global.System.Data.DataColumn
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Sub New()
-            MyBase.New()
-            Me.TableName = "ThongKe"
-            Me.BeginInit()
-            Me.InitClass()
-            Me.EndInit()
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Friend Sub New(ByVal table As Global.System.Data.DataTable)
-            MyBase.New()
->>>>>>> TietThinh-NhanVien
             Me.TableName = table.TableName
             If (table.CaseSensitive <> table.DataSet.CaseSensitive) Then
                 Me.CaseSensitive = table.CaseSensitive
@@ -539,7 +314,6 @@ Partial Public Class QuanLyNhaHang
             Me.Prefix = table.Prefix
             Me.MinimumCapacity = table.MinimumCapacity
         End Sub
-<<<<<<< HEAD
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
@@ -550,24 +324,11 @@ Partial Public Class QuanLyNhaHang
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-=======
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
-            MyBase.New(info, context)
-            Me.InitVars()
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
->>>>>>> TietThinh-NhanVien
         Public ReadOnly Property TenMonColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTenMon
             End Get
         End Property
-<<<<<<< HEAD
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
@@ -580,26 +341,11 @@ Partial Public Class QuanLyNhaHang
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
-=======
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public ReadOnly Property SoLuongColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnSoLuong
-            End Get
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
-         Global.System.ComponentModel.Browsable(False)> _
->>>>>>> TietThinh-NhanVien
         Public ReadOnly Property Count() As Integer
             Get
                 Return Me.Rows.Count
             End Get
         End Property
-<<<<<<< HEAD
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
@@ -632,45 +378,10 @@ Partial Public Class QuanLyNhaHang
         Public Overloads Function AddThongKeRow(ByVal TenMon As String, ByVal TongSoLuong As Integer) As ThongKeRow
             Dim rowThongKeRow As ThongKeRow = CType(Me.NewRow,ThongKeRow)
             Dim columnValuesArray() As Object = New Object() {TenMon, TongSoLuong}
-=======
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Default Public ReadOnly Property Item(ByVal index As Integer) As ThongKeRow
-            Get
-                Return CType(Me.Rows(index), ThongKeRow)
-            End Get
-        End Property
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Event ThongKeRowChanging As ThongKeRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Event ThongKeRowChanged As ThongKeRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Event ThongKeRowDeleting As ThongKeRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Event ThongKeRowDeleted As ThongKeRowChangeEventHandler
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Overloads Sub AddThongKeRow(ByVal row As ThongKeRow)
-            Me.Rows.Add(row)
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Overloads Function AddThongKeRow(ByVal TenMon As String, ByVal SoLuong As String) As ThongKeRow
-            Dim rowThongKeRow As ThongKeRow = CType(Me.NewRow, ThongKeRow)
-            Dim columnValuesArray() As Object = New Object() {TenMon, SoLuong}
->>>>>>> TietThinh-NhanVien
             rowThongKeRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowThongKeRow)
             Return rowThongKeRow
         End Function
-<<<<<<< HEAD
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
@@ -764,101 +475,6 @@ Partial Public Class QuanLyNhaHang
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-=======
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Overrides Function Clone() As Global.System.Data.DataTable
-            Dim cln As ThongKeDataTable = CType(MyBase.Clone, ThongKeDataTable)
-            cln.InitVars()
-            Return cln
-        End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
-            Return New ThongKeDataTable()
-        End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Friend Sub InitVars()
-            Me.columnTenMon = MyBase.Columns("TenMon")
-            Me.columnSoLuong = MyBase.Columns("SoLuong")
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Private Sub InitClass()
-            Me.columnTenMon = New Global.System.Data.DataColumn("TenMon", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnTenMon)
-            Me.columnSoLuong = New Global.System.Data.DataColumn("SoLuong", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnSoLuong)
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Function NewThongKeRow() As ThongKeRow
-            Return CType(Me.NewRow, ThongKeRow)
-        End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
-            Return New ThongKeRow(builder)
-        End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Protected Overrides Function GetRowType() As Global.System.Type
-            Return GetType(ThongKeRow)
-        End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
-            MyBase.OnRowChanged(e)
-            If (Not (Me.ThongKeRowChangedEvent) Is Nothing) Then
-                RaiseEvent ThongKeRowChanged(Me, New ThongKeRowChangeEvent(CType(e.Row, ThongKeRow), e.Action))
-            End If
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
-            MyBase.OnRowChanging(e)
-            If (Not (Me.ThongKeRowChangingEvent) Is Nothing) Then
-                RaiseEvent ThongKeRowChanging(Me, New ThongKeRowChangeEvent(CType(e.Row, ThongKeRow), e.Action))
-            End If
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
-            MyBase.OnRowDeleted(e)
-            If (Not (Me.ThongKeRowDeletedEvent) Is Nothing) Then
-                RaiseEvent ThongKeRowDeleted(Me, New ThongKeRowChangeEvent(CType(e.Row, ThongKeRow), e.Action))
-            End If
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
-            MyBase.OnRowDeleting(e)
-            If (Not (Me.ThongKeRowDeletingEvent) Is Nothing) Then
-                RaiseEvent ThongKeRowDeleting(Me, New ThongKeRowChangeEvent(CType(e.Row, ThongKeRow), e.Action))
-            End If
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Sub RemoveThongKeRow(ByVal row As ThongKeRow)
-            Me.Rows.Remove(row)
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
->>>>>>> TietThinh-NhanVien
         Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
             Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
             Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
@@ -887,44 +503,27 @@ Partial Public Class QuanLyNhaHang
             If xs.Contains(dsSchema.TargetNamespace) Then
                 Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
                 Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-<<<<<<< HEAD
                 Try 
-=======
-                Try
->>>>>>> TietThinh-NhanVien
                     Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
                     dsSchema.Write(s1)
                     Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
                     Do While schemas.MoveNext
-<<<<<<< HEAD
                         schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
-=======
-                        schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
->>>>>>> TietThinh-NhanVien
                         s2.SetLength(0)
                         schema.Write(s2)
                         If (s1.Length = s2.Length) Then
                             s1.Position = 0
                             s2.Position = 0
-<<<<<<< HEAD
                             
                             Do While ((s1.Position <> s1.Length)  _
                                         AndAlso (s1.ReadByte = s2.ReadByte))
                                 
                                 
-=======
-
-                            Do While ((s1.Position <> s1.Length) _
-                                        AndAlso (s1.ReadByte = s2.ReadByte))
-
-
->>>>>>> TietThinh-NhanVien
                             Loop
                             If (s1.Position = s1.Length) Then
                                 Return type
                             End If
                         End If
-<<<<<<< HEAD
                         
                     Loop
                 Finally
@@ -933,16 +532,6 @@ Partial Public Class QuanLyNhaHang
                     End If
                     If (Not (s2) Is Nothing) Then
                         s2.Close
-=======
-
-                    Loop
-                Finally
-                    If (Not (s1) Is Nothing) Then
-                        s1.Close()
-                    End If
-                    If (Not (s2) Is Nothing) Then
-                        s2.Close()
->>>>>>> TietThinh-NhanVien
                     End If
                 End Try
             End If
@@ -950,17 +539,12 @@ Partial Public Class QuanLyNhaHang
             Return type
         End Function
     End Class
-<<<<<<< HEAD
     
-=======
-
->>>>>>> TietThinh-NhanVien
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class ThongKeRow
         Inherits Global.System.Data.DataRow
-<<<<<<< HEAD
         
         Private tableThongKe As ThongKeDataTable
         
@@ -977,29 +561,10 @@ Partial Public Class QuanLyNhaHang
             Get
                 Try 
                     Return CType(Me(Me.tableThongKe.TenMonColumn),String)
-=======
-
-        Private tableThongKe As ThongKeDataTable
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
-            MyBase.New(rb)
-            Me.tableThongKe = CType(Me.Table, ThongKeDataTable)
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Property TenMon() As String
-            Get
-                Try
-                    Return CType(Me(Me.tableThongKe.TenMonColumn), String)
->>>>>>> TietThinh-NhanVien
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TenMon' in table 'ThongKe' is DBNull.", e)
                 End Try
             End Get
-<<<<<<< HEAD
             Set
                 Me(Me.tableThongKe.TenMonColumn) = value
             End Set
@@ -1066,88 +631,14 @@ Partial Public Class QuanLyNhaHang
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-=======
-            Set(value As String)
-                Me(Me.tableThongKe.TenMonColumn) = value
-            End Set
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Property SoLuong() As String
-            Get
-                Try
-                    Return CType(Me(Me.tableThongKe.SoLuongColumn), String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'SoLuong' in table 'ThongKe' is DBNull.", e)
-                End Try
-            End Get
-            Set(value As String)
-                Me(Me.tableThongKe.SoLuongColumn) = value
-            End Set
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Function IsTenMonNull() As Boolean
-            Return Me.IsNull(Me.tableThongKe.TenMonColumn)
-        End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Sub SetTenMonNull()
-            Me(Me.tableThongKe.TenMonColumn) = Global.System.Convert.DBNull
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Function IsSoLuongNull() As Boolean
-            Return Me.IsNull(Me.tableThongKe.SoLuongColumn)
-        End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Sub SetSoLuongNull()
-            Me(Me.tableThongKe.SoLuongColumn) = Global.System.Convert.DBNull
-        End Sub
-    End Class
-
-    '''<summary>
-    '''Row event argument class
-    '''</summary>
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-    Public Class ThongKeRowChangeEvent
-        Inherits Global.System.EventArgs
-
-        Private eventRow As ThongKeRow
-
-        Private eventAction As Global.System.Data.DataRowAction
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Sub New(ByVal row As ThongKeRow, ByVal action As Global.System.Data.DataRowAction)
-            MyBase.New()
-            Me.eventRow = row
-            Me.eventAction = action
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
->>>>>>> TietThinh-NhanVien
         Public ReadOnly Property Row() As ThongKeRow
             Get
                 Return Me.eventRow
             End Get
         End Property
-<<<<<<< HEAD
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-=======
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
->>>>>>> TietThinh-NhanVien
         Public ReadOnly Property Action() As Global.System.Data.DataRowAction
             Get
                 Return Me.eventAction

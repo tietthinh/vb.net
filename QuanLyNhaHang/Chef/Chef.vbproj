@@ -59,11 +59,6 @@
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
-<<<<<<< HEAD
-=======
-    <Reference Include="System.Net" />
-    <Reference Include="System.Net.Http" />
->>>>>>> TietThinh-NhanVien
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -85,6 +80,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Chef_Process.vb" />
     <Compile Include="frmChef.Designer.vb">
       <DependentUpon>frmChef.vb</DependentUpon>
     </Compile>
@@ -147,7 +143,6 @@
       <Project>{6f746987-bdda-4a52-a372-274a744ca6a0}</Project>
       <Name>Library</Name>
     </ProjectReference>
-<<<<<<< HEAD
     <ProjectReference Include="..\ServerHost\ServerHost.vbproj">
       <Project>{1e545a42-3e1f-4c86-8d0e-0dd143dc76c6}</Project>
       <Name>ServerHost</Name>
@@ -156,11 +151,6 @@
       <Project>{2b766e17-20a0-4474-8838-e6a715441174}</Project>
       <Name>ServiceLibrary</Name>
       <EmbedInteropTypes>False</EmbedInteropTypes>
-=======
-    <ProjectReference Include="..\ServiceLibrary\ServiceLibrary.vbproj">
-      <Project>{2b766e17-20a0-4474-8838-e6a715441174}</Project>
-      <Name>ServiceLibrary</Name>
->>>>>>> TietThinh-NhanVien
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
