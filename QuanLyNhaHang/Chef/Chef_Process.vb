@@ -496,16 +496,22 @@ Module Chef_Process
 
     Public Sub CheckWaitorToChefBartenderConfirm(ByVal Data As String)
         Dim _DataArray As List(Of String) = DataFilter(Data, 3)
-        ''TODO your code from here
+        For i As Integer = 0 To _DataArray.Count - 1 Step 1
+            MessageBox.Show(_DataArray(i))
+        Next
     End Sub
 
     Public Sub CheckChefBartenderToWarehouseSignal(ByVal Data As String)
         Dim _DataArray As List(Of String) = DataFilter(Data, 6)
-        ''TODO your code here
+        For i As Integer = 0 To _DataArray.Count - 1 Step 1
+            MessageBox.Show(_DataArray(i))
+        Next
     End Sub
 
     Public Sub CheckWarehouseToChefBartenderConfirm(ByVal Data As String)
         Dim _DataArray As List(Of String) = DataFilter(Data, 7)
-        ''TODO your code from here
+        For i As Integer = 0 To _DataArray.Count - 1 Step 1
+            MessageBox.Show(_DataArray(i))
+        Next
     End Sub
 End Module

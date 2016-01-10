@@ -114,28 +114,30 @@ Public Class frmChef
     Private _ServerObject As New ServerObject()
 
     Private Sub ChefListener(ByVal Inteval As Integer, ByVal SleepTime As Integer)
-        Dim _Timer = New System.Timers.Timer()
-        _Timer.Interval = Inteval
-        MessageBox.Show("OK")
+        Dim _Timer = New Timers.Timer
         _Timer.Start()
         While (True)
-            Thread.Sleep(0)
-            If (Me.IsAccessible = True) Then
-                Me.Invoke(New MethodInvoker(Sub()
-                                                Dim _ReceiveData As String = GetData()
-                                                If (_ReceiveData <> "" And _ReceiveData.Length > 2) Then
-                                                    MessageBox.Show(_ReceiveData)
-                                                    CheckWaitorToChefBartender(_ReceiveData)
-                                                    CheckWaitorToChefBartenderConfirm(_ReceiveData)
-                                                    CheckWarehouseToChefBartenderConfirm(_ReceiveData)
-                                                End If
-                                                If (_Timer.Interval >= Inteval) Then
-                                                    Thread.Sleep(SleepTime)
-                                                    _Timer.Interval = Inteval
-                                                    _Timer.Start()
-                                                End If
-                                            End Sub
-                                        ))
+            If (Me.IsDisposed = False) Then
+                Thread.Sleep(0)
+                Try
+                    Me.Invoke(New MethodInvoker(Sub()
+                                                    Dim _ReceiveData As String = GetData()
+                                                    If (_ReceiveData <> "" And _ReceiveData.Length > 2) Then
+                                                        CheckWaitorToChefBartender(_ReceiveData)
+                                                        CheckWaitorToChefBartenderConfirm(_ReceiveData)
+                                                        CheckWarehouseToChefBartenderConfirm(_ReceiveData)
+                                                    End If
+                                                    If (_Timer.Interval >= Inteval) Then
+                                                        MessageBox.Show("Timeout")
+                                                        Thread.Sleep(SleepTime)
+                                                        _Timer.Interval = Inteval
+                                                        _Timer.Start()
+                                                    End If
+                                                End Sub
+                                ))
+                Catch e As Exception
+                    Exit While
+                End Try
             Else
                 Exit While
             End If
