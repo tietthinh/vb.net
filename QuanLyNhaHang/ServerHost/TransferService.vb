@@ -18,7 +18,7 @@ Public Class TransferService
         ' Add code here to start your service. This method should set things
         ' in motion so your service can do its work.
         Dim _Channel As New HttpChannel(12345)
-        ChannelServices.RegisterChannel(_Channel)
+        ChannelServices.RegisterChannel(_Channel, True)
         RemotingConfiguration.RegisterWellKnownServiceType(GetType(ServerObject), "TransferData", WellKnownObjectMode.Singleton)
     End Sub
 
