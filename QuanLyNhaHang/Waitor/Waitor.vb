@@ -22,6 +22,8 @@ Public Class Waitor
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
     End Sub
+
+
     Private Sub picTable01_Click(sender As Object, e As EventArgs) Handles picTable01.Click, picTable02.Click, picTable03.Click, picTable04.Click,
         picTable05.Click, picTable06.Click, picTable07.Click, picTable08.Click, picTable09.Click
         _SelectedTable = CType(sender, PictureBox)
@@ -55,16 +57,16 @@ Public Class Waitor
         add.ShowDialog()
     End Sub
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'Dim _Login As New frmLogin(EmployeeType.Waitor)
-        '_Login.ShowDialog()
-        '_CurrentUser = DatabaseConnection._User
-        'If (_Login.DialogResult = 1) Then
-        '    Me.Text = "Nhân Viên " + _CurrentUser.EmployeeName.ToString
-        LoadMenu()
+        Dim _Login As New frmLogin(EmployeeType.Waitor)
+        _Login.ShowDialog()
+        _CurrentUser = DatabaseConnection._User
+        If (_Login.DialogResult = 1) Then
+            Me.Text = "Nhân Viên " + _CurrentUser.EmployeeName.ToString
+            LoadMenu()
             StartService(New ThreadStart(Sub() Listener()))
-        'Else
-        '    Me.Close()
-        'End If
+        Else
+            Me.Close()
+        End If
     End Sub
     Private Sub btnLamMon_Click(sender As Object, e As EventArgs) Handles btnLamMon.Click
         ''Commit the list to Chef
