@@ -77,7 +77,7 @@ Public Class frmCashier
             Me.Close()
         End Try
 
-        Dim _Login As New frmLogin()
+        Dim _Login As New frmLogin(EmployeeType.Cashier)
         _Login.ShowDialog()
         _CurrentUser = DatabaseConnection._User
         If (_Login.DialogResult = 1) Then
