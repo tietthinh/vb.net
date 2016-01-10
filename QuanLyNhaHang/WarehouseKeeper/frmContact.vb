@@ -145,8 +145,8 @@ Public Class frmContact
     'btnDone's Events:
     '
     'Click: Occur when btnDone is Clicked
-    '
+
     Private Sub btnDone_Click(sender As Object, e As EventArgs) Handles btnDone.Click
-        'Code here, remove these text before/after coding.
+
     End Sub
 End Class

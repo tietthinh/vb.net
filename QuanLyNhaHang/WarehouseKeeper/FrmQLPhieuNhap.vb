@@ -29,7 +29,7 @@ Public Class FrmQLPhieuNhap
             Dim temp As Integer = 0
             For i As Integer = 0 To dgvDSPhieuNhap.RowCount - 1
                 For j As Integer = 0 To dgvDSPhieuNhap.ColumnCount - 1
-                    If dgvDSPhieuNhap.Rows(i).Cells(j).Value.ToString = txtTimPN.Text Then
+                    If dgvDSPhieuNhap.Rows(i).Cells(j).Value.ToString.Contains(txtTimPN.Text) Then
                         MsgBox("Item found")
                         temp = 1
                         dgvDSPhieuNhap.CurrentCell = dgvDSPhieuNhap.Rows(i).Cells(j)
@@ -51,7 +51,7 @@ Public Class FrmQLPhieuNhap
             Dim temp As Integer = 0
             For i As Integer = 0 To dgvDSChiTietPhieuNhap.RowCount - 1
                 For j As Integer = 0 To dgvDSChiTietPhieuNhap.ColumnCount - 1
-                    If dgvDSChiTietPhieuNhap.Rows(i).Cells(j).Value.ToString = txtTimCT.Text Then
+                    If dgvDSChiTietPhieuNhap.Rows(i).Cells(j).Value.ToString.Contains(txtTimCT.Text) Then
                         MsgBox("Item found")
                         temp = 1
                         dgvDSChiTietPhieuNhap.CurrentCell = dgvDSChiTietPhieuNhap.Rows(i).Cells(j)
@@ -314,16 +314,6 @@ Public Class FrmQLPhieuNhap
     End Sub
 
     Private Sub txtTimLB_TextChanged(sender As Object, e As EventArgs) Handles txtTimLB.TextChanged
-        If txtTimLB.Text = "" Then
-            loadDSSanPham()
-        Else
-            lstTimKiem.Items.Clear()
-            For Each item In lstTrue
-                If item.Text.Contains(txtTimLB.Text) Then
-                    lstTimKiem.Items.Add(item)
-                End If
-            Next
-        End If
     End Sub
 
 End Class

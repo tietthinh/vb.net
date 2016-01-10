@@ -10,32 +10,33 @@ Public Class FrmQLPhieuNhan
             errPhieuNhan.SetError(txtTimPG, "Nhập thông tin cần tìm!")
         End If
         If errPhieuNhan.GetError(txtTimPG) = "" Then
-
+            Dim temp As Integer = 0
+            For i As Integer = 0 To dgvDanhSachPG.RowCount - 1
+                For j As Integer = 0 To dgvDanhSachPG.ColumnCount - 1
+                    If dgvDanhSachPG.Rows(i).Cells(j).Value.ToString.Contains(txtTimPG.Text) Then
+                        MsgBox("Item found")
+                        temp = 1
+                        dgvDanhSachPG.CurrentCell = dgvDanhSachPG.Rows(i).Cells(j)
+                    End If
+                Next
+            Next
+            If temp = 0 Then
+                MsgBox("Item not found")
+            End If
         End If
     End Sub
 
     Private Sub btnThemCT_Click(sender As Object, e As EventArgs) Handles btnThemCT.Click
         errPhieuNhan.Clear()
-        If cboTenSP.Text = "" Then
-            errPhieuNhan.SetError(cboTenSP, "Chọn tên sản phẩm!")
-        End If
-        If txtSoLuong.Text = "" Then
-            errPhieuNhan.SetError(txtSoLuong, "Nhập số lượng!")
-        Else
-            If IsNumeric(txtSoLuong.Text) = False Then
-                errPhieuNhan.SetError(txtSoLuong, "Chỉ được nhập số!")
-            End If
-        End If
-        If errPhieuNhan.GetError(cboTenSP) = "" And errPhieuNhan.GetError(txtSoLuong) = "" Then
-            Dim _Name() As String = New String() {"@MaPG", "@MaSP", "@SoLuong", "@MaPN"}
-            Dim _Value() As Object = New Object() {dgvChiTietPG.Rows(0).Cells(0).Value().ToString(), cboTenSP.SelectedValue, txtSoLuong.Text, dgvChiTietPG.Rows(0).Cells(1).Value().ToString()}
-            Connection.Update("spChiTietPhieuNhanInsert", Connection.CreateParameter(_Name, _Value))
-        End If
+        'If errPhieuNhan.GetError(cboTenSP) = "" And errPhieuNhan.GetError(txtSoLuong) = "" Then
+        Dim _Name() As String = New String() {"@MaPG", "@MaSP", "@SoLuong", "@MaPN"}
+        Dim _Value() As Object = New Object() {dgvDanhSachPG.SelectedRows(0).Cells("colMaPG").Value().ToString(), dgvChiTietPG.SelectedRows(0).Cells("colTenSP").Value().ToString(), dgvChiTietPG.SelectedRows(0).Cells("colSoLuong").Value().ToString(), dgvDanhSachPG.SelectedRows(0).Cells("colMaPN").Value.ToString()}
+        Connection.Update("spChiTietPhieuNhanInsert", Connection.CreateParameter(_Name, _Value))
+        'End If
 
     End Sub
 
     Private Sub btnTimCT_Click(sender As Object, e As EventArgs) Handles btnTimCT.Click
-        errPhieuNhan.Clear()
         errPhieuNhan.Clear()
         If cboTenSP.Text = "" And txtSoLuong.Text = "" Then
             errPhieuNhan.SetError(cboTenSP, "Chọn tên sản phẩm!")
@@ -80,6 +81,8 @@ Public Class FrmQLPhieuNhan
     End Sub
 
     Private Sub dgvDanhSachPG_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDanhSachPG.CellClick
+        errPhieuNhan.Clear()
+
         If IsNothing(dgvDanhSachPG.SelectedRows(0).Cells("colMaPG").Value().ToString()) = False Then
             loadCTPhieuNhan()
             txtTongTien.Text = dgvDanhSachPG.SelectedRows(0).Cells("colTongTien").Value.ToString()
@@ -89,7 +92,9 @@ Public Class FrmQLPhieuNhan
     End Sub
 
     Private Sub btnXoaPG_Click(sender As Object, e As EventArgs) Handles btnXoaPG.Click
+        errPhieuNhan.Clear()
         If (MessageBox.Show("Bạn muốn xóa thông tin phiếu nhận này?", "Thông báo", MessageBoxButtons.OKCancel) = DialogResult.OK) Then
+            Dim _returnXoa As SqlParameter = New SqlParameter
             Dim _Name() As String = New String() {"@MaPG"}
             Dim _Value() As Object = New Object() {dgvDanhSachPG.SelectedRows(0).Cells("colMaPG").Value().ToString()}
             Connection.Update("spPhieuNhanDelete", Connection.CreateParameter(_Name, _Value))
@@ -99,21 +104,19 @@ Public Class FrmQLPhieuNhan
 
     Private Sub btnSuaPG_Click(sender As Object, e As EventArgs) Handles btnSuaPG.Click
         errPhieuNhan.Clear()
-        If cboMaPN.Text = "" Then
-            errPhieuNhan.SetError(cboMaPN, "Chọn mã phiếu nhập!")
-        End If
-        If txtTongTien.Text = "" Then
-            errPhieuNhan.SetError(txtTongTien, "Nhập tổng tiền!")
-        Else
-            If IsNumeric(txtTongTien.Text) = False Then
-                errPhieuNhan.SetError(txtTongTien, "Chỉ được nhập số!")
-            End If
+        If dgvDanhSachPG.SelectedRows(0).Cells(0).Value = "" Then
+            errPhieuNhan.SetError(dgvDanhSachPG, "Chọn phiếu nhận cần sửa!")
         End If
 
-        If errPhieuNhan.GetError(cboMaPN) = "" Then
-            Dim _Name() As String = New String() {"@MaPG", "@MaPN", "@TongTien", "@GhiChu"}
-            Dim _Value() As Object = New Object() {dgvDanhSachPG.SelectedRows(0).Cells("colMaPG").Value().ToString(), cboMaPN.SelectedValue, txtTongTien.Text, txtGhiChu.Text}
-            Connection.Update("spPhieuNhanUpdate", Connection.CreateParameter(_Name, _Value))
+        If errPhieuNhan.GetError(dgvDanhSachPG) = "" Then
+            Dim _returnUpdate As SqlParameter = New SqlParameter
+            Dim _Name() As String = New String() {"@MaPG", "@MaPN", "@GhiChu"}
+            Dim _Value() As Object = New Object() {dgvDanhSachPG.SelectedRows(0).Cells("colMaPG").Value().ToString(), dgvDanhSachPG.SelectedRows(0).Cells("colMaPN").Value().ToString(), txtGhiChu.Text}
+            Connection.Update("spPhieuNhanUpdate", _returnUpdate, Connection.CreateParameter(_Name, _Value))
+            Dim _kq As Integer = _returnUpdate.Value
+            If _kq = 1 Then
+                MessageBox.Show("Phiếu nhận đã hoàn thành không thể cập nhật!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            End If
             loadDSPhieuNhan()
         End If
     End Sub
@@ -130,16 +133,15 @@ Public Class FrmQLPhieuNhan
     End Function
 
     Private Sub cboMaPN_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles cboMaPN.SelectionChangeCommitted
+        errPhieuNhan.Clear()
         Dim _Name() As String = New String() {"@MaPN"}
         Dim _Value() As Object = New Object() {cboMaPN.SelectedValue.ToString}
         dgvChiTietPG.DataSource = Connection.Query("usp_LoadChiTietPhieuNhanSelect", Connection.CreateParameter(_Name, _Value))
     End Sub
 
-    Private Sub btnHoanThanh_Click(sender As Object, e As EventArgs) Handles btnHoanThanh.Click
-
-    End Sub
-
     Private Sub btnXoaCT_Click(sender As Object, e As EventArgs) Handles btnXoaCT.Click
+        errPhieuNhan.Clear()
+
         If (MessageBox.Show("Bạn muốn xóa chi tiết phiếu nhận này?", "Thông báo", MessageBoxButtons.OKCancel) = DialogResult.OK) Then
             Dim _return As SqlParameter = New SqlParameter
             Dim _Name() As String = New String() {"@MaPG", "@MaPN", "@MaSP"}
@@ -154,10 +156,43 @@ Public Class FrmQLPhieuNhan
     End Sub
 
     Private Sub btnSuaCT_Click(sender As Object, e As EventArgs) Handles btnSuaCT.Click
-
+        errPhieuNhan.Clear()
+        If txtSoLuong.Text = "" Then
+            errPhieuNhan.SetError(txtSoLuong, "Nhập số lượng cần sửa")
+        End If
+        If errPhieuNhan.GetError(txtSoLuong) = "" Then
+            Dim _returnSuaCT As SqlParameter = New SqlParameter
+            Dim _Name() As String = New String() {"@MaPG", "@MaPN", "@MaSPCu", "@MaSPMoi", "@SoLuong"}
+            Dim _Value() As Object = New Object() {dgvChiTietPG.SelectedRows(0).Cells(0).Value().ToString(), dgvChiTietPG.SelectedRows(0).Cells(1).Value().ToString(), dgvChiTietPG.SelectedRows(0).Cells(2).Value().ToString(), cboTenSP.SelectedValue, txtSoLuong.Text}
+            Connection.Update("spChiTietPhieuNhanUpdate", _returnSuaCT, Connection.CreateParameter(_Name, _Value))
+            Dim kq As Integer = _returnSuaCT.Value
+            If kq = 1 Then
+                MessageBox.Show("Phiếu nhập đã hoàn thành không thể xóa chi tiết!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            End If
+            loadDSPhieuNhan()
+        End If
     End Sub
 
     Private Sub dgvChiTietPG_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvChiTietPG.CellClick
+        If dgvChiTietPG.SelectedRows(0).Cells("colMaPN_CT").Value.ToString <> "" Then
+            cboTenSP.Text = dgvChiTietPG.SelectedRows(0).Cells("colTenSP").Value.ToString
+            txtSoLuong.Text = dgvChiTietPG.SelectedRows(0).Cells("colSoLuong").Value.ToString
+        Else
+            txtSoLuong.Text = ""
+        End If
+    End Sub
 
+    Private Sub btnThem_Click(sender As Object, e As EventArgs) Handles btnThem.Click
+        errPhieuNhan.Clear()
+        If cboMaPN.Text = "" Then
+            errPhieuNhan.SetError(cboMaPN, "Chọn mã phiếu nhập!")
+        End If
+
+        If errPhieuNhan.GetError(cboMaPN) = "" Then
+            Dim _Name() As String = New String() {"@MaPN", "@MaNV", "@GhiChu"}
+            Dim _Value() As Object = New Object() {cboMaPN.SelectedValue, tslMaNV.Text, txtGhiChu.Text}
+            Connection.Update("spPhieuNhanInsert", Connection.CreateParameter(_Name, _Value))
+            loadDSPhieuNhan()
+        End If
     End Sub
 End Class

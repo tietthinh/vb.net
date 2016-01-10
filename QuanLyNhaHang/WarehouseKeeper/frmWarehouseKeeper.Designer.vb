@@ -23,10 +23,10 @@ Partial Class frmWarehouseKeeper
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.btnPhieuNhan = New System.Windows.Forms.Button()
         Me.dgvDSSanPham = New System.Windows.Forms.DataGridView()
@@ -48,12 +48,12 @@ Partial Class frmWarehouseKeeper
         Me.btnThemSP = New System.Windows.Forms.Button()
         Me.btnTimSP = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
+        Me.lblSDT = New System.Windows.Forms.Label()
+        Me.lblEmail = New System.Windows.Forms.Label()
         Me.txtChietKhau = New System.Windows.Forms.TextBox()
         Me.txtTenNCC = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.Label13 = New System.Windows.Forms.Label()
+        Me.lblChietKhau = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.btnSuaNCC = New System.Windows.Forms.Button()
@@ -83,6 +83,13 @@ Partial Class frmWarehouseKeeper
         Me.stsMain = New System.Windows.Forms.StatusStrip()
         Me.tslMaNV = New System.Windows.Forms.ToolStripStatusLabel()
         Me.tslTenNV = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.btnThemEmail = New System.Windows.Forms.Button()
+        Me.btnXoaEmail = New System.Windows.Forms.Button()
+        Me.btnSuaEmail = New System.Windows.Forms.Button()
+        Me.btnThemSDT = New System.Windows.Forms.Button()
+        Me.btnXoaSDT = New System.Windows.Forms.Button()
+        Me.btnSuaSDT = New System.Windows.Forms.Button()
+        Me.btnHoanTat = New System.Windows.Forms.Button()
         CType(Me.dgvDSSanPham, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvDSNhaCungCap, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.errMain, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -93,7 +100,7 @@ Partial Class frmWarehouseKeeper
         '
         Me.Label5.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label5.Font = New System.Drawing.Font("Roboto", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(12, 285)
+        Me.Label5.Location = New System.Drawing.Point(16, 285)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(482, 19)
         Me.Label5.TabIndex = 2
@@ -105,7 +112,7 @@ Partial Class frmWarehouseKeeper
         Me.btnPhieuNhan.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.btnPhieuNhan.AutoSize = True
         Me.btnPhieuNhan.Font = New System.Drawing.Font("Roboto", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnPhieuNhan.Location = New System.Drawing.Point(1200, 338)
+        Me.btnPhieuNhan.Location = New System.Drawing.Point(1204, 338)
         Me.btnPhieuNhan.Name = "btnPhieuNhan"
         Me.btnPhieuNhan.Size = New System.Drawing.Size(83, 46)
         Me.btnPhieuNhan.TabIndex = 19
@@ -118,24 +125,24 @@ Partial Class frmWarehouseKeeper
         Me.dgvDSSanPham.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.dgvDSSanPham.BackgroundColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvDSSanPham.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle25.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle25.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle25.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle25.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle25.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle25.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvDSSanPham.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle25
         Me.dgvDSSanPham.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvDSSanPham.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colMaSP, Me.colTenSP, Me.colSoLuongTon, Me.colMaDV, Me.colTenDV})
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvDSSanPham.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle26.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle26.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle26.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle26.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvDSSanPham.DefaultCellStyle = DataGridViewCellStyle26
         Me.dgvDSSanPham.Location = New System.Drawing.Point(15, 306)
         Me.dgvDSSanPham.Name = "dgvDSSanPham"
         Me.dgvDSSanPham.RowHeadersVisible = False
@@ -187,7 +194,7 @@ Partial Class frmWarehouseKeeper
         '
         Me.btnPhieuNhap.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.btnPhieuNhap.Font = New System.Drawing.Font("Roboto", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnPhieuNhap.Location = New System.Drawing.Point(564, 338)
+        Me.btnPhieuNhap.Location = New System.Drawing.Point(568, 338)
         Me.btnPhieuNhap.Name = "btnPhieuNhap"
         Me.btnPhieuNhap.Size = New System.Drawing.Size(83, 46)
         Me.btnPhieuNhap.TabIndex = 18
@@ -298,7 +305,7 @@ Partial Class frmWarehouseKeeper
         '
         Me.Label1.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label1.Font = New System.Drawing.Font("Roboto", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(12, 9)
+        Me.Label1.Location = New System.Drawing.Point(16, 9)
         Me.Label1.Name = "Label1"
         Me.Label1.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label1.Size = New System.Drawing.Size(1320, 45)
@@ -306,40 +313,40 @@ Partial Class frmWarehouseKeeper
         Me.Label1.Text = "QUẢN LÝ KHO HÀNG"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Label2
+        'lblSDT
         '
-        Me.Label2.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Roboto", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(1010, 109)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(82, 20)
-        Me.Label2.TabIndex = 81
-        Me.Label2.Text = "Điện thoại"
+        Me.lblSDT.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.lblSDT.AutoSize = True
+        Me.lblSDT.Font = New System.Drawing.Font("Roboto", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblSDT.Location = New System.Drawing.Point(988, 107)
+        Me.lblSDT.Name = "lblSDT"
+        Me.lblSDT.Size = New System.Drawing.Size(82, 20)
+        Me.lblSDT.TabIndex = 81
+        Me.lblSDT.Text = "Điện thoại"
         '
-        'Label6
+        'lblEmail
         '
-        Me.Label6.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Roboto", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(1010, 68)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(49, 20)
-        Me.Label6.TabIndex = 80
-        Me.Label6.Text = "Email"
+        Me.lblEmail.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.lblEmail.AutoSize = True
+        Me.lblEmail.Font = New System.Drawing.Font("Roboto", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblEmail.Location = New System.Drawing.Point(574, 109)
+        Me.lblEmail.Name = "lblEmail"
+        Me.lblEmail.Size = New System.Drawing.Size(49, 20)
+        Me.lblEmail.TabIndex = 80
+        Me.lblEmail.Text = "Email"
         '
         'txtChietKhau
         '
         Me.txtChietKhau.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.txtChietKhau.Location = New System.Drawing.Point(683, 111)
+        Me.txtChietKhau.Location = New System.Drawing.Point(1080, 66)
         Me.txtChietKhau.Name = "txtChietKhau"
-        Me.txtChietKhau.Size = New System.Drawing.Size(295, 20)
+        Me.txtChietKhau.Size = New System.Drawing.Size(253, 20)
         Me.txtChietKhau.TabIndex = 10
         '
         'txtTenNCC
         '
         Me.txtTenNCC.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.txtTenNCC.Location = New System.Drawing.Point(683, 67)
+        Me.txtTenNCC.Location = New System.Drawing.Point(687, 67)
         Me.txtTenNCC.Name = "txtTenNCC"
         Me.txtTenNCC.Size = New System.Drawing.Size(295, 20)
         Me.txtTenNCC.TabIndex = 8
@@ -349,29 +356,29 @@ Partial Class frmWarehouseKeeper
         Me.Label7.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Roboto", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(570, 225)
+        Me.Label7.Location = New System.Drawing.Point(574, 236)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(63, 20)
         Me.Label7.TabIndex = 75
         Me.Label7.Text = "Ghi chú"
         '
-        'Label13
+        'lblChietKhau
         '
-        Me.Label13.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.Label13.AutoSize = True
-        Me.Label13.Font = New System.Drawing.Font("Roboto", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(570, 109)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(86, 20)
-        Me.Label13.TabIndex = 73
-        Me.Label13.Text = "Chiết khấu"
+        Me.lblChietKhau.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.lblChietKhau.AutoSize = True
+        Me.lblChietKhau.Font = New System.Drawing.Font("Roboto", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblChietKhau.Location = New System.Drawing.Point(988, 65)
+        Me.lblChietKhau.Name = "lblChietKhau"
+        Me.lblChietKhau.Size = New System.Drawing.Size(86, 20)
+        Me.lblChietKhau.TabIndex = 73
+        Me.lblChietKhau.Text = "Chiết khấu"
         '
         'Label14
         '
         Me.Label14.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Roboto", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(570, 148)
+        Me.Label14.Location = New System.Drawing.Point(574, 169)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(58, 20)
         Me.Label14.TabIndex = 72
@@ -382,7 +389,7 @@ Partial Class frmWarehouseKeeper
         Me.Label15.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Roboto", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(570, 66)
+        Me.Label15.Location = New System.Drawing.Point(574, 66)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(107, 20)
         Me.Label15.TabIndex = 71
@@ -422,7 +429,7 @@ Partial Class frmWarehouseKeeper
         '
         Me.btnTimNCC.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.btnTimNCC.Font = New System.Drawing.Font("Roboto", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnTimNCC.Location = New System.Drawing.Point(1289, 297)
+        Me.btnTimNCC.Location = New System.Drawing.Point(1293, 297)
         Me.btnTimNCC.Name = "btnTimNCC"
         Me.btnTimNCC.Size = New System.Drawing.Size(40, 24)
         Me.btnTimNCC.TabIndex = 17
@@ -437,29 +444,29 @@ Partial Class frmWarehouseKeeper
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvDSNhaCungCap.BackgroundColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvDSNhaCungCap.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle27.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle27.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle27.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle27.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvDSNhaCungCap.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle27
         Me.dgvDSNhaCungCap.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvDSNhaCungCap.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colMaNCC, Me.colTenNCC, Me.colDiaChi, Me.colChietKhau, Me.colGhiChu, Me.colEmail, Me.colSDT})
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvDSNhaCungCap.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle28.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle28.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle28.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle28.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle28.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle28.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvDSNhaCungCap.DefaultCellStyle = DataGridViewCellStyle28
         Me.dgvDSNhaCungCap.Location = New System.Drawing.Point(504, 419)
         Me.dgvDSNhaCungCap.Name = "dgvDSNhaCungCap"
         Me.dgvDSNhaCungCap.RowHeadersVisible = False
         Me.dgvDSNhaCungCap.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvDSNhaCungCap.Size = New System.Drawing.Size(838, 262)
+        Me.dgvDSNhaCungCap.Size = New System.Drawing.Size(846, 262)
         Me.dgvDSNhaCungCap.TabIndex = 88
         '
         'colMaNCC
@@ -530,7 +537,7 @@ Partial Class frmWarehouseKeeper
         Me.Label12.Font = New System.Drawing.Font("Roboto", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label12.Location = New System.Drawing.Point(500, 387)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(838, 29)
+        Me.Label12.Size = New System.Drawing.Size(846, 29)
         Me.Label12.TabIndex = 89
         Me.Label12.Text = "DANH SÁCH NHÀ CUNG CẤP"
         Me.Label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -538,24 +545,24 @@ Partial Class frmWarehouseKeeper
         'txtDiaChi
         '
         Me.txtDiaChi.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.txtDiaChi.Location = New System.Drawing.Point(683, 148)
+        Me.txtDiaChi.Location = New System.Drawing.Point(687, 169)
         Me.txtDiaChi.Multiline = True
         Me.txtDiaChi.Name = "txtDiaChi"
-        Me.txtDiaChi.Size = New System.Drawing.Size(600, 60)
+        Me.txtDiaChi.Size = New System.Drawing.Size(646, 40)
         Me.txtDiaChi.TabIndex = 12
         '
         'txtGhiChu
         '
         Me.txtGhiChu.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.txtGhiChu.Location = New System.Drawing.Point(683, 225)
+        Me.txtGhiChu.Location = New System.Drawing.Point(687, 233)
         Me.txtGhiChu.Multiline = True
         Me.txtGhiChu.Name = "txtGhiChu"
-        Me.txtGhiChu.Size = New System.Drawing.Size(600, 60)
+        Me.txtGhiChu.Size = New System.Drawing.Size(646, 40)
         Me.txtGhiChu.TabIndex = 13
         '
         'btnCong1
         '
-        Me.btnCong1.Location = New System.Drawing.Point(1289, 66)
+        Me.btnCong1.Location = New System.Drawing.Point(963, 106)
         Me.btnCong1.Name = "btnCong1"
         Me.btnCong1.Size = New System.Drawing.Size(19, 20)
         Me.btnCong1.TabIndex = 95
@@ -564,7 +571,7 @@ Partial Class frmWarehouseKeeper
         '
         'btnCong2
         '
-        Me.btnCong2.Location = New System.Drawing.Point(1289, 108)
+        Me.btnCong2.Location = New System.Drawing.Point(1321, 106)
         Me.btnCong2.Name = "btnCong2"
         Me.btnCong2.Size = New System.Drawing.Size(19, 20)
         Me.btnCong2.TabIndex = 96
@@ -597,7 +604,7 @@ Partial Class frmWarehouseKeeper
         Me.Label11.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Roboto", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(570, 298)
+        Me.Label11.Location = New System.Drawing.Point(574, 298)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(77, 20)
         Me.Label11.TabIndex = 99
@@ -606,7 +613,7 @@ Partial Class frmWarehouseKeeper
         'txtTimNCC
         '
         Me.txtTimNCC.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.txtTimNCC.Location = New System.Drawing.Point(683, 298)
+        Me.txtTimNCC.Location = New System.Drawing.Point(687, 298)
         Me.txtTimNCC.Name = "txtTimNCC"
         Me.txtTimNCC.Size = New System.Drawing.Size(600, 20)
         Me.txtTimNCC.TabIndex = 100
@@ -615,18 +622,18 @@ Partial Class frmWarehouseKeeper
         '
         Me.cboEmail.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.cboEmail.FormattingEnabled = True
-        Me.cboEmail.Location = New System.Drawing.Point(1098, 65)
+        Me.cboEmail.Location = New System.Drawing.Point(687, 107)
         Me.cboEmail.Name = "cboEmail"
-        Me.cboEmail.Size = New System.Drawing.Size(185, 21)
+        Me.cboEmail.Size = New System.Drawing.Size(270, 21)
         Me.cboEmail.TabIndex = 101
         '
         'cboDienThoai
         '
         Me.cboDienThoai.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.cboDienThoai.FormattingEnabled = True
-        Me.cboDienThoai.Location = New System.Drawing.Point(1098, 107)
+        Me.cboDienThoai.Location = New System.Drawing.Point(1080, 106)
         Me.cboDienThoai.Name = "cboDienThoai"
-        Me.cboDienThoai.Size = New System.Drawing.Size(185, 21)
+        Me.cboDienThoai.Size = New System.Drawing.Size(235, 21)
         Me.cboDienThoai.TabIndex = 102
         '
         'stsMain
@@ -634,7 +641,7 @@ Partial Class frmWarehouseKeeper
         Me.stsMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tslMaNV, Me.tslTenNV})
         Me.stsMain.Location = New System.Drawing.Point(0, 684)
         Me.stsMain.Name = "stsMain"
-        Me.stsMain.Size = New System.Drawing.Size(1354, 22)
+        Me.stsMain.Size = New System.Drawing.Size(1362, 22)
         Me.stsMain.TabIndex = 103
         Me.stsMain.Text = "StatusStrip1"
         '
@@ -650,13 +657,91 @@ Partial Class frmWarehouseKeeper
         Me.tslTenNV.Size = New System.Drawing.Size(121, 17)
         Me.tslTenNV.Text = "ToolStripStatusLabel1"
         '
+        'btnThemEmail
+        '
+        Me.btnThemEmail.Font = New System.Drawing.Font("Roboto", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnThemEmail.Location = New System.Drawing.Point(687, 134)
+        Me.btnThemEmail.Name = "btnThemEmail"
+        Me.btnThemEmail.Size = New System.Drawing.Size(75, 23)
+        Me.btnThemEmail.TabIndex = 104
+        Me.btnThemEmail.Text = "Thêm"
+        Me.btnThemEmail.UseVisualStyleBackColor = True
+        '
+        'btnXoaEmail
+        '
+        Me.btnXoaEmail.Font = New System.Drawing.Font("Roboto", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnXoaEmail.Location = New System.Drawing.Point(797, 134)
+        Me.btnXoaEmail.Name = "btnXoaEmail"
+        Me.btnXoaEmail.Size = New System.Drawing.Size(75, 23)
+        Me.btnXoaEmail.TabIndex = 105
+        Me.btnXoaEmail.Text = "Xóa"
+        Me.btnXoaEmail.UseVisualStyleBackColor = True
+        '
+        'btnSuaEmail
+        '
+        Me.btnSuaEmail.Font = New System.Drawing.Font("Roboto", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnSuaEmail.Location = New System.Drawing.Point(907, 134)
+        Me.btnSuaEmail.Name = "btnSuaEmail"
+        Me.btnSuaEmail.Size = New System.Drawing.Size(75, 23)
+        Me.btnSuaEmail.TabIndex = 106
+        Me.btnSuaEmail.Text = "Sửa"
+        Me.btnSuaEmail.UseVisualStyleBackColor = True
+        '
+        'btnThemSDT
+        '
+        Me.btnThemSDT.Font = New System.Drawing.Font("Roboto", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnThemSDT.Location = New System.Drawing.Point(1080, 132)
+        Me.btnThemSDT.Name = "btnThemSDT"
+        Me.btnThemSDT.Size = New System.Drawing.Size(75, 23)
+        Me.btnThemSDT.TabIndex = 107
+        Me.btnThemSDT.Text = "Thêm"
+        Me.btnThemSDT.UseVisualStyleBackColor = True
+        '
+        'btnXoaSDT
+        '
+        Me.btnXoaSDT.Font = New System.Drawing.Font("Roboto", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnXoaSDT.Location = New System.Drawing.Point(1170, 132)
+        Me.btnXoaSDT.Name = "btnXoaSDT"
+        Me.btnXoaSDT.Size = New System.Drawing.Size(75, 23)
+        Me.btnXoaSDT.TabIndex = 108
+        Me.btnXoaSDT.Text = "Xóa"
+        Me.btnXoaSDT.UseVisualStyleBackColor = True
+        '
+        'btnSuaSDT
+        '
+        Me.btnSuaSDT.Font = New System.Drawing.Font("Roboto", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnSuaSDT.Location = New System.Drawing.Point(1261, 132)
+        Me.btnSuaSDT.Name = "btnSuaSDT"
+        Me.btnSuaSDT.Size = New System.Drawing.Size(75, 23)
+        Me.btnSuaSDT.TabIndex = 109
+        Me.btnSuaSDT.Text = "Sửa"
+        Me.btnSuaSDT.UseVisualStyleBackColor = True
+        '
+        'btnHoanTat
+        '
+        Me.btnHoanTat.Font = New System.Drawing.Font("Roboto", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnHoanTat.Location = New System.Drawing.Point(992, 133)
+        Me.btnHoanTat.Name = "btnHoanTat"
+        Me.btnHoanTat.Size = New System.Drawing.Size(75, 23)
+        Me.btnHoanTat.TabIndex = 112
+        Me.btnHoanTat.Text = "Hoàn tất"
+        Me.btnHoanTat.UseVisualStyleBackColor = True
+        Me.btnHoanTat.Visible = False
+        '
         'frmWarehouseKeeper
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(1354, 706)
+        Me.ClientSize = New System.Drawing.Size(1362, 706)
+        Me.Controls.Add(Me.btnHoanTat)
+        Me.Controls.Add(Me.btnSuaSDT)
+        Me.Controls.Add(Me.btnXoaSDT)
+        Me.Controls.Add(Me.btnThemSDT)
+        Me.Controls.Add(Me.btnSuaEmail)
+        Me.Controls.Add(Me.btnXoaEmail)
+        Me.Controls.Add(Me.btnThemEmail)
         Me.Controls.Add(Me.stsMain)
         Me.Controls.Add(Me.cboDienThoai)
         Me.Controls.Add(Me.cboEmail)
@@ -672,14 +757,14 @@ Partial Class frmWarehouseKeeper
         Me.Controls.Add(Me.btnXoaNCC)
         Me.Controls.Add(Me.btnThemNCC)
         Me.Controls.Add(Me.btnTimNCC)
-        Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.Label6)
+        Me.Controls.Add(Me.lblSDT)
+        Me.Controls.Add(Me.lblEmail)
         Me.Controls.Add(Me.txtGhiChu)
         Me.Controls.Add(Me.txtChietKhau)
         Me.Controls.Add(Me.txtDiaChi)
         Me.Controls.Add(Me.txtTenNCC)
         Me.Controls.Add(Me.Label7)
-        Me.Controls.Add(Me.Label13)
+        Me.Controls.Add(Me.lblChietKhau)
         Me.Controls.Add(Me.Label14)
         Me.Controls.Add(Me.Label15)
         Me.Controls.Add(Me.btnSuaSP)
@@ -726,12 +811,12 @@ Partial Class frmWarehouseKeeper
     Friend WithEvents btnThemSP As Button
     Friend WithEvents btnTimSP As Button
     Friend WithEvents Label1 As Label
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Label6 As Label
+    Friend WithEvents lblSDT As Label
+    Friend WithEvents lblEmail As Label
     Friend WithEvents txtChietKhau As TextBox
     Friend WithEvents txtTenNCC As TextBox
     Friend WithEvents Label7 As Label
-    Friend WithEvents Label13 As Label
+    Friend WithEvents lblChietKhau As Label
     Friend WithEvents Label14 As Label
     Friend WithEvents Label15 As Label
     Friend WithEvents btnSuaNCC As Button
@@ -766,4 +851,11 @@ Partial Class frmWarehouseKeeper
     Friend WithEvents stsMain As StatusStrip
     Friend WithEvents tslMaNV As ToolStripStatusLabel
     Friend WithEvents tslTenNV As ToolStripStatusLabel
+    Friend WithEvents btnSuaSDT As Button
+    Friend WithEvents btnXoaSDT As Button
+    Friend WithEvents btnThemSDT As Button
+    Friend WithEvents btnSuaEmail As Button
+    Friend WithEvents btnXoaEmail As Button
+    Friend WithEvents btnThemEmail As Button
+    Friend WithEvents btnHoanTat As Button
 End Class

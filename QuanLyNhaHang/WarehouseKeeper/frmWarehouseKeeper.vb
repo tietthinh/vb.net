@@ -1,4 +1,5 @@
-﻿Imports Library
+﻿Imports System.Data.SqlClient
+Imports Library
 
 Public Class frmWarehouseKeeper
 
@@ -162,7 +163,16 @@ Public Class frmWarehouseKeeper
         If (_Login.DialogResult = 1) Then
             loadDSSanPham()
 
+            txtTenSanPham.Text = dgvDSSanPham.SelectedRows(0).Cells("colTenSP").Value.ToString
+            txtSoLuong.Text = dgvDSSanPham.SelectedRows(0).Cells("colSoLuongTon").Value.ToString
+            cboDonVi.Text = dgvDSSanPham.SelectedRows(0).Cells("colTenDV").Value.ToString
+
             loadDSNCC()
+
+            txtTenNCC.Text = dgvDSNhaCungCap.SelectedRows(0).Cells("colTenNCC").Value().ToString
+            txtChietKhau.Text = dgvDSNhaCungCap.SelectedRows(0).Cells("colChietKhau").Value().ToString
+            txtDiaChi.Text = dgvDSNhaCungCap.SelectedRows(0).Cells("colDiaChi").Value().ToString
+            txtGhiChu.Text = dgvDSNhaCungCap.SelectedRows(0).Cells("colGhiChu").Value().ToString
 
             Dim _dtDonVi As DataTable = Connection.Query("spLoaiDonViTinhSelect")
             cboDonVi.DataSource = _dtDonVi
@@ -172,7 +182,7 @@ Public Class frmWarehouseKeeper
             tslMaNV.Text = _CurrentUser.Identity
             tslTenNV.Text = _CurrentUser.EmployeeName
         Else
-        Me.Close()
+            Me.Close()
         End If
     End Sub
     '
@@ -301,6 +311,9 @@ Public Class frmWarehouseKeeper
     End Sub
 
     Private Sub dgvDSNhaCungCap_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDSNhaCungCap.CellClick
+        lblChietKhau.Text = "Chiết khấu"
+        txtChietKhau.Text = ""
+        btnHoanTat.Visible = False
         rowIndex = e.RowIndex
         If IsNothing(dgvDSNhaCungCap.SelectedRows(0).Cells("colMaNCC").Value()) = False Then
             txtTenNCC.Text = dgvDSNhaCungCap.SelectedRows(0).Cells("colTenNCC").Value().ToString
@@ -311,11 +324,11 @@ Public Class frmWarehouseKeeper
             Dim cmbEmail As DataGridViewComboBoxCell = dgvDSNhaCungCap.Rows(e.RowIndex).Cells("colEmail")
             cboEmail.DataSource = cmbEmail.DataSource
             cboEmail.DisplayMember = "Email"
-            cboEmail.ValueMember = "MaNCC"
+            cboEmail.ValueMember = "Email"
 
             Dim cmbSDT As DataGridViewComboBoxCell = dgvDSNhaCungCap.Rows(e.RowIndex).Cells("colSDT")
             cboDienThoai.DataSource = cmbSDT.DataSource
-            cboDienThoai.ValueMember = "MaNCC"
+            cboDienThoai.ValueMember = "SDT"
             cboDienThoai.DisplayMember = "SDT"
         Else
             txtTenNCC.Text = ""
@@ -333,5 +346,124 @@ Public Class frmWarehouseKeeper
         End If
     End Sub
 
+    Private Sub btnThemEmail_Click(sender As Object, e As EventArgs) Handles btnThemEmail.Click
+        errMain.Clear()
+        If cboEmail.Text = "" Then
+            errMain.SetError(cboEmail, "Nhập email cần thêm")
+        End If
 
+        If errMain.GetError(txtTenSanPham) = "" And errMain.GetError(txtSoLuong) = "" And errMain.GetError(cboDonVi) = "" Then
+            Dim _returnEmail As SqlParameter = New SqlParameter
+            Dim _Name() As String = New String() {"@MaNCC", "@Email"}
+            Dim _Value() As Object = {dgvDSNhaCungCap.SelectedRows(0).Cells("colMaNCC").Value, cboEmail.Text}
+            Connection.Update("spNhaCungCap_EmailInsert", _returnEmail, Connection.CreateParameter(_Name, _Value))
+            Dim _kq As Integer = _returnEmail.Value
+            If _kq = 1 Then
+                MessageBox.Show("Email đã tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Else
+                MsgBox("Thao tác thành công!")
+                loadDSNCC()
+            End If
+        End If
+    End Sub
+
+    Private Sub btnXoaEmail_Click(sender As Object, e As EventArgs) Handles btnXoaEmail.Click
+        If (MessageBox.Show("Bạn chắc rằng muốn xóa email này?", "Thông báo", MessageBoxButtons.OKCancel) = DialogResult.OK) Then
+            Dim _Name() As String = {"@MaNCC", "@Email"}
+            Dim _Value() As Object = {dgvDSNhaCungCap.SelectedRows(0).Cells("colMaNCC").Value.ToString.Trim, cboEmail.SelectedValue}
+            Try
+                Connection.Update("spNhaCungCap_EmailDelete", Connection.CreateParameter(_Name, _Value))
+            Catch ex As Exception
+                MessageBox.Show(ex.Message)
+            End Try
+
+            loadDSNCC()
+        End If
+    End Sub
+
+    Private Sub btnSuaEmail_Click(sender As Object, e As EventArgs) Handles btnSuaEmail.Click
+        errMain.Clear()
+        If cboEmail.Text = "" Then
+            errMain.SetError(cboEmail, "Chọn email cần sửa")
+        End If
+        If dgvDSNhaCungCap.SelectedRows(0).Cells("colMaNCC").Value = "" Then
+            errMain.SetError(dgvDSNhaCungCap, "Chọn nhà cung cấp cần cập nhật!")
+        End If
+        If errMain.GetError(cboEmail) = "" And errMain.GetError(dgvDSNhaCungCap) = "" Then
+            lblChietKhau.Text = "Email mới"
+            txtChietKhau.Text = "Nhập email mới vào đây!"
+            btnHoanTat.Visible = True
+        End If
+    End Sub
+
+    Private Sub btnHoanTat_Click(sender As Object, e As EventArgs) Handles btnHoanTat.Click
+        If lblChietKhau.Text = "Email mới" Then
+            Dim _returnSuaMail As SqlParameter = New SqlParameter
+            Dim _Name() As String = New String() {"@MaNCC", "@EmailCu", "@EmailMoi"}
+            Dim _Value() As Object = {dgvDSNhaCungCap.SelectedRows(0).Cells("colMaNCC").Value, cboEmail.Text, txtChietKhau.Text}
+            Connection.Update("spNhaCungCap_EmailUpdate", _returnSuaMail, Connection.CreateParameter(_Name, _Value))
+            Dim _kq As Integer = _returnSuaMail.Value
+            If _kq = 1 Then
+                MessageBox.Show("Email đã tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Else
+                MsgBox("Thao tác thành công!")
+                loadDSNCC()
+                lblChietKhau.Text = "Chiết khấu"
+                txtChietKhau.Text = ""
+                btnHoanTat.Visible = False
+            End If
+        End If
+        If lblChietKhau.Text = "SDT mới" Then
+            Dim _returnSuaSDT As SqlParameter = New SqlParameter
+            Dim _Name() As String = New String() {"@MaNCC", "@SDTCu", "@SDTMoi"}
+            Dim _Value() As Object = {dgvDSNhaCungCap.SelectedRows(0).Cells("colMaNCC").Value, cboDienThoai.Text, txtChietKhau.Text}
+            Connection.Update("spNhaCungCap_DienThoaiUpdate", _returnSuaSDT, Connection.CreateParameter(_Name, _Value))
+            Dim _kq As Integer = _returnSuaSDT.Value
+            If _kq = 1 Then
+                MessageBox.Show("Số điện thoại đã tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Else
+                MsgBox("Thao tác thành công!")
+                loadDSNCC()
+                lblChietKhau.Text = "Chiết khấu"
+                txtChietKhau.Text = ""
+                btnHoanTat.Visible = False
+            End If
+        End If
+    End Sub
+
+    Private Sub btnSuaSDT_Click(sender As Object, e As EventArgs) Handles btnSuaSDT.Click
+        errMain.Clear()
+        If cboDienThoai.Text = "" Then
+            errMain.SetError(cboDienThoai, "Chọn số điện thoại cần sửa!")
+        End If
+        If dgvDSNhaCungCap.SelectedRows(0).Cells("colMaNCC").Value = "" Then
+            errMain.SetError(dgvDSNhaCungCap, "Chọn nhà cung cấp cần cập nhật!")
+        End If
+        If errMain.GetError(cboDienThoai) = "" And errMain.GetError(dgvDSNhaCungCap) = "" Then
+            lblChietKhau.Text = "SDT mới"
+            txtChietKhau.Text = "Nhập số điện thoại mới vào đây!"
+            btnHoanTat.Visible = True
+        End If
+    End Sub
+
+    Private Sub btnThemSDT_Click(sender As Object, e As EventArgs) Handles btnThemSDT.Click
+        errMain.Clear()
+        If cboDienThoai.Text = "" Then
+            errMain.SetError(cboEmail, "Nhập email cần thêm")
+        End If
+
+        If errMain.GetError(txtTenSanPham) = "" And errMain.GetError(txtSoLuong) = "" And errMain.GetError(cboDonVi) = "" Then
+            Dim _returnEmail As SqlParameter = New SqlParameter
+            Dim _Name() As String = New String() {"@MaNCC", "@Email"}
+            Dim _Value() As Object = {dgvDSNhaCungCap.SelectedRows(0).Cells("colMaNCC").Value, cboEmail.Text}
+            Connection.Update("spNhaCungCap_EmailInsert", _returnEmail, Connection.CreateParameter(_Name, _Value))
+            Dim _kq As Integer = _returnEmail.Value
+            If _kq = 1 Then
+                MessageBox.Show("Email đã tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Else
+                MsgBox("Thao tác thành công!")
+                loadDSNCC()
+            End If
+        End If
+    End Sub
 End Class

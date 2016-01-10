@@ -23,11 +23,18 @@ Partial Class FrmQLPhieuNhan
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.dgvDanhSachPG = New System.Windows.Forms.DataGridView()
+        Me.colMaPG = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMaPN = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMaNV = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colHoTen = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colTongTien = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colNgayLap = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colGhiChu = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.txtGhiChu = New System.Windows.Forms.TextBox()
@@ -59,14 +66,7 @@ Partial Class FrmQLPhieuNhan
         Me.txtTimPG = New System.Windows.Forms.TextBox()
         Me.txtTimCT = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.btnHoanThanh = New System.Windows.Forms.Button()
-        Me.colMaPG = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colMaPN = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colMaNV = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colHoTen = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colTongTien = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colNgayLap = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colGhiChu = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.btnThem = New System.Windows.Forms.Button()
         Me.colMaPG_CT = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colMaPN_CT = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colMaSP = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -82,25 +82,26 @@ Partial Class FrmQLPhieuNhan
         '
         'dgvDanhSachPG
         '
+        Me.dgvDanhSachPG.AllowUserToAddRows = False
         Me.dgvDanhSachPG.BackgroundColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvDanhSachPG.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvDanhSachPG.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle9
         Me.dgvDanhSachPG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvDanhSachPG.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colMaPG, Me.colMaPN, Me.colMaNV, Me.colHoTen, Me.colTongTien, Me.colNgayLap, Me.colGhiChu})
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvDanhSachPG.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvDanhSachPG.DefaultCellStyle = DataGridViewCellStyle10
         Me.dgvDanhSachPG.Location = New System.Drawing.Point(11, 369)
         Me.dgvDanhSachPG.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.dgvDanhSachPG.Name = "dgvDanhSachPG"
@@ -108,6 +109,62 @@ Partial Class FrmQLPhieuNhan
         Me.dgvDanhSachPG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvDanhSachPG.Size = New System.Drawing.Size(560, 302)
         Me.dgvDanhSachPG.TabIndex = 7
+        '
+        'colMaPG
+        '
+        Me.colMaPG.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colMaPG.DataPropertyName = "MaPG"
+        Me.colMaPG.HeaderText = "Mã phiếu nhận"
+        Me.colMaPG.Name = "colMaPG"
+        Me.colMaPG.ReadOnly = True
+        Me.colMaPG.Visible = False
+        '
+        'colMaPN
+        '
+        Me.colMaPN.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colMaPN.DataPropertyName = "MaPN"
+        Me.colMaPN.HeaderText = "Mã phiếu nhập"
+        Me.colMaPN.Name = "colMaPN"
+        Me.colMaPN.ReadOnly = True
+        '
+        'colMaNV
+        '
+        Me.colMaNV.DataPropertyName = "MaNV"
+        Me.colMaNV.HeaderText = "Mã nhân viên"
+        Me.colMaNV.Name = "colMaNV"
+        Me.colMaNV.ReadOnly = True
+        '
+        'colHoTen
+        '
+        Me.colHoTen.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colHoTen.DataPropertyName = "HoTen"
+        Me.colHoTen.HeaderText = "Tên nhân viên"
+        Me.colHoTen.Name = "colHoTen"
+        Me.colHoTen.ReadOnly = True
+        '
+        'colTongTien
+        '
+        Me.colTongTien.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colTongTien.DataPropertyName = "TongTien"
+        Me.colTongTien.HeaderText = "Tổng tiền"
+        Me.colTongTien.Name = "colTongTien"
+        Me.colTongTien.ReadOnly = True
+        '
+        'colNgayLap
+        '
+        Me.colNgayLap.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colNgayLap.DataPropertyName = "NgayLap"
+        Me.colNgayLap.HeaderText = "Ngày lập"
+        Me.colNgayLap.Name = "colNgayLap"
+        Me.colNgayLap.ReadOnly = True
+        '
+        'colGhiChu
+        '
+        Me.colGhiChu.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colGhiChu.DataPropertyName = "GhiChu"
+        Me.colGhiChu.HeaderText = "Ghi chú"
+        Me.colGhiChu.Name = "colGhiChu"
+        Me.colGhiChu.ReadOnly = True
         '
         'Label1
         '
@@ -229,27 +286,28 @@ Partial Class FrmQLPhieuNhan
         '
         'dgvChiTietPG
         '
+        Me.dgvChiTietPG.AllowUserToAddRows = False
         Me.dgvChiTietPG.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvChiTietPG.BackgroundColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvChiTietPG.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvChiTietPG.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle11
         Me.dgvChiTietPG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvChiTietPG.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colMaPG_CT, Me.colMaPN_CT, Me.colMaSP, Me.colTenSP, Me.colMaDV, Me.colTenDV, Me.colSoLuong})
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvChiTietPG.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvChiTietPG.DefaultCellStyle = DataGridViewCellStyle12
         Me.dgvChiTietPG.Location = New System.Drawing.Point(585, 289)
         Me.dgvChiTietPG.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.dgvChiTietPG.Name = "dgvChiTietPG"
@@ -347,6 +405,7 @@ Partial Class FrmQLPhieuNhan
         '
         'cboTenSP
         '
+        Me.cboTenSP.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboTenSP.FormattingEnabled = True
         Me.cboTenSP.Location = New System.Drawing.Point(744, 87)
         Me.cboTenSP.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
@@ -367,6 +426,7 @@ Partial Class FrmQLPhieuNhan
         '
         'cboMaPN
         '
+        Me.cboMaPN.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboMaPN.FormattingEnabled = True
         Me.cboMaPN.Location = New System.Drawing.Point(145, 87)
         Me.cboMaPN.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
@@ -433,71 +493,15 @@ Partial Class FrmQLPhieuNhan
         Me.Label8.TabIndex = 111
         Me.Label8.Text = "Tìm kiếm"
         '
-        'btnHoanThanh
+        'btnThem
         '
-        Me.btnHoanThanh.Font = New System.Drawing.Font("Roboto", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnHoanThanh.Location = New System.Drawing.Point(106, 295)
-        Me.btnHoanThanh.Name = "btnHoanThanh"
-        Me.btnHoanThanh.Size = New System.Drawing.Size(95, 35)
-        Me.btnHoanThanh.TabIndex = 113
-        Me.btnHoanThanh.Text = "Hoàn thành"
-        Me.btnHoanThanh.UseVisualStyleBackColor = True
-        '
-        'colMaPG
-        '
-        Me.colMaPG.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colMaPG.DataPropertyName = "MaPG"
-        Me.colMaPG.HeaderText = "Mã phiếu nhận"
-        Me.colMaPG.Name = "colMaPG"
-        Me.colMaPG.ReadOnly = True
-        Me.colMaPG.Visible = False
-        '
-        'colMaPN
-        '
-        Me.colMaPN.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colMaPN.DataPropertyName = "MaPN"
-        Me.colMaPN.HeaderText = "Mã phiếu nhập"
-        Me.colMaPN.Name = "colMaPN"
-        Me.colMaPN.ReadOnly = True
-        '
-        'colMaNV
-        '
-        Me.colMaNV.DataPropertyName = "MaNV"
-        Me.colMaNV.HeaderText = "Mã nhân viên"
-        Me.colMaNV.Name = "colMaNV"
-        Me.colMaNV.ReadOnly = True
-        '
-        'colHoTen
-        '
-        Me.colHoTen.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colHoTen.DataPropertyName = "HoTen"
-        Me.colHoTen.HeaderText = "Tên nhân viên"
-        Me.colHoTen.Name = "colHoTen"
-        Me.colHoTen.ReadOnly = True
-        '
-        'colTongTien
-        '
-        Me.colTongTien.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colTongTien.DataPropertyName = "TongTien"
-        Me.colTongTien.HeaderText = "Tổng tiền"
-        Me.colTongTien.Name = "colTongTien"
-        Me.colTongTien.ReadOnly = True
-        '
-        'colNgayLap
-        '
-        Me.colNgayLap.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colNgayLap.DataPropertyName = "NgayLap"
-        Me.colNgayLap.HeaderText = "Ngày lập"
-        Me.colNgayLap.Name = "colNgayLap"
-        Me.colNgayLap.ReadOnly = True
-        '
-        'colGhiChu
-        '
-        Me.colGhiChu.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colGhiChu.DataPropertyName = "GhiChu"
-        Me.colGhiChu.HeaderText = "Ghi chú"
-        Me.colGhiChu.Name = "colGhiChu"
-        Me.colGhiChu.ReadOnly = True
+        Me.btnThem.Font = New System.Drawing.Font("Roboto", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnThem.Location = New System.Drawing.Point(106, 295)
+        Me.btnThem.Name = "btnThem"
+        Me.btnThem.Size = New System.Drawing.Size(95, 35)
+        Me.btnThem.TabIndex = 113
+        Me.btnThem.Text = "Lập phiếu"
+        Me.btnThem.UseVisualStyleBackColor = True
         '
         'colMaPG_CT
         '
@@ -560,7 +564,7 @@ Partial Class FrmQLPhieuNhan
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1362, 696)
-        Me.Controls.Add(Me.btnHoanThanh)
+        Me.Controls.Add(Me.btnThem)
         Me.Controls.Add(Me.txtTimCT)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.txtTimPG)
@@ -636,7 +640,7 @@ Partial Class FrmQLPhieuNhan
     Friend WithEvents Label8 As Label
     Friend WithEvents txtTimPG As TextBox
     Friend WithEvents Label3 As Label
-    Friend WithEvents btnHoanThanh As Button
+    Friend WithEvents btnThem As Button
     Friend WithEvents colMaPG As DataGridViewTextBoxColumn
     Friend WithEvents colMaPN As DataGridViewTextBoxColumn
     Friend WithEvents colMaNV As DataGridViewTextBoxColumn
