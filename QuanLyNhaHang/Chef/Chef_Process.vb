@@ -225,7 +225,7 @@ Module Chef_Process
     ''' <returns>A table containts list of material matching the Identities.</returns>
     ''' <remarks></remarks>
     Public Function LoadOrder(ByVal _TransIDList As List(Of String)) As DataTable
-        Dim parameter() As SqlClient.SqlParameter = db.CreateParameter(New String() {"@MaChuyen"}, _TransIDList.ToArray())
+        Dim parameter() As SqlClient.SqlParameter = db.CreateParameter(New String() {"@MaChuyen"}, New Object() {_TransIDList(0)})
         Dim orderList As DataTable
 
         Try
@@ -489,6 +489,7 @@ Module Chef_Process
 
     Public Sub CheckWaitorToChefBartender(ByVal Data As String)
         Dim _DataArray As List(Of String) = DataFilter(Data, 2)
+        MessageBox.Show(_DataArray.ToString())
         For i As Integer = 0 To _DataArray.Count - 1 Step 1
             MessageBox.Show(_DataArray(i))
         Next
