@@ -8,6 +8,7 @@ Imports System.Threading
 Imports System.Net
 Imports System.Configuration
 Imports System.Runtime.Remoting.Channels.Http
+
 Public Class frmCashier
     Dim db As New DatabaseConnection
     Private _MaHD As String
@@ -20,6 +21,8 @@ Public Class frmCashier
     Private _ServerObject As ServerObject
     Private _Thread As Thread
     Private _Data As String = ""
+    Private _Logging As String = ""
+    Private _CurrentUser As User = Nothing
     Public Function HD(ByVal _MaNV As String, ByVal _SoBan As Integer, ByVal _SLKhach As Integer, ByVal _GhiChu As String) As String
         Dim _HD As String = "spHoaDonInsert"
         _ParameterInput = {New SqlParameter("@MaNV", _MaNV), New SqlParameter("@SoBan", _SoBan), New SqlParameter("@SoLuongKhach", _SLKhach), New SqlParameter("@GhiChu", _GhiChu)}
@@ -52,27 +55,18 @@ Public Class frmCashier
 
         ' Add any initialization after the InitializeComponent() call.
     End Sub
-    Private Sub InitializeRemoteServer()
-        Dim _Channel As String = "http://" + ConfigurationManager.AppSettings.Get("IP").ToString + ":" + ConfigurationManager.AppSettings.Get("Port").ToString + "/" + ConfigurationManager.AppSettings.Get("Domain").ToString
-        RemotingConfiguration.RegisterWellKnownClientType(GetType(ServerObject), _Channel)
-    End Sub
     Private Sub frmCashier_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         MaDau.Width = 0
         MaCuoi.Width = 0
-        Try
-            ''Initiate connection
-            Dim _Channel As New HttpChannel
-            RegisterChannel(_Channel, True)
-            InitializeRemoteServer()
-            ''Start thread listening
-            _ServerObject = New ServerObject()
-            _Thread = New Thread(New ThreadStart(Sub() Process()))
-            _Thread.Start()
-        Catch ex As Exception
-            MessageBox.Show(ex.Message)
-            MessageBox.Show("Kết nối thất bại!", "Lỗi")
+        Dim _Login As New frmLogin(EmployeeType.Cashier)
+        _Login.ShowDialog()
+        _CurrentUser = DatabaseConnection._User
+        If (_Login.DialogResult = 1) Then
+            StartService(New ThreadStart(Sub() Listener()))
+            Me.Text = "Nhân Viên " + _CurrentUser.EmployeeName.ToString
+        Else
             Me.Close()
-        End Try
+        End If
     End Sub
 
 
@@ -141,30 +135,31 @@ Public Class frmCashier
             btnGopBan.Enabled = True
         End If
     End Sub
-    Private Sub Process()
+    Private Sub Listener()
         While (True)
             Thread.Sleep(0)
-            If (Me.IsAccessible = True) Then
-                Me.Invoke(New MethodInvoker(Sub()
-                                                Dim _Text As String = _ServerObject.GetHolder()
-                                                Dim _Length As Integer = _Data.Length
-                                                Dim _ReceiveData As String = _Text.Substring(_Length)
-                                                ''Handles event here.
-                                                If (_ReceiveData <> "" And _ReceiveData.Length > 2) Then
-                                                    CheckWaitorToCashierSignal(_ReceiveData)
-                                                End If
-                                                ''
-                                                _Data = _Text
+            If (Me.IsDisposed = False) Then
+                Try
+                    Me.Invoke(New MethodInvoker(Sub()
+                                                    Dim _ReceiveData As String = GetData()
+                                                    ''Handles event here.
+                                                    If (_ReceiveData <> "" And _ReceiveData.Length > 2) Then
+                                                        MessageBox.Show(_ReceiveData)
 
-                                            End Sub
-                ))
+                                                        CheckWaitorToCashierSignal(_ReceiveData)
+                                                    End If
+                                                End Sub
+                    ))
+                Catch ex As Exception
+                    Exit While
+                End Try
             Else
                 Exit While
             End If
         End While
     End Sub
     Private Sub CheckWaitorToCashierSignal(ByVal _MaMon As String)
-        Dim _Array As List(Of String) = SplitData(_MaMon, "1")
+        Dim _Array As List(Of String) = DataFilter(_MaMon, "1")
         For Each _MaMonAn As String In _Array
             If (_MaMonAn <> "" And _MaMonAn.Length > 2) Then
                 _MaChuyenDau = _MaMonAn.Split("_")(0).Trim
@@ -186,22 +181,4 @@ Public Class frmCashier
             End If
         Next
     End Sub
-    Private Function SplitData(ByVal _ReceiveData As String, ByVal _Code As String) As List(Of String)
-        Dim _ReceiveArray As New List(Of String)
-        Dim _ReturnArray As New List(Of String)
-        Dim j As Integer = 0
-        For i As Integer = 0 To _ReceiveData.Split("*").Length - 2 Step 1
-            _ReceiveArray.Add(_ReceiveData.Split("*")(i))
-        Next
-        For i As Integer = 0 To _ReceiveArray.Count - 1 Step 1
-            Dim _Item As New String(_ReceiveArray(i).ToString)
-            If (_Item <> "") Then
-                If (_Code.Equals(_Item.Split("+")(0).Last.ToString) = True) Then
-                    _ReturnArray.Add(_Item.Split("+")(1))
-                    j += 1
-                End If
-            End If
-        Next
-        Return _ReturnArray
-    End Function
 End Class
