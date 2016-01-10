@@ -83,9 +83,7 @@ Public Module Service_Process
         Next
         Return _ReturnArray
     End Function
-    Private Sub Listener()
 
-    End Sub
     'Service listener for Chef. (Unique)
     'Private Sub ChefListener(ByVal Inteval As Integer, ByVal SleepTime As Integer)
     '    Dim _Timer = New Timers.Timer
@@ -116,10 +114,8 @@ Public Module Service_Process
     '        End If
     '    End While
     'End Sub
-
     Public Sub Logging()
         'For Manager logging all service. Only add To Manager
-        InitializeRemoteServer()
         Dim file As IO.StreamWriter
         Dim _LogData As String = ""
         Dim _Data() As String = Nothing

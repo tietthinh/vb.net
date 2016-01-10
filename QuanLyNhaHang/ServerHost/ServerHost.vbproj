@@ -11,11 +11,7 @@
     <AssemblyName>ServerHost</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Console</MyType>
-<<<<<<< HEAD
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-=======
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
->>>>>>> TietThinh-NhanVien
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
   </PropertyGroup>
