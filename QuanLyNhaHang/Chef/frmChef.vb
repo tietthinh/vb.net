@@ -14,6 +14,7 @@ Imports System.Runtime.Remoting.Channels.Http
 Imports System.Runtime.Remoting.Channels.ChannelServices
 Imports System.Configuration
 Imports System.Runtime.Remoting
+Imports Remote.Service_Process
 
 Public Class frmChef
     'Fields:
@@ -123,6 +124,7 @@ Public Class frmChef
                     Me.Invoke(New MethodInvoker(Sub()
                                                     Dim _ReceiveData As String = GetData()
                                                     If (_ReceiveData <> "" And _ReceiveData.Length > 2) Then
+                                                        MessageBox.Show("Fuck")
                                                         CheckWaitorToChefBartender(_ReceiveData)
                                                         CheckWaitorToChefBartenderConfirm(_ReceiveData)
                                                         CheckWarehouseToChefBartenderConfirm(_ReceiveData)
