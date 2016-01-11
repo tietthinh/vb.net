@@ -116,6 +116,18 @@ Public Class frmChef
 
     Private _Timer As Threading.Timer
 
+    Delegate Sub BindOrderedDataGridViewCallBack(dgvOrderList As DataGridView, orderList As DataTable)
+
+
+    Private Sub BindOrderedDataGridView(dgvOrderList As DataGridView, orderList As DataTable)
+        If Me.dgvOrderList.InvokeRequired Then
+            Dim d As New BindOrderedDataGridViewCallBack(AddressOf BindOrderedDataGridView)
+            Me.Invoke(d, New Object() {Me.dgvOrderList, orderList})
+        Else
+            BindIntoOrderedDataGridView(Me.dgvOrderList, orderList)
+        End If
+    End Sub
+
     Public Sub CallBack(state As Object)
         _Timer.Change(Timeout.Infinite, 0)
         Thread.Sleep(2000)
@@ -131,17 +143,17 @@ Public Class frmChef
 
             AppendDataTable(orderList, temp)
 
-            BindIntoOrderedDataGridView(dgvOrderList, orderList)
+            BindOrderedDataGridView(Me.dgvOrderList, orderList)
 
             TransIDList.Clear()
         End If
 
-        _Timer.Change(22000, 1)
+        _Timer.Change(5000, 1)
     End Sub
 
     Private Sub ChefListener(ByVal Inteval As Integer, ByVal SleepTime As Integer)
         Dim _Delegate As New System.Threading.TimerCallback(AddressOf CallBack)
-        _Timer = New System.Threading.Timer(_Delegate, Nothing, 20000, 1)
+        _Timer = New System.Threading.Timer(_Delegate, Nothing, 5000, 1)
         While (True)
             If (Me.IsDisposed = False) Then
                 Thread.Sleep(0)
