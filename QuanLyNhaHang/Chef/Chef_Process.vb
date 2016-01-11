@@ -487,11 +487,10 @@ Module Chef_Process
         Next
     End Sub
 
-    Public Sub CheckWaitorToChefBartender(ByVal Data As String)
+    Public Sub CheckWaitorToChefBartender(ByVal Data As String, ByRef listTransID As List(Of String))
         Dim _DataArray As List(Of String) = DataFilter(Data, 2)
-        MessageBox.Show(_DataArray.ToString())
         For i As Integer = 0 To _DataArray.Count - 1 Step 1
-            MessageBox.Show(_DataArray(i))
+            listTransID.Add(_DataArray(i))
         Next
     End Sub
 

@@ -4,8 +4,11 @@ E:\Study\Subject\Project\Management Application Programming 1\vb.net\QuanLyNhaHa
 E:\Study\Subject\Project\Management Application Programming 1\vb.net\QuanLyNhaHang\Chef\bin\Release\Chef.xml
 E:\Study\Subject\Project\Management Application Programming 1\vb.net\QuanLyNhaHang\Chef\bin\Release\Library.dll
 E:\Study\Subject\Project\Management Application Programming 1\vb.net\QuanLyNhaHang\Chef\bin\Release\Remote.dll
+E:\Study\Subject\Project\Management Application Programming 1\vb.net\QuanLyNhaHang\Chef\bin\Release\ServerHost.exe
 E:\Study\Subject\Project\Management Application Programming 1\vb.net\QuanLyNhaHang\Chef\bin\Release\Library.pdb
 E:\Study\Subject\Project\Management Application Programming 1\vb.net\QuanLyNhaHang\Chef\bin\Release\Library.xml
+E:\Study\Subject\Project\Management Application Programming 1\vb.net\QuanLyNhaHang\Chef\bin\Release\ServerHost.pdb
+E:\Study\Subject\Project\Management Application Programming 1\vb.net\QuanLyNhaHang\Chef\bin\Release\ServerHost.xml
 E:\Study\Subject\Project\Management Application Programming 1\vb.net\QuanLyNhaHang\Chef\bin\Release\Remote.pdb
 E:\Study\Subject\Project\Management Application Programming 1\vb.net\QuanLyNhaHang\Chef\bin\Release\Remote.xml
 E:\Study\Subject\Project\Management Application Programming 1\vb.net\QuanLyNhaHang\Chef\obj\Release\Chef.vbprojResolveAssemblyReference.cache
@@ -17,6 +20,3 @@ E:\Study\Subject\Project\Management Application Programming 1\vb.net\QuanLyNhaHa
 E:\Study\Subject\Project\Management Application Programming 1\vb.net\QuanLyNhaHang\Chef\obj\Release\Chef.exe
 E:\Study\Subject\Project\Management Application Programming 1\vb.net\QuanLyNhaHang\Chef\obj\Release\Chef.xml
 E:\Study\Subject\Project\Management Application Programming 1\vb.net\QuanLyNhaHang\Chef\obj\Release\Chef.pdb
-E:\Study\Subject\Project\Management Application Programming 1\vb.net\QuanLyNhaHang\Chef\bin\Release\ServerHost.exe
-E:\Study\Subject\Project\Management Application Programming 1\vb.net\QuanLyNhaHang\Chef\bin\Release\ServerHost.pdb
-E:\Study\Subject\Project\Management Application Programming 1\vb.net\QuanLyNhaHang\Chef\bin\Release\ServerHost.xml
