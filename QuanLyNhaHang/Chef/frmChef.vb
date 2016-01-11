@@ -34,7 +34,7 @@ Public Class frmChef
     ''' DataTable contains data from Order Table in database.
     ''' </summary>
     ''' <remarks></remarks>
-    Dim orderList As DataTable
+    Dim orderList As New DataTable()
 
     ''' <summary>
     ''' DataTable contains data for DataGridView CookList.
@@ -110,13 +110,38 @@ Public Class frmChef
     ''' <remarks></remarks>
     Dim dishOrderList As New List(Of DishDetail)
 
+    Dim TransIDList As New List(Of String)
+
     Private _Thread As Thread
 
+    Private _Timer As Threading.Timer
 
+    Public Sub CallBack(state As Object)
+        _Timer.Change(Timeout.Infinite, 0)
+        Thread.Sleep(2000)
+
+        If (TransIDList.Count >= 1) Then
+            Dim temp As DataTable
+
+            Try
+                temp = LoadOrder(TransIDList)
+            Catch ex As SqlException
+                Throw ex
+            End Try
+
+            AppendDataTable(orderList, temp)
+
+            BindIntoOrderedDataGridView(dgvOrderList, orderList)
+
+            TransIDList.Clear()
+        End If
+
+        _Timer.Change(22000, 1)
+    End Sub
 
     Private Sub ChefListener(ByVal Inteval As Integer, ByVal SleepTime As Integer)
-        Dim _Timer = New Timers.Timer
-        _Timer.Start()
+        Dim _Delegate As New System.Threading.TimerCallback(AddressOf CallBack)
+        _Timer = New System.Threading.Timer(_Delegate, Nothing, 20000, 1)
         While (True)
             If (Me.IsDisposed = False) Then
                 Thread.Sleep(0)
@@ -124,16 +149,9 @@ Public Class frmChef
                     Me.Invoke(New MethodInvoker(Sub()
                                                     Dim _ReceiveData As String = GetData()
                                                     If (_ReceiveData <> "" And _ReceiveData.Length > 2) Then
-                                                        MessageBox.Show("Test")
-                                                        CheckWaitorToChefBartender(_ReceiveData)
+                                                        CheckWaitorToChefBartender(_ReceiveData, TransIDList)
                                                         CheckWaitorToChefBartenderConfirm(_ReceiveData)
                                                         CheckWarehouseToChefBartenderConfirm(_ReceiveData)
-                                                    End If
-                                                    If (_Timer.Interval >= Inteval) Then
-                                                        MessageBox.Show("Timeout")
-                                                        Thread.Sleep(SleepTime)
-                                                        _Timer.Interval = Inteval
-                                                        _Timer.Start()
                                                     End If
                                                 End Sub
                                 ))
@@ -152,17 +170,6 @@ Public Class frmChef
     '
     'Load: Occur when the form first load.
     Private Sub frmChef_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-        Dim parameter() As SqlClient.SqlParameter = db.CreateParameter(New String() {"@MaChuyen"}, New Object() {"01-0001"})
-
-        Try
-            orderList = db.Query("spDSDatMonTrongNgaySelect", parameter)
-        Catch ex As SqlException
-            Throw ex
-        End Try
-
-        BindIntoOrderedDataGridView(dgvOrderList, orderList)
-
         'Creates columns for cookList
         cookList.Columns.Add(New DataColumn("MaMon"))
         cookList.Columns.Add(New DataColumn("TenMon"))
@@ -183,6 +190,14 @@ Public Class frmChef
         'Creates columns for doneDishList
         doneDishList.Columns.Add(New DataColumn("MaMon"))
         doneDishList.Columns.Add(New DataColumn("SoLuong"))
+
+        'Creates columns for orderList
+        orderList.Columns.Add(New DataColumn("MaChuyen"))
+        orderList.Columns.Add(New DataColumn("MaMon"))
+        orderList.Columns.Add(New DataColumn("TenMon"))
+        orderList.Columns.Add(New DataColumn("ThoiGian"))
+        orderList.Columns.Add(New DataColumn("SoLuong"))
+        orderList.Columns.Add(New DataColumn("GhiChu"))
 
         AddHandler lblMaterialQuantity.TextChanged, AddressOf lblMaterialQuantity_TextChanged
 

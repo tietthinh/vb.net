@@ -21,7 +21,7 @@ Public Class Add
             nudQuantity.Value = row.Cells(2).Value
             txtNote.Text = row.Cells(3).Value.ToString
         End If
-        Me.ShowDialog()
+        Me.Show()
     End Sub
 
     Private Sub btnAccept_Click(sender As Object, e As EventArgs) Handles btnAccept.Click

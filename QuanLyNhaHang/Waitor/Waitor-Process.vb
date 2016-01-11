@@ -46,6 +46,15 @@ Public Module Waitor_Process
         End If
     End Sub
 
+
+    Public Function CountOrder(ByVal _Type As String) As Integer
+        Dim _Query As String = "spDemMonDaDat"
+        _ParameterInput = {New SqlParameter("@Ma", _Type)}
+        _ParameterOutput = {New SqlParameter("@SoLuong", SqlDbType.Int)}
+        _Connection.Query(_Query, _ParameterOutput, _ParameterInput)
+        Dim Result As Integer = Integer.Parse(_ParameterOutput(0).SqlValue.ToString())
+        Return Result
+    End Function
     Public Sub LoadTable(_SelectedTable As PictureBox, _Index As Integer, _ListTable As List(Of Table))
         ''Load
         If (CheckExistedTable(_SelectedTable, _Index, _ListTable) = True) Then
