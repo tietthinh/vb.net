@@ -11,42 +11,31 @@ Public Class FrmQLPhieuNhan
         End If
         If errPhieuNhan.GetError(txtTimPG) = "" Then
             Dim temp As Integer = 0
-            dgvDanhSachPG.ClearSelection()
             For i As Integer = 0 To dgvDanhSachPG.RowCount - 1
                 For j As Integer = 0 To dgvDanhSachPG.ColumnCount - 1
-                    Dim a As Integer = 0
-                    If dgvDanhSachPG.Rows(i).Cells(j).Value.ToString.Trim.Contains(txtTimPG.Text) Then
+                    If dgvDanhSachPG.Rows(i).Cells(j).Value.ToString.Contains(txtTimPG.Text) Then
+                        MsgBox("Item found")
                         temp = 1
-                        dgvDanhSachPG.Rows(i).Selected() = True
-                        dgvDanhSachPG.Select()
+                        dgvDanhSachPG.CurrentCell = dgvDanhSachPG.Rows(i).Cells(j)
                     End If
                 Next
             Next
             If temp = 0 Then
-                MsgBox("Không tìm thấy")
+                MsgBox("Item not found")
             End If
         End If
     End Sub
 
     Private Sub btnTimCT_Click(sender As Object, e As EventArgs) Handles btnTimCT.Click
         errPhieuNhan.Clear()
-        If txtTimCT.Text = "" Then
-            errPhieuNhan.SetError(txtTimCT, "Nhập thông tin cần tìm!")
+        If cboTenSP.Text = "" And txtSoLuong.Text = "" Then
+            errPhieuNhan.SetError(cboTenSP, "Chọn tên sản phẩm!")
+            errPhieuNhan.SetError(txtSoLuong, "Nhập số lượng!")
         End If
-        If errPhieuNhan.GetError(txtTimCT) = "" Then
-            Dim temp As Integer = 0
-            dgvChiTietPG.ClearSelection()
-            For i As Integer = 0 To dgvChiTietPG.RowCount - 1
-                For j As Integer = 0 To dgvChiTietPG.ColumnCount - 1
-                    If dgvChiTietPG.Rows(i).Cells(j).Value.ToString.Trim.Contains(txtTimCT.Text) Then
-                        temp = 1
-                        dgvChiTietPG.Rows(i).Selected = True
-                        dgvChiTietPG.Select()
-                    End If
-                Next
-            Next
-            If temp = 0 Then
-                MsgBox("Không tìm thấy")
+        If txtSoLuong.Text = "" Then
+        Else
+            If IsNumeric(txtSoLuong.Text) = False Then
+                errPhieuNhan.SetError(txtSoLuong, "Chỉ được nhập số!")
             End If
         End If
     End Sub
