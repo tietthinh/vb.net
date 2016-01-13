@@ -27,17 +27,18 @@ Public Class FrmQLPhieuNhap
         End If
         If errPhieuNhap.GetError(txtTimPN) = "" Then
             Dim temp As Integer = 0
+            dgvDSChiTietPhieuNhap.ClearSelection()
             For i As Integer = 0 To dgvDSPhieuNhap.RowCount - 1
                 For j As Integer = 0 To dgvDSPhieuNhap.ColumnCount - 1
-                    If dgvDSPhieuNhap.Rows(i).Cells(j).Value.ToString.Contains(txtTimPN.Text) Then
-                        MsgBox("Item found")
+                    If dgvDSPhieuNhap.Rows(i).Cells(j).Value.ToString.Trim.Contains(txtTimPN.Text) Then
                         temp = 1
-                        dgvDSPhieuNhap.CurrentCell = dgvDSPhieuNhap.Rows(i).Cells(j)
+                        dgvDSChiTietPhieuNhap.Rows(i).Selected = True
+                        dgvDSChiTietPhieuNhap.Select()
                     End If
                 Next
             Next
             If temp = 0 Then
-                MsgBox("Item not found")
+                MsgBox("Không tìm thấy")
             End If
         End If
     End Sub
@@ -49,17 +50,20 @@ Public Class FrmQLPhieuNhap
         End If
         If errPhieuNhap.GetError(txtTimCT) = "" Then
             Dim temp As Integer = 0
+            dgvDSChiTietPhieuNhap.ClearSelection()
+
             For i As Integer = 0 To dgvDSChiTietPhieuNhap.RowCount - 1
                 For j As Integer = 0 To dgvDSChiTietPhieuNhap.ColumnCount - 1
-                    If dgvDSChiTietPhieuNhap.Rows(i).Cells(j).Value.ToString.Contains(txtTimCT.Text) Then
-                        MsgBox("Item found")
+                    If dgvDSChiTietPhieuNhap.Rows(i).Cells(j).Value.ToString.Trim.Contains(txtTimCT.Text) Then
                         temp = 1
-                        dgvDSChiTietPhieuNhap.CurrentCell = dgvDSChiTietPhieuNhap.Rows(i).Cells(j)
+                        dgvDSChiTietPhieuNhap.Rows(i).Selected = True
+                        dgvDSChiTietPhieuNhap.Select()
+                        'dgvDSChiTietPhieuNhap.CurrentCell = dgvDSChiTietPhieuNhap.Rows(i).Cells(j)
                     End If
                 Next
             Next
             If temp = 0 Then
-                MsgBox("Item not found")
+                MsgBox("Không tìm thấy")
             End If
         End If
 
@@ -118,10 +122,10 @@ Public Class FrmQLPhieuNhap
         End If
         If errPhieuNhap.GetError(txtTimLB) = "" Then
             Dim temp As Integer = 0
+            lstTimKiem.SelectedItems.Clear()
             For i As Integer = 0 To lstTimKiem.Items.Count - 1
                 For j As Integer = 0 To 2
-                    If lstTimKiem.Items(i).SubItems(j).Text = txtTimLB.Text Then
-                        MsgBox("Item found")
+                    If lstTimKiem.Items(i).SubItems(j).Text.Trim.Contains(txtTimLB.Text) Then
                         temp = 1
                         lstTimKiem.Items(i).Selected = True
                         lstTimKiem.Select()
@@ -129,7 +133,7 @@ Public Class FrmQLPhieuNhap
                 Next
             Next
             If temp = 0 Then
-                MsgBox("Item not found")
+                MsgBox("Không tìm thấy")
             End If
         End If
     End Sub
