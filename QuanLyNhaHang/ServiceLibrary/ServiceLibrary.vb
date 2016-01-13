@@ -6,7 +6,7 @@ Imports System.Threading
 Imports System.Collections
 
 Public Class ServerObject : Inherits MarshalByRefObject
-    Private _Holder As String = ""
+    Private _Holder As String = "+++"
     ''Constructor
     Public Sub New()
 

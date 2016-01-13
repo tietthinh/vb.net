@@ -15,10 +15,10 @@ Public Class TransferService
 
     End Sub
     Protected Overrides Sub OnStart(ByVal args() As String)
-        ' Add code here to start your service. This method should sert things
+        ' Add code here to start your service. This method should set things
         ' in motion so your service can do its work.
         Dim _Channel As New HttpChannel(12345)
-        ChannelServices.RegisterChannel(_Channel, False)
+        ChannelServices.RegisterChannel(_Channel)
         RemotingConfiguration.RegisterWellKnownServiceType(GetType(ServerObject), "TransferData", WellKnownObjectMode.Singleton)
     End Sub
 
