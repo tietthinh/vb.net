@@ -6,27 +6,24 @@ Public Module Waitor_Process
     Private _ParameterInput() As SqlParameter
     Private _ParameterOutput() As SqlParameter
     ''' <summary>
-    ''' Cập nhật tình trạng bàn.
+    ''' Tải lên danh sách bàn có sẵn.
     ''' </summary>
-    ''' <param name="_TinhTrang">1:Bàn đã đặt. 0:Bàn đang trống</param>
-    ''' <param name="SelectedTable">Bàn.</param>
-    Public Sub UpdateTableStatus(ByVal _TinhTrang As Integer, ByVal SelectedTable As PictureBox)
-        Dim _Query1 As String = "usp_CapNhapTinhTrangBan"
-        _ParameterInput = {New SqlParameter("@SoBan", Integer.Parse(SelectedTable.Name.Last)), New SqlParameter("@TinhTrang", _TinhTrang)}
-        _Connection.Query(_Query1, _ParameterInput)
+    Public Sub LoadAvaiableTable()
+        Try
+            Dim _Query As String = "Select SoBan from Ban"
+            Dim dt As DataTable = _Connection.Query(_Query)
+            Dim imgList As New ImageList
+            Dim table As Image = My.Resources.table
+            imgList.Images.Add(table)
+            imgList.ImageSize = New Size(177, 175)
+            Waitor.lstTable.LargeImageList = imgList
+            For i As Integer = 0 To dt.Rows.Count - 1 Step 1
+                Waitor.lstTable.Items.Add(Integer.Parse(dt.Rows(i).Item(0).ToString()))
+                Waitor.lstTable.Items(i).ImageIndex = 0
+            Next
+        Catch e As Exception
+        End Try
     End Sub
-    ''' <summary>
-    ''' Lấy danh sách món ăn.
-    ''' </summary>
-    ''' <param name="_TinhTrang">Tình trạng:    
-    ''' 1.Có sẵn.
-    ''' 0:Không có sẵn</param>
-    ''' <returns></returns>
-    Public Function GetMenuList(ByVal _TinhTrang As Integer) As DataTable
-        Dim _Query As String = "spMonAnDoUongSelect"
-        Dim _Parameter As New SqlParameter("@TinhTrang", _TinhTrang)
-        Return _Connection.Query(_Query, _Parameter)
-    End Function
     ''' <summary>
     ''' Tải lên danh sách món ăn.
     ''' </summary>
@@ -64,6 +61,63 @@ Public Module Waitor_Process
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+    Public Sub SaveTable(_PreviousTable As Integer, _Index As Integer, _ListTable As List(Of Table))
+        ''Save
+        'If existed
+        If (Waitor.dgvList.Rows.Count > 0 And CheckExistedTable(_PreviousTable, _Index, _ListTable) = True) Then
+            _ListTable.RemoveAt(_Index)
+            Dim _Table As New Table
+            _Table.TableNumber = _PreviousTable
+            Dim _Order As New Order
+            For i As Integer = 0 To Waitor.dgvList.Rows.Count - 1 Step 1
+                _Order = New Order
+                _Order.STT = Waitor.dgvList.Rows(i).Cells(0).Value.ToString
+                _Order.TenMon = Waitor.dgvList.Rows(i).Cells(1).Value.ToString
+                _Order.SoLuong = Waitor.dgvList.Rows(i).Cells(2).Value.ToString
+                _Order.GhiChu = Waitor.dgvList.Rows(i).Cells(3).Value.ToString
+                _Order.TinhTrang = Waitor.dgvList.Rows(i).Cells(4).Value.ToString
+                _Order.MaChuyen = Waitor.dgvList.Rows(i).Cells(5).Value.ToString
+                _Order.MaMon = Waitor.dgvList.Rows(i).Cells(6).Value.ToString
+                _Table.Add(_Order)
+            Next
+            _ListTable.Add(_Table)
+            Waitor.dgvList.Rows.Clear()
+        End If
+        'If not existed
+        If (Waitor.dgvList.Rows.Count > 0 And CheckExistedTable(_PreviousTable, _Index, _ListTable) = False) Then
+            Dim _Table As New Table
+            _Table.TableNumber = _PreviousTable
+            Dim _Order As New Order
+            For i As Integer = 0 To Waitor.dgvList.Rows.Count - 1 Step 1
+                _Order = New Order
+                _Order.STT = Waitor.dgvList.Rows(i).Cells(0).Value.ToString
+                _Order.TenMon = Waitor.dgvList.Rows(i).Cells(1).Value.ToString
+                _Order.SoLuong = Waitor.dgvList.Rows(i).Cells(2).Value.ToString
+                _Order.GhiChu = Waitor.dgvList.Rows(i).Cells(3).Value.ToString
+                _Order.TinhTrang = Waitor.dgvList.Rows(i).Cells(4).Value.ToString
+                _Order.MaChuyen = Waitor.dgvList.Rows(i).Cells(5).Value.ToString
+                _Order.MaMon = Waitor.dgvList.Rows(i).Cells(6).Value.ToString
+                _Table.Add(_Order)
+            Next
+            _ListTable.Add(_Table)
+            Waitor.dgvList.Rows.Clear()
+        End If
+    End Sub
+    Public Sub LoadTable(_SelectedTable As Integer, _Index As Integer, _ListTable As List(Of Table))
+        ''Load
+        If (CheckExistedTable(_SelectedTable, _Index, _ListTable) = True) Then
+            Waitor.dgvList.Rows.Clear()
+            For i As Integer = 0 To _ListTable(_Index).GetLength - 1 Step 1
+                Waitor.dgvList.Rows.Add(_ListTable(_Index).GetOrder(i).STT,
+                                 _ListTable(_Index).GetOrder(i).TenMon,
+                                  _ListTable(_Index).GetOrder(i).SoLuong,
+                                  _ListTable(_Index).GetOrder(i).GhiChu,
+                                  _ListTable(_Index).GetOrder(i).TinhTrang,
+                                  _ListTable(_Index).GetOrder(i).MaChuyen,
+                                  _ListTable(_Index).GetOrder(i).MaMon)
+            Next
+        End If
+    End Sub
     ''' <summary>
     ''' Kiểm tra bàn hiện có sẵn trong danh sách đang phục vụ
     ''' </summary>
@@ -71,28 +125,49 @@ Public Module Waitor_Process
     ''' <param name="_Index">Vị trí bàn</param>
     ''' <param name="List">Danh sách bàn</param>
     ''' <returns></returns>
-    Public Function CheckExistedTable(ByVal _Table As PictureBox, ByRef _Index As Integer, ByVal List As List(Of Table)) As Boolean
+    Public Function CheckExistedTable(ByVal _Table As Integer, ByRef _Index As Integer, ByVal List As List(Of Table)) As Boolean
         For i As Integer = 0 To List.Count - 1 Step 1
-            If (List(i).TableNumber = _Table.Name.Last.ToString) Then
+            If (List(i).TableNumber = _Table) Then
                 _Index = i
                 Return True
             End If
         Next
         Return False
     End Function
-    ''' <summary>
-    ''' Search a table with table number 
-    ''' </summary>
-    ''' <param name="TableNumber">Tìm kiếm và trả về vị trí của bàn trong danh sách đang phục vụ.</param>
-    ''' <returns>Position of table</returns>
-    Public Function SearchTable(ByVal TableNumber As Integer, ByVal List As List(Of Table)) As Integer
-        For i As Integer = 0 To List.Count - 1 Step 1
-            If (List(i).TableNumber = TableNumber) Then
-                Return (i + 1)
-            End If
-        Next
-        Return -1
+    Public Function CountOrder(ByVal _Type As String) As Integer
+        Dim _Query As String = "spDemMonDaDat"
+        _ParameterInput = {New SqlParameter("@Ma", _Type)}
+        _ParameterOutput = {New SqlParameter("@MaMoi", SqlDbType.Int)}
+        _Connection.Query(_Query, _ParameterOutput, _ParameterInput)
+        Dim Result As Integer = _ParameterOutput(0).SqlValue
+        Return Result
     End Function
+
+    ''' <summary>
+    ''' Cập nhật tình trạng bàn.
+    ''' </summary>
+    ''' <param name="_TinhTrang">1:Bàn đã đặt. 0:Bàn đang trống</param>
+    ''' <param name="SelectedTable">Bàn.</param>
+    ''' 
+    Public Sub UpdateTableStatus(ByVal _TinhTrang As Integer, ByVal SelectedTable As Integer)
+        Dim _Query1 As String = "usp_CapNhapTinhTrangBan"
+        _ParameterInput = {New SqlParameter("@SoBan", Integer.Parse(SelectedTable)), New SqlParameter("@TinhTrang", _TinhTrang)}
+        _Connection.Query(_Query1, _ParameterInput)
+    End Sub
+    ''' <summary>
+    ''' Lấy danh sách món ăn.
+    ''' </summary>
+    ''' <param name="_TinhTrang">Tình trạng:    
+    ''' 1.Có sẵn.
+    ''' 0:Không có sẵn</param>
+    ''' <returns></returns>
+    Public Function GetMenuList(ByVal _TinhTrang As Integer) As DataTable
+        Dim _Query As String = "spMonAnDoUongSelect"
+        Dim _Parameter As New SqlParameter("@TinhTrang", _TinhTrang)
+        Return _Connection.Query(_Query, _Parameter)
+    End Function
+
+
     ''' <summary>
     ''' Xác nhận tình trạng món được. Đầu bếp/Pha chế => Nhân Viên
     ''' </summary>

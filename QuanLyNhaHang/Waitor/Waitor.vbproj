@@ -103,6 +103,11 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AppProvider.vb" />
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Order.vb" />
     <Compile Include="Table.vb" />
     <Compile Include="Waitor-Process.vb" />
@@ -117,11 +122,6 @@
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
-    </Compile>
-    <Compile Include="My Project\Resources.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="My Project\Settings.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -138,9 +138,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -154,7 +154,9 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Library\Library.vbproj">
@@ -167,45 +169,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="img\border.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="img\bow.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="img\Caution.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="img\dishs.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\table1.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\table2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\table3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\table4.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\table5.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\table6.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\table7.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\table8.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\table9.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
@@ -221,6 +188,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="img\glass.png" />
+    <None Include="img\table.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

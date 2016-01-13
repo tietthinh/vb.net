@@ -1,12 +1,13 @@
 ﻿
 Imports Library
 Imports System.Data.SqlClient
+Imports Waitor.AppProvider
 
 Public Class Add
     Dim frmNumpad As frmNumPad
     Dim _Number As Integer = 0
+    Dim _NewOrder As Order
     Private _Connection As New DatabaseConnection
-
     Private Sub AddNew_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         '' Set form's start position in the screen.
         '' Định vị trí xuất hiện của Form.
@@ -33,7 +34,7 @@ Public Class Add
             Dim name As String = Waitor.lstMenu.SelectedItems(0).Text
             _Id = Waitor.dgvList.Rows.Count + 1
             _Name = name
-            Waitor.dgvList.Rows.Add(_Id, _Name, _Quantity, _Note, "Chưa làm", "", _Code)
+            Waitor.dgvList.Rows.Add(_Id, _Name, _Quantity, _Note, OrderStatus(1), "", _Code)
         Else
             ''Is update
             Dim _Index As Integer = Waitor.dgvList.SelectedRows.Item(0).Index

@@ -36,34 +36,17 @@ Partial Class Waitor
         Me.colMaMon = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.btnLamMon = New System.Windows.Forms.Button()
         Me.btnPay = New System.Windows.Forms.Button()
-        Me.picTable09 = New System.Windows.Forms.PictureBox()
-        Me.picTable08 = New System.Windows.Forms.PictureBox()
-        Me.picTable07 = New System.Windows.Forms.PictureBox()
-        Me.picTable06 = New System.Windows.Forms.PictureBox()
-        Me.picTable05 = New System.Windows.Forms.PictureBox()
-        Me.picTable04 = New System.Windows.Forms.PictureBox()
-        Me.picTable03 = New System.Windows.Forms.PictureBox()
-        Me.picTable02 = New System.Windows.Forms.PictureBox()
-        Me.picTable01 = New System.Windows.Forms.PictureBox()
-        Me.picBorder = New System.Windows.Forms.PictureBox()
         Me.lblMenu = New System.Windows.Forms.Label()
         Me.btnDelete = New System.Windows.Forms.Button()
         Me.lstNotAvailable = New System.Windows.Forms.ListView()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnUpdateTable = New System.Windows.Forms.Button()
-        Me.nudGuestCount = New System.Windows.Forms.NumericUpDown()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.lstTable = New System.Windows.Forms.ListView()
+        Me.colDanhSachBan = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.nudGuestCount = New System.Windows.Forms.NumericUpDown()
+        Me.btnLogout = New System.Windows.Forms.Button()
         CType(Me.dgvList, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.picTable09, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.picTable08, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.picTable07, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.picTable06, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.picTable05, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.picTable04, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.picTable03, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.picTable02, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.picTable01, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.picBorder, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudGuestCount, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -76,24 +59,24 @@ Partial Class Waitor
         Me.dgvList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colNumber, Me.colFood, Me.colQuantity, Me.colNote, Me.colStatus, Me.MaChuyen, Me.colMa})
         Me.dgvList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvList.GridColor = System.Drawing.SystemColors.ActiveCaption
-        Me.dgvList.Location = New System.Drawing.Point(708, 68)
+        Me.dgvList.Location = New System.Drawing.Point(687, 68)
         Me.dgvList.MultiSelect = False
         Me.dgvList.Name = "dgvList"
         Me.dgvList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvList.Size = New System.Drawing.Size(424, 540)
+        Me.dgvList.Size = New System.Drawing.Size(445, 540)
         Me.dgvList.TabIndex = 19
         '
         'colNumber
         '
         Me.colNumber.HeaderText = "STT"
         Me.colNumber.Name = "colNumber"
-        Me.colNumber.Width = 20
+        Me.colNumber.Width = 30
         '
         'colFood
         '
         Me.colFood.HeaderText = "Tên Món"
         Me.colFood.Name = "colFood"
-        Me.colFood.Width = 125
+        Me.colFood.Width = 135
         '
         'colQuantity
         '
@@ -128,14 +111,14 @@ Partial Class Waitor
         '
         'lblTittle
         '
-        Me.lblTittle.Font = New System.Drawing.Font("Roboto Black", 32.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTittle.Font = New System.Drawing.Font("Roboto Black", 20.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTittle.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.lblTittle.Location = New System.Drawing.Point(708, 9)
+        Me.lblTittle.Location = New System.Drawing.Point(687, 9)
         Me.lblTittle.Name = "lblTittle"
-        Me.lblTittle.Size = New System.Drawing.Size(642, 56)
+        Me.lblTittle.Size = New System.Drawing.Size(445, 56)
         Me.lblTittle.TabIndex = 21
         Me.lblTittle.Text = "DANH SÁCH MÓN ĂN "
-        Me.lblTittle.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.lblTittle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'lstMenu
         '
@@ -164,7 +147,7 @@ Partial Class Waitor
         Me.btnLamMon.BackColor = System.Drawing.Color.Orange
         Me.btnLamMon.Font = New System.Drawing.Font("Roboto Condensed", 21.75!, System.Drawing.FontStyle.Bold)
         Me.btnLamMon.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnLamMon.Location = New System.Drawing.Point(870, 612)
+        Me.btnLamMon.Location = New System.Drawing.Point(856, 612)
         Me.btnLamMon.Name = "btnLamMon"
         Me.btnLamMon.Size = New System.Drawing.Size(156, 90)
         Me.btnLamMon.TabIndex = 24
@@ -176,123 +159,12 @@ Partial Class Waitor
         Me.btnPay.BackColor = System.Drawing.Color.Orange
         Me.btnPay.Font = New System.Drawing.Font("Roboto Condensed", 21.75!, System.Drawing.FontStyle.Bold)
         Me.btnPay.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnPay.Location = New System.Drawing.Point(1032, 612)
+        Me.btnPay.Location = New System.Drawing.Point(1026, 612)
         Me.btnPay.Name = "btnPay"
         Me.btnPay.Size = New System.Drawing.Size(156, 90)
         Me.btnPay.TabIndex = 25
         Me.btnPay.Text = "THANH TOÁN"
         Me.btnPay.UseVisualStyleBackColor = False
-        '
-        'picTable09
-        '
-        Me.picTable09.BackColor = System.Drawing.SystemColors.Window
-        Me.picTable09.Image = Global.Waitor.My.Resources.Resources.table9
-        Me.picTable09.ImageLocation = ""
-        Me.picTable09.Location = New System.Drawing.Point(510, 486)
-        Me.picTable09.Name = "picTable09"
-        Me.picTable09.Size = New System.Drawing.Size(156, 156)
-        Me.picTable09.TabIndex = 9
-        Me.picTable09.TabStop = False
-        '
-        'picTable08
-        '
-        Me.picTable08.BackColor = System.Drawing.SystemColors.Window
-        Me.picTable08.Image = Global.Waitor.My.Resources.Resources.table8
-        Me.picTable08.ImageLocation = ""
-        Me.picTable08.Location = New System.Drawing.Point(276, 486)
-        Me.picTable08.Name = "picTable08"
-        Me.picTable08.Size = New System.Drawing.Size(156, 156)
-        Me.picTable08.TabIndex = 8
-        Me.picTable08.TabStop = False
-        '
-        'picTable07
-        '
-        Me.picTable07.BackColor = System.Drawing.SystemColors.Window
-        Me.picTable07.Image = Global.Waitor.My.Resources.Resources.table7
-        Me.picTable07.ImageLocation = ""
-        Me.picTable07.Location = New System.Drawing.Point(38, 486)
-        Me.picTable07.Name = "picTable07"
-        Me.picTable07.Size = New System.Drawing.Size(156, 156)
-        Me.picTable07.TabIndex = 7
-        Me.picTable07.TabStop = False
-        '
-        'picTable06
-        '
-        Me.picTable06.BackColor = System.Drawing.SystemColors.Window
-        Me.picTable06.Image = Global.Waitor.My.Resources.Resources.table6
-        Me.picTable06.ImageLocation = ""
-        Me.picTable06.Location = New System.Drawing.Point(510, 270)
-        Me.picTable06.Name = "picTable06"
-        Me.picTable06.Size = New System.Drawing.Size(156, 156)
-        Me.picTable06.TabIndex = 6
-        Me.picTable06.TabStop = False
-        '
-        'picTable05
-        '
-        Me.picTable05.BackColor = System.Drawing.SystemColors.Window
-        Me.picTable05.Image = Global.Waitor.My.Resources.Resources.table5
-        Me.picTable05.ImageLocation = ""
-        Me.picTable05.Location = New System.Drawing.Point(276, 270)
-        Me.picTable05.Name = "picTable05"
-        Me.picTable05.Size = New System.Drawing.Size(156, 156)
-        Me.picTable05.TabIndex = 5
-        Me.picTable05.TabStop = False
-        '
-        'picTable04
-        '
-        Me.picTable04.BackColor = System.Drawing.SystemColors.Window
-        Me.picTable04.Image = Global.Waitor.My.Resources.Resources.table4
-        Me.picTable04.ImageLocation = ""
-        Me.picTable04.Location = New System.Drawing.Point(38, 270)
-        Me.picTable04.Name = "picTable04"
-        Me.picTable04.Size = New System.Drawing.Size(156, 156)
-        Me.picTable04.TabIndex = 4
-        Me.picTable04.TabStop = False
-        '
-        'picTable03
-        '
-        Me.picTable03.BackColor = System.Drawing.SystemColors.Window
-        Me.picTable03.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.picTable03.Image = Global.Waitor.My.Resources.Resources.table3
-        Me.picTable03.ImageLocation = ""
-        Me.picTable03.Location = New System.Drawing.Point(510, 40)
-        Me.picTable03.Name = "picTable03"
-        Me.picTable03.Size = New System.Drawing.Size(156, 156)
-        Me.picTable03.TabIndex = 3
-        Me.picTable03.TabStop = False
-        '
-        'picTable02
-        '
-        Me.picTable02.BackColor = System.Drawing.SystemColors.Window
-        Me.picTable02.Image = Global.Waitor.My.Resources.Resources.table2
-        Me.picTable02.ImageLocation = ""
-        Me.picTable02.Location = New System.Drawing.Point(276, 40)
-        Me.picTable02.Name = "picTable02"
-        Me.picTable02.Size = New System.Drawing.Size(156, 156)
-        Me.picTable02.TabIndex = 2
-        Me.picTable02.TabStop = False
-        '
-        'picTable01
-        '
-        Me.picTable01.BackColor = System.Drawing.SystemColors.Window
-        Me.picTable01.Image = Global.Waitor.My.Resources.Resources.table1
-        Me.picTable01.ImageLocation = ""
-        Me.picTable01.Location = New System.Drawing.Point(38, 40)
-        Me.picTable01.Name = "picTable01"
-        Me.picTable01.Size = New System.Drawing.Size(156, 156)
-        Me.picTable01.TabIndex = 1
-        Me.picTable01.TabStop = False
-        '
-        'picBorder
-        '
-        Me.picBorder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.picBorder.Image = Global.Waitor.My.Resources.Resources.border
-        Me.picBorder.ImageLocation = ""
-        Me.picBorder.Location = New System.Drawing.Point(8, 7)
-        Me.picBorder.Name = "picBorder"
-        Me.picBorder.Size = New System.Drawing.Size(704, 706)
-        Me.picBorder.TabIndex = 0
-        Me.picBorder.TabStop = False
         '
         'lblMenu
         '
@@ -311,7 +183,7 @@ Partial Class Waitor
         Me.btnDelete.BackColor = System.Drawing.Color.Orange
         Me.btnDelete.Font = New System.Drawing.Font("Roboto Condensed", 21.75!, System.Drawing.FontStyle.Bold)
         Me.btnDelete.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnDelete.Location = New System.Drawing.Point(708, 611)
+        Me.btnDelete.Location = New System.Drawing.Point(687, 612)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(156, 90)
         Me.btnDelete.TabIndex = 27
@@ -352,16 +224,6 @@ Partial Class Waitor
         Me.btnUpdateTable.Text = "CẬP NHẬT BÀN"
         Me.btnUpdateTable.UseVisualStyleBackColor = False
         '
-        'nudGuestCount
-        '
-        Me.nudGuestCount.Location = New System.Drawing.Point(1274, 586)
-        Me.nudGuestCount.Maximum = New Decimal(New Integer() {80000, 0, 0, 0})
-        Me.nudGuestCount.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.nudGuestCount.Name = "nudGuestCount"
-        Me.nudGuestCount.Size = New System.Drawing.Size(73, 20)
-        Me.nudGuestCount.TabIndex = 31
-        Me.nudGuestCount.Value = New Decimal(New Integer() {1, 0, 0, 0})
-        '
         'Label2
         '
         Me.Label2.BackColor = System.Drawing.Color.Blue
@@ -374,13 +236,54 @@ Partial Class Waitor
         Me.Label2.Text = "SỐ LƯỢNG KHÁCH"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'lstTable
+        '
+        Me.lstTable.Alignment = System.Windows.Forms.ListViewAlignment.Left
+        Me.lstTable.BackColor = System.Drawing.Color.White
+        Me.lstTable.BackgroundImageTiled = True
+        Me.lstTable.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.lstTable.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.colDanhSachBan})
+        Me.lstTable.Font = New System.Drawing.Font("Roboto Black", 20.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lstTable.Location = New System.Drawing.Point(12, 12)
+        Me.lstTable.Margin = New System.Windows.Forms.Padding(13)
+        Me.lstTable.MultiSelect = False
+        Me.lstTable.Name = "lstTable"
+        Me.lstTable.Size = New System.Drawing.Size(659, 680)
+        Me.lstTable.TabIndex = 33
+        Me.lstTable.TileSize = New System.Drawing.Size(200, 200)
+        Me.lstTable.UseCompatibleStateImageBehavior = False
+        '
+        'nudGuestCount
+        '
+        Me.nudGuestCount.Location = New System.Drawing.Point(1284, 586)
+        Me.nudGuestCount.Maximum = New Decimal(New Integer() {12, 0, 0, 0})
+        Me.nudGuestCount.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.nudGuestCount.Name = "nudGuestCount"
+        Me.nudGuestCount.Size = New System.Drawing.Size(54, 20)
+        Me.nudGuestCount.TabIndex = 34
+        Me.nudGuestCount.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
+        'btnLogout
+        '
+        Me.btnLogout.BackColor = System.Drawing.Color.Red
+        Me.btnLogout.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.btnLogout.ForeColor = System.Drawing.Color.White
+        Me.btnLogout.Location = New System.Drawing.Point(1254, 9)
+        Me.btnLogout.Name = "btnLogout"
+        Me.btnLogout.Size = New System.Drawing.Size(84, 56)
+        Me.btnLogout.TabIndex = 35
+        Me.btnLogout.Text = "Đăng Xuất"
+        Me.btnLogout.UseVisualStyleBackColor = False
+        '
         'Waitor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Maroon
         Me.ClientSize = New System.Drawing.Size(1350, 706)
+        Me.Controls.Add(Me.btnLogout)
         Me.Controls.Add(Me.nudGuestCount)
+        Me.Controls.Add(Me.lstTable)
         Me.Controls.Add(Me.btnUpdateTable)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.lstNotAvailable)
@@ -391,45 +294,14 @@ Partial Class Waitor
         Me.Controls.Add(Me.lstMenu)
         Me.Controls.Add(Me.lblTittle)
         Me.Controls.Add(Me.dgvList)
-        Me.Controls.Add(Me.picTable09)
-        Me.Controls.Add(Me.picTable08)
-        Me.Controls.Add(Me.picTable07)
-        Me.Controls.Add(Me.picTable06)
-        Me.Controls.Add(Me.picTable05)
-        Me.Controls.Add(Me.picTable04)
-        Me.Controls.Add(Me.picTable03)
-        Me.Controls.Add(Me.picTable02)
-        Me.Controls.Add(Me.picTable01)
-        Me.Controls.Add(Me.picBorder)
         Me.Controls.Add(Me.Label2)
         Me.Name = "Waitor"
         Me.Text = "Nhan Vien"
         CType(Me.dgvList, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.picTable09, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.picTable08, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.picTable07, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.picTable06, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.picTable05, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.picTable04, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.picTable03, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.picTable02, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.picTable01, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.picBorder, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.nudGuestCount, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
-
-    Friend WithEvents picBorder As PictureBox
-    Friend WithEvents picTable01 As PictureBox
-    Friend WithEvents picTable02 As PictureBox
-    Friend WithEvents picTable03 As PictureBox
-    Friend WithEvents picTable06 As PictureBox
-    Friend WithEvents picTable05 As PictureBox
-    Friend WithEvents picTable04 As PictureBox
-    Friend WithEvents picTable09 As PictureBox
-    Friend WithEvents picTable08 As PictureBox
-    Friend WithEvents picTable07 As PictureBox
     Friend WithEvents dgvList As DataGridView
     Friend WithEvents lblTittle As Label
     Friend WithEvents lstMenu As ListView
@@ -442,7 +314,10 @@ Partial Class Waitor
     Friend WithEvents lstNotAvailable As ListView
     Friend WithEvents Label1 As Label
     Friend WithEvents btnUpdateTable As Button
+    Friend WithEvents Label2 As Label
+    Friend WithEvents lstTable As ListView
     Friend WithEvents nudGuestCount As NumericUpDown
+    Friend WithEvents colDanhSachBan As ColumnHeader
     Friend WithEvents colNumber As DataGridViewTextBoxColumn
     Friend WithEvents colFood As DataGridViewTextBoxColumn
     Friend WithEvents colQuantity As DataGridViewTextBoxColumn
@@ -450,5 +325,5 @@ Partial Class Waitor
     Friend WithEvents colStatus As DataGridViewTextBoxColumn
     Friend WithEvents MaChuyen As DataGridViewTextBoxColumn
     Friend WithEvents colMa As DataGridViewTextBoxColumn
-    Friend WithEvents Label2 As Label
+    Friend WithEvents btnLogout As Button
 End Class

@@ -24,6 +24,12 @@ Public Class DatabaseConnection
         ConfigurationManager.ConnectionStrings("Restaurant Management")
 
     ''' <summary>
+    ''' Employee's account information.
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Shared _User As New User()
+
+    ''' <summary>
     ''' Gets or Sets the current connecter of Library.DatabaseConnection.
     ''' </summary>
     ''' <value></value>
@@ -50,7 +56,7 @@ Public Class DatabaseConnection
     ''' Open the current connection to Database. 
     ''' </summary>
     ''' <remarks></remarks>
-    Public Sub Open()
+    Private Sub Open()
         Try
             _Connecter.Open()
         Catch ex As SqlException
@@ -62,7 +68,7 @@ Public Class DatabaseConnection
     ''' Close the current connection to Database.
     ''' </summary>
     ''' <remarks></remarks>
-    Public Sub Close()
+    Private Sub Close()
         Try
             _Connecter.Close()
         Catch ex As SqlException
@@ -174,13 +180,56 @@ Public Class DatabaseConnection
     End Function
 
     ''' <summary>
+    ''' Insert/Delete/Update Database through Stored Procedure with _Query, list of parameters and
+    ''' gets a return value from Stored Procefure.
+    ''' </summary>
+    ''' <param name="_Query">Command for executing Stored Procedure.</param>
+    ''' <param name="returnParameter">Parameter receiving return value.</param>
+    ''' <param name="parameter">List of parameters matching Stored Procedure's parameters.</param>
+    ''' <returns>The number of inserted/deleted/updated rows.</returns>
+    ''' <remarks></remarks>
+    Public Function Update(ByVal _Query As String, ByRef returnParameter As SqlParameter, ByVal ParamArray parameter() As SqlParameter) As Integer
+        Dim cmd As SqlCommand = _Connecter.CreateCommand()
+        Dim rowCount As Integer
+
+        cmd.CommandText = _Query
+        cmd.CommandType = CommandType.StoredProcedure
+
+        If parameter IsNot Nothing And parameter.Length > 0 Then
+            cmd.Parameters.AddRange(parameter)
+        End If
+
+        returnParameter.Direction = ParameterDirection.ReturnValue
+
+        cmd.Parameters.Add(returnParameter)
+
+        Try
+            Me.Open()
+
+            rowCount = cmd.ExecuteNonQuery()
+        Catch ex As SqlException
+            Throw ex
+        Finally
+            Me.Close()
+
+            cmd.Dispose()
+            cmd = Nothing
+        End Try
+
+        Return rowCount
+    End Function
+
+    ''' <summary>
     ''' Insert/Delete/Update Database through Stored Procedure with _Query and list of parameters.
     ''' </summary>
     ''' <param name="_Query">Command for executing Stored Procedure.</param>
     ''' <param name="Parameter">List of parameters matching Stored Procedure's parameters.</param>
+    ''' <returns>The number of inserted/deleted/updated rows.</returns>
     ''' <remarks></remarks>
-    Public Sub Update(ByVal _Query As String, ByVal ParamArray parameter() As SqlParameter)
+    Public Function Update(ByVal _Query As String, ByVal ParamArray parameter() As SqlParameter) As Integer
         Dim cmd As SqlCommand = _Connecter.CreateCommand()
+        Dim rowCount As Integer
+
         cmd.CommandText = _Query
         cmd.CommandType = CommandType.StoredProcedure
 
@@ -189,14 +238,20 @@ Public Class DatabaseConnection
         End If
 
         Try
-            cmd.ExecuteNonQuery()
+            Me.Open()
+
+            rowCount = cmd.ExecuteNonQuery()
         Catch ex As SqlException
             Throw ex
         Finally
+            Me.Close()
+
             cmd.Dispose()
             cmd = Nothing
         End Try
-    End Sub
+
+        Return rowCount
+    End Function
 
     ''' <summary>
     ''' Insert/Delete/Update Database from DataTable into Table in Database.
@@ -227,6 +282,21 @@ Public Class DatabaseConnection
     End Sub
 
     ''' <summary>
+    ''' Create a list of parameters for Query command.
+    ''' </summary>
+    ''' <param name="listParameterName">List of parameters' name.</param>
+    ''' <param name="listParameterValue">List of parameters' value.</param>
+    ''' <returns>List of parameters.</returns>
+    ''' <remarks></remarks>
+    Public Function CreateParameter(ByVal listParameterName() As String, ByVal listParameterValue() As Object) As SqlParameter()
+        Dim parameter(listParameterName.Length - 1) As SqlClient.SqlParameter
+        For i As Integer = 0 To parameter.Length - 1 Step 1
+            parameter(i) = New SqlParameter(listParameterName(i), listParameterValue(i))
+        Next
+        Return parameter
+    End Function
+
+    ''' <summary>
     ''' Check employee's information in form.
     ''' </summary>
     ''' <param name="username">Employee's Username.</param>
@@ -243,14 +313,14 @@ Public Class DatabaseConnection
         Dim accountList As New DataTable()
 
         Try
-            Open()
+            Me.Open()
             accountList = Query("Select TenDN, MatKhau From TaiKhoanNhanVien")
         Catch ex As SqlException
             accountList.Dispose()
             accountList = Nothing
             Throw ex
         Finally
-            Close()
+            Me.Close()
         End Try
 
         For Each row As DataRow In accountList.Rows
@@ -287,32 +357,53 @@ Public Class DatabaseConnection
     ''' <returns>True if match, else false.</returns>
     ''' <remarks></remarks>
     Public Function CheckInvalidAccount(ByVal username As String, ByVal password As String, _
-                                        ByRef user As User) As Boolean
+                                        ByVal formID As Integer, ByRef user As User, ByRef notice As String) As Boolean
         Dim accountList As New DataTable()
+        Dim employeeType As New DataTable()
 
         Try
-            Open()
-            accountList = Query("Select TKNV.TenDN, TKNV.MatKhau, NV.cmnd, NV.MaNV, NV.HoTen " + _
+            Me.Open()
+            accountList = Query("Select TKNV.TenDN, TKNV.MatKhau, NV.cmnd, NV.MaChucVu, NV.MaNV, NV.HoTen " + _
                                 "From TaiKhoanNhanVien TKNV, NhanVien NV " + _
-                                "Where NV.MaNV = TKNV.MaNV")
+                                "Where NV.MaNV = TKNV.MaNV And TKNV.TenDN = '" + username.Trim() + "'")
+            employeeType = Query("Select MaChucVu, TenChucVu " + _
+                                 "From ChucVuNhanVien " + _
+                                 "Where MaChucVu = '" + formID.ToString() + "'")
         Catch ex As SqlException
             Throw ex
         Finally
-            Close()
+            Me.Close()
         End Try
 
         For Each row As DataRow In accountList.Rows
-            If username = row("TenDN") And GetMd5Hash(password, row("cmnd").ToString().Trim()) = row("MatKhau") Then
-                user = New User(row("MaNV"), row("HoTen"))
-                accountList.Dispose()
-                accountList = Nothing
-                Return True
+            If username = row("TenDN").ToString().Trim() And GetMd5Hash(password, row("cmnd").ToString().Trim()) = row("MatKhau") Then
+                If formID = row("MaChucVu") Then
+                    user = New User(row("MaNV"), row("HoTen"))
+
+                    accountList.Dispose()
+                    accountList = Nothing
+
+                    notice = "Đăng nhập thành công"
+
+                    Return True
+                Else
+                    notice = "Chương trình chỉ dành riêng cho " + employeeType.Rows(0)("TenChucVu") + ". Vui lòng đổi chương trình để làm việc."
+
+                    Return False
+                End If
             End If
         Next
 
         accountList.Dispose()
         accountList = Nothing
+
+        employeeType.Dispose()
+        employeeType = Nothing
+
         user = Nothing
+
+        notice = "Đăng nhập thất bại"
+
         Return False
     End Function
 

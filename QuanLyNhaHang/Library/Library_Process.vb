@@ -11,6 +11,20 @@ Imports System.Text
 Public Module Library_Process
 
     ''' <summary>
+    ''' List types of Employee for login form.
+    ''' </summary>
+    ''' <remarks></remarks>
+    Enum EmployeeType As Integer
+        Waitor = 1
+        Bartender
+        Manager
+        Receptionist
+        WarehouseKeeper
+        Employee
+        Cashier
+    End Enum
+
+    ''' <summary>
     ''' Gets MD5 Hash code from two parameters.
     ''' </summary>
     ''' <param name="password">First parameter (for Form Login is Employee's Password).</param>
@@ -59,7 +73,7 @@ Public Module Library_Process
         'else return null
         If TypeOf _KeyWord Is Integer Then
             Dim _StringArray(1) As String
-            _StringArray(0) = _String.Substring(0, _KeyWord - 1)
+            _StringArray(0) = _String.Substring(0, _KeyWord)
             _StringArray(1) = _String.Substring(_KeyWord)
             Return _StringArray
         Else

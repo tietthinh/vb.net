@@ -1,15 +1,9 @@
-﻿'=====================================================================
-'Name:      Dương Tấn Huỳnh Phong
-'Project:   Restaurant Management
-'Purpose:   Module provides some processes for Form Chef
-'=====================================================================
-
-Imports Library
+﻿Imports Library
 Imports System.Data.SqlClient
 Imports ServerHost
 Imports Remote
 
-Module Chef_Process
+Module Bartender_Process
     ''' <summary>
     ''' Object connects/queries database. 
     ''' </summary>
@@ -225,11 +219,11 @@ Module Chef_Process
     ''' <returns>A table containts list of material matching the Identities.</returns>
     ''' <remarks></remarks>
     Public Function LoadOrder(ByVal _TransIDList As List(Of String)) As DataTable
-        Dim parameter() As SqlClient.SqlParameter = db.CreateParameter(New String() {"@MaChuyen"}, New Object() {_TransIDList(0)})
+        Dim parameter() As SqlClient.SqlParameter = db.CreateParameter(New String() {"@MaChuyen"}, _TransIDList.ToArray())
         Dim orderList As DataTable
 
         Try
-            orderList = db.Query("spDSDatMonTrongNgaySelect", parameter)
+            orderList = db.Query("spDSDoUongTrongNgaySelect", parameter)
         Catch ex As SqlException
             Throw ex
         End Try
@@ -489,7 +483,6 @@ Module Chef_Process
 
     Public Sub CheckWaitorToChefBartender(ByVal Data As String)
         Dim _DataArray As List(Of String) = DataFilter(Data, 2)
-        MessageBox.Show(_DataArray.ToString())
         For i As Integer = 0 To _DataArray.Count - 1 Step 1
             MessageBox.Show(_DataArray(i))
         Next
@@ -497,22 +490,16 @@ Module Chef_Process
 
     Public Sub CheckWaitorToChefBartenderConfirm(ByVal Data As String)
         Dim _DataArray As List(Of String) = DataFilter(Data, 3)
-        For i As Integer = 0 To _DataArray.Count - 1 Step 1
-            MessageBox.Show(_DataArray(i))
-        Next
+        ''TODO your code from here
     End Sub
 
     Public Sub CheckChefBartenderToWarehouseSignal(ByVal Data As String)
         Dim _DataArray As List(Of String) = DataFilter(Data, 6)
-        For i As Integer = 0 To _DataArray.Count - 1 Step 1
-            MessageBox.Show(_DataArray(i))
-        Next
+        ''TODO your code here
     End Sub
 
     Public Sub CheckWarehouseToChefBartenderConfirm(ByVal Data As String)
         Dim _DataArray As List(Of String) = DataFilter(Data, 7)
-        For i As Integer = 0 To _DataArray.Count - 1 Step 1
-            MessageBox.Show(_DataArray(i))
-        Next
+        ''TODO your code from here
     End Sub
 End Module
