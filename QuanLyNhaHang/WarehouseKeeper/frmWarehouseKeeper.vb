@@ -143,23 +143,24 @@ Public Class frmWarehouseKeeper
         End If
         If errMain.GetError(txtTimNCC) = "" Then
             Dim temp As Integer = 0
+            dgvDSNhaCungCap.ClearSelection()
             For i As Integer = 0 To dgvDSNhaCungCap.RowCount - 1
                 For j As Integer = 0 To dgvDSNhaCungCap.ColumnCount - 1
-                    If dgvDSNhaCungCap.Rows(i).Cells(j).Value.ToString = txtTimNCC.Text Then
-                        MsgBox("Item found")
+                    If dgvDSNhaCungCap.Rows(i).Cells(j).Value.ToString.Trim.Contains(txtTimNCC.Text) Then
                         temp = 1
-                        dgvDSNhaCungCap.CurrentCell = dgvDSNhaCungCap.Rows(i).Cells(j)
+                        dgvDSNhaCungCap.Rows(i).Selected = True
+                        dgvDSNhaCungCap.Select()
                     End If
                 Next
             Next
             If temp = 0 Then
-                MsgBox("Item not found")
+                MsgBox("Không tìm thấy")
             End If
         End If
     End Sub
 
     Private Sub frmWarehouseKeeper_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim _Login As New frmLogin(EmployeeType.WarehouseKeeper)
+        Dim _Login As New frmLogin(EmployeeType.Waitor)
         _Login.ShowDialog()
         _CurrentUser = DatabaseConnection._User
         If (_Login.DialogResult = 1) Then
@@ -175,6 +176,15 @@ Public Class frmWarehouseKeeper
             txtChietKhau.Text = dgvDSNhaCungCap.SelectedRows(0).Cells("colChietKhau").Value().ToString
             txtDiaChi.Text = dgvDSNhaCungCap.SelectedRows(0).Cells("colDiaChi").Value().ToString
             txtGhiChu.Text = dgvDSNhaCungCap.SelectedRows(0).Cells("colGhiChu").Value().ToString
+            Dim _cboEmail As DataGridViewComboBoxCell = dgvDSNhaCungCap.SelectedRows(0).Cells("colEmail")
+            cboEmail.DataSource = _cboEmail.DataSource
+            cboEmail.DisplayMember = "Email"
+            cboEmail.ValueMember = "Email"
+
+            Dim _cboDienThoai As DataGridViewComboBoxCell = dgvDSNhaCungCap.SelectedRows(0).Cells("colSDT")
+            cboDienThoai.DataSource = _cboDienThoai.DataSource
+            cboDienThoai.DisplayMember = "SDT"
+            cboDienThoai.ValueMember = "SDT"
 
             Dim _dtDonVi As DataTable = Connection.Query("spLoaiDonViTinhSelect")
             cboDonVi.DataSource = _dtDonVi
@@ -370,7 +380,7 @@ Public Class frmWarehouseKeeper
             errMain.SetError(cboEmail, "Nhập email cần thêm")
         End If
 
-        If errMain.GetError(txtTenSanPham) = "" And errMain.GetError(txtSoLuong) = "" And errMain.GetError(cboDonVi) = "" Then
+        If errMain.GetError(cboEmail) = "" Then
             Dim _returnEmail As SqlParameter = New SqlParameter
             Dim _Name() As String = New String() {"@MaNCC", "@Email"}
             Dim _Value() As Object = {dgvDSNhaCungCap.SelectedRows(0).Cells("colMaNCC").Value, cboEmail.Text}
