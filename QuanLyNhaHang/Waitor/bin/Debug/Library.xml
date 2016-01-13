@@ -114,18 +114,16 @@ Library
  <returns>List of parameters.</returns>
  <remarks></remarks>
 </member>
-<member name="M:Library.DatabaseConnection.CheckInfor(System.String,System.String,System.String,System.DateTime)">
+<member name="M:Library.DatabaseConnection.CheckInfor(System.String,System.String,System.String)">
  <summary>
- Check employee's information in form.
+ Validate information.
  </summary>
- <param name="username">Employee's Username.</param>
- <param name="password">Employee's Password</param>
- <param name="confirmPassword">Confirm password.</param>
- <param name="birthday">Employee's Birthday.</param>
- <returns>Error code.</returns>
+ <param name="password">Password.</param>
+ <param name="confirmPassword">Confirm Password.</param>
+ <param name="identity">Personal Identity.</param>
+ <returns>Error Code</returns>
  <remarks>
- -1 is no error. 1 is Username already existed. 2 is Confirm Password doesn't match Password.
- 3 is birthday is greater than today.
+ -1 is no error. 1 is unvalidate password and confirm password. 2 is password is invalid. 3 is identity is invalid.
  </remarks>
 </member>
 <member name="M:Library.DatabaseConnection.CheckInvalidAccount(System.String,System.String,System.Int32,Library.User@,System.String@)">
@@ -140,6 +138,12 @@ Library
 <member name="M:Library.DatabaseConnection.Dispose">
  <summary>
  Release memory of DatabaseConnection.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:Library.frmForgotPassword.db">
+ <summary>
+ Create a connected object for this form.
  </summary>
  <remarks></remarks>
 </member>
