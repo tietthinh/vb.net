@@ -315,7 +315,7 @@ Public Class DatabaseConnection
             Return 2
         End If
 
-        If (identity.Length <> 9 Or identity.Length <> 12) Then
+        If (identity.Length <> 9 And identity.Length <> 12) Then
             Return 3
         End If
 
