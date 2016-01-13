@@ -31,12 +31,13 @@ Partial Class frmLogin
         Me.lblClearID = New System.Windows.Forms.Label()
         Me.txtSubPW = New System.Windows.Forms.TextBox()
         Me.lblSeePW = New System.Windows.Forms.Label()
+        Me.lblForgotPassword = New System.Windows.Forms.LinkLabel()
         Me.SuspendLayout()
         '
         'btnLogin
         '
         Me.btnLogin.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnLogin.Location = New System.Drawing.Point(5, 143)
+        Me.btnLogin.Location = New System.Drawing.Point(5, 165)
         Me.btnLogin.Name = "btnLogin"
         Me.btnLogin.Size = New System.Drawing.Size(127, 35)
         Me.btnLogin.TabIndex = 0
@@ -47,7 +48,7 @@ Partial Class frmLogin
         '
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.btnCancel.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnCancel.Location = New System.Drawing.Point(134, 143)
+        Me.btnCancel.Location = New System.Drawing.Point(134, 165)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(127, 35)
         Me.btnCancel.TabIndex = 1
@@ -127,11 +128,24 @@ Partial Class frmLogin
         Me.lblSeePW.TabIndex = 11
         Me.lblSeePW.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
-        'frmDangNhap
+        'lblForgotPassword
+        '
+        Me.lblForgotPassword.AutoSize = True
+        Me.lblForgotPassword.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblForgotPassword.Location = New System.Drawing.Point(77, 138)
+        Me.lblForgotPassword.Name = "lblForgotPassword"
+        Me.lblForgotPassword.Size = New System.Drawing.Size(113, 20)
+        Me.lblForgotPassword.TabIndex = 12
+        Me.lblForgotPassword.TabStop = True
+        Me.lblForgotPassword.Text = "Quên mật khẩu?"
+        Me.lblForgotPassword.VisitedLinkColor = System.Drawing.Color.Blue
+        '
+        'frmLogin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(269, 184)
+        Me.ClientSize = New System.Drawing.Size(269, 202)
+        Me.Controls.Add(Me.lblForgotPassword)
         Me.Controls.Add(Me.lblSeePW)
         Me.Controls.Add(Me.txtSubPW)
         Me.Controls.Add(Me.lblClearID)
@@ -141,7 +155,7 @@ Partial Class frmLogin
         Me.Controls.Add(Me.lblTitle)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnLogin)
-        Me.Name = "frmDangNhap"
+        Me.Name = "frmLogin"
         Me.Text = "Đăng nhập"
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -156,5 +170,6 @@ Partial Class frmLogin
     Friend WithEvents lblClearID As System.Windows.Forms.Label
     Friend WithEvents txtSubPW As System.Windows.Forms.TextBox
     Friend WithEvents lblSeePW As System.Windows.Forms.Label
+    Friend WithEvents lblForgotPassword As System.Windows.Forms.LinkLabel
 
 End Class

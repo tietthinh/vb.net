@@ -55,6 +55,8 @@ Public Class frmLogin
         'Sets check null by true
         _IsPWNull = True
         _IsIDNull = True
+
+        Me.FormBorderStyle = Windows.Forms.FormBorderStyle.None
     End Sub
     '
     'txtID's Events
@@ -239,5 +241,15 @@ Public Class frmLogin
     Private Sub txtSubPW_Click(sender As Object, e As EventArgs) Handles txtSubPW.Click
         'Focus txtPW
         txtPW.Focus()
+    End Sub
+    '
+    'lblForgotPassword
+    '
+    'Click: Occur when lblForgotPassword is clicked
+    '
+    Private Sub lblForgotPassword_Click(sender As Object, e As EventArgs) Handles lblForgotPassword.Click
+        Dim frm As New frmForgotPassword()
+
+        frm.Show()
     End Sub
 End Class

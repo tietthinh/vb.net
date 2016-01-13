@@ -297,54 +297,28 @@ Public Class DatabaseConnection
     End Function
 
     ''' <summary>
-    ''' Check employee's information in form.
+    ''' Validate information.
     ''' </summary>
-    ''' <param name="username">Employee's Username.</param>
-    ''' <param name="password">Employee's Password</param>
-    ''' <param name="confirmPassword">Confirm password.</param>
-    ''' <param name="birthday">Employee's Birthday.</param>
-    ''' <returns>Error code.</returns>
+    ''' <param name="password">Password.</param>
+    ''' <param name="confirmPassword">Confirm Password.</param>
+    ''' <param name="identity">Personal Identity.</param>
+    ''' <returns>Error Code</returns>
     ''' <remarks>
-    ''' -1 is no error. 1 is Username already existed. 2 is Confirm Password doesn't match Password.
-    ''' 3 is birthday is greater than today.
+    ''' -1 is no error. 1 is unvalidate password and confirm password. 2 is password is invalid. 3 is identity is invalid.
     ''' </remarks>
-    Public Function CheckInfor(ByVal username As String, ByVal password As String, ByVal confirmPassword As String, _
-                               ByVal birthday As DateTime) As Integer
-        Dim accountList As New DataTable()
-
-        Try
-            Me.Open()
-            accountList = Query("Select TenDN, MatKhau From TaiKhoanNhanVien")
-        Catch ex As SqlException
-            accountList.Dispose()
-            accountList = Nothing
-            Throw ex
-        Finally
-            Me.Close()
-        End Try
-
-        For Each row As DataRow In accountList.Rows
-            If username = row("TenDN") Then
-                accountList.Dispose()
-                accountList = Nothing
-                Return 1
-            End If
-        Next
-
+    Public Function CheckInfor(ByVal password As String, ByVal confirmPassword As String, ByVal identity As String) As Integer
         If (confirmPassword <> password) Then
-            accountList.Dispose()
-            accountList = Nothing
+            Return 1
+        End If
+
+        If (password.Length < 3) Then
             Return 2
         End If
 
-        If (birthday > Now) Then
-            accountList.Dispose()
-            accountList = Nothing
+        If (identity.Length <> 9 Or identity.Length <> 12) Then
             Return 3
         End If
 
-        accountList.Dispose()
-        accountList = Nothing
         Return -1
     End Function
 
