@@ -8,11 +8,13 @@ Public Class frmWarehouseKeeper
     ''' Form for adding mail for Supplier.
     ''' </summary>
     ''' <remarks></remarks>
-    Dim frmEmail As New frmContact()
-    Dim frmDienThoai As New frmContact()
+    Dim frmEmail As frmContact
+    Dim frmDienThoai As frmContact
     Public _CurrentUser As User = Nothing
     Private Connection As New DatabaseConnection()
     Dim rowIndex As New Integer
+    Dim listEmail(-1) As String
+    Public Shared listPhone(-1) As String
 
     Private Sub btnPhieuNhan_Click(sender As Object, e As EventArgs) Handles btnPhieuNhan.Click
         Dim f = New FrmQLPhieuNhan()
@@ -193,15 +195,31 @@ Public Class frmWarehouseKeeper
     Private Sub btnCong1_Click(sender As Object, e As EventArgs) Handles btnCong1.Click
         'If txtTenNCC's Text is not null then show the frmEmail with Supplier's name in that form.
         If txtTenNCC.Text <> "" Then
+            frmEmail = New frmContact()
             frmEmail._SupplierName = txtTenNCC.Text
-            frmEmail.Show()
+            Dim result As DialogResult = frmEmail.ShowDialog()
+
+            If result = Windows.Forms.DialogResult.OK Then
+                listEmail = frmEmail._ListObject
+
+                Dim temp As DataTable = cboEmail.DataSource
+                AppendEmail(temp, listEmail)
+            End If
         End If
     End Sub
 
     Private Sub btnCong2_Click(sender As Object, e As EventArgs) Handles btnCong2.Click
         If txtTenNCC.Text <> "" Then
+            frmDienThoai = New frmContact()
             frmDienThoai._SupplierName = txtTenNCC.Text
-            frmDienThoai.Show()
+            Dim result As DialogResult = frmDienThoai.ShowDialog()
+
+            If result = Windows.Forms.DialogResult.OK Then
+                listPhone = frmDienThoai._ListObject
+
+                Dim temp As DataTable = cboDienThoai.DataSource
+                AppendPhone(temp, listPhone)
+            End If
         End If
     End Sub
 

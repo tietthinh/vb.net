@@ -15,6 +15,12 @@ Public Class frmContact
     ''' <remarks></remarks>
     Dim textBoxCount As Integer
 
+    ''' <summary>
+    ''' List of objects that return for other form. 
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public _ListObject(-1) As String
+
     'Properties:
     '
     ''' <summary>
@@ -39,7 +45,7 @@ Public Class frmContact
                     AddTextBox()
                 End If
             Next
-            Return True
+            Return MyBase.ProcessCmdKey(msg, keyData)
         Else
             Return MyBase.ProcessCmdKey(msg, keyData)
         End If
@@ -81,7 +87,7 @@ Public Class frmContact
         x = Me.pnlContainer.Controls(textBoxCount - 1).Location.X
         y = Me.pnlContainer.Controls(textBoxCount - 1).Location.Y + _
             Me.pnlContainer.Controls(textBoxCount - 1).Height + 2
-        text = Me.CreateTextbox("txtMail_" + (textBoxCount - 1).ToString(), x, y, "")
+        text = Me.CreateTextbox("txtObject_" + (textBoxCount - 1).ToString(), x, y, "")
         textBoxCount += 1
     End Sub
 
@@ -145,8 +151,19 @@ Public Class frmContact
     'btnDone's Events:
     '
     'Click: Occur when btnDone is Clicked
-
+    '
     Private Sub btnDone_Click(sender As Object, e As EventArgs) Handles btnDone.Click
+        For Each Control As Control In Me.pnlContainer.Controls
+            If (Control.Name.Contains("txtObject_")) Then
+                Dim i As Integer = _ListObject.Length
 
+                Array.Resize(_ListObject, _ListObject.Length + 1)
+
+                _ListObject(i) = Control.Text
+            End If
+        Next
+
+        Me.DialogResult = Windows.Forms.DialogResult.OK
+        Me.Close()
     End Sub
 End Class
