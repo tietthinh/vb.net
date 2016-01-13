@@ -6,6 +6,15 @@
 
 Imports Library
 Imports System.Data.SqlClient
+Imports ServerHost
+Imports System
+Imports System.Threading
+Imports Remote
+Imports System.Runtime.Remoting.Channels.Http
+Imports System.Runtime.Remoting.Channels.ChannelServices
+Imports System.Configuration
+Imports System.Runtime.Remoting
+Imports Remote.Service_Process
 
 Public Class frmChef
     'Fields:
@@ -25,7 +34,7 @@ Public Class frmChef
     ''' DataTable contains data from Order Table in database.
     ''' </summary>
     ''' <remarks></remarks>
-    Dim orderList As DataTable
+    Dim orderList As New DataTable()
 
     ''' <summary>
     ''' DataTable contains data for DataGridView CookList.
@@ -101,22 +110,78 @@ Public Class frmChef
     ''' <remarks></remarks>
     Dim dishOrderList As New List(Of DishDetail)
 
+    Dim TransIDList As New List(Of String)
+
+    Private _Thread As Thread
+
+    Private _Timer As Threading.Timer
+
+    Delegate Sub BindOrderedDataGridViewCallBack(dgvOrderList As DataGridView, orderList As DataTable)
+
+
+    Private Sub BindOrderedDataGridView(dgvOrderList As DataGridView, orderList As DataTable)
+        If Me.dgvOrderList.InvokeRequired Then
+            Dim d As New BindOrderedDataGridViewCallBack(AddressOf BindOrderedDataGridView)
+            Me.Invoke(d, New Object() {Me.dgvOrderList, orderList})
+        Else
+            BindIntoOrderedDataGridView(Me.dgvOrderList, orderList)
+        End If
+    End Sub
+
+    Public Sub CallBack(state As Object)
+        _Timer.Change(Timeout.Infinite, 0)
+        Thread.Sleep(2000)
+
+        If (TransIDList.Count >= 1) Then
+            Dim temp As DataTable
+
+            Try
+                temp = LoadOrder(TransIDList)
+            Catch ex As SqlException
+                Throw ex
+            End Try
+
+            AppendDataTable(orderList, temp)
+
+            BindOrderedDataGridView(Me.dgvOrderList, orderList)
+
+            TransIDList.Clear()
+        End If
+
+        _Timer.Change(5000, 1)
+    End Sub
+
+    Private Sub ChefListener(ByVal Inteval As Integer, ByVal SleepTime As Integer)
+        Dim _Delegate As New System.Threading.TimerCallback(AddressOf CallBack)
+        _Timer = New System.Threading.Timer(_Delegate, Nothing, 5000, 1)
+        While (True)
+            If (Me.IsDisposed = False) Then
+                Thread.Sleep(0)
+                Try
+                    Me.Invoke(New MethodInvoker(Sub()
+                                                    Dim _ReceiveData As String = GetData()
+                                                    If (_ReceiveData <> "" And _ReceiveData.Length > 2) Then
+                                                        CheckWaitorToChefBartender(_ReceiveData, TransIDList)
+                                                        CheckWaitorToChefBartenderConfirm(_ReceiveData)
+                                                        CheckWarehouseToChefBartenderConfirm(_ReceiveData)
+                                                    End If
+                                                End Sub
+                                ))
+                Catch e As Exception
+                    Exit While
+                End Try
+            Else
+                Exit While
+            End If
+        End While
+    End Sub
+
     'Events:
     '
     'Form's Events
     '
     'Load: Occur when the form first load.
     Private Sub frmChef_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim parameter() As SqlClient.SqlParameter = db.CreateParameter(New String() {"@MaChuyen"}, New Object() {"01-0001"})
-
-        Try
-            orderList = db.Query("spDSDatMonTrongNgaySelect", parameter)
-        Catch ex As SqlException
-            Throw ex
-        End Try
-
-        BindIntoOrderedDataGridView(dgvOrderList, orderList)
-
         'Creates columns for cookList
         cookList.Columns.Add(New DataColumn("MaMon"))
         cookList.Columns.Add(New DataColumn("TenMon"))
@@ -138,15 +203,31 @@ Public Class frmChef
         doneDishList.Columns.Add(New DataColumn("MaMon"))
         doneDishList.Columns.Add(New DataColumn("SoLuong"))
 
+        'Creates columns for orderList
+        orderList.Columns.Add(New DataColumn("MaChuyen"))
+        orderList.Columns.Add(New DataColumn("MaMon"))
+        orderList.Columns.Add(New DataColumn("TenMon"))
+        orderList.Columns.Add(New DataColumn("ThoiGian"))
+        orderList.Columns.Add(New DataColumn("SoLuong"))
+        orderList.Columns.Add(New DataColumn("GhiChu"))
+
         AddHandler lblMaterialQuantity.TextChanged, AddressOf lblMaterialQuantity_TextChanged
+
+        Try
+            StartService(New ThreadStart(Sub() ChefListener(30000, 2000)))
+        Catch ex As Exception
+            MessageBox.Show(ex.ToString())
+        End Try
     End Sub
     '
     'FormClosing: Occur while the form is closing.
     Private Sub frmChef_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        If MessageBox.Show("Bạn có muốn đóng chương trình không?", "", MessageBoxButtons.OKCancel) = Windows.Forms.DialogResult.Cancel Then
+        If MessageBox.Show("Bạn có muốn đóng chương trình không?", "", MessageBoxButtons.OKCancel) = System.Windows.Forms.DialogResult.Cancel Then
             e.Cancel = True
             Exit Sub
         End If
+
+        Me.IsAccessible = False
 
         GetCancelledDish(cancelledDishList, cantServeList)
         db.Update("spDanhSachMonAnKhongHoanThanhInsert", db.CreateParameter(New String() {"@DS"}, New Object() {cancelledDishList}))
@@ -330,6 +411,16 @@ Public Class frmChef
                 'Adds new order into dish detail
                 _DishDetail.Add(row.Cells("OrderTransID").Value, row.Cells("OrderQuantity").Value)
 
+                Dim parameterName() As String = New String() {"@MaChuyen", "@TinhTrang"}
+                Dim parameterValue() As Object = New Object() {row.Cells("OrderTransID").Value, 2}
+                Dim parameter() As SqlClient.SqlParameter = db.CreateParameter(parameterName, parameterValue)
+
+                Try
+                    db.Update("spDSDatMonTrongNgayUpdateTinhTrang", parameter)
+                Catch ex As SqlException
+                    MessageBox.Show(ex.ToString())
+                End Try
+
                 'Adds dRow into cookList
                 cookList.Rows.Add(dRow)
 
@@ -410,11 +501,11 @@ Public Class frmChef
             Dim result As DialogResult
 
             'Creates new form Confirm
-            frmConfirm = New frmConfirm(dgv.Rows(e.RowIndex).Cells("CookListQuantity").Value)
+            frmConfirm = New frmConfirm(dgv.Rows(e.RowIndex).Cells("CookListQuantity").Value, dgv.Rows(e.RowIndex).Cells("CookListDishName").Value)
 
             result = frmConfirm.ShowDialog()
 
-            If result = Windows.Forms.DialogResult.OK Then
+            If result = System.Windows.Forms.DialogResult.OK Then
                 'Gets the dish detail by id in dishOrderList
                 Dim dishDetail As DishDetail = GetFirstDetailByID(dishOrderList, dgv.Rows(e.RowIndex).Cells("CookListDishID").Value)
                 'Gets the dishes are done

@@ -1,15 +1,19 @@
 ﻿Imports Library
+Imports System.Windows
 
 Public Class frmConfirm
 
     Dim _MaxValue As Integer
 
+    Dim _DishName As String
+
     Dim frmNumpad As frmNumPad
 
-    Public Sub New(ByVal maxValue As Integer)
+    Public Sub New(ByVal maxValue As Integer, ByVal dishName As String)
         Me.InitializeComponent()
 
         _MaxValue = maxValue
+        _DishName = dishName
     End Sub
 
     'Events:
@@ -23,12 +27,17 @@ Public Class frmConfirm
 
         nudQuantity.Maximum = Decimal.Parse(_MaxValue)
         nudQuantity.Minimum = 0
+
+        lblDishName.Text = _DishName
+        lblDishName.Location = New Point((Me.Width - lblDishName.Width) / 2, lblDishName.Height)
     End Sub
     '
     'FormClosing: Occur when the form is closing.
     Private Sub frmConfirm_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        frmNumpad.Close()
-        frmNumpad.Dispose()
+        If frmNumpad IsNot Nothing Then
+            frmNumpad.Close()
+            frmNumpad.Dispose()
+        End If
         frmNumpad = Nothing
     End Sub
     '
@@ -58,7 +67,7 @@ Public Class frmConfirm
     '
     'Click: Occur when clicks the button Cancel.
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
-        Me.DialogResult = Windows.Forms.DialogResult.Cancel
+        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
     End Sub
     '
     'btnOK's Events
@@ -67,7 +76,7 @@ Public Class frmConfirm
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         frmChef.doneQuantity = Integer.Parse(nudQuantity.Value)
 
-        Me.DialogResult = Windows.Forms.DialogResult.OK
+        Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()
     End Sub
 End Class

@@ -11,7 +11,8 @@
     <AssemblyName>Bartender</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -47,9 +48,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -70,11 +75,18 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.vb">
+    <Compile Include="Bartender_Process.vb" />
+    <Compile Include="frmBartender.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.vb">
-      <DependentUpon>Form1.vb</DependentUpon>
+    <Compile Include="frmBartender.Designer.vb">
+      <DependentUpon>frmBartender.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmConfirm.designer.vb">
+      <DependentUpon>frmConfirm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmConfirm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -94,8 +106,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.vb</DependentUpon>
+    <EmbeddedResource Include="frmBartender.resx">
+      <DependentUpon>frmBartender.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmConfirm.resx">
+      <DependentUpon>frmConfirm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -122,6 +137,14 @@
     <ProjectReference Include="..\Library\Library.vbproj">
       <Project>{6f746987-bdda-4a52-a372-274a744ca6a0}</Project>
       <Name>Library</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServerHost\ServerHost.vbproj">
+      <Project>{1e545a42-3e1f-4c86-8d0e-0dd143dc76c6}</Project>
+      <Name>ServerHost</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServiceLibrary\ServiceLibrary.vbproj">
+      <Project>{2b766e17-20a0-4474-8838-e6a715441174}</Project>
+      <Name>ServiceLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

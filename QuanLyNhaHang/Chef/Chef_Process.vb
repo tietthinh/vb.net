@@ -6,6 +6,8 @@
 
 Imports Library
 Imports System.Data.SqlClient
+Imports ServerHost
+Imports Remote
 
 Module Chef_Process
     ''' <summary>
@@ -223,7 +225,7 @@ Module Chef_Process
     ''' <returns>A table containts list of material matching the Identities.</returns>
     ''' <remarks></remarks>
     Public Function LoadOrder(ByVal _TransIDList As List(Of String)) As DataTable
-        Dim parameter() As SqlClient.SqlParameter = db.CreateParameter(New String() {"@MaChuyen"}, _TransIDList.ToArray())
+        Dim parameter() As SqlClient.SqlParameter = db.CreateParameter(New String() {"@MaChuyen"}, New Object() {_TransIDList(0)})
         Dim orderList As DataTable
 
         Try
@@ -482,6 +484,34 @@ Module Chef_Process
 
                 cantServeDataTable.Rows.RemoveAt(i)
             End If
+        Next
+    End Sub
+
+    Public Sub CheckWaitorToChefBartender(ByVal Data As String, ByRef listTransID As List(Of String))
+        Dim _DataArray As List(Of String) = DataFilter(Data, 2)
+        For i As Integer = 0 To _DataArray.Count - 1 Step 1
+            listTransID.Add(_DataArray(i))
+        Next
+    End Sub
+
+    Public Sub CheckWaitorToChefBartenderConfirm(ByVal Data As String)
+        Dim _DataArray As List(Of String) = DataFilter(Data, 3)
+        For i As Integer = 0 To _DataArray.Count - 1 Step 1
+            MessageBox.Show(_DataArray(i))
+        Next
+    End Sub
+
+    Public Sub CheckChefBartenderToWarehouseSignal(ByVal Data As String)
+        Dim _DataArray As List(Of String) = DataFilter(Data, 6)
+        For i As Integer = 0 To _DataArray.Count - 1 Step 1
+            MessageBox.Show(_DataArray(i))
+        Next
+    End Sub
+
+    Public Sub CheckWarehouseToChefBartenderConfirm(ByVal Data As String)
+        Dim _DataArray As List(Of String) = DataFilter(Data, 7)
+        For i As Integer = 0 To _DataArray.Count - 1 Step 1
+            MessageBox.Show(_DataArray(i))
         Next
     End Sub
 End Module

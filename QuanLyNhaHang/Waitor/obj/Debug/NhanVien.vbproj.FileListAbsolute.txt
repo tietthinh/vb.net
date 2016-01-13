@@ -1,0 +1,13 @@
+C:\Users\Admin\documents\visual studio 2015\Projects\NhanVien\NhanVien\bin\Debug\NhanVien.exe.config
+C:\Users\Admin\documents\visual studio 2015\Projects\NhanVien\NhanVien\bin\Debug\NhanVien.exe
+C:\Users\Admin\documents\visual studio 2015\Projects\NhanVien\NhanVien\bin\Debug\NhanVien.pdb
+C:\Users\Admin\documents\visual studio 2015\Projects\NhanVien\NhanVien\bin\Debug\NhanVien.xml
+C:\Users\Admin\documents\visual studio 2015\Projects\NhanVien\NhanVien\obj\Debug\NhanVien.vbprojResolveAssemblyReference.cache
+C:\Users\Admin\documents\visual studio 2015\Projects\NhanVien\NhanVien\obj\Debug\NhanVien.Background.resources
+C:\Users\Admin\documents\visual studio 2015\Projects\NhanVien\NhanVien\obj\Debug\NhanVien.Form1.resources
+C:\Users\Admin\documents\visual studio 2015\Projects\NhanVien\NhanVien\obj\Debug\NhanVien.Resources.resources
+C:\Users\Admin\documents\visual studio 2015\Projects\NhanVien\NhanVien\obj\Debug\NhanVien.vbproj.GenerateResource.Cache
+C:\Users\Admin\documents\visual studio 2015\Projects\NhanVien\NhanVien\obj\Debug\NhanVien.exe
+C:\Users\Admin\documents\visual studio 2015\Projects\NhanVien\NhanVien\obj\Debug\NhanVien.xml
+C:\Users\Admin\documents\visual studio 2015\Projects\NhanVien\NhanVien\obj\Debug\NhanVien.pdb
+C:\Users\Admin\documents\visual studio 2015\Projects\NhanVien\NhanVien\obj\Debug\NhanVien.Add.resources
