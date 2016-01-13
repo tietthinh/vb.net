@@ -160,7 +160,7 @@ Public Class frmWarehouseKeeper
     End Sub
 
     Private Sub frmWarehouseKeeper_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim _Login As New frmLogin(EmployeeType.Waitor)
+        Dim _Login As New frmLogin(EmployeeType.WarehouseKeeper)
         _Login.ShowDialog()
         _CurrentUser = DatabaseConnection._User
         If (_Login.DialogResult = 1) Then
