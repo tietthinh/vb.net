@@ -5,77 +5,11 @@ Public Module Waitor_Process
     Public _Connection As New DatabaseConnection
     Private _ParameterInput() As SqlParameter
     Private _ParameterOutput() As SqlParameter
-
-    Public Sub SaveTable(_PreviousTable As PictureBox, _Index As Integer, _ListTable As List(Of Table))
-        ''Save
-        'If existed
-        If (Waitor.dgvList.Rows.Count > 0 And CheckExistedTable(_PreviousTable, _Index, _ListTable) = True) Then
-            Dim _Order As New Order
-            Dim _ContinuesPosition As Integer = _ListTable(_Index).GetLength
-            For i As Integer = _ContinuesPosition To Waitor.dgvList.Rows.Count - 1 Step 1
-                _Order = New Order
-                _Order.STT = Waitor.dgvList.Rows(i).Cells(0).Value.ToString
-                _Order.TenMon = Waitor.dgvList.Rows(i).Cells(1).Value.ToString
-                _Order.SoLuong = Waitor.dgvList.Rows(i).Cells(2).Value.ToString
-                _Order.GhiChu = Waitor.dgvList.Rows(i).Cells(3).Value.ToString
-                _Order.TinhTrang = Waitor.dgvList.Rows(i).Cells(4).Value.ToString
-                _Order.MaChuyen = Waitor.dgvList.Rows(i).Cells(5).Value.ToString
-                _Order.MaMon = Waitor.dgvList.Rows(i).Cells(6).Value.ToString
-                _ListTable(_Index).Add(_Order)
-            Next
-            Waitor.dgvList.Rows.Clear()
-        End If
-        'If not existed
-        If (Waitor.dgvList.Rows.Count > 0 And CheckExistedTable(_PreviousTable, _Index, _ListTable) = False) Then
-            Dim _Table As New Table
-            _Table.TableNumber = Integer.Parse(_PreviousTable.Name.Last.ToString())
-            Dim _Order As New Order
-            For i As Integer = 0 To Waitor.dgvList.Rows.Count - 1 Step 1
-                _Order = New Order
-                _Order.STT = Waitor.dgvList.Rows(i).Cells(0).Value.ToString
-                _Order.TenMon = Waitor.dgvList.Rows(i).Cells(1).Value.ToString
-                _Order.SoLuong = Waitor.dgvList.Rows(i).Cells(2).Value.ToString
-                _Order.GhiChu = Waitor.dgvList.Rows(i).Cells(3).Value.ToString
-                _Order.TinhTrang = Waitor.dgvList.Rows(i).Cells(4).Value.ToString
-                _Order.MaChuyen = Waitor.dgvList.Rows(i).Cells(5).Value.ToString
-                _Order.MaMon = Waitor.dgvList.Rows(i).Cells(6).Value.ToString
-                _Table.Add(_Order)
-            Next
-            _ListTable.Add(_Table)
-            Waitor.dgvList.Rows.Clear()
-        End If
-    End Sub
-
-
-    Public Function CountOrder(ByVal _Type As String) As Integer
-        Dim _Query As String = "spDemMonDaDat"
-        _ParameterInput = {New SqlParameter("@Ma", _Type)}
-        _ParameterOutput = {New SqlParameter("@MaMoi", SqlDbType.Int)}
-        _Connection.Query(_Query, _ParameterOutput, _ParameterInput)
-        Dim Result As Integer = _ParameterOutput(0).SqlValue
-        Return Result
-    End Function
-    Public Sub LoadTable(_SelectedTable As PictureBox, _Index As Integer, _ListTable As List(Of Table))
-        ''Load
-        If (CheckExistedTable(_SelectedTable, _Index, _ListTable) = True) Then
-            Waitor.dgvList.Rows.Clear()
-            For i As Integer = 0 To _ListTable(_Index).GetLength - 1 Step 1
-                Waitor.dgvList.Rows.Add(_ListTable(_Index).GetOrder(i).STT,
-                                 _ListTable(_Index).GetOrder(i).TenMon,
-                                  _ListTable(_Index).GetOrder(i).SoLuong,
-                                  _ListTable(_Index).GetOrder(i).GhiChu,
-                                  _ListTable(_Index).GetOrder(i).TinhTrang,
-                                  _ListTable(_Index).GetOrder(i).MaChuyen,
-                                  _ListTable(_Index).GetOrder(i).MaMon)
-            Next
-        End If
-    End Sub
     ''' <summary>
     ''' Cập nhật tình trạng bàn.
     ''' </summary>
     ''' <param name="_TinhTrang">1:Bàn đã đặt. 0:Bàn đang trống</param>
     ''' <param name="SelectedTable">Bàn.</param>
-    ''' 
     Public Sub UpdateTableStatus(ByVal _TinhTrang As Integer, ByVal SelectedTable As PictureBox)
         Dim _Query1 As String = "usp_CapNhapTinhTrangBan"
         _ParameterInput = {New SqlParameter("@SoBan", Integer.Parse(SelectedTable.Name.Last)), New SqlParameter("@TinhTrang", _TinhTrang)}

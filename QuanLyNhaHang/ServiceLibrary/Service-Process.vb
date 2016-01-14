@@ -115,6 +115,16 @@ Public Module Service_Process
     '    End While
     'End Sub
     Public Sub Logging()
+        Try
+            ''Initiate connection
+            Dim _Channel As New HttpChannel()
+            RegisterChannel(_Channel, True)
+            InitializeRemoteServer()
+            _ServerObject = New ServerObject()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+            MessageBox.Show("Kết nối thất bại!", "Lỗi")
+        End Try
         'For Manager logging all service. Only add To Manager
         Dim file As IO.StreamWriter
         Dim _LogData As String = ""
