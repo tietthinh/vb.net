@@ -44,10 +44,15 @@ Public Class frmWarehouseKeeper
         End If
 
         If errMain.GetError(txtTenSanPham) = "" And errMain.GetError(txtSoLuong) = "" And errMain.GetError(cboDonVi) = "" Then
+            Dim _returnVL As SqlParameter = New SqlParameter
             Dim _Query As String = "spSanPhamInsert"
             Dim _Name() As String = {("@TenSP"), ("@SoLuongTon"), ("@DonViTinh")}
             Dim _Value() As Object = {txtTenSanPham.Text, txtSoLuong.Text, cboDonVi.SelectedValue}
-            Connection.Update(_Query, Connection.CreateParameter(_Name, _Value))
+            Connection.Update(_Query, _returnVL, Connection.CreateParameter(_Name, _Value))
+            Dim kq As Integer = _returnVL.Value
+            If kq = 1 Then
+                MessageBox.Show("Sản phẩm đã tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
 
             loadDSSanPham()
         End If
