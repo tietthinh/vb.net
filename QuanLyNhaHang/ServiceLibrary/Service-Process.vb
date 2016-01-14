@@ -159,10 +159,6 @@ Public Module Service_Process
         Dim _DataArray As List(Of String) = DataFilter(Data, 3)
         ''TODO your code from here
     End Sub
-    Private Sub CheckChefBartenderToWarehouseSignal(ByVal Data As String)
-        Dim _DataArray As List(Of String) = DataFilter(Data, 6)
-        ''TODO your code here
-    End Sub
     Private Sub CheckWarehouseToChefBartenderConfirm(ByVal Data As String)
         Dim _DataArray As List(Of String) = DataFilter(Data, 7)
         ''TODO your code from here

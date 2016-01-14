@@ -139,6 +139,7 @@ Public Class FrmQLPhieuNhap
     End Sub
 
     Private Sub FrmQLPhieuNhap_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        cboSL.Items.Add("4")
         cboSL.Items.Add("10")
         cboSL.Items.Add("30")
         cboSL.Items.Add("50")

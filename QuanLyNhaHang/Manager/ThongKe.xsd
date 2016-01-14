@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ThongKe" targetNamespace="http://tempuri.org/ThongKe.xsd" xmlns:mstns="http://tempuri.org/ThongKe.xsd" xmlns="http://tempuri.org/ThongKe.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="ThongKe" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="ThongKe" msprop:Generator_UserDSName="ThongKe">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ThongKeMonAnHoanThanh" msprop:Generator_TableClassName="ThongKeMonAnHoanThanhDataTable" msprop:Generator_TableVarName="tableThongKeMonAnHoanThanh" msprop:Generator_TablePropName="ThongKeMonAnHoanThanh" msprop:Generator_RowDeletingName="ThongKeMonAnHoanThanhRowDeleting" msprop:Generator_RowChangingName="ThongKeMonAnHoanThanhRowChanging" msprop:Generator_RowEvHandlerName="ThongKeMonAnHoanThanhRowChangeEventHandler" msprop:Generator_RowDeletedName="ThongKeMonAnHoanThanhRowDeleted" msprop:Generator_UserTableName="ThongKeMonAnHoanThanh" msprop:Generator_RowChangedName="ThongKeMonAnHoanThanhRowChanged" msprop:Generator_RowEvArgName="ThongKeMonAnHoanThanhRowChangeEvent" msprop:Generator_RowClassName="ThongKeMonAnHoanThanhRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="MaMon" msprop:Generator_ColumnVarNameInTable="columnMaMon" msprop:Generator_ColumnPropNameInRow="MaMon" msprop:Generator_ColumnPropNameInTable="MaMonColumn" msprop:Generator_UserColumnName="MaMon" type="xs:string" />
+              <xs:element name="TenMon" msprop:Generator_ColumnVarNameInTable="columnTenMon" msprop:Generator_ColumnPropNameInRow="TenMon" msprop:Generator_ColumnPropNameInTable="TenMonColumn" msprop:Generator_UserColumnName="TenMon" type="xs:string" minOccurs="0" />
+              <xs:element name="TongSoLuong" msprop:Generator_ColumnVarNameInTable="columnTongSoLuong" msprop:Generator_ColumnPropNameInRow="TongSoLuong" msprop:Generator_ColumnPropNameInTable="TongSoLuongColumn" msprop:Generator_UserColumnName="TongSoLuong" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="PK_MaMon" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ThongKeMonAnHoanThanh" />
+      <xs:field xpath="mstns:MaMon" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

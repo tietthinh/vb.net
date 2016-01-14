@@ -22,7 +22,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
         <Top>0.22917in</Top>
-        <Left>1.30083in</Left>
+        <Left>1.17583in</Left>
         <Height>0.59375in</Height>
         <Width>4.02083in</Width>
         <Style>
@@ -35,17 +35,17 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
-      <Tablix Name="Tablix7">
+      <Tablix Name="Tablix2">
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>1.79167in</Width>
+              <Width>1.71528in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.79167in</Width>
+              <Width>1.71528in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.79167in</Width>
+              <Width>1.71528in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -54,21 +54,23 @@
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox36">
+                    <Textbox Name="Textbox8">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Ma Mon</Value>
+                              <Value>Mã món</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox36</rd:DefaultName>
+                      <rd:DefaultName>Textbox8</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -84,21 +86,23 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox38">
+                    <Textbox Name="Textbox10">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Ten Mon</Value>
+                              <Value>Tên món</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox38</rd:DefaultName>
+                      <rd:DefaultName>Textbox10</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -114,21 +118,23 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox40">
+                    <Textbox Name="Textbox12">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Tong So Luong</Value>
+                              <Value>Tổng số lượng</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox40</rd:DefaultName>
+                      <rd:DefaultName>Textbox12</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -160,7 +166,9 @@
                               <Style />
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>MaMon</rd:DefaultName>
@@ -190,7 +198,9 @@
                               <Style />
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>TenMon</rd:DefaultName>
@@ -220,7 +230,9 @@
                               <Style />
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>TongSoLuong</rd:DefaultName>
@@ -258,11 +270,11 @@
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
-        <DataSetName>MonHT</DataSetName>
-        <Top>1.10292in</Top>
-        <Left>0.47792in</Left>
+        <DataSetName>ThongKeMonAnHoanThanh</DataSetName>
+        <Top>1.13417in</Top>
+        <Left>0.62375in</Left>
         <Height>0.5in</Height>
-        <Width>5.37501in</Width>
+        <Width>5.14583in</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -298,11 +310,18 @@
       </ConnectionProperties>
       <rd:DataSourceID>8041417d-7899-4eb1-a519-136901841458</rd:DataSourceID>
     </DataSource>
+    <DataSource Name="ThongKe">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>f1681edf-aa28-491e-848b-0b1ca5a61529</rd:DataSourceID>
+    </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="MonHT">
+    <DataSet Name="ThongKeMonAnHoanThanh">
       <Query>
-        <DataSourceName>ThongKeMonHoanThanh</DataSourceName>
+        <DataSourceName>ThongKe</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
@@ -316,13 +335,13 @@
         </Field>
         <Field Name="TongSoLuong">
           <DataField>TongSoLuong</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>
-        <rd:DataSetName>ThongKeMonHoanThanh</rd:DataSetName>
-        <rd:SchemaPath>E:\Code C - C++\Năm 3\LTUD\DA\vb.net\QuanLyNhaHang\Manager\ThongKeMonHoanThanh.xsd</rd:SchemaPath>
-        <rd:TableName>DataTable1</rd:TableName>
+        <rd:DataSetName>ThongKe</rd:DataSetName>
+        <rd:SchemaPath>E:\Study\Subject\Project\Management Application Programming 1\vb.net\QuanLyNhaHang\Manager\ThongKe.xsd</rd:SchemaPath>
+        <rd:TableName>ThongKeMonAnHoanThanh</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
         <rd:TableAdapterName />

@@ -7,50 +7,43 @@ Remote
 </assembly>
 <members>
 <member name="M:Remote.Service_Process.InitializeRemoteServer">
- <summary>
+	<summary>
  Kết nối đến tên miền. Thiêt lập tên miền trong App.config.
  </summary>
-</member>
-<member name="M:Remote.Service_Process.StartService(System.Threading.ThreadStart)">
- <summary>
+</member><member name="M:Remote.Service_Process.StartService(System.Threading.ThreadStart)">
+	<summary>
  Kết nối Remote Service, bắt đầu lắng nghe dữ liệu
  </summary>
- <param name="_ThreadStart">Hàm lắng nghe cú pháp "(New ThreadStart(Sub() [Hàm_lắng_nghe]()))"</param>
-</member>
-<member name="M:Remote.Service_Process.GetData">
- <summary>
+	<param name="_ThreadStart">Hàm lắng nghe cú pháp "(New ThreadStart(Sub() [Hàm_lắng_nghe]()))"</param>
+</member><member name="M:Remote.Service_Process.GetData">
+	<summary>
  Lấy dữ liệu nhận được từ Remote Service.
  </summary>
- <returns></returns>
-</member>
-<member name="M:Remote.Service_Process.SendData(System.String)">
- <summary>
+	<returns></returns>
+</member><member name="M:Remote.Service_Process.SendData(System.String)">
+	<summary>
  Gửi dữ liệu lên Remote Service
  </summary>
- <param name="Data"></param>
-</member>
-<member name="M:Remote.Service_Process.DataFilter(System.String,System.String)">
- <summary>
+	<param name="Data"></param>
+</member><member name="M:Remote.Service_Process.DataFilter(System.String,System.String)">
+	<summary>
  Lọc dữ liệu cho từng loại 
  </summary>
- <param name="_ReceiveData">Dữ liệu cần xử lý.</param>
- <param name="_Code">Mã tách.</param>
- <returns></returns>
-</member>
-<member name="T:Remote.My.Resources.Resources">
-<summary>
-  A strongly-typed resource class, for looking up localized strings, etc.
-</summary>
-</member>
-<member name="P:Remote.My.Resources.Resources.ResourceManager">
-<summary>
+	<param name="_ReceiveData">Dữ liệu cần xử lý.</param>
+	<param name="_Code">Mã tách.</param>
+	<returns></returns>
+</member><member name="P:Remote.My.Resources.Resources.ResourceManager">
+	<summary>
   Returns the cached ResourceManager instance used by this class.
 </summary>
-</member>
-<member name="P:Remote.My.Resources.Resources.Culture">
-<summary>
+</member><member name="P:Remote.My.Resources.Resources.Culture">
+	<summary>
   Overrides the current thread's CurrentUICulture property for all
   resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:Remote.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
 </summary>
 </member>
 </members>

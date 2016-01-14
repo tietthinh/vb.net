@@ -1,5 +1,5 @@
 ﻿Imports Library
-
+Imports Remote
 Module WarehouseKeeper_Process
 
     ''' <summary>
@@ -57,6 +57,14 @@ Module WarehouseKeeper_Process
             row("SDT") = sourceList(i)
 
             destinationDataTable.Rows.Add(row)
+        Next
+    End Sub
+    Public Sub CheckChefBartenderToWarehouseSignal(ByVal Data As String)
+        Dim _DataArray As List(Of String) = DataFilter(Data, 6)
+        ''TODO your code here
+        For Each item As String In _DataArray
+            Dim lst As New ListViewItem
+            lst = frmWarehouseKeeper.lstGui.Items.Add(item)
         Next
     End Sub
 End Module

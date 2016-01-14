@@ -1,5 +1,7 @@
 ﻿Imports System.Data.SqlClient
+Imports System.Threading
 Imports Library
+Imports Remote
 
 Public Class frmWarehouseKeeper
 
@@ -170,6 +172,7 @@ Public Class frmWarehouseKeeper
         _Login.ShowDialog()
         _CurrentUser = DatabaseConnection._User
         If (_Login.DialogResult = 1) Then
+            StartService(New ThreadStart(Sub() Listener()))
             loadDSSanPham()
 
             txtTenSanPham.Text = dgvDSSanPham.SelectedRows(0).Cells("colTenSP").Value.ToString
@@ -518,8 +521,44 @@ Public Class frmWarehouseKeeper
             loadDSNCC()
         End If
     End Sub
-
+    Dim SelectedItem As String = Nothing
     Private Sub txtChietKhau_Click(sender As Object, e As EventArgs) Handles txtChietKhau.Click
         txtChietKhau.Text = ""
+    End Sub
+
+
+    Dim _MaMon As String = ""
+    Private Sub btnSend_Click(sender As Object, e As EventArgs)
+        lstGui.Items.RemoveAt(SelectedItem)
+        SendData("7+" + _MaMon + "*")
+    End Sub
+
+    Private Sub lstGui_Click(sender As Object, e As EventArgs)
+        Dim frmChiTiet As New frmChiTietMon
+        frmChiTiet.Show()
+        _MaMon = lstGui.SelectedItems(0).Text
+        SelectedItem = lstGui.SelectedItems(0).Index
+    End Sub
+    Private Sub Listener()
+        While (True)
+            Thread.Sleep(0)
+            If (Me.IsDisposed = False) Then
+                Try
+                    Me.Invoke(New MethodInvoker(Sub()
+                                                    Dim _ReceiveData As String = GetData()
+                                                    ''Handles event here.
+                                                    If (_ReceiveData <> "" And _ReceiveData.Length > 2) Then
+                                                        CheckChefBartenderToWarehouseSignal(_ReceiveData)
+                                                    End If
+                                                    ''
+                    End Sub
+            ))
+                Catch e As Exception
+                    Exit While
+                End Try
+            Else
+                Exit While
+            End If
+        End While
     End Sub
 End Class

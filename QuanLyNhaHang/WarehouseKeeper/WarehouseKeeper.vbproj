@@ -70,6 +70,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmChiTietMon.Designer.vb">
+      <DependentUpon>frmChiTietMon.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmChiTietMon.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmWarehouseKeeper.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +119,9 @@
     <Compile Include="WarehouseKeeper_Process.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="frmChiTietMon.resx">
+      <DependentUpon>frmChiTietMon.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmContact.resx">
       <DependentUpon>frmContact.vb</DependentUpon>
     </EmbeddedResource>
@@ -148,6 +157,10 @@
     <ProjectReference Include="..\Library\Library.vbproj">
       <Project>{6f746987-bdda-4a52-a372-274a744ca6a0}</Project>
       <Name>Library</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServiceLibrary\ServiceLibrary.vbproj">
+      <Project>{2b766e17-20a0-4474-8838-e6a715441174}</Project>
+      <Name>ServiceLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

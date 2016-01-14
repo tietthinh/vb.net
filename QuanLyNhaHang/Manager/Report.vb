@@ -10,22 +10,32 @@ Imports Microsoft.Reporting.WinForms
 Public Class rptThongKe
 
     Dim _Dt As DataTable
-    Dim _DataReportViwe As QuanLyNhaHang
     Public Sub New(ByVal _DataTable As DataTable)
         InitializeComponent()
         _Dt = _DataTable
     End Sub
 
     Private Sub Report_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim _DataAccess As New DatabaseConnection()
+        Dim dts As New DataSet("ThongKe")
+        Dim data As New DataTable("ThongKeMonAnHoanThanh", "ThongKe")
 
-        Dim _Data As DataTable = _Dt
-        Me.ReportViewer1.RefreshReport()
+        For i As Integer = 0 To _Dt.Columns.Count - 1 Step 1
+            data.Columns.Add(_Dt.Columns(i).ToString())
+        Next
+
+        For Each row As DataRow In _Dt.Rows
+            Dim dr As DataRow = data.NewRow()
+            For i As Integer = 0 To row.ItemArray.Length - 1 Step 1
+                dr(i) = row(i).ToString()
+            Next
+
+            data.Rows.Add(dr)
+        Next
 
         '_DataReportViwe.Tables("ThongKe").Rows.Clear()
-        Me.ReportViewer1.LocalReport.ReportEmbeddedResource = "QuanLyNhaHang.Report1.rdlc"
+        Me.ReportViewer1.LocalReport.ReportEmbeddedResource = "Manager.Report1.rdlc"
         Me.ReportViewer1.LocalReport.DataSources.Clear()
-        Dim _NewDt As New ReportDataSource("MonHT", _Data)
+        Dim _NewDt As New ReportDataSource("ThongKeMonAnHoanThanh", _Dt)
         Me.ReportViewer1.LocalReport.DataSources.Add(_NewDt)
         Me.ReportViewer1.RefreshReport()
     End Sub
