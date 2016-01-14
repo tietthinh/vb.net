@@ -11,41 +11,42 @@ Public Class FrmQLPhieuNhan
         End If
         If errPhieuNhan.GetError(txtTimPG) = "" Then
             Dim temp As Integer = 0
+            dgvDanhSachPG.ClearSelection()
             For i As Integer = 0 To dgvDanhSachPG.RowCount - 1
                 For j As Integer = 0 To dgvDanhSachPG.ColumnCount - 1
-                    If dgvDanhSachPG.Rows(i).Cells(j).Value.ToString.Contains(txtTimPG.Text) Then
-                        MsgBox("Item found")
+                    Dim a As Integer = 0
+                    If dgvDanhSachPG.Rows(i).Cells(j).Value.ToString.Trim.Contains(txtTimPG.Text) Then
                         temp = 1
-                        dgvDanhSachPG.CurrentCell = dgvDanhSachPG.Rows(i).Cells(j)
+                        dgvDanhSachPG.Rows(i).Selected() = True
+                        dgvDanhSachPG.Select()
                     End If
                 Next
             Next
             If temp = 0 Then
-                MsgBox("Item not found")
+                MsgBox("Không tìm thấy")
             End If
         End If
     End Sub
 
-    Private Sub btnThemCT_Click(sender As Object, e As EventArgs) Handles btnThemCT.Click
-        errPhieuNhan.Clear()
-        'If errPhieuNhan.GetError(cboTenSP) = "" And errPhieuNhan.GetError(txtSoLuong) = "" Then
-        Dim _Name() As String = New String() {"@MaPG", "@MaSP", "@SoLuong", "@MaPN"}
-        Dim _Value() As Object = New Object() {dgvDanhSachPG.SelectedRows(0).Cells("colMaPG").Value().ToString(), dgvChiTietPG.SelectedRows(0).Cells("colTenSP").Value().ToString(), dgvChiTietPG.SelectedRows(0).Cells("colSoLuong").Value().ToString(), dgvDanhSachPG.SelectedRows(0).Cells("colMaPN").Value.ToString()}
-        Connection.Update("spChiTietPhieuNhanInsert", Connection.CreateParameter(_Name, _Value))
-        'End If
-
-    End Sub
-
     Private Sub btnTimCT_Click(sender As Object, e As EventArgs) Handles btnTimCT.Click
         errPhieuNhan.Clear()
-        If cboTenSP.Text = "" And txtSoLuong.Text = "" Then
-            errPhieuNhan.SetError(cboTenSP, "Chọn tên sản phẩm!")
-            errPhieuNhan.SetError(txtSoLuong, "Nhập số lượng!")
+        If txtTimCT.Text = "" Then
+            errPhieuNhan.SetError(txtTimCT, "Nhập thông tin cần tìm!")
         End If
-        If txtSoLuong.Text = "" Then
-        Else
-            If IsNumeric(txtSoLuong.Text) = False Then
-                errPhieuNhan.SetError(txtSoLuong, "Chỉ được nhập số!")
+        If errPhieuNhan.GetError(txtTimCT) = "" Then
+            Dim temp As Integer = 0
+            dgvChiTietPG.ClearSelection()
+            For i As Integer = 0 To dgvChiTietPG.RowCount - 1
+                For j As Integer = 0 To dgvChiTietPG.ColumnCount - 1
+                    If dgvChiTietPG.Rows(i).Cells(j).Value.ToString.Trim.Contains(txtTimCT.Text) Then
+                        temp = 1
+                        dgvChiTietPG.Rows(i).Selected = True
+                        dgvChiTietPG.Select()
+                    End If
+                Next
+            Next
+            If temp = 0 Then
+                MsgBox("Không tìm thấy")
             End If
         End If
     End Sub
@@ -60,6 +61,7 @@ Public Class FrmQLPhieuNhan
         cboMaPN.DataSource = Connection.Query("Select MaPN From PhieuNhap Where TinhTrang = 0")
         cboMaPN.DisplayMember = "MaPN"
         cboMaPN.ValueMember = "MaPN"
+        cboMaPN.Text = ""
 
         cboTenSP.DataSource = Connection.Query("Select MaSP, TenSP From SanPham")
         cboTenSP.DisplayMember = "TenSP"
@@ -151,7 +153,7 @@ Public Class FrmQLPhieuNhan
             If kq = 1 Then
                 MessageBox.Show("Phiếu nhập đã hoàn thành không thể xóa chi tiết!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             End If
-            loadDSPhieuNhan()
+            loadCTPhieuNhan()
         End If
     End Sub
 
@@ -169,7 +171,7 @@ Public Class FrmQLPhieuNhan
             If kq = 1 Then
                 MessageBox.Show("Phiếu nhập đã hoàn thành không thể xóa chi tiết!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             End If
-            loadDSPhieuNhan()
+            loadCTPhieuNhan()
         End If
     End Sub
 
@@ -191,7 +193,35 @@ Public Class FrmQLPhieuNhan
         If errPhieuNhan.GetError(cboMaPN) = "" Then
             Dim _Name() As String = New String() {"@MaPN", "@MaNV", "@GhiChu"}
             Dim _Value() As Object = New Object() {cboMaPN.SelectedValue, tslMaNV.Text, txtGhiChu.Text}
-            Connection.Update("spPhieuNhanInsert", Connection.CreateParameter(_Name, _Value))
+            Dim _ParameterOutPut() As SqlParameter = Nothing
+            _ParameterOutPut = {New SqlParameter("@MaPG", SqlDbType.NChar, 10)}
+            Try
+                Connection.Query("spPhieuNhanInsert", _ParameterOutPut, Connection.CreateParameter(_Name, _Value))
+            Catch ex As Exception
+                MessageBox.Show("Tạo phiếu nhận thất bại", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return
+            End Try
+            Dim _MaPG As String = _ParameterOutPut(0).SqlValue.ToString
+            For Each _ChiTietPG As DataGridViewRow In dgvChiTietPG.Rows
+                Dim _NameParameter() As String = New String() {"@MaPG", "@MaSP", "@SoLuong", "@MaPN"}
+                Dim _ValueParameter() As Object = New Object() {_MaPG, _ChiTietPG.Cells("colMaSP").Value.ToString(), _ChiTietPG.Cells("colSoLuong").Value.ToString(), _ChiTietPG.Cells("colMaPN_CT").Value.ToString()}
+                Try
+                    Connection.Update("spChiTietPhieuNhanInsert", Connection.CreateParameter(_NameParameter, _ValueParameter))
+                Catch ex As Exception
+                    MessageBox.Show(ex.ToString)
+                    MessageBox.Show("Thêm chi tiết phiếu nhận thất bại", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Return
+                End Try
+            Next
+
+            Dim _ParameterPG() As String = New String() {"@MaPG"}
+            Dim _ValuePG() As Object = New Object() {_MaPG}
+            Try
+                Connection.Update("usp_TinhTongTienPhieuNhan", Connection.CreateParameter(_ParameterPG, _ValuePG))
+            Catch ex As Exception
+                MessageBox.Show("Tính tổng tiền thất bại", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return
+            End Try
             loadDSPhieuNhan()
         End If
     End Sub
