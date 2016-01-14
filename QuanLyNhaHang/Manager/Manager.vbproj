@@ -128,7 +128,13 @@
     <EmbeddedResource Include="Report.resx">
       <DependentUpon>Report.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Report1.rdlc" />
+    <EmbeddedResource Include="TK_DoanhThu.rdlc" />
+    <EmbeddedResource Include="TK_Khach_Mon.rdlc" />
+    <EmbeddedResource Include="TK_Khach_NhanVien.rdlc" />
+    <EmbeddedResource Include="TK_Khach_Ban.rdlc" />
+    <EmbeddedResource Include="TK_NL.rdlc" />
+    <EmbeddedResource Include="TK_MonKHT.rdlc" />
+    <EmbeddedResource Include="TK_MonHT.rdlc" />
   </ItemGroup>
   <ItemGroup>
     <None Include="My Project\Application.myapp">
