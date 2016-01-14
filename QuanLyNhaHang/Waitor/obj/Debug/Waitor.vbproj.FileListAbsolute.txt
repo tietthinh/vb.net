@@ -102,3 +102,7 @@ E:\QuanLyNhaHang\Waitor\bin\Debug\Library.pdb
 E:\QuanLyNhaHang\Waitor\bin\Debug\Library.xml
 E:\QuanLyNhaHang\Waitor\bin\Debug\Remote.pdb
 E:\QuanLyNhaHang\Waitor\bin\Debug\Remote.xml
+E:\sieu nhan\code\vb.net\QuanLyNhaHang\Waitor\bin\Debug\Waitor.exe.config
+E:\sieu nhan\code\vb.net\QuanLyNhaHang\Waitor\obj\Debug\Waitor.exe
+E:\sieu nhan\code\vb.net\QuanLyNhaHang\Waitor\obj\Debug\Waitor.xml
+E:\sieu nhan\code\vb.net\QuanLyNhaHang\Waitor\obj\Debug\Waitor.pdb
