@@ -517,6 +517,9 @@ Public Class frmChef
                     'Clones transfer's identity into listTransID
                     For i As Integer = 0 To transDetail.Length - 1 Step 1
                         listTransID(i) = transDetail(i).TransID
+
+                        'Send the dish to Waitor
+                        SendData("4+" & transDetail(i).TransID.ToString().Trim() & "_3_" & transDetail(i).Quantity.ToString().Trim())
                     Next
 
                     'Update records in database
