@@ -8,6 +8,7 @@ Public Class Waitor
     Private _Connection As New DatabaseConnection
     Private _IsSelected As Boolean = False
     Private _IsPaid As Boolean = False
+    Private _PictureBoxEffect As PictureBox
     Private _SelectedTable As Integer = 0
     Private _PreviousTable As Integer = 0
     Private _Thread As Thread

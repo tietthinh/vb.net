@@ -173,7 +173,7 @@ Public Module Waitor_Process
     ''' </summary>
     ''' <param name="Data">Mảng dữ liệu</param>
     Public Sub CheckChefBartenderToWaitorConfirm(ByVal Data As String)
-        Dim _Array As List(Of String) = DataFilter(Data, 4)
+        Dim _Array As List(Of String) = DataFilter(Data, 5)
         If (_Array IsNot Nothing) Then
             For Each _Item In _Array
                 For Each _Row As DataRow In Waitor.dgvList.Rows
