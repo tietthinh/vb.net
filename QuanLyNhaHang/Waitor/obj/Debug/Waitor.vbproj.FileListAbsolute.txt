@@ -102,7 +102,29 @@ E:\QuanLyNhaHang\Waitor\bin\Debug\Library.pdb
 E:\QuanLyNhaHang\Waitor\bin\Debug\Library.xml
 E:\QuanLyNhaHang\Waitor\bin\Debug\Remote.pdb
 E:\QuanLyNhaHang\Waitor\bin\Debug\Remote.xml
+<<<<<<< HEAD
 E:\sieu nhan\code\sourcetree\QuanLyNhaHang\Waitor\bin\Debug\Waitor.exe.config
 E:\sieu nhan\code\sourcetree\QuanLyNhaHang\Waitor\obj\Debug\Waitor.exe
 E:\sieu nhan\code\sourcetree\QuanLyNhaHang\Waitor\obj\Debug\Waitor.xml
 E:\sieu nhan\code\sourcetree\QuanLyNhaHang\Waitor\obj\Debug\Waitor.pdb
+=======
+E:\sieu nhan\code\vb.net\QuanLyNhaHang\Waitor\bin\Debug\Waitor.exe.config
+E:\sieu nhan\code\vb.net\QuanLyNhaHang\Waitor\obj\Debug\Waitor.exe
+E:\sieu nhan\code\vb.net\QuanLyNhaHang\Waitor\obj\Debug\Waitor.xml
+E:\sieu nhan\code\vb.net\QuanLyNhaHang\Waitor\obj\Debug\Waitor.pdb
+E:\sieu nhan\code\vb.net\QuanLyNhaHang\Waitor\bin\Debug\img\table1.png
+E:\sieu nhan\code\vb.net\QuanLyNhaHang\Waitor\bin\Debug\Waitor.exe
+E:\sieu nhan\code\vb.net\QuanLyNhaHang\Waitor\bin\Debug\Waitor.pdb
+E:\sieu nhan\code\vb.net\QuanLyNhaHang\Waitor\bin\Debug\Waitor.xml
+E:\sieu nhan\code\vb.net\QuanLyNhaHang\Waitor\bin\Debug\Library.dll
+E:\sieu nhan\code\vb.net\QuanLyNhaHang\Waitor\bin\Debug\Remote.dll
+E:\sieu nhan\code\vb.net\QuanLyNhaHang\Waitor\bin\Debug\Library.pdb
+E:\sieu nhan\code\vb.net\QuanLyNhaHang\Waitor\bin\Debug\Library.xml
+E:\sieu nhan\code\vb.net\QuanLyNhaHang\Waitor\bin\Debug\Remote.pdb
+E:\sieu nhan\code\vb.net\QuanLyNhaHang\Waitor\bin\Debug\Remote.xml
+E:\sieu nhan\code\vb.net\QuanLyNhaHang\Waitor\obj\Debug\Waitor.vbprojResolveAssemblyReference.cache
+E:\sieu nhan\code\vb.net\QuanLyNhaHang\Waitor\obj\Debug\Waitor.Add.resources
+E:\sieu nhan\code\vb.net\QuanLyNhaHang\Waitor\obj\Debug\Waitor.Waitor.resources
+E:\sieu nhan\code\vb.net\QuanLyNhaHang\Waitor\obj\Debug\Waitor.Resources.resources
+E:\sieu nhan\code\vb.net\QuanLyNhaHang\Waitor\obj\Debug\Waitor.vbproj.GenerateResource.Cache
+>>>>>>> 5e3f23de3d9ecf96cbe8563634c83be2502796e7
