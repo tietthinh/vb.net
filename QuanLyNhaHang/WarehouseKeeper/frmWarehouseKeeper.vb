@@ -528,17 +528,17 @@ Public Class frmWarehouseKeeper
 
 
     Dim _MaMon As String = ""
-    Private Sub btnSend_Click(sender As Object, e As EventArgs)
-        lstGui.Items.RemoveAt(SelectedItem)
-        SendData("7+" + _MaMon + "*")
-    End Sub
+    'Private Sub btnSend_Click(sender As Object, e As EventArgs)
+    '    lstGui.Items.RemoveAt(SelectedItem)
+    '    SendData("7+" + _MaMon + "*")
+    'End Sub
 
-    Private Sub lstGui_Click(sender As Object, e As EventArgs)
-        Dim frmChiTiet As New frmChiTietMon
-        frmChiTiet.Show()
-        _MaMon = lstGui.SelectedItems(0).Text
-        SelectedItem = lstGui.SelectedItems(0).Index
-    End Sub
+    'Private Sub lstGui_Click(sender As Object, e As EventArgs)
+    '    Dim frmChiTiet As New frmChiTietMon
+    '    frmChiTiet.Show()
+    '    _MaMon = lstGui.SelectedItems(0).Text
+    '    SelectedItem = lstGui.SelectedItems(0).Index
+    'End Sub
     Private Sub Listener()
         While (True)
             Thread.Sleep(0)

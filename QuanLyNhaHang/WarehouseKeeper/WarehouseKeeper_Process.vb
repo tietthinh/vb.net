@@ -64,7 +64,7 @@ Module WarehouseKeeper_Process
         ''TODO your code here
         For Each item As String In _DataArray
             Dim lst As New ListViewItem
-            lst = frmWarehouseKeeper.lstGui.Items.Add(item)
+            lst = frmChiTietMon.lstGui.Items.Add(item)
         Next
     End Sub
 End Module
