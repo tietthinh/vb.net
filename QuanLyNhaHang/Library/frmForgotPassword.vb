@@ -101,6 +101,8 @@ Public Class frmForgotPassword
         db.Update("usp_CapNhapTaiKhoan", db.CreateParameter(New String() {"@cmnd", "@TenDN", "@MatKhau"}, _
                                                             New Object() {txtCMND.Text, txtUsername.Text, GetMd5Hash(txtPassword.Text, txtCMND.Text)}))
         MessageBox.Show("Đổi mật khẩu thành công")
+
+        Me.Close()
     End Sub
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
