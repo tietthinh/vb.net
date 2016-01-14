@@ -139,6 +139,10 @@ Public Class FrmQLPhieuNhap
     End Sub
 
     Private Sub FrmQLPhieuNhap_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        cboSL.Items.Add("10")
+        cboSL.Items.Add("30")
+        cboSL.Items.Add("50")
+        cboSL.Items.Add("Khác")
 
         tslMaNV.Text = frmWarehouseKeeper._CurrentUser.Identity
         tslTenNV.Text = frmWarehouseKeeper._CurrentUser.EmployeeName
@@ -153,6 +157,8 @@ Public Class FrmQLPhieuNhap
         cboDonVi.DataSource = Connection.Query("Select * From LoaiDonViTinh")
         cboDonVi.DisplayMember = "TenDV"
         cboDonVi.ValueMember = "MaDV"
+
+
     End Sub
 
     Private Sub loadDSPhieuNhap()
@@ -317,7 +323,34 @@ Public Class FrmQLPhieuNhap
         End If
     End Sub
 
-    Private Sub txtTimLB_TextChanged(sender As Object, e As EventArgs) Handles txtTimLB.TextChanged
+    Private Sub cboSL_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles cboSL.SelectionChangeCommitted
+        If cboSL.Text = "Khác" Then
+            txtSL.ReadOnly = False
+        Else
+            txtSL.Text = cboSL.Text
+            txtSL.ReadOnly = True
+        End If
     End Sub
 
+    Private Sub txtSL_TextChanged(sender As Object, e As EventArgs) Handles txtSL.TextChanged
+        If IsNumeric(txtSL.Text) = False Then
+            errPhieuNhap.SetError(txtSL, "Chỉ được nhập số!")
+        End If
+        If errPhieuNhap.GetError(txtSL) = "" Then
+            Dim _Name() As String = New String() {"@DinhMuc"}
+            Dim _Value() As String = New String() {txtSL.Text}
+            Dim _lstHetHang As DataTable
+            _lstHetHang = Connection.Query("usp_XemSanPhamDinhMuc", Connection.CreateParameter(_Name, _Value))
+            lstTimKiem.Items.Clear()
+
+            For Each row As DataRow In _lstHetHang.Rows
+                Dim lst As New ListViewItem
+                lst = lstTimKiem.Items.Add(row(0))
+                For i As Integer = 1 To _lstHetHang.Columns.Count - 1
+                    lst.SubItems.Add(row(i))
+                Next
+                lstTrue.Add(lst)
+            Next
+        End If
+    End Sub
 End Class
