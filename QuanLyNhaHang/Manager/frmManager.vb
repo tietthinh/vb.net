@@ -30,6 +30,7 @@ Public Class frmManager
     Dim _TableLoaiDV As DataTable = Nothing
     Dim _TableMonHT As DataTable = Nothing
     Dim _TableMonKHT As DataTable = Nothing
+    Dim _TableThongKe As DataTable = Nothing
     Dim _TableThongKeMonHT As DataTable = Nothing
     Dim _TableThongKeMonKHT As DataTable = Nothing
     Dim _TableThongKeNguyenLieu As DataTable = Nothing
@@ -37,12 +38,15 @@ Public Class frmManager
     Dim _TableThongKeKhach_Ban As DataTable = Nothing
     Dim _TableThongKeKhach_NhanVien As DataTable = Nothing
     Dim _TableThongKeDoanhThu As DataTable = Nothing
+    Dim _TableBan As DataTable = Nothing
 
 
     Private Table As DataTable
     Private AbilityComputer As DataTable
     Private _LoaiNhanVienColumnIndex As Integer
     Private _TinhTrangNhanVienColumnIndex As Integer
+    Private _TinhTrangBanColumnIndex As Integer
+
     'Khai báo form Report
     Dim _Report As rptThongKe
 
@@ -88,20 +92,7 @@ Public Class frmManager
 
 
     Private Sub Listener()
-        While (True)
-            Thread.Sleep(0)
-            If (Me.IsAccessible = True) Then
-                Me.Invoke(New MethodInvoker(Sub()
-                                                Dim _ReceiveData As String = GetData()
-                                                ''Handles event here.
-
-                                                ''
-                                            End Sub
-                ))
-            Else
-                Exit While
-            End If
-        End While
+        
     End Sub
 
     ''' <summary>
@@ -110,15 +101,27 @@ Public Class frmManager
     ''' <remarks></remarks>
     ''' 
      Private Sub frmManager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'Dim _Login As New frmLogin(EmployeeType.Manager)
+        '_Login.ShowDialog()
+        '_CurrentUser = DatabaseConnection._User
+
+        'If (_Login.DialogResult = 1) Then
+
+        'Me.Text = "Nhân viên" + _CurrentUser.EmployeeName.ToString
+        StartService(New ThreadStart(Sub() Listener()))
         cboTenPhanMem.SelectedIndex = 0
         Dim _CoboBoxChucVu As New DataTable
-        _CoboBoxChucVu = _connect.Query("Select distinct CV.TenChucVu, CV.MaChucVu From  NhanVien NV, ChucVuNhanVien CV Where CV.MaChucVu = NV.MaChucVu")
+        _CoboBoxChucVu = _connect.Query("spChucVuNhanVienSelect")
 
         LoadComboBox(cboTenChucVu, _CoboBoxChucVu, "TenChucVu", "MaChucVu")
         _LoaiNhanVienColumnIndex = LoaiNhanVien.Index
         _TinhTrangNhanVienColumnIndex = TinhTrang.Index
+        _TinhTrangBanColumnIndex = TinhTrang_Ban.Index
         _TableNhanVien = LoadNV(dgvNhanVien)
         'LoadComboBox(cboTenChucVu, "spChucVuNhanVienSelect", "TenChucVu", "MaChucVu")
+        'Else
+        'Me.Close()
+        'End If
     End Sub
     Private Sub btnThemNV_Click(sender As Object, e As EventArgs) Handles btnThemNV.Click
         Dim _ErrorCheck As Boolean = False
@@ -325,43 +328,9 @@ Public Class frmManager
             MessageBox.Show("Chưa có thông tin tim kiếm", "Thông Báo")
         Else
 
-            Dim _TableResult As New DataTable
-            _TableResult = _TableNhanVien.Clone()
-            Dim _KQ As Boolean = False
-
             Dim _Word As String = txtTimKiem_NhanVien.Text.ToString.Trim
-            Dim temp As Integer = 0
-
-            For i As Integer = 0 To _TableNhanVien.Rows.Count - 1 Step 1
-                For j As Integer = 0 To _TableNhanVien.Columns.Count - 1 Step 1
-                    If _TableNhanVien.Rows(i).Item(j).ToString.Contains(_Word) Then
-                        Dim _LoaiNV As String = ""
-                        If _TableNhanVien.Rows(i).Item(7).ToString = "True" Then
-                            _LoaiNV = "Fulltime"
-                        Else
-                            _LoaiNV = "Parttime"
-                        End If
-                        Dim TinhTrangNV As String = ""
-                        If _TableNhanVien.Rows(i).Item(4).ToString = "True" Then
-                            TinhTrangNV = "Đã Nghỉ"
-                        Else
-                            TinhTrangNV = "Đang Làm"
-                        End If
-
-
-                        _TableResult.Rows.Add(_TableNhanVien.Rows(i).ItemArray)
-                        _KQ = True
-                        _location = temp
-                        temp = temp + 1
-                    End If
-                Next
-            Next
-            If _KQ = True Then
-                dgvNhanVien.Rows.Clear()
-                For Each Row As DataRow In _TableResult.Rows
-                    dgvNhanVien.Rows.Add(Row.ItemArray)
-                Next
-            Else
+           
+            If Not FindStaff(dgvNhanVien, _TableNhanVien, _Word) Then
                 MessageBox.Show("Không tồn tại nhân viên với dữ liệu tìm kiếm đã nhập", "Thông Báo")
             End If
         End If
@@ -2478,6 +2447,7 @@ Public Class frmManager
             _Report = New rptThongKe(_TableThongKeMonHT)
             _Report.Show()
         End If
+
     End Sub
 
 
@@ -2628,7 +2598,7 @@ Public Class frmManager
 
     'Thống Kê Theo Quý Khách Hàng Theo Món Ăn Đồ Uống
     Private Sub btnThongKeQuy_Khach_Mon_Click(sender As Object, e As EventArgs) Handles btnThongKeQuy_Khach_Mon.Click
-        _TableThongKeKhach_Mon = Nothing
+       _TableThongKeKhach_Mon = Nothing
         _TableThongKeKhach_Mon = ThongKeQuyKhach_Mon(dgvKhach_Mon, nbrQuy_ThongKeQuy_Khach_Mon.Value.ToString, nbrNam_ThongKeQuy_Khach_Mon.Value.ToString)
         gpbKhach_Mon.Text = "Thông Tin Thống Kê Theo Quý"
     End Sub
@@ -2688,8 +2658,9 @@ Public Class frmManager
 
     'Tìm Kiếm
     Private Sub TextBoxSearch_Enter(sender As Object, e As EventArgs) Handles txtTimKiem_Mon.Enter, txtTimKiem_CTHD.Enter, _
-       txtTimKiem_CTMon.Enter, txtTim_CTPhieuNhap.Enter, txtTimKiem_HoaDon.Enter, txtTimKiem_NhanVien.Enter, txtTimKiem_PhieuNhap.Enter, _
-       txtTimKiem_ChucVu.Enter, txtTimKiem_LoaiDonVi.Enter, txtTim_PhieuNhan.Enter, txtTim_ChiTietPhieuNhan.Enter, txtTimKiem_LoaiDonVi.Leave, txtTimKiem_ChucVu.Enter
+       txtTimKiem_CTMon.Enter, txtTim_CTPhieuNhap.Enter, txtTimKiem_HoaDon.Enter, txtTimKiem_NhanVien.Enter, _
+       txtTimKiem_PhieuNhap.Enter, txtTimKiem_ChucVu.Enter, txtTimKiem_LoaiDonVi.Enter, txtTim_PhieuNhan.Enter, _
+       txtTim_ChiTietPhieuNhan.Enter, txtTimKiem_LoaiDonVi.Leave, txtTimKiem_ChucVu.Enter, txtTimKiem_Ban.Enter
 
         Dim textBox As TextBox = DirectCast(sender, TextBox)
 
@@ -2705,7 +2676,8 @@ Public Class frmManager
 
     Private Sub TextBoxSearch_Leave(sender As Object, e As EventArgs) Handles txtTimKiem_Mon.Leave, txtTimKiem_CTHD.Leave, _
        txtTimKiem_CTMon.Leave, txtTim_CTPhieuNhap.Leave, txtTimKiem_HoaDon.Leave, txtTimKiem_NhanVien.Leave, txtTimKiem_PhieuNhap.Leave, _
-       txtTimKiem_ChucVu.Leave, txtTimKiem_LoaiDonVi.Leave, txtTim_PhieuNhan.Leave, txtTim_ChiTietPhieuNhan.Leave, txtTimKiem_LoaiDonVi.Leave, txtTimKiem_ChucVu.Leave
+       txtTimKiem_ChucVu.Leave, txtTimKiem_LoaiDonVi.Leave, txtTim_PhieuNhan.Leave, txtTim_ChiTietPhieuNhan.Leave, _
+       txtTimKiem_LoaiDonVi.Leave, txtTimKiem_ChucVu.Leave, txtTimKiem_Ban.Leave
         Dim textBox As TextBox = DirectCast(sender, TextBox)
 
         If textBox.Text.Trim = "" Then
@@ -2717,7 +2689,205 @@ Public Class frmManager
 
     'Đóng Form
     Private Sub frmManager_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        Dim _ReceiveData As String = GetData()
+        ''Handles event here.
+        If (_ReceiveData <> "" And _ReceiveData.Length > 2) Then
+            MessageBox.Show(_ReceiveData)
+        End If
+        ''
         _connect.Dispose()
     End Sub
 
+    '---------------------------------------------------------------Bảng Bàn--------------------------------------------------------------
+
+    
+    Private Sub dgvTable_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvTable.CellClick
+        If (e.RowIndex >= 0) Then
+            _location = e.RowIndex
+            txtNumberTable.Text = dgvTable.Rows(e.RowIndex).Cells("SoBan_Ban").Value
+            nbrNumberCustomer.Value = dgvTable.Rows(e.RowIndex).Cells("SoLuongKhach_Ban").Value
+            txtPosition.Text = dgvTable.Rows(e.RowIndex).Cells("ViTri_Ban").Value
+
+            Dim _Check As Boolean = dgvTable.Rows(e.RowIndex).Cells("TinhTrang_Ban").Value
+            If (_Check) Then
+                rdoUses.Checked = True
+            Else
+                rdoNotUses.Checked = True
+            End If
+        End If
+    End Sub
+
+    Private Sub dgvTable_CellMouseUp(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvTable.CellMouseUp
+        If (e.ColumnIndex = _TinhTrangBanColumnIndex And e.RowIndex <> -1) Then
+            dgvTable.EndEdit()
+            Dim _Check As Boolean = dgvTable.SelectedRows(0).Cells("TinhTrang_Ban").Value
+            If (_Check) Then
+                rdoUses.Checked = True
+            Else
+                rdoNotUses.Checked = True
+            End If
+        End If
+    End Sub
+
+
+    Private Sub TbCtrQuanLy_Enter(sender As Object, e As EventArgs) Handles TbCtrQuanLy.Enter
+        _TableBan = LoadBan(dgvTable)
+    End Sub
+
+    Private Sub btnAdd_Table_Click(sender As Object, e As EventArgs) Handles btnAdd_Table.Click
+        If (txtNumberTable.Text.Trim() = "") Then
+            ErrorProvider1.SetError(txtNumberTable, "Chưa nhập số bàn")
+            Return
+        End If
+
+        If (nbrNumberCustomer.Value = 0) Then
+            ErrorProvider2.SetError(nbrNumberCustomer, "Số lượng khách phải lớn hơn 0")
+            Return
+        End If
+
+        Dim _Query As String = "spBanInsert"
+        Dim _Name() As String = New String() {"@SoBan", "@ViTri", "@SoLuongKhach", "@TinhTrangBan"}
+        Dim _Check As Boolean
+
+        If (rdoUses.Checked) Then
+            _Check = True
+        Else
+            _Check = False
+        End If
+
+        Dim _Value() As Object = New Object() {txtNumberTable.Text, txtPosition.Text, nbrNumberCustomer.Value, _Check}
+        Dim _ReturnValue As SqlParameter = New SqlParameter
+        Dim _rowCount As Integer
+
+        Try
+            _rowCount = _connect.Update(_Query, _ReturnValue, _connect.CreateParameter(_Name, _Value))
+            If (_ReturnValue.Value = 1) Then
+                MessageBox.Show("Số bàn đã có trong cơ sở dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                Return
+            End If
+            LoadBan(dgvTable)
+            If (_rowCount > 0) Then
+                dgvTable.ClearSelection()
+                dgvTable.Rows(_TableBan.Rows.Count).Selected = True
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show("Thêm thất bại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+        End Try
+    End Sub
+
+    Private Sub txtNumberTable_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtNumberTable.KeyPress
+        If (Not Char.IsControl(e.KeyChar) And Not Char.IsDigit(e.KeyChar) And e.KeyChar <> ".") Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub txtNumberTable_Leave(sender As Object, e As EventArgs) Handles txtNumberTable.Leave
+        If (txtNumberTable.Text.Trim = "") Then
+            ErrorProvider1.SetError(txtNumberTable, "Chưa nhập số bàn")
+        Else
+            ErrorProvider1.Clear()
+        End If
+    End Sub
+
+    Private Sub nbrNumberCustomer_Leave(sender As Object, e As EventArgs) Handles nbrNumberCustomer.Leave
+        If (nbrNumberCustomer.Value = 0) Then
+            ErrorProvider2.SetError(nbrNumberCustomer, "Số lượng khách phải lớn hơn 0")
+        Else
+            ErrorProvider2.Clear()
+        End If
+    End Sub
+
+    Private Sub btnDelete_Table_Click(sender As Object, e As EventArgs) Handles btnDelete_Table.Click
+        If (dgvTable.SelectedRows.Count <= 0) Then
+            MessageBox.Show("Chưa chọn số bàn để xóa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            Return
+        End If
+
+        Dim Result As Integer = MessageBox.Show("Bạn muốn thực hiện thao tác xóa, Có thể sẽ xóa hóa đơn?", "Thông Báo", MessageBoxButtons.OKCancel)
+        Dim _RowCount As Integer
+        If Result = DialogResult.OK Then
+            Dim _Query As String = "spBanDelete"
+            Dim _Name() As String = New String() {"@SoBan"}
+            Dim _Value() As Object = New Object() {dgvTable.SelectedRows(0).Cells("SoBan_Ban").Value}
+
+            _location = dgvTable.SelectedRows(0).Index
+            If (_location <> 0) Then
+                _location = _location - 1
+            Else
+                _location = 0
+            End If
+            Dim _ReturnValue As SqlParameter = New SqlParameter
+            Try
+                _RowCount = _connect.Update(_Query, _ReturnValue, _connect.CreateParameter(_Name, _Value))
+                If (_ReturnValue.Value = 1) Then
+                    MessageBox.Show("Bàn đang có nhân viên đặt món, không thể xóa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                    Return
+                End If
+
+                If (_RowCount > 0) Then
+                    LoadBan(dgvTable)
+                    dgvTable.ClearSelection()
+                    dgvTable.Rows(_location).Selected = True
+                    SendData("Xóa bàn thành công")
+                End If
+            Catch ex As Exception
+                MessageBox.Show(ex.ToString())
+                MessageBox.Show("Xóa thất bại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            End Try
+
+        End If
+    End Sub
+
+    Private Sub btnUpdate_Table_Click(sender As Object, e As EventArgs) Handles btnUpdate_Table.Click
+        If (dgvTable.SelectedRows.Count <= 0) Then
+            MessageBox.Show("Chưa chọn số bàn để cập nhập", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            Return
+        End If
+
+        If (nbrNumberCustomer.Value = 0) Then
+            ErrorProvider2.SetError(nbrNumberCustomer, "Số lượng khách phải lớn hơn 0")
+            Return
+        End If
+
+        Dim _Check As Boolean
+
+        If (rdoUses.Checked) Then
+            _Check = True
+        Else
+            _Check = False
+        End If
+
+        Dim _RowCount As Integer
+        Dim _Query As String = "spBanUpdate"
+        Dim _Name() As String = New String() {"@SoBan", "@ViTri", "@SoLuongKhach", "@TinhTrangBan"}
+        Dim _Value() As Object = New Object() {dgvTable.SelectedRows(0).Cells("SoBan_Ban").Value, txtPosition.Text, nbrNumberCustomer.Value, _Check}
+
+        _location = dgvTable.SelectedRows(0).Index
+
+        Dim _ReturnValue As SqlParameter = New SqlParameter
+        Try
+            _RowCount = _connect.Update(_Query, _ReturnValue, _connect.CreateParameter(_Name, _Value))
+            If (_ReturnValue.Value = 1) Then
+                MessageBox.Show("Bàn đang có nhân viên đặt món, không thể thay đổi tình trạng bàn", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                Return
+            End If
+
+            LoadBan(dgvTable)
+            dgvTable.ClearSelection()
+            dgvTable.Rows(_location).Selected = True
+
+            If (_RowCount > 0) Then
+                SendData("Cập nhập bàn thành công")
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.ToString())
+            MessageBox.Show("Cập nhập thất bại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+        End Try
+    End Sub
+
+    Private Sub btnReset_Click(sender As Object, e As EventArgs) Handles btnReset.Click
+        dgvNhanVien.DataSource = _TableNhanVien
+        LoadComboBoxDataGridView(dgvNhanVien, _TableNhanVien)
+    End Sub
 End Class

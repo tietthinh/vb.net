@@ -20,8 +20,15 @@
         StaffTable = _Connect.Query("spNhanVienSelect")
         _Table = StaffTable
         sourceDataGridView.DataSource = StaffTable
+        LoadComboBoxDataGridView(sourceDataGridView, StaffTable)
+
+        Return _Table
+    End Function
+
+
+    Public Sub LoadComboBoxDataGridView(ByRef sourceDataGridView As DataGridView, ByVal SourceTable As DataTable)
         Dim i As Integer = 0
-        For Each dt As DataRow In StaffTable.Rows
+        For Each dt As DataRow In SourceTable.Rows
             Dim cmbAbilityComputer As DataGridViewComboBoxCell = sourceDataGridView.Rows(i).Cells("KhaNangViTinh_NV")
             AbilityComputer = New DataTable
             Dim Query = "spKhaNangViTinhCuaNhanVienSelect"
@@ -36,8 +43,84 @@
             cmbAbilityComputer.ValueMember = "MaNV"
             i = i + 1
         Next
+    End Sub
 
-        Return _Table
+    Public Function FindStaff(ByRef sourceDataGridView As DataGridView, ByVal sourceTableDefault As DataTable, ByVal keyword As String)
+        Dim _TableResult As New DataTable
+        _TableResult = sourceTableDefault.Clone()
+        Dim _KQ As Boolean = False
+
+        Dim temp As Integer = 0
+
+        For i As Integer = 0 To sourceTableDefault.Rows.Count - 1 Step 1
+            For j As Integer = 1 To sourceTableDefault.Columns.Count - 1 Step 1
+                If (j <> 4 And j <> 7) Then
+                    If sourceTableDefault.Rows(i).Item(j).ToString.ToLower.Contains(keyword.ToLower) Then
+                        'Dim _LoaiNV As String = ""
+                        'If _TableNhanVien.Rows(i).Item(7).ToString = "True" Then
+                        '    _LoaiNV = "Fulltime"
+                        'Else
+                        '    _LoaiNV = "Parttime"
+                        'End If
+                        'Dim TinhTrangNV As String = ""
+                        'If _TableNhanVien.Rows(i).Item(4).ToString = "True" Then
+                        '    TinhTrangNV = "Đã Nghỉ"
+                        'Else
+                        '    TinhTrangNV = "Đang Làm"
+                        'End If
+
+
+                        _TableResult.Rows.Add(sourceTableDefault.Rows(i).ItemArray)
+                        _KQ = True
+                        temp = temp + 1
+                        Exit For
+                    End If
+                Else
+                    If (j = 7) Then
+                        Dim _Check As Boolean = sourceTableDefault.Rows(i).Item(7)
+                        If (_Check And "fulltime".Contains(keyword.ToLower)) Then
+                            _TableResult.Rows.Add(sourceTableDefault.Rows(i).ItemArray)
+                            _KQ = True
+                            temp = temp + 1
+                            Exit For
+                        End If
+
+                        If (Not _Check And "parttime".Contains(keyword.ToLower)) Then
+                            _TableResult.Rows.Add(sourceTableDefault.Rows(i).ItemArray)
+                            _KQ = True
+                            temp = temp + 1
+                            Exit For
+                        End If
+                    End If
+
+                    If (j = 4) Then
+                        Dim _Check As Boolean = sourceTableDefault.Rows(i).Item(4)
+                        If (_Check And "đang làm".Contains(keyword.ToLower)) Then
+                            _TableResult.Rows.Add(sourceTableDefault.Rows(i).ItemArray)
+                            _KQ = True
+                            temp = temp + 1
+                            Exit For
+                        End If
+
+                        If (Not _Check And "đã nghỉ".Contains(keyword.ToLower)) Then
+                            _TableResult.Rows.Add(sourceTableDefault.Rows(i).ItemArray)
+                            _KQ = True
+                            temp = temp + 1
+                            Exit For
+                        End If
+                    End If
+
+                End If
+
+            Next
+        Next
+        If _KQ = True Then
+            sourceDataGridView.DataSource = _TableResult
+            LoadComboBoxDataGridView(sourceDataGridView, _TableResult)
+            Return True
+        Else
+            Return False
+        End If
     End Function
 
     Public Sub ReLoadNV(ByRef sourceDataGridView As DataGridView, ByVal StaffTable As DataTable)
@@ -92,13 +175,20 @@
 
 
         For Each dt As DataRow In _Table.Rows
-            Dim _TinhTrang As String = ""
-            If dt(9).ToString.Trim = "True" Then
-                _TinhTrang = "Rồi"
+            'Dim _TinhTrang As String = ""
+            'If dt(9) = True Then
+            '    _TinhTrang = "Rồi"
+            'Else
+            '    _TinhTrang = "Chưa"
+            'End If
+
+            Dim _Money As String
+            If (dt(7).ToString().Trim() = "") Then
+                _Money = "0"
             Else
-                _TinhTrang = "Chưa"
+                _Money = Double.Parse(dt(7).ToString()).ToString("#,###VND")
             End If
-            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString, dt(2).ToString, dt(3).ToString, dt(4).ToString, dt(5).ToString, dt(6).ToString, Double.Parse(dt(7).ToString()).ToString("#,###VND"), dt(8).ToString, _TinhTrang})
+            sourceDataGridView.Rows.Add(New String() {dt(0).ToString(), dt(1).ToString, dt(2).ToString, dt(3).ToString, dt(4).ToString, dt(5).ToString, dt(6).ToString, _Money, dt(8).ToString, dt(9)})
         Next
 
         Return _Table
@@ -106,7 +196,7 @@
     Public Sub ReLoadHoaDon(ByRef sourceDataGridView As DataGridView, ByVal dataSource As DataTable)
         sourceDataGridView.Rows.Clear()
 
-            sourceDataGridView.DataSource = dataSource
+        sourceDataGridView.DataSource = dataSource
 
     End Sub
 
@@ -202,8 +292,8 @@
         'Khai báo tên tình trạng phiếu nhập
         Dim _TinhTrangPN As String = ""
 
-        
-            _Table = _Connect.Query(_Query)
+
+        _Table = _Connect.Query(_Query)
 
         For Each dt As DataRow In _Table.Rows
             If dt(7).ToString.Trim = 1 Then
@@ -215,7 +305,7 @@
             _Stt = _Stt + 1
         Next
 
-            Return _Table
+        Return _Table
 
     End Function
     Public Sub ReLoadPhieuNhap(ByRef sourceDataGridView As DataGridView, ByVal dataSource As DataTable)
@@ -851,7 +941,15 @@
 
     End Function
 
+    Public Function LoadBan(ByRef sourceDataGridView As DataGridView)
+        Dim _Table As DataTable = New DataTable
+        _Query = "spBanSelectAll"
+        _Table = _Connect.Query(_Query)
 
-  
+        sourceDataGridView.DataSource = _Table
+
+        Return _Table
+    End Function
+
 
 End Module

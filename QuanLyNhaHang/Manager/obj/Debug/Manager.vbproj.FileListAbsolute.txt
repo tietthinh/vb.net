@@ -1,0 +1,40 @@
+E:\Code C - C++\Năm 3\LTUD\DA\vb.net\QuanLyNhaHang\Manager\bin\Debug\Manager.exe.config
+E:\Code C - C++\Năm 3\LTUD\DA\vb.net\QuanLyNhaHang\Manager\bin\Debug\Manager.exe
+E:\Code C - C++\Năm 3\LTUD\DA\vb.net\QuanLyNhaHang\Manager\bin\Debug\Manager.pdb
+E:\Code C - C++\Năm 3\LTUD\DA\vb.net\QuanLyNhaHang\Manager\bin\Debug\Manager.xml
+E:\Code C - C++\Năm 3\LTUD\DA\vb.net\QuanLyNhaHang\Manager\bin\Debug\Library.dll
+E:\Code C - C++\Năm 3\LTUD\DA\vb.net\QuanLyNhaHang\Manager\bin\Debug\Remote.dll
+E:\Code C - C++\Năm 3\LTUD\DA\vb.net\QuanLyNhaHang\Manager\bin\Debug\Library.pdb
+E:\Code C - C++\Năm 3\LTUD\DA\vb.net\QuanLyNhaHang\Manager\bin\Debug\Library.xml
+E:\Code C - C++\Năm 3\LTUD\DA\vb.net\QuanLyNhaHang\Manager\bin\Debug\Remote.pdb
+E:\Code C - C++\Năm 3\LTUD\DA\vb.net\QuanLyNhaHang\Manager\bin\Debug\Remote.xml
+E:\Code C - C++\Năm 3\LTUD\DA\vb.net\QuanLyNhaHang\Manager\obj\Debug\Manager.vbprojResolveAssemblyReference.cache
+E:\Code C - C++\Năm 3\LTUD\DA\vb.net\QuanLyNhaHang\Manager\obj\Debug\Manager.frmManager.resources
+E:\Code C - C++\Năm 3\LTUD\DA\vb.net\QuanLyNhaHang\Manager\obj\Debug\Manager.Resources.resources
+E:\Code C - C++\Năm 3\LTUD\DA\vb.net\QuanLyNhaHang\Manager\obj\Debug\Manager.rptThongKe.resources
+E:\Code C - C++\Năm 3\LTUD\DA\vb.net\QuanLyNhaHang\Manager\obj\Debug\Manager.vbproj.GenerateResource.Cache
+E:\Code C - C++\Năm 3\LTUD\DA\vb.net\QuanLyNhaHang\Manager\obj\Debug\RdlCompile.cache
+E:\Code C - C++\Năm 3\LTUD\DA\vb.net\QuanLyNhaHang\Manager\obj\Debug\RdlCompile.compiled
+E:\Code C - C++\Năm 3\LTUD\DA\vb.net\QuanLyNhaHang\Manager\obj\Debug\Manager.exe
+E:\Code C - C++\Năm 3\LTUD\DA\vb.net\QuanLyNhaHang\Manager\obj\Debug\Manager.xml
+E:\Code C - C++\Năm 3\LTUD\DA\vb.net\QuanLyNhaHang\Manager\obj\Debug\Manager.pdb
+E:\Visual Project\QuanLyNhaHang\Manager\bin\Debug\Manager.exe.config
+E:\Visual Project\QuanLyNhaHang\Manager\obj\Debug\Manager.exe
+E:\Visual Project\QuanLyNhaHang\Manager\obj\Debug\Manager.xml
+E:\Visual Project\QuanLyNhaHang\Manager\obj\Debug\Manager.pdb
+E:\Visual Project\QuanLyNhaHang\Manager\bin\Debug\Manager.exe
+E:\Visual Project\QuanLyNhaHang\Manager\bin\Debug\Manager.pdb
+E:\Visual Project\QuanLyNhaHang\Manager\bin\Debug\Manager.xml
+E:\Visual Project\QuanLyNhaHang\Manager\bin\Debug\Library.dll
+E:\Visual Project\QuanLyNhaHang\Manager\bin\Debug\Remote.dll
+E:\Visual Project\QuanLyNhaHang\Manager\bin\Debug\Library.pdb
+E:\Visual Project\QuanLyNhaHang\Manager\bin\Debug\Library.xml
+E:\Visual Project\QuanLyNhaHang\Manager\bin\Debug\Remote.pdb
+E:\Visual Project\QuanLyNhaHang\Manager\bin\Debug\Remote.xml
+E:\Visual Project\QuanLyNhaHang\Manager\obj\Debug\Manager.vbprojResolveAssemblyReference.cache
+E:\Visual Project\QuanLyNhaHang\Manager\obj\Debug\Manager.frmManager.resources
+E:\Visual Project\QuanLyNhaHang\Manager\obj\Debug\Manager.Resources.resources
+E:\Visual Project\QuanLyNhaHang\Manager\obj\Debug\Manager.rptThongKe.resources
+E:\Visual Project\QuanLyNhaHang\Manager\obj\Debug\Manager.vbproj.GenerateResource.Cache
+E:\Visual Project\QuanLyNhaHang\Manager\obj\Debug\RdlCompile.cache
+E:\Visual Project\QuanLyNhaHang\Manager\obj\Debug\RdlCompile.compiled

@@ -129,12 +129,12 @@
       <DependentUpon>Report.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TK_DoanhThu.rdlc" />
+    <EmbeddedResource Include="TK_Khach_Ban.rdlc" />
     <EmbeddedResource Include="TK_Khach_Mon.rdlc" />
     <EmbeddedResource Include="TK_Khach_NhanVien.rdlc" />
-    <EmbeddedResource Include="TK_Khach_Ban.rdlc" />
-    <EmbeddedResource Include="TK_NL.rdlc" />
-    <EmbeddedResource Include="TK_MonKHT.rdlc" />
     <EmbeddedResource Include="TK_MonHT.rdlc" />
+    <EmbeddedResource Include="TK_MonKHT.rdlc" />
+    <EmbeddedResource Include="TK_NL.rdlc" />
   </ItemGroup>
   <ItemGroup>
     <None Include="My Project\Application.myapp">
@@ -146,14 +146,16 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="ThongKe.xsc">
       <DependentUpon>ThongKe.xsd</DependentUpon>
     </None>
     <None Include="ThongKe.xsd">
-      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>ThongKe.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
     </None>
     <None Include="ThongKe.xss">
       <DependentUpon>ThongKe.xsd</DependentUpon>

@@ -1,0 +1,673 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+Manager
+</name>
+</assembly>
+<members>
+<member name="T:Manager.ThongKeMonHoanThanh.DataTable1DataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.ThongKeMonHoanThanh.DataTable1Row">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.ThongKeMonHoanThanh.DataTable1RowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.ThongKeMonHoanThanh">
+	<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHang.ThongKeDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHang.ThongKeRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHang.ThongKeRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHang">
+	<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
+</member><member name="P:Manager.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:Manager.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:Manager.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="T:Manager.ds_ThongKe.DataTable1DataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.ds_ThongKe.DataTable1Row">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.ds_ThongKe.DataTable1RowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.ds_ThongKe">
+	<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
+</member><member name="M:Manager.Manager_Process.LoadNV(System.Windows.Forms.DataGridView@)">
+	<summary>
+ Load DataGridview
+ </summary>
+	<param name="sourceDataGridView"></param>
+	<remarks></remarks>
+</member><member name="F:Manager.frmManager._IsPWNull">
+	<summary>
+ If Password Textbox is null then true, else false.
+ </summary>
+	<remarks></remarks>
+</member><member name="F:Manager.frmManager._IsIDNull">
+	<summary>
+ If Identity Textbox is null then true, else false.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Manager.frmManager.frmManager_Load(System.Object,System.EventArgs)">
+	<summary>
+  Load dữ liệu bảng nhân viên
+ </summary>
+	<remarks></remarks>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.BanDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.ChiTietHoaDonDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.ChiTietLamMonDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.ChiTietPhieuNhanDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.ChiTietPhieuNhapDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.ChucVuNhanVienDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.DanhSachDatMonTrongNgayDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.HoaDonDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.KhaNangViTinhCuaNhanVienDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LichCaDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LichLamViecDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LoaiDonViTinhDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruCTHoaDonDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruCTLamMonDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruCTPhieuNhanDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruCTPhieuNhapDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruDanhSachMonAnNhaBepHoanThanhDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruDanhSachMonAnSoLuongKHoanThanhDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruHoaDonDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruLichLamViecDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruMonAnDoUongDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruNhanVienDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruPhieuNhanDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruPhieuNhapDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruSanPhamDaDungDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.MonAnDoUongDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.NhaCungCapDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.NhaCungCap_DienThoaiDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.NhaCungCap_EmailDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.NhanVienDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.PhieuNhanDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.PhieuNhapDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.SanPhamDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.TaiKhoanNhanVienDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.BanRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.ChiTietHoaDonRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.ChiTietLamMonRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.ChiTietPhieuNhanRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.ChiTietPhieuNhapRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.ChucVuNhanVienRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.DanhSachDatMonTrongNgayRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.HoaDonRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.KhaNangViTinhCuaNhanVienRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LichCaRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LichLamViecRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LoaiDonViTinhRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruCTHoaDonRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruCTLamMonRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruCTPhieuNhanRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruCTPhieuNhapRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruDanhSachMonAnNhaBepHoanThanhRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruDanhSachMonAnSoLuongKHoanThanhRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruHoaDonRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruLichLamViecRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruMonAnDoUongRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruNhanVienRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruPhieuNhanRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruPhieuNhapRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruSanPhamDaDungRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.MonAnDoUongRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.NhaCungCapRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.NhaCungCap_DienThoaiRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.NhaCungCap_EmailRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.NhanVienRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.PhieuNhanRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.PhieuNhapRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.SanPhamRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.TaiKhoanNhanVienRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.BanRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.ChiTietHoaDonRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.ChiTietLamMonRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.ChiTietPhieuNhanRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.ChiTietPhieuNhapRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.ChucVuNhanVienRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.DanhSachDatMonTrongNgayRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.HoaDonRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.KhaNangViTinhCuaNhanVienRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LichCaRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LichLamViecRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LoaiDonViTinhRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruCTHoaDonRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruCTLamMonRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruCTPhieuNhanRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruCTPhieuNhapRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruDanhSachMonAnNhaBepHoanThanhRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruDanhSachMonAnSoLuongKHoanThanhRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruHoaDonRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruLichLamViecRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruMonAnDoUongRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruNhanVienRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruPhieuNhanRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruPhieuNhapRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.LuuTruSanPhamDaDungRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.MonAnDoUongRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.NhaCungCapRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.NhaCungCap_DienThoaiRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.NhaCungCap_EmailRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.NhanVienRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.PhieuNhanRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.PhieuNhapRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.SanPhamRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet.TaiKhoanNhanVienRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSet">
+	<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.BanTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.ChiTietHoaDonTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.ChiTietLamMonTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.ChiTietPhieuNhanTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.ChiTietPhieuNhapTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.ChucVuNhanVienTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.DanhSachDatMonTrongNgayTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.HoaDonTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.KhaNangViTinhCuaNhanVienTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.LichCaTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.LichLamViecTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.LoaiDonViTinhTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.LuuTruCTHoaDonTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.LuuTruCTLamMonTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.LuuTruCTPhieuNhanTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.LuuTruCTPhieuNhapTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.LuuTruDanhSachMonAnNhaBepHoanThanhTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.LuuTruDanhSachMonAnSoLuongKHoanThanhTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.LuuTruHoaDonTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.LuuTruLichLamViecTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.LuuTruMonAnDoUongTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.LuuTruNhanVienTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.LuuTruPhieuNhanTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.LuuTruPhieuNhapTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.LuuTruSanPhamDaDungTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.MonAnDoUongTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.NhaCungCapTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.NhaCungCap_DienThoaiTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.NhaCungCap_EmailTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.NhanVienTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.PhieuNhanTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.PhieuNhapTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.SanPhamTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.TaiKhoanNhanVienTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="M:Manager.QuanLyNhaHangDataSetTableAdapters.TableAdapterManager.UpdateUpdatedRows(Manager.QuanLyNhaHangDataSet,System.Collections.Generic.List{System.Data.DataRow},System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Update rows in top-down order.
+</summary>
+</member><member name="M:Manager.QuanLyNhaHangDataSetTableAdapters.TableAdapterManager.UpdateInsertedRows(Manager.QuanLyNhaHangDataSet,System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Insert rows in top-down order.
+</summary>
+</member><member name="M:Manager.QuanLyNhaHangDataSetTableAdapters.TableAdapterManager.UpdateDeletedRows(Manager.QuanLyNhaHangDataSet,System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Delete rows in bottom-up order.
+</summary>
+</member><member name="M:Manager.QuanLyNhaHangDataSetTableAdapters.TableAdapterManager.GetRealUpdatedRows(System.Data.DataRow[],System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Remove inserted rows that become updated rows after calling TableAdapter.Update(inserted rows) first
+</summary>
+</member><member name="M:Manager.QuanLyNhaHangDataSetTableAdapters.TableAdapterManager.UpdateAll(Manager.QuanLyNhaHangDataSet)">
+	<summary>
+Update all changes to the dataset.
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.TableAdapterManager.UpdateOrderOption">
+	<summary>
+Update Order Option
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.TableAdapterManager.SelfReferenceComparer">
+	<summary>
+Used to sort self-referenced table's rows
+</summary>
+</member><member name="T:Manager.QuanLyNhaHangDataSetTableAdapters.TableAdapterManager">
+	<summary>
+TableAdapterManager is used to coordinate TableAdapters in the dataset to enable Hierarchical Update scenarios
+</summary>
+</member>
+</members>
+</doc>
