@@ -25,7 +25,7 @@ Partial Class frmContact
         Me.btnDone = New System.Windows.Forms.Button()
         Me.lblSupplier = New System.Windows.Forms.Label()
         Me.pnlContainer = New System.Windows.Forms.Panel()
-        Me.txtMail_0 = New System.Windows.Forms.TextBox()
+        Me.txtObject_0 = New System.Windows.Forms.TextBox()
         Me.pnlContainer.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -53,19 +53,19 @@ Partial Class frmContact
         'pnlContainer
         '
         Me.pnlContainer.AutoSize = True
-        Me.pnlContainer.Controls.Add(Me.txtMail_0)
+        Me.pnlContainer.Controls.Add(Me.txtObject_0)
         Me.pnlContainer.Location = New System.Drawing.Point(12, 45)
         Me.pnlContainer.Name = "pnlContainer"
         Me.pnlContainer.Size = New System.Drawing.Size(221, 31)
         Me.pnlContainer.TabIndex = 3
         '
-        'txtMail_0
+        'txtObject_0
         '
-        Me.txtMail_0.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtMail_0.Location = New System.Drawing.Point(0, 1)
-        Me.txtMail_0.Name = "txtMail_0"
-        Me.txtMail_0.Size = New System.Drawing.Size(200, 27)
-        Me.txtMail_0.TabIndex = 0
+        Me.txtObject_0.Font = New System.Drawing.Font("Roboto Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtObject_0.Location = New System.Drawing.Point(0, 1)
+        Me.txtObject_0.Name = "txtObject_0"
+        Me.txtObject_0.Size = New System.Drawing.Size(200, 27)
+        Me.txtObject_0.TabIndex = 0
         '
         'frmContact
         '
@@ -87,5 +87,5 @@ Partial Class frmContact
     Friend WithEvents btnDone As System.Windows.Forms.Button
     Friend WithEvents lblSupplier As System.Windows.Forms.Label
     Friend WithEvents pnlContainer As System.Windows.Forms.Panel
-    Friend WithEvents txtMail_0 As System.Windows.Forms.TextBox
+    Friend WithEvents txtObject_0 As System.Windows.Forms.TextBox
 End Class

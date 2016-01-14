@@ -7,121 +7,152 @@ Waitor
 </assembly>
 <members>
 <member name="M:Waitor.Waitor_Process.UpdateTableStatus(System.Int32,System.Windows.Forms.PictureBox)">
-	<summary>
+ <summary>
  Cập nhật tình trạng bàn.
  </summary>
-	<param name="_TinhTrang">1:Bàn đã đặt. 0:Bàn đang trống</param>
-	<param name="SelectedTable">Bàn.</param>
-</member><member name="M:Waitor.Waitor_Process.GetMenuList(System.Int32)">
-	<summary>
+ <param name="_TinhTrang">1:Bàn đã đặt. 0:Bàn đang trống</param>
+ <param name="SelectedTable">Bàn.</param>
+</member>
+<member name="M:Waitor.Waitor_Process.GetMenuList(System.Int32)">
+ <summary>
  Lấy danh sách món ăn.
  </summary>
-	<param name="_TinhTrang">Tình trạng:    
+ <param name="_TinhTrang">Tình trạng:    
  1.Có sẵn.
  0:Không có sẵn</param>
-	<returns></returns>
-</member><member name="M:Waitor.Waitor_Process.LoadMenu">
-	<summary>
+ <returns></returns>
+</member>
+<member name="M:Waitor.Waitor_Process.LoadMenu">
+ <summary>
  Tải lên danh sách món ăn.
  </summary>
-</member><member name="M:Waitor.Waitor_Process.CheckExistedTable(System.Windows.Forms.PictureBox,System.Int32@,System.Collections.Generic.List{Waitor.Table})">
-	<summary>
+</member>
+<member name="M:Waitor.Waitor_Process.CheckExistedTable(System.Windows.Forms.PictureBox,System.Int32@,System.Collections.Generic.List{Waitor.Table})">
+ <summary>
  Kiểm tra bàn hiện có sẵn trong danh sách đang phục vụ
  </summary>
-	<param name="_Table">Bàn</param>
-	<param name="_Index">Vị trí bàn</param>
-	<param name="List">Danh sách bàn</param>
-	<returns></returns>
-</member><member name="M:Waitor.Waitor_Process.SearchTable(System.Int32,System.Collections.Generic.List{Waitor.Table})">
-	<summary>
+ <param name="_Table">Bàn</param>
+ <param name="_Index">Vị trí bàn</param>
+ <param name="List">Danh sách bàn</param>
+ <returns></returns>
+</member>
+<member name="M:Waitor.Waitor_Process.SearchTable(System.Int32,System.Collections.Generic.List{Waitor.Table})">
+ <summary>
  Search a table with table number 
  </summary>
-	<param name="TableNumber">Tìm kiếm và trả về vị trí của bàn trong danh sách đang phục vụ.</param>
-	<returns>Position of table</returns>
-</member><member name="M:Waitor.Waitor_Process.CheckChefBartenderToWaitorConfirm(System.String)">
-	<summary>
- Xác nhận tình trạng món được. Đầu bếp/Pha chế =&gt; Nhân Viên
+ <param name="TableNumber">Tìm kiếm và trả về vị trí của bàn trong danh sách đang phục vụ.</param>
+ <returns>Position of table</returns>
+</member>
+<member name="M:Waitor.Waitor_Process.CheckChefBartenderToWaitorConfirm(System.String)">
+ <summary>
+ Xác nhận tình trạng món được. Đầu bếp/Pha chế => Nhân Viên
  </summary>
-	<param name="Data">Mảng dữ liệu</param>
-</member><member name="M:Waitor.Waitor_Process.CheckChefBartenderToWaitor(System.String)">
-	<summary>
- Xác nhận món đã sẵn sàng/ bị hủy. Đầu bếp/Pha chế =&gt; Nhân Viên
+ <param name="Data">Mảng dữ liệu</param>
+</member>
+<member name="M:Waitor.Waitor_Process.CheckChefBartenderToWaitor(System.String)">
+ <summary>
+ Xác nhận món đã sẵn sàng/ bị hủy. Đầu bếp/Pha chế => Nhân Viên
  </summary>
-	<param name="Data">Dữ liệu.</param>
-</member><member name="M:Waitor.Waitor.nudGuestCount_Enter(System.Object,System.EventArgs)">
-	<summary>
+ <param name="Data">Dữ liệu.</param>
+</member>
+<member name="M:Waitor.Waitor.listMenu_Click(System.Object,System.EventArgs)">
+ <summary>
+ Check if clicked table is existed then return position of table in the array
+ </summary>
+ <param name="_table"></param>
+ <returns></returns>
+</member>
+<member name="M:Waitor.Waitor.nudGuestCount_Enter(System.Object,System.EventArgs)">
+ <summary>
  Hiển thị bàn phím số bên cạnh chức năng chọn số lượng khách.
  </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-</member><member name="P:Waitor.My.Resources.Resources.ResourceManager">
-	<summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="T:Waitor.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:Waitor.My.Resources.Resources.ResourceManager">
+<summary>
   Returns the cached ResourceManager instance used by this class.
 </summary>
-</member><member name="P:Waitor.My.Resources.Resources.Culture">
-	<summary>
+</member>
+<member name="P:Waitor.My.Resources.Resources.Culture">
+<summary>
   Overrides the current thread's CurrentUICulture property for all
   resource lookups using this strongly typed resource class.
 </summary>
-</member><member name="P:Waitor.My.Resources.Resources.border">
-	<summary>
+</member>
+<member name="P:Waitor.My.Resources.Resources.border">
+<summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
-</member><member name="P:Waitor.My.Resources.Resources.bow">
-	<summary>
+</member>
+<member name="P:Waitor.My.Resources.Resources.bow">
+<summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
-</member><member name="P:Waitor.My.Resources.Resources.Caution">
-	<summary>
+</member>
+<member name="P:Waitor.My.Resources.Resources.Caution">
+<summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
-</member><member name="P:Waitor.My.Resources.Resources.dishs">
-	<summary>
+</member>
+<member name="P:Waitor.My.Resources.Resources.dishs">
+<summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
-</member><member name="P:Waitor.My.Resources.Resources.glass">
-	<summary>
+</member>
+<member name="P:Waitor.My.Resources.Resources.glass">
+<summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
-</member><member name="P:Waitor.My.Resources.Resources.table1">
-	<summary>
+</member>
+<member name="P:Waitor.My.Resources.Resources.table1">
+<summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
-</member><member name="P:Waitor.My.Resources.Resources.table2">
-	<summary>
+</member>
+<member name="P:Waitor.My.Resources.Resources.table2">
+<summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
-</member><member name="P:Waitor.My.Resources.Resources.table3">
-	<summary>
+</member>
+<member name="P:Waitor.My.Resources.Resources.table3">
+<summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
-</member><member name="P:Waitor.My.Resources.Resources.table4">
-	<summary>
+</member>
+<member name="P:Waitor.My.Resources.Resources.table4">
+<summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
-</member><member name="P:Waitor.My.Resources.Resources.table5">
-	<summary>
+</member>
+<member name="P:Waitor.My.Resources.Resources.table5">
+<summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
-</member><member name="P:Waitor.My.Resources.Resources.table6">
-	<summary>
+</member>
+<member name="P:Waitor.My.Resources.Resources.table6">
+<summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
-</member><member name="P:Waitor.My.Resources.Resources.table7">
-	<summary>
+</member>
+<member name="P:Waitor.My.Resources.Resources.table7">
+<summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
-</member><member name="P:Waitor.My.Resources.Resources.table8">
-	<summary>
+</member>
+<member name="P:Waitor.My.Resources.Resources.table8">
+<summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
-</member><member name="P:Waitor.My.Resources.Resources.table9">
-	<summary>
+</member>
+<member name="P:Waitor.My.Resources.Resources.table9">
+<summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
-</summary>
-</member><member name="T:Waitor.My.Resources.Resources">
-	<summary>
-  A strongly-typed resource class, for looking up localized strings, etc.
 </summary>
 </member>
 </members>

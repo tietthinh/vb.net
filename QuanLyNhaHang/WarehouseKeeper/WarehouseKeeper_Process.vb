@@ -1,5 +1,5 @@
 ﻿Imports Library
-
+Imports Remote
 Module WarehouseKeeper_Process
 
     ''' <summary>
@@ -20,5 +20,46 @@ Module WarehouseKeeper_Process
 
         comboboxCell.DisplayMember = displayMember
         comboboxCell.ValueMember = valueMember
+    End Sub
+
+    ''' <summary>
+    ''' Append email from array into datatable.
+    ''' </summary>
+    ''' <param name="destinationDataTable">DataTable contains data.</param>
+    ''' <param name="sourceList">Array has list values.</param>
+    ''' <remarks></remarks>
+    Public Sub AppendEmail(ByRef destinationDataTable As DataTable, ByVal sourceList() As String)
+        Dim id As String = destinationDataTable.Rows(0)("MaNCC")
+
+        For i As Integer = 0 To sourceList.Length - 1 Step 1
+            Dim row As DataRow = destinationDataTable.NewRow()
+
+            row("MaNCC") = id
+            row("Email") = sourceList(i)
+
+            destinationDataTable.Rows.Add(row)
+        Next
+    End Sub
+
+    ''' <summary>
+    ''' Append email from array into datatable.
+    ''' </summary>
+    ''' <param name="destinationDataTable">DataTable contains data.</param>
+    ''' <param name="sourceList">Array has list values.</param>
+    ''' <remarks></remarks>
+    Public Sub AppendPhone(ByRef destinationDataTable As DataTable, ByVal sourceList() As String)
+        Dim id As String = destinationDataTable.Rows(0)("MaNCC")
+
+        For i As Integer = 0 To sourceList.Length - 1 Step 1
+            Dim row As DataRow = destinationDataTable.NewRow()
+
+            row("MaNCC") = id
+            row("SDT") = sourceList(i)
+
+            destinationDataTable.Rows.Add(row)
+        Next
+    End Sub
+    Public Sub CheckChefBartenderToWarehouseSignal(ByVal Data As String, ByRef listArray As List(Of String))
+        listArray = DataFilter(Data, 6)
     End Sub
 End Module

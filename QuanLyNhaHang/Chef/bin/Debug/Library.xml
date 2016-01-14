@@ -6,249 +6,288 @@ Library
 </name>
 </assembly>
 <members>
-<member name="F:Library.User._Identity">
-	<summary>
- Employee's Identity.
- </summary>
-	<remarks></remarks>
-</member><member name="F:Library.User._EmployeeName">
-	<summary>
- Employee's Name.
- </summary>
-	<remarks></remarks>
-</member><member name="P:Library.User.Identity">
-	<summary>
- Gets Employee's Identity.
- </summary>
-	<value></value>
-	<returns>Identity of Employee.</returns>
-	<remarks></remarks>
-</member><member name="P:Library.User.EmployeeName">
-	<summary>
- Gets Employee's Name.
- </summary>
-	<value></value>
-	<returns>Name of Employee.</returns>
-	<remarks></remarks>
-</member><member name="M:Library.User.#ctor">
-	<summary>
- Default constructor.
- </summary>
-	<remarks></remarks>
-</member><member name="M:Library.User.#ctor(System.String,System.String)">
-	<summary>
- Constructor gets two parameters to set value for User object.
- </summary>
-	<param name="identity">Employee's Identity.</param>
-	<param name="name">Employee's Name.</param>
-	<remarks></remarks>
-</member><member name="F:Library.frmLogin._IsPWNull">
-	<summary>
- If Password Textbox is null then true, else false.
- </summary>
-	<remarks></remarks>
-</member><member name="F:Library.frmLogin._IsIDNull">
-	<summary>
- If Identity Textbox is null then true, else false.
- </summary>
-	<remarks></remarks>
-</member><member name="F:Library.frmLogin.db">
-	<summary>
- Create a connected object for this form.
- </summary>
-	<remarks></remarks>
-</member><member name="T:Library.Library_Process.EmployeeType">
-	<summary>
- List types of Employee for login form.
- </summary>
-	<remarks></remarks>
-</member><member name="M:Library.Library_Process.GetMd5Hash(System.String,System.String)">
-	<summary>
- Gets MD5 Hash code from two parameters.
- </summary>
-	<param name="password">First parameter (for Form Login is Employee's Password).</param>
-	<param name="identity">Second parameter (for Form Login is Employee's Identity).</param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:Library.Library_Process.StringSplit(System.String,System.Object)">
-	<summary>
- Split the string into two strings based on key word.
- </summary>
-	<param name="_String">The splited string.</param>
-	<param name="_KeyWord">The key word to split the string.</param>
-	<returns>Array of String.</returns>
-	<remarks></remarks>
-</member><member name="F:Library.frmForgotPassword.db">
-	<summary>
- Create a connected object for this form.
- </summary>
-	<remarks></remarks>
-</member><member name="F:Library.DatabaseConnection._Connecter">
-	<summary>
+<member name="F:Library.DatabaseConnection._Connecter">
+ <summary>
  Connecter for connecting to Sql Server.
  </summary>
-	<remarks></remarks>
-</member><member name="F:Library.DatabaseConnection._Address">
-	<summary>
+ <remarks></remarks>
+</member>
+<member name="F:Library.DatabaseConnection._Address">
+ <summary>
  Address of Database in Sql Server.
  </summary>
-	<remarks></remarks>
-</member><member name="F:Library.DatabaseConnection._User">
-	<summary>
+ <remarks></remarks>
+</member>
+<member name="F:Library.DatabaseConnection._User">
+ <summary>
  Employee's account information.
  </summary>
-	<remarks></remarks>
-</member><member name="P:Library.DatabaseConnection.Connecter">
-	<summary>
+ <remarks></remarks>
+</member>
+<member name="P:Library.DatabaseConnection.Connecter">
+ <summary>
  Gets or Sets the current connecter of Library.DatabaseConnection.
  </summary>
-	<value></value>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:Library.DatabaseConnection.#ctor">
-	<summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:Library.DatabaseConnection.#ctor">
+ <summary>
  Sets Database's address for Connecter.
  </summary>
-	<remarks></remarks>
-</member><member name="M:Library.DatabaseConnection.Open">
-	<summary>
+ <remarks></remarks>
+</member>
+<member name="M:Library.DatabaseConnection.Open">
+ <summary>
  Open the current connection to Database. 
  </summary>
-	<remarks></remarks>
-</member><member name="M:Library.DatabaseConnection.Close">
-	<summary>
+ <remarks></remarks>
+</member>
+<member name="M:Library.DatabaseConnection.Close">
+ <summary>
  Close the current connection to Database.
  </summary>
-	<remarks></remarks>
-</member><member name="M:Library.DatabaseConnection.Query(System.String)">
-	<summary>
+ <remarks></remarks>
+</member>
+<member name="M:Library.DatabaseConnection.Query(System.String)">
+ <summary>
  Gets data from Database throught _Query.
  </summary>
-	<param name="_Query">Query command for getting data. Default query command gets Account information.</param>
-	<returns>A table in Database with data match the query command.</returns>
-	<remarks></remarks>
-</member><member name="M:Library.DatabaseConnection.Query(System.String,System.Data.SqlClient.SqlParameter[])">
-	<summary>
+ <param name="_Query">Query command for getting data. Default query command gets Account information.</param>
+ <returns>A table in Database with data match the query command.</returns>
+ <remarks></remarks>
+</member>
+<member name="M:Library.DatabaseConnection.Query(System.String,System.Data.SqlClient.SqlParameter[])">
+ <summary>
  Gets data from Database throught _Query and list of parameters.
  </summary>
-	<param name="_Query">Query command for execute Stored Procedure.</param>
-	<param name="parameter">List of parameters matching Stored Procedure's paremeters.</param>
-	<returns>A table in Database with data match the query command.</returns>
-	<remarks></remarks>
-</member><member name="M:Library.DatabaseConnection.Query(System.String,System.Data.SqlClient.SqlParameter[]@,System.Data.SqlClient.SqlParameter[])">
-	<summary>
+ <param name="_Query">Query command for execute Stored Procedure.</param>
+ <param name="parameter">List of parameters matching Stored Procedure's paremeters.</param>
+ <returns>A table in Database with data match the query command.</returns>
+ <remarks></remarks>
+</member>
+<member name="M:Library.DatabaseConnection.Query(System.String,System.Data.SqlClient.SqlParameter[]@,System.Data.SqlClient.SqlParameter[])">
+ <summary>
  Gets data from Database throught _Query and list of parameters.
  </summary>
-	<param name="_Query">Query command for execute Stored Procedure.</param>
-	<param name="outParameter">List of output parameters from Stored Procedure.</param>
-	<param name="parameter">List of parameters matching Stored Procedure's paremeters.</param>
-	<returns>A table in Database with data match the query command.</returns>
-	<remarks></remarks>
-</member><member name="M:Library.DatabaseConnection.Update(System.String,System.Data.SqlClient.SqlParameter@,System.Data.SqlClient.SqlParameter[])">
-	<summary>
+ <param name="_Query">Query command for execute Stored Procedure.</param>
+ <param name="outParameter">List of output parameters from Stored Procedure.</param>
+ <param name="parameter">List of parameters matching Stored Procedure's paremeters.</param>
+ <returns>A table in Database with data match the query command.</returns>
+ <remarks></remarks>
+</member>
+<member name="M:Library.DatabaseConnection.Update(System.String,System.Data.SqlClient.SqlParameter@,System.Data.SqlClient.SqlParameter[])">
+ <summary>
  Insert/Delete/Update Database through Stored Procedure with _Query, list of parameters and
  gets a return value from Stored Procefure.
  </summary>
-	<param name="_Query">Command for executing Stored Procedure.</param>
-	<param name="returnParameter">Parameter receiving return value.</param>
-	<param name="parameter">List of parameters matching Stored Procedure's parameters.</param>
-	<returns>The number of inserted/deleted/updated rows.</returns>
-	<remarks></remarks>
-</member><member name="M:Library.DatabaseConnection.Update(System.String,System.Data.SqlClient.SqlParameter[])">
-	<summary>
+ <param name="_Query">Command for executing Stored Procedure.</param>
+ <param name="returnParameter">Parameter receiving return value.</param>
+ <param name="parameter">List of parameters matching Stored Procedure's parameters.</param>
+ <returns>The number of inserted/deleted/updated rows.</returns>
+ <remarks></remarks>
+</member>
+<member name="M:Library.DatabaseConnection.Update(System.String,System.Data.SqlClient.SqlParameter[])">
+ <summary>
  Insert/Delete/Update Database through Stored Procedure with _Query and list of parameters.
  </summary>
-	<param name="_Query">Command for executing Stored Procedure.</param>
-	<param name="Parameter">List of parameters matching Stored Procedure's parameters.</param>
-	<returns>The number of inserted/deleted/updated rows.</returns>
-	<remarks></remarks>
-</member><member name="M:Library.DatabaseConnection.Update(System.Data.DataTable,System.String)">
-	<summary>
+ <param name="_Query">Command for executing Stored Procedure.</param>
+ <param name="Parameter">List of parameters matching Stored Procedure's parameters.</param>
+ <returns>The number of inserted/deleted/updated rows.</returns>
+ <remarks></remarks>
+</member>
+<member name="M:Library.DatabaseConnection.Update(System.Data.DataTable,System.String)">
+ <summary>
  Insert/Delete/Update Database from DataTable into Table in Database.
  </summary>
-	<param name="table">Inserted/Deleted/Updated Data.</param>
-	<param name="tableName">Name of Table in Database.</param>
-	<remarks></remarks>
-</member><member name="M:Library.DatabaseConnection.CreateParameter(System.String[],System.Object[])">
-	<summary>
+ <param name="table">Inserted/Deleted/Updated Data.</param>
+ <param name="tableName">Name of Table in Database.</param>
+ <remarks></remarks>
+</member>
+<member name="M:Library.DatabaseConnection.CreateParameter(System.String[],System.Object[])">
+ <summary>
  Create a list of parameters for Query command.
  </summary>
-	<param name="listParameterName">List of parameters' name.</param>
-	<param name="listParameterValue">List of parameters' value.</param>
-	<returns>List of parameters.</returns>
-	<remarks></remarks>
-</member><member name="M:Library.DatabaseConnection.CheckInfor(System.String,System.String,System.String)">
-	<summary>
+ <param name="listParameterName">List of parameters' name.</param>
+ <param name="listParameterValue">List of parameters' value.</param>
+ <returns>List of parameters.</returns>
+ <remarks></remarks>
+</member>
+<member name="M:Library.DatabaseConnection.CheckInfor(System.String,System.String,System.String)">
+ <summary>
  Validate information.
  </summary>
-	<param name="password">Password.</param>
-	<param name="confirmPassword">Confirm Password.</param>
-	<param name="identity">Personal Identity.</param>
-	<returns>Error Code</returns>
-	<remarks>
+ <param name="password">Password.</param>
+ <param name="confirmPassword">Confirm Password.</param>
+ <param name="identity">Personal Identity.</param>
+ <returns>Error Code</returns>
+ <remarks>
  -1 is no error. 1 is unvalidate password and confirm password. 2 is password is invalid. 3 is identity is invalid.
  </remarks>
-</member><member name="M:Library.DatabaseConnection.CheckInvalidAccount(System.String,System.String,System.Int32,Library.User@,System.String@)">
-	<summary>
+</member>
+<member name="M:Library.DatabaseConnection.CheckInvalidAccount(System.String,System.String,System.Int32,Library.User@,System.String@)">
+ <summary>
  Check invalid account's information in Database.
  </summary>
-	<param name="username">Employee's Username.</param>
-	<param name="password">Employee's Password.</param>
-	<returns>True if match, else false.</returns>
-	<remarks></remarks>
-</member><member name="M:Library.DatabaseConnection.Dispose">
-	<summary>
+ <param name="username">Employee's Username.</param>
+ <param name="password">Employee's Password.</param>
+ <returns>True if match, else false.</returns>
+ <remarks></remarks>
+</member>
+<member name="M:Library.DatabaseConnection.Dispose">
+ <summary>
  Release memory of DatabaseConnection.
  </summary>
-	<remarks></remarks>
-</member><member name="F:Library.frmNumPad._SelectedButton">
-	<summary>
+ <remarks></remarks>
+</member>
+<member name="F:Library.frmForgotPassword.db">
+ <summary>
+ Create a connected object for this form.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:Library.frmLogin._IsPWNull">
+ <summary>
+ If Password Textbox is null then true, else false.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:Library.frmLogin._IsIDNull">
+ <summary>
+ If Identity Textbox is null then true, else false.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:Library.frmLogin.db">
+ <summary>
+ Create a connected object for this form.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:Library.frmNumPad._SelectedButton">
+ <summary>
  Last clicked Button.
  </summary>
-	<remarks></remarks>
-</member><member name="F:Library.frmNumPad._MaxValue">
-	<summary>
+ <remarks></remarks>
+</member>
+<member name="F:Library.frmNumPad._MaxValue">
+ <summary>
  Maximum dish/material can be ordered/used.
  </summary>
-	<remarks></remarks>
-</member><member name="F:Library.frmNumPad._EnableDotButton">
-	<summary>
+ <remarks></remarks>
+</member>
+<member name="F:Library.frmNumPad._EnableDotButton">
+ <summary>
  Enable dot button if true.
  </summary>
-	<remarks></remarks>
-</member><member name="F:Library.frmNumPad._Control">
-	<summary>
+ <remarks></remarks>
+</member>
+<member name="F:Library.frmNumPad._Control">
+ <summary>
  Control receives value from this form.
  </summary>
-	<remarks></remarks>
-</member><member name="F:Library.frmNumPad._TempValue">
-	<summary>
+ <remarks></remarks>
+</member>
+<member name="F:Library.frmNumPad._TempValue">
+ <summary>
  Value to receive dot value.
  </summary>
-	<remarks></remarks>
-</member><member name="M:Library.frmNumPad.#ctor(System.Windows.Forms.Control@,System.Boolean)">
-	<summary>
+ <remarks></remarks>
+</member>
+<member name="M:Library.frmNumPad.#ctor(System.Windows.Forms.Control@,System.Boolean)">
+ <summary>
  Constructor gets a control to set value into that control. 
  </summary>
-	<param name="control">Control's Property that receives value.</param>
-	<remarks></remarks>
-</member><member name="P:Library.My.Resources.Resources.ResourceManager">
-	<summary>
+ <param name="control">Control's Property that receives value.</param>
+ <remarks></remarks>
+</member>
+<member name="T:Library.Library_Process.EmployeeType">
+ <summary>
+ List types of Employee for login form.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:Library.Library_Process.GetMd5Hash(System.String,System.String)">
+ <summary>
+ Gets MD5 Hash code from two parameters.
+ </summary>
+ <param name="password">First parameter (for Form Login is Employee's Password).</param>
+ <param name="identity">Second parameter (for Form Login is Employee's Identity).</param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:Library.Library_Process.StringSplit(System.String,System.Object)">
+ <summary>
+ Split the string into two strings based on key word.
+ </summary>
+ <param name="_String">The splited string.</param>
+ <param name="_KeyWord">The key word to split the string.</param>
+ <returns>Array of String.</returns>
+ <remarks></remarks>
+</member>
+<member name="T:Library.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:Library.My.Resources.Resources.ResourceManager">
+<summary>
   Returns the cached ResourceManager instance used by this class.
 </summary>
-</member><member name="P:Library.My.Resources.Resources.Culture">
-	<summary>
+</member>
+<member name="P:Library.My.Resources.Resources.Culture">
+<summary>
   Overrides the current thread's CurrentUICulture property for all
   resource lookups using this strongly typed resource class.
 </summary>
-</member><member name="P:Library.My.Resources.Resources.eye">
-	<summary>
+</member>
+<member name="P:Library.My.Resources.Resources.eye">
+<summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
-</member><member name="T:Library.My.Resources.Resources">
-	<summary>
-  A strongly-typed resource class, for looking up localized strings, etc.
-</summary>
+</member>
+<member name="F:Library.User._Identity">
+ <summary>
+ Employee's Identity.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:Library.User._EmployeeName">
+ <summary>
+ Employee's Name.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="P:Library.User.Identity">
+ <summary>
+ Gets Employee's Identity.
+ </summary>
+ <value></value>
+ <returns>Identity of Employee.</returns>
+ <remarks></remarks>
+</member>
+<member name="P:Library.User.EmployeeName">
+ <summary>
+ Gets Employee's Name.
+ </summary>
+ <value></value>
+ <returns>Name of Employee.</returns>
+ <remarks></remarks>
+</member>
+<member name="M:Library.User.#ctor">
+ <summary>
+ Default constructor.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:Library.User.#ctor(System.String,System.String)">
+ <summary>
+ Constructor gets two parameters to set value for User object.
+ </summary>
+ <param name="identity">Employee's Identity.</param>
+ <param name="name">Employee's Name.</param>
+ <remarks></remarks>
 </member>
 </members>
 </doc>

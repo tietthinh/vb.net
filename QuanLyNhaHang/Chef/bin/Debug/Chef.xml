@@ -6,248 +6,287 @@ Chef
 </name>
 </assembly>
 <members>
+<member name="F:Chef.Chef_Process.db">
+ <summary>
+ Object connects/queries database. 
+ </summary>
+ <remarks>The object is used to query database.</remarks>
+</member>
+<member name="T:Chef.Chef_Process.TransferDetail">
+ <summary>
+ Structure constains two parameters for query database.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:Chef.Chef_Process.TransferDetail.Add(System.String,System.Int32)">
+ <summary>
+ Sets value for transfer's identity and quantity.
+ </summary>
+ <param name="transID">Transfer's Identity.</param>
+ <param name="quantity">The number of dishes.</param>
+ <remarks></remarks>
+</member>
+<member name="P:Chef.Chef_Process.DishDetail.DishID">
+ <summary>
+ Gets or Sets the current Dish's Identity
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="P:Chef.Chef_Process.DishDetail.TotalQuantity">
+ <summary>
+ Gets or Sets the current total quantity.
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="P:Chef.Chef_Process.DishDetail.TransDetail">
+ <summary>
+ Gets or Sets the current transfer detail.
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:Chef.Chef_Process.DishDetail.Add(System.String,System.Int32)">
+ <summary>
+ Add new element for _TransDetail.
+ </summary>
+ <param name="transID">Transfer's Identity.</param>
+ <param name="quantity">The number of dishes.</param>
+ <remarks></remarks>
+</member>
+<member name="M:Chef.Chef_Process.DishDetail.Add(System.String,System.String,System.Int32)">
+ <summary>
+ Add new element.
+ </summary>
+ <param name="dishID">Dish's Identity.</param>
+ <param name="transID">Transfer's Identity.</param>
+ <param name="quantity">The number of dishes.</param>
+ <remarks></remarks>
+</member>
+<member name="M:Chef.Chef_Process.DishDetail.Subtract(System.Int32)">
+ <summary>
+ Subtracts the number of dishes of first element in TransDetail.
+ </summary>
+ <param name="quantity">The number of dishes is done.</param>
+ <returns>A list of TransferDetail that is done.</returns>
+ <remarks></remarks>
+</member>
+<member name="M:Chef.Chef_Process.DishDetail.SubtractCantServe(System.Int32)">
+ <summary>
+ Removes the dishes cannot serve.
+ </summary>
+ <param name="quantity">The number of dishes cannot serve.</param>
+ <remarks></remarks>
+</member>
+<member name="M:Chef.Chef_Process.ClearListViewItemBackColor(System.Collections.Generic.List{System.Windows.Forms.DataGridViewRow}@,System.Windows.Forms.DataGridView@)">
+ <summary>
+ Clears background color of rows in DataGridView.
+ </summary>
+ <param name="listRow">List of rows has background color.</param>
+ <param name="sourceDataGridView">DataGridView contains these list rows.</param>
+ <remarks></remarks>
+</member>
+<member name="M:Chef.Chef_Process.LoadOrder(System.Collections.Generic.List{System.String})">
+ <summary>
+ Loads list material from Database into DataTable through list of transfer identities.
+ </summary>
+ <param name="_TransIDList">List of Transfer Identities.</param>
+ <returns>A table containts list of material matching the Identities.</returns>
+ <remarks></remarks>
+</member>
+<member name="M:Chef.Chef_Process.BindIntoOrderedDataGridView(System.Windows.Forms.DataGridView@,System.Data.DataTable)">
+ <summary>
+ Binds data from DataTable into a Ordered DataGridView.
+ </summary>
+ <param name="destinationDataGridView">Ordered DataGridView needs to be binded.</param>
+ <param name="sourceDataTable">DataTable is used to bind.</param>
+ <remarks></remarks>
+</member>
+<member name="M:Chef.Chef_Process.LoadMaterial(System.Object)">
+ <summary>
+ Loads list material from Database into DataTable.
+ </summary>
+ <param name="_DishID">Identity of Dish in Database.</param>
+ <returns>A table containts list of material matching the Identity.</returns>
+ <remarks></remarks>
+</member>
+<member name="M:Chef.Chef_Process.GetAllColumnsName(System.Data.DataTable)">
+ <summary>
+ Gets all name of columns of DataTable.
+ </summary>
+ <param name="sourceDataTable">DataTable needs to get columns' name.</param>
+ <returns>A array of string contains all columns' name.</returns>
+ <remarks></remarks>
+</member>
+<member name="M:Chef.Chef_Process.AddTotalQuantity(System.Data.DataTable,System.String[],System.Int32)">
+ <summary>
+ Adds total quantity for DataTable.
+ </summary>
+ <param name="sourceDataTable">Datatable supplies data.</param>
+ <param name="listRowName">All name of rows for new DataTable.</param>
+ <param name="totalQuantity">The total quantity for each row.</param>
+ <returns>A clone of source DataTable with total quantity in each row.</returns>
+ <remarks></remarks>
+</member>
+<member name="M:Chef.Chef_Process.AppendDataTable(System.Data.DataTable@,System.Data.DataTable)">
+ <summary>
+ Appends data from a DataTable to other DataTable.
+ </summary>
+ <param name="destinationDataTable">DataTable needs to be appended.</param>
+ <param name="sourceDataTable">DataTable is used to append.</param>
+ <remarks></remarks>
+</member>
+<member name="M:Chef.Chef_Process.GroupDish(System.Data.DataTable@)">
+ <summary>
+ Groups all records with similar name in DataTable.
+ </summary>
+ <param name="sourceDataTable">DataTable contains dish list.</param>
+ <remarks></remarks>
+</member>
+<member name="M:Chef.Chef_Process.CloneDataRow(System.Data.DataRow,System.Data.DataTable)">
+ <summary>
+ Clones a DataRow.
+ </summary>
+ <param name="sourceRow">Row is used to clone.</param>
+ <param name="sourceDataTable">DataTable contains the clone row.</param>
+ <returns>A row has values from source Row and fits with source DataTable.</returns>
+ <remarks></remarks>
+</member>
+<member name="M:Chef.Chef_Process.GetCantServeList(System.Data.DataTable@,System.Int32)">
+ <summary>
+ Gets list dishes cannot serve from a DataGridView.
+ </summary>
+ <param name="sourceDataTable">DataTable contains list dishes.</param>
+ <param name="dishQuantity">The quantity of dish cannot serve.</param>
+ <returns>A DataTable has list dishes cannot serve.</returns>
+ <remarks></remarks>
+</member>
+<member name="M:Chef.Chef_Process.GetFirstDetailByID(System.Collections.Generic.List{Chef.Chef_Process.DishDetail},System.String)">
+ <summary>
+ Gets the first element in List of DishDetail by dish's identity.
+ </summary>
+ <param name="sourceDetailList">Source List DishDetail.</param>
+ <param name="dishID">Dish's identity.</param>
+ <returns>The first element in List of DishDetail matchs with dish's identity.</returns>
+ <remarks></remarks>
+</member>
+<member name="M:Chef.Chef_Process.GetCancelledDish(System.Data.DataTable@,System.Data.DataTable)">
+ <summary>
+ Adds the cancelled dishes from CantServeDataTable into CancelledDataTable.
+ </summary>
+ <param name="cancelledDataTable">DataTable contains cancelled dishes.</param>
+ <param name="cantServeDataTable">DataTable contains cant serve dishes.</param>
+ <remarks></remarks>
+</member>
+<member name="F:Chef.frmChef.frmNumpad">
+ <summary>
+ Form Numpad.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:Chef.frmChef.frmConfirm">
+ <summary>
+ Form Confirm.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:Chef.frmChef.orderList">
+ <summary>
+ DataTable contains data from Order Table in database.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:Chef.frmChef.cookList">
+ <summary>
+ DataTable contains data for DataGridView CookList.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:Chef.frmChef.cantServeList">
+ <summary>
+ DataTable contains data for DataGridView CantServeList.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:Chef.frmChef.materialList">
+ <summary>
+ DataTable contains data from Material Table in database.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:Chef.frmChef.currentUsedMaterial">
+ <summary>
+ DataTable contains data for insert into Used Material Table in database.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:Chef.frmChef.cancelledDishList">
+ <summary>
+ DataTable contains all cancelled dishes.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:Chef.frmChef.doneDishList">
+ <summary>
+ DataTable contains all done dishes.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:Chef.frmChef.currentDish">
+ <summary>
+ Element is used to query from Material Table in database.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:Chef.frmChef.currentTotalQuantity">
+ <summary>
+ Element is used to insert into Used Material Table in database.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:Chef.frmChef.currentMaterialRow">
+ <summary>
+ Element is used to save the current row for DataGridView Material List's events.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:Chef.frmChef.currentOrderRowIndex">
+ <summary>
+ Current index of selected element in DataGridView Order List.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:Chef.frmChef.exceptionList">
+ <summary>
+ List of DataGridViewRow has exception.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:Chef.frmChef.dishOrderList">
+ <summary>
+ List of DishDetail for transfering to Waitor.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:Chef.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
 <member name="P:Chef.My.Resources.Resources.ResourceManager">
-	<summary>
+<summary>
   Returns the cached ResourceManager instance used by this class.
 </summary>
-</member><member name="P:Chef.My.Resources.Resources.Culture">
-	<summary>
+</member>
+<member name="P:Chef.My.Resources.Resources.Culture">
+<summary>
   Overrides the current thread's CurrentUICulture property for all
   resource lookups using this strongly typed resource class.
 </summary>
-</member><member name="T:Chef.My.Resources.Resources">
-	<summary>
-  A strongly-typed resource class, for looking up localized strings, etc.
-</summary>
-</member><member name="F:Chef.frmChef.frmNumpad">
-	<summary>
- Form Numpad.
- </summary>
-	<remarks></remarks>
-</member><member name="F:Chef.frmChef.frmConfirm">
-	<summary>
- Form Confirm.
- </summary>
-	<remarks></remarks>
-</member><member name="F:Chef.frmChef.orderList">
-	<summary>
- DataTable contains data from Order Table in database.
- </summary>
-	<remarks></remarks>
-</member><member name="F:Chef.frmChef.cookList">
-	<summary>
- DataTable contains data for DataGridView CookList.
- </summary>
-	<remarks></remarks>
-</member><member name="F:Chef.frmChef.cantServeList">
-	<summary>
- DataTable contains data for DataGridView CantServeList.
- </summary>
-	<remarks></remarks>
-</member><member name="F:Chef.frmChef.materialList">
-	<summary>
- DataTable contains data from Material Table in database.
- </summary>
-	<remarks></remarks>
-</member><member name="F:Chef.frmChef.currentUsedMaterial">
-	<summary>
- DataTable contains data for insert into Used Material Table in database.
- </summary>
-	<remarks></remarks>
-</member><member name="F:Chef.frmChef.cancelledDishList">
-	<summary>
- DataTable contains all cancelled dishes.
- </summary>
-	<remarks></remarks>
-</member><member name="F:Chef.frmChef.doneDishList">
-	<summary>
- DataTable contains all done dishes.
- </summary>
-	<remarks></remarks>
-</member><member name="F:Chef.frmChef.currentDish">
-	<summary>
- Element is used to query from Material Table in database.
- </summary>
-	<remarks></remarks>
-</member><member name="F:Chef.frmChef.currentTotalQuantity">
-	<summary>
- Element is used to insert into Used Material Table in database.
- </summary>
-	<remarks></remarks>
-</member><member name="F:Chef.frmChef.currentMaterialRow">
-	<summary>
- Element is used to save the current row for DataGridView Material List's events.
- </summary>
-	<remarks></remarks>
-</member><member name="F:Chef.frmChef.currentOrderRowIndex">
-	<summary>
- Current index of selected element in DataGridView Order List.
- </summary>
-	<remarks></remarks>
-</member><member name="F:Chef.frmChef.exceptionList">
-	<summary>
- List of DataGridViewRow has exception.
- </summary>
-	<remarks></remarks>
-</member><member name="F:Chef.frmChef.dishOrderList">
-	<summary>
- List of DishDetail for transfering to Waitor.
- </summary>
-	<remarks></remarks>
-</member><member name="F:Chef.Chef_Process.db">
-	<summary>
- Object connects/queries database. 
- </summary>
-	<remarks>The object is used to query database.</remarks>
-</member><member name="M:Chef.Chef_Process.TransferDetail.Add(System.String,System.Int32)">
-	<summary>
- Sets value for transfer's identity and quantity.
- </summary>
-	<param name="transID">Transfer's Identity.</param>
-	<param name="quantity">The number of dishes.</param>
-	<remarks></remarks>
-</member><member name="T:Chef.Chef_Process.TransferDetail">
-	<summary>
- Structure constains two parameters for query database.
- </summary>
-	<remarks></remarks>
-</member><member name="P:Chef.Chef_Process.DishDetail.DishID">
-	<summary>
- Gets or Sets the current Dish's Identity
- </summary>
-	<value></value>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="P:Chef.Chef_Process.DishDetail.TotalQuantity">
-	<summary>
- Gets or Sets the current total quantity.
- </summary>
-	<value></value>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="P:Chef.Chef_Process.DishDetail.TransDetail">
-	<summary>
- Gets or Sets the current transfer detail.
- </summary>
-	<value></value>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:Chef.Chef_Process.DishDetail.Add(System.String,System.Int32)">
-	<summary>
- Add new element for _TransDetail.
- </summary>
-	<param name="transID">Transfer's Identity.</param>
-	<param name="quantity">The number of dishes.</param>
-	<remarks></remarks>
-</member><member name="M:Chef.Chef_Process.DishDetail.Add(System.String,System.String,System.Int32)">
-	<summary>
- Add new element.
- </summary>
-	<param name="dishID">Dish's Identity.</param>
-	<param name="transID">Transfer's Identity.</param>
-	<param name="quantity">The number of dishes.</param>
-	<remarks></remarks>
-</member><member name="M:Chef.Chef_Process.DishDetail.Subtract(System.Int32)">
-	<summary>
- Subtracts the number of dishes of first element in TransDetail.
- </summary>
-	<param name="quantity">The number of dishes is done.</param>
-	<returns>A list of TransferDetail that is done.</returns>
-	<remarks></remarks>
-</member><member name="M:Chef.Chef_Process.DishDetail.SubtractCantServe(System.Int32)">
-	<summary>
- Removes the dishes cannot serve.
- </summary>
-	<param name="quantity">The number of dishes cannot serve.</param>
-	<remarks></remarks>
-</member><member name="M:Chef.Chef_Process.ClearListViewItemBackColor(System.Collections.Generic.List{System.Windows.Forms.DataGridViewRow}@,System.Windows.Forms.DataGridView@)">
-	<summary>
- Clears background color of rows in DataGridView.
- </summary>
-	<param name="listRow">List of rows has background color.</param>
-	<param name="sourceDataGridView">DataGridView contains these list rows.</param>
-	<remarks></remarks>
-</member><member name="M:Chef.Chef_Process.LoadOrder(System.Collections.Generic.List{System.String})">
-	<summary>
- Loads list material from Database into DataTable through list of transfer identities.
- </summary>
-	<param name="_TransIDList">List of Transfer Identities.</param>
-	<returns>A table containts list of material matching the Identities.</returns>
-	<remarks></remarks>
-</member><member name="M:Chef.Chef_Process.BindIntoOrderedDataGridView(System.Windows.Forms.DataGridView@,System.Data.DataTable)">
-	<summary>
- Binds data from DataTable into a Ordered DataGridView.
- </summary>
-	<param name="destinationDataGridView">Ordered DataGridView needs to be binded.</param>
-	<param name="sourceDataTable">DataTable is used to bind.</param>
-	<remarks></remarks>
-</member><member name="M:Chef.Chef_Process.LoadMaterial(System.Object)">
-	<summary>
- Loads list material from Database into DataTable.
- </summary>
-	<param name="_DishID">Identity of Dish in Database.</param>
-	<returns>A table containts list of material matching the Identity.</returns>
-	<remarks></remarks>
-</member><member name="M:Chef.Chef_Process.GetAllColumnsName(System.Data.DataTable)">
-	<summary>
- Gets all name of columns of DataTable.
- </summary>
-	<param name="sourceDataTable">DataTable needs to get columns' name.</param>
-	<returns>A array of string contains all columns' name.</returns>
-	<remarks></remarks>
-</member><member name="M:Chef.Chef_Process.AddTotalQuantity(System.Data.DataTable,System.String[],System.Int32)">
-	<summary>
- Adds total quantity for DataTable.
- </summary>
-	<param name="sourceDataTable">Datatable supplies data.</param>
-	<param name="listRowName">All name of rows for new DataTable.</param>
-	<param name="totalQuantity">The total quantity for each row.</param>
-	<returns>A clone of source DataTable with total quantity in each row.</returns>
-	<remarks></remarks>
-</member><member name="M:Chef.Chef_Process.AppendDataTable(System.Data.DataTable@,System.Data.DataTable)">
-	<summary>
- Appends data from a DataTable to other DataTable.
- </summary>
-	<param name="destinationDataTable">DataTable needs to be appended.</param>
-	<param name="sourceDataTable">DataTable is used to append.</param>
-	<remarks></remarks>
-</member><member name="M:Chef.Chef_Process.GroupDish(System.Data.DataTable@)">
-	<summary>
- Groups all records with similar name in DataTable.
- </summary>
-	<param name="sourceDataTable">DataTable contains dish list.</param>
-	<remarks></remarks>
-</member><member name="M:Chef.Chef_Process.CloneDataRow(System.Data.DataRow,System.Data.DataTable)">
-	<summary>
- Clones a DataRow.
- </summary>
-	<param name="sourceRow">Row is used to clone.</param>
-	<param name="sourceDataTable">DataTable contains the clone row.</param>
-	<returns>A row has values from source Row and fits with source DataTable.</returns>
-	<remarks></remarks>
-</member><member name="M:Chef.Chef_Process.GetCantServeList(System.Data.DataTable@,System.Int32)">
-	<summary>
- Gets list dishes cannot serve from a DataGridView.
- </summary>
-	<param name="sourceDataTable">DataTable contains list dishes.</param>
-	<param name="dishQuantity">The quantity of dish cannot serve.</param>
-	<returns>A DataTable has list dishes cannot serve.</returns>
-	<remarks></remarks>
-</member><member name="M:Chef.Chef_Process.GetFirstDetailByID(System.Collections.Generic.List{Chef.Chef_Process.DishDetail},System.String)">
-	<summary>
- Gets the first element in List of DishDetail by dish's identity.
- </summary>
-	<param name="sourceDetailList">Source List DishDetail.</param>
-	<param name="dishID">Dish's identity.</param>
-	<returns>The first element in List of DishDetail matchs with dish's identity.</returns>
-	<remarks></remarks>
-</member><member name="M:Chef.Chef_Process.GetCancelledDish(System.Data.DataTable@,System.Data.DataTable)">
-	<summary>
- Adds the cancelled dishes from CantServeDataTable into CancelledDataTable.
- </summary>
-	<param name="cancelledDataTable">DataTable contains cancelled dishes.</param>
-	<param name="cantServeDataTable">DataTable contains cant serve dishes.</param>
-	<remarks></remarks>
 </member>
 </members>
 </doc>

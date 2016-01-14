@@ -27,17 +27,18 @@ Public Class FrmQLPhieuNhap
         End If
         If errPhieuNhap.GetError(txtTimPN) = "" Then
             Dim temp As Integer = 0
+            dgvDSChiTietPhieuNhap.ClearSelection()
             For i As Integer = 0 To dgvDSPhieuNhap.RowCount - 1
                 For j As Integer = 0 To dgvDSPhieuNhap.ColumnCount - 1
-                    If dgvDSPhieuNhap.Rows(i).Cells(j).Value.ToString.Contains(txtTimPN.Text) Then
-                        MsgBox("Item found")
+                    If dgvDSPhieuNhap.Rows(i).Cells(j).Value.ToString.Trim.Contains(txtTimPN.Text) Then
                         temp = 1
-                        dgvDSPhieuNhap.CurrentCell = dgvDSPhieuNhap.Rows(i).Cells(j)
+                        dgvDSChiTietPhieuNhap.Rows(i).Selected = True
+                        dgvDSChiTietPhieuNhap.Select()
                     End If
                 Next
             Next
             If temp = 0 Then
-                MsgBox("Item not found")
+                MsgBox("Không tìm thấy")
             End If
         End If
     End Sub
@@ -49,17 +50,20 @@ Public Class FrmQLPhieuNhap
         End If
         If errPhieuNhap.GetError(txtTimCT) = "" Then
             Dim temp As Integer = 0
+            dgvDSChiTietPhieuNhap.ClearSelection()
+
             For i As Integer = 0 To dgvDSChiTietPhieuNhap.RowCount - 1
                 For j As Integer = 0 To dgvDSChiTietPhieuNhap.ColumnCount - 1
-                    If dgvDSChiTietPhieuNhap.Rows(i).Cells(j).Value.ToString.Contains(txtTimCT.Text) Then
-                        MsgBox("Item found")
+                    If dgvDSChiTietPhieuNhap.Rows(i).Cells(j).Value.ToString.Trim.Contains(txtTimCT.Text) Then
                         temp = 1
-                        dgvDSChiTietPhieuNhap.CurrentCell = dgvDSChiTietPhieuNhap.Rows(i).Cells(j)
+                        dgvDSChiTietPhieuNhap.Rows(i).Selected = True
+                        dgvDSChiTietPhieuNhap.Select()
+                        'dgvDSChiTietPhieuNhap.CurrentCell = dgvDSChiTietPhieuNhap.Rows(i).Cells(j)
                     End If
                 Next
             Next
             If temp = 0 Then
-                MsgBox("Item not found")
+                MsgBox("Không tìm thấy")
             End If
         End If
 
@@ -118,10 +122,10 @@ Public Class FrmQLPhieuNhap
         End If
         If errPhieuNhap.GetError(txtTimLB) = "" Then
             Dim temp As Integer = 0
+            lstTimKiem.SelectedItems.Clear()
             For i As Integer = 0 To lstTimKiem.Items.Count - 1
                 For j As Integer = 0 To 2
-                    If lstTimKiem.Items(i).SubItems(j).Text = txtTimLB.Text Then
-                        MsgBox("Item found")
+                    If lstTimKiem.Items(i).SubItems(j).Text.Trim.Contains(txtTimLB.Text) Then
                         temp = 1
                         lstTimKiem.Items(i).Selected = True
                         lstTimKiem.Select()
@@ -129,12 +133,17 @@ Public Class FrmQLPhieuNhap
                 Next
             Next
             If temp = 0 Then
-                MsgBox("Item not found")
+                MsgBox("Không tìm thấy")
             End If
         End If
     End Sub
 
     Private Sub FrmQLPhieuNhap_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        cboSL.Items.Add("4")
+        cboSL.Items.Add("10")
+        cboSL.Items.Add("30")
+        cboSL.Items.Add("50")
+        cboSL.Items.Add("Khác")
 
         tslMaNV.Text = frmWarehouseKeeper._CurrentUser.Identity
         tslTenNV.Text = frmWarehouseKeeper._CurrentUser.EmployeeName
@@ -149,6 +158,8 @@ Public Class FrmQLPhieuNhap
         cboDonVi.DataSource = Connection.Query("Select * From LoaiDonViTinh")
         cboDonVi.DisplayMember = "TenDV"
         cboDonVi.ValueMember = "MaDV"
+
+
     End Sub
 
     Private Sub loadDSPhieuNhap()
@@ -313,7 +324,34 @@ Public Class FrmQLPhieuNhap
         End If
     End Sub
 
-    Private Sub txtTimLB_TextChanged(sender As Object, e As EventArgs) Handles txtTimLB.TextChanged
+    Private Sub cboSL_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles cboSL.SelectionChangeCommitted
+        If cboSL.Text = "Khác" Then
+            txtSL.ReadOnly = False
+        Else
+            txtSL.Text = cboSL.Text
+            txtSL.ReadOnly = True
+        End If
     End Sub
 
+    Private Sub txtSL_TextChanged(sender As Object, e As EventArgs) Handles txtSL.TextChanged
+        If IsNumeric(txtSL.Text) = False Then
+            errPhieuNhap.SetError(txtSL, "Chỉ được nhập số!")
+        End If
+        If errPhieuNhap.GetError(txtSL) = "" Then
+            Dim _Name() As String = New String() {"@DinhMuc"}
+            Dim _Value() As String = New String() {txtSL.Text}
+            Dim _lstHetHang As DataTable
+            _lstHetHang = Connection.Query("usp_XemSanPhamDinhMuc", Connection.CreateParameter(_Name, _Value))
+            lstTimKiem.Items.Clear()
+
+            For Each row As DataRow In _lstHetHang.Rows
+                Dim lst As New ListViewItem
+                lst = lstTimKiem.Items.Add(row(0))
+                For i As Integer = 1 To _lstHetHang.Columns.Count - 1
+                    lst.SubItems.Add(row(i))
+                Next
+                lstTrue.Add(lst)
+            Next
+        End If
+    End Sub
 End Class

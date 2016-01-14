@@ -6,7 +6,14 @@
 '=====================================================================
 
 Public Class frmContact
+    Public Sub New(ByRef Data() As String)
 
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        Data = _ListObject
+    End Sub
     'Fieds:
     '
     ''' <summary>
@@ -15,6 +22,12 @@ Public Class frmContact
     ''' <remarks></remarks>
     Dim textBoxCount As Integer
 
+    ''' <summary>
+    ''' List of objects that return for other form. 
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public _ListObject(-1) As String
+
     'Properties:
     '
     ''' <summary>
@@ -22,7 +35,6 @@ Public Class frmContact
     ''' </summary>
     ''' <remarks></remarks>
     Public _SupplierName As String
-
     'Methods:
     '
     ''' <summary>
@@ -39,11 +51,10 @@ Public Class frmContact
                     AddTextBox()
                 End If
             Next
-            Return True
+            Return MyBase.ProcessCmdKey(msg, keyData)
         Else
             Return MyBase.ProcessCmdKey(msg, keyData)
         End If
-
         Return MyBase.ProcessCmdKey(msg, keyData)
     End Function
 
@@ -79,9 +90,9 @@ Public Class frmContact
 
         Me.pnlContainer.AutoSize = False
         x = Me.pnlContainer.Controls(textBoxCount - 1).Location.X
-        y = Me.pnlContainer.Controls(textBoxCount - 1).Location.Y + _
+        y = Me.pnlContainer.Controls(textBoxCount - 1).Location.Y +
             Me.pnlContainer.Controls(textBoxCount - 1).Height + 2
-        text = Me.CreateTextbox("txtMail_" + (textBoxCount - 1).ToString(), x, y, "")
+        text = Me.CreateTextbox("txtObject_" + (textBoxCount - 1).ToString(), x, y, "")
         textBoxCount += 1
     End Sub
 
@@ -122,7 +133,7 @@ Public Class frmContact
         If textBoxCount >= 5 Then
             Me.pnlContainer.AutoScroll = True
         Else
-            Me.pnlContainer.Size = New Size(Me.pnlContainer.Size.Width, Me.pnlContainer.Size.Height + _
+            Me.pnlContainer.Size = New Size(Me.pnlContainer.Size.Width, Me.pnlContainer.Size.Height +
                                             Me.pnlContainer.Controls(0).Height + 2)
         End If
     End Sub
@@ -133,7 +144,7 @@ Public Class frmContact
         'Finds the btnDone in this form and gets this button's index.
         Dim x = Me.Controls.IndexOf(Me.Controls.Find("btnDone", True)(0))
         'Changes position of this button.
-        Me.Controls(x).Location = New Point(Me.Controls(x).Location.X, Me.Controls(x).Location.Y + _
+        Me.Controls(x).Location = New Point(Me.Controls(x).Location.X, Me.Controls(x).Location.Y +
                                             Me.pnlContainer.Controls(0).Size.Height)
 
         'If the current number of textboxs is greater or equal 4 then removes this event for pnlContainer.
@@ -145,8 +156,16 @@ Public Class frmContact
     'btnDone's Events:
     '
     'Click: Occur when btnDone is Clicked
-
+    '
     Private Sub btnDone_Click(sender As Object, e As EventArgs) Handles btnDone.Click
-
+        For Each Control As Control In Me.pnlContainer.Controls
+            If (Control.Name.Contains("txtObject_")) Then
+                Dim i As Integer = _ListObject.Length
+                Array.Resize(_ListObject, _ListObject.Length + 1)
+                _ListObject(i) = Control.Text
+            End If
+        Next
+        Me.DialogResult = Windows.Forms.DialogResult.OK
+        Me.Hide()
     End Sub
 End Class
