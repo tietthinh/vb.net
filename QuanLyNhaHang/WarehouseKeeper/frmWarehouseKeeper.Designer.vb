@@ -90,6 +90,10 @@ Partial Class frmWarehouseKeeper
         Me.btnXoaSDT = New System.Windows.Forms.Button()
         Me.btnSuaSDT = New System.Windows.Forms.Button()
         Me.btnHoanTat = New System.Windows.Forms.Button()
+        Me.lstGui = New System.Windows.Forms.ListView()
+        Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.btnSend = New System.Windows.Forms.Button()
         CType(Me.dgvDSSanPham, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvDSNhaCungCap, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.errMain, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -147,7 +151,7 @@ Partial Class frmWarehouseKeeper
         Me.dgvDSSanPham.Name = "dgvDSSanPham"
         Me.dgvDSSanPham.RowHeadersVisible = False
         Me.dgvDSSanPham.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvDSSanPham.Size = New System.Drawing.Size(479, 375)
+        Me.dgvDSSanPham.Size = New System.Drawing.Size(385, 375)
         Me.dgvDSSanPham.TabIndex = 6
         '
         'colMaSP
@@ -728,6 +732,36 @@ Partial Class frmWarehouseKeeper
         Me.btnHoanTat.UseVisualStyleBackColor = True
         Me.btnHoanTat.Visible = False
         '
+        'lstGui
+        '
+        Me.lstGui.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2})
+        Me.lstGui.Location = New System.Drawing.Point(406, 350)
+        Me.lstGui.Name = "lstGui"
+        Me.lstGui.Size = New System.Drawing.Size(92, 331)
+        Me.lstGui.TabIndex = 113
+        Me.lstGui.UseCompatibleStateImageBehavior = False
+        Me.lstGui.View = System.Windows.Forms.View.Details
+        '
+        'ColumnHeader1
+        '
+        Me.ColumnHeader1.Text = "Mã món"
+        Me.ColumnHeader1.Width = 0
+        '
+        'ColumnHeader2
+        '
+        Me.ColumnHeader2.Text = "Tên món"
+        Me.ColumnHeader2.Width = 92
+        '
+        'btnSend
+        '
+        Me.btnSend.Font = New System.Drawing.Font("Roboto", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnSend.Location = New System.Drawing.Point(406, 307)
+        Me.btnSend.Name = "btnSend"
+        Me.btnSend.Size = New System.Drawing.Size(92, 37)
+        Me.btnSend.TabIndex = 114
+        Me.btnSend.Text = "Gửi"
+        Me.btnSend.UseVisualStyleBackColor = True
+        '
         'frmWarehouseKeeper
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -735,6 +769,8 @@ Partial Class frmWarehouseKeeper
         Me.AutoScroll = True
         Me.AutoSize = True
         Me.ClientSize = New System.Drawing.Size(1362, 706)
+        Me.Controls.Add(Me.btnSend)
+        Me.Controls.Add(Me.lstGui)
         Me.Controls.Add(Me.btnHoanTat)
         Me.Controls.Add(Me.btnSuaSDT)
         Me.Controls.Add(Me.btnXoaSDT)
@@ -858,4 +894,8 @@ Partial Class frmWarehouseKeeper
     Friend WithEvents btnXoaEmail As Button
     Friend WithEvents btnThemEmail As Button
     Friend WithEvents btnHoanTat As Button
+    Friend WithEvents btnSend As Button
+    Friend WithEvents lstGui As ListView
+    Friend WithEvents ColumnHeader1 As ColumnHeader
+    Friend WithEvents ColumnHeader2 As ColumnHeader
 End Class
