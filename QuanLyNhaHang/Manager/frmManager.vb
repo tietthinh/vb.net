@@ -30,7 +30,8 @@ Public Class frmManager
     Dim _TableLoaiDV As DataTable = Nothing
     Dim _TableMonHT As DataTable = Nothing
     Dim _TableMonKHT As DataTable = Nothing
-    Dim _TableThongKe As DataTable = Nothing
+    Dim _TableThongKeMonHT As DataTable = Nothing
+    Dim _TableThongKeMonKHT As DataTable = Nothing
     Dim _TableThongKeNguyenLieu As DataTable = Nothing
     Dim _TableThongKeKhach_Mon As DataTable = Nothing
     Dim _TableThongKeKhach_Ban As DataTable = Nothing
@@ -2443,78 +2444,80 @@ Public Class frmManager
 
     'Thống Kê Theo Năm Món Hoàn Thành
     Private Sub btnThongKeNam_MonHT_Click(sender As Object, e As EventArgs) Handles btnThongKeNam_MonHT.Click
-        _TableThongKe = Nothing
-        _TableThongKe = ThongKeNamMonHT(dgvMonHT, nbrNam_TKNam_MonHT.Value.ToString)
+        _TableThongKeMonHT = Nothing
+        _TableThongKeMonHT = ThongKeNamMonHT(dgvMonHT, nbrNam_TKNam_MonHT.Value.ToString)
         gpbThongKeHT.Text = "Thông Tin Thống Kê Theo Năm"
     End Sub
 
     ''Thống Kê Theo Quý Món Hoàn Thành
     Private Sub bntThongKeQuy_MonHT_Click(sender As Object, e As EventArgs) Handles bntThongKeQuy_MonHT.Click
-        _TableThongKe = Nothing
-        _TableThongKe = ThongKeQuyMonHT(dgvMonHT, nbrQuy_TKQuy_MonHT.Value.ToString, nbrNam_TKNam_MonHT.Value.ToString)
+        _TableThongKeMonHT = Nothing
+        _TableThongKeMonHT = ThongKeQuyMonHT(dgvMonHT, nbrQuy_TKQuy_MonHT.Value.ToString, nbrNam_TKNam_MonHT.Value.ToString)
         gpbThongKeHT.Text = "Thông Tin Thống Kê Theo Quý"
     End Sub
 
     'Thống Kê Theo Tháng Món Hoàn Thành
     Private Sub bntThongKeThang_MonHT_Click(sender As Object, e As EventArgs) Handles bntThongKeThang_MonHT.Click
-        _TableThongKe = Nothing
-        _TableThongKe = ThongKeThangMonHT(dgvMonHT, nbrThang_TKThang_MonHT.Value.ToString, nbrNam_TKThang_MonHT.Value.ToString)
+        _TableThongKeMonHT = Nothing
+        _TableThongKeMonHT = ThongKeThangMonHT(dgvMonHT, nbrThang_TKThang_MonHT.Value.ToString, nbrNam_TKThang_MonHT.Value.ToString)
         gpbThongKeHT.Text = "Thông Tin Thống Kê Theo Tháng"
     End Sub
 
     'Thống Kê Theo Ngày Món Hoàn Thành
     Private Sub bntThongKeNgay_MonHT_Click(sender As Object, e As EventArgs) Handles bntThongKeNgay_MonHT.Click
-        _TableThongKe = Nothing
-        _TableThongKe = ThongKeNgayMonHT(dgvMonHT, dtpNgay_MonHT.Value.ToString("yyyy/MM/dd"))
+        _TableThongKeMonHT = Nothing
+        _TableThongKeMonHT = ThongKeNgayMonHT(dgvMonHT, dtpNgay_MonHT.Value.ToString("yyyy/MM/dd"))
         gpbThongKeHT.Text = "Thông Tin Thống Kê Theo Ngày"
     End Sub
 
     'Báo Cáo Món Hoàn Thành
     Private Sub btnBaoCao_MonHT_Click(sender As Object, e As EventArgs) Handles btnBaoCao_MonHT.Click
-        'For i As Integer = 0 To _TableThongKe.Rows.Count - 1   
-        '    With _TableThongKe.Rows(i)
-        '        _DataReportViwe.Tables("ThongKe").Rows.Add(
-        '    End With
-        'Next
+        If _TableThongKeMonHT IsNot Nothing AndAlso _TableThongKeMonHT.Rows.Count > 0 Then
+            _TableThongKeMonHT.TableName = "TK_MonHT"
 
-        _Report = New rptThongKe(_TableThongKe)
-        _Report.Show()
-
+            _Report = New rptThongKe(_TableThongKeMonHT)
+            _Report.Show()
+        End If
     End Sub
 
 
     'Món Không Hoàn Thành
     'Thống Kê Theo Năm Món Không Hoàn Thành
     Private Sub bntThongKeNam_MonKHT_Click_1(sender As Object, e As EventArgs) Handles bntThongKeNam_MonKHT.Click
-        _TableThongKe = Nothing
-        _TableThongKe = ThongKeNamMonKHT(dgvMonKHT, nbrNam_TKNam_MonKHT.Value.ToString)
+        _TableThongKeMonKHT = Nothing
+        _TableThongKeMonKHT = ThongKeNamMonKHT(dgvMonKHT, nbrNam_TKNam_MonKHT.Value.ToString)
         gpbThongKeHT.Text = "Thông Tin Thống Kê Theo Năm"
     End Sub
 
     'Thống Kê Theo Quý Món Không Hoàn Thành
     Private Sub bntThongKeQuy_MonKHT_Click_1(sender As Object, e As EventArgs) Handles bntThongKeQuy_MonKHT.Click
-        _TableThongKe = Nothing
-        _TableThongKe = ThongKeQuyMonKHT(dgvMonKHT, nbrQuy_TKQuy_MonKHT.Value.ToString, nbrNam_TKNam_MonKHT.Value.ToString)
+        _TableThongKeMonKHT = Nothing
+        _TableThongKeMonKHT = ThongKeQuyMonKHT(dgvMonKHT, nbrQuy_TKQuy_MonKHT.Value.ToString, nbrNam_TKNam_MonKHT.Value.ToString)
         gpbThongKeHT.Text = "Thông Tin Thống Kê Theo Quý"
     End Sub
 
     'Thống Kê Theo Tháng Món Không Hoàn Thành
     Private Sub bntThongKeThang_MonKHT_Click_1(sender As Object, e As EventArgs) Handles bntThongKeThang_MonKHT.Click
-        _TableThongKe = Nothing
-        _TableThongKe = ThongKeThangMonKHT(dgvMonKHT, nbrThang_TKThang_MonKHT.Value.ToString, nbrNam_TKThang_MonKHT.Value.ToString)
+        _TableThongKeMonKHT = Nothing
+        _TableThongKeMonKHT = ThongKeThangMonKHT(dgvMonKHT, nbrThang_TKThang_MonKHT.Value.ToString, nbrNam_TKThang_MonKHT.Value.ToString)
         gpbThongKeHT.Text = "Thông Tin Thống Kê Theo Tháng"
     End Sub
 
     'Thống Kê Theo Ngày Món Không Hoàn Thành
     Private Sub bntThongKeNgay_MonKHT_Click_1(sender As Object, e As EventArgs) Handles bntThongKeNgay_MonKHT.Click
-        _TableThongKe = Nothing
-        _TableThongKe = ThongKeNgayMonKHT(dgvMonKHT, dtpNgay_MonKHT.Value.ToString("yyyy/MM/dd"))
+        _TableThongKeMonKHT = Nothing
+        _TableThongKeMonKHT = ThongKeNgayMonKHT(dgvMonKHT, dtpNgay_MonKHT.Value.ToString("yyyy/MM/dd"))
         gpbThongKeHT.Text = "Thông Tin Thống Kê Theo Ngày"
     End Sub
 
     'Báo Cáo Món Không Hoàn Thành
     Private Sub btnBaoCao_MonKHT_Click_1(sender As Object, e As EventArgs) Handles btnBaoCao_MonKHT.Click
+        If _TableThongKeMonKHT IsNot Nothing AndAlso _TableThongKeMonKHT.Rows.Count > 0 Then
+            _TableThongKeMonKHT.TableName = "TK_MonKHT"
 
+            _Report = New rptThongKe(_TableThongKeMonKHT)
+            _Report.Show()
+        End If
     End Sub
 
 
@@ -2551,7 +2554,12 @@ Public Class frmManager
 
     'Báo Cáo Nguyên Liệu Sử Dụng
     Private Sub btnBaoCao_NL_Click(sender As Object, e As EventArgs) Handles btnBaoCao_NL.Click
+        If _TableThongKeNguyenLieu IsNot Nothing AndAlso _TableThongKeNguyenLieu.Rows.Count > 0 Then
+            _TableThongKeNguyenLieu.TableName = "TK_NL"
 
+            _Report = New rptThongKe(_TableThongKeNguyenLieu)
+            _Report.Show()
+        End If
     End Sub
 
     '------------------------------------------------------------------------------------Thống Kê Khách Theo Bàn-------------------------------------------------------------
@@ -2585,7 +2593,12 @@ Public Class frmManager
 
     'Báo Cáo Khách Theo Bàn
     Private Sub btnBaoCao_Khach_Ban_Click(sender As Object, e As EventArgs) Handles btnBaoCao_Khach_Ban.Click
+        If _TableThongKeKhach_Ban IsNot Nothing AndAlso _TableThongKeKhach_Ban.Rows.Count > 0 Then
+            _TableThongKeKhach_Ban.TableName = "TK_Khach_Ban"
 
+            _Report = New rptThongKe(_TableThongKeKhach_Ban)
+            _Report.Show()
+        End If
     End Sub
 
 
@@ -2596,7 +2609,12 @@ Public Class frmManager
     End Sub
 
     Private Sub btnBaoCao_Khach_NhanVien_Click(sender As Object, e As EventArgs) Handles btnBaoCao_Khach_NhanVien.Click
+        If _TableThongKeKhach_NhanVien IsNot Nothing AndAlso _TableThongKeKhach_NhanVien.Rows.Count > 0 Then
+            _TableThongKeKhach_NhanVien.TableName = "TK_Khach_NhanVien"
 
+            _Report = New rptThongKe(_TableThongKeKhach_NhanVien)
+            _Report.Show()
+        End If
     End Sub
 
     '--------------------------------------------------------------------------------Thống Kê Khách Hàng Theo Món Ăn Đồ Uống-------------------------------------------------
@@ -2624,7 +2642,12 @@ Public Class frmManager
 
     'Báo Cáo Khách Hàng Theo Món Ăn Đồ Uống
     Private Sub btnBaoCao_Khach_Mon_Click(sender As Object, e As EventArgs) Handles btnBaoCao_Khach_Mon.Click
+        If _TableThongKeKhach_Mon IsNot Nothing AndAlso _TableThongKeKhach_Mon.Rows.Count > 0 Then
+            _TableThongKeKhach_Mon.TableName = "TK_Khach_Mon"
 
+            _Report = New rptThongKe(_TableThongKeKhach_Mon)
+            _Report.Show()
+        End If
     End Sub
 
 
@@ -2653,7 +2676,12 @@ Public Class frmManager
 
     'Báo Cáo Doanh Thu
     Private Sub btnBaoCao_DoanhThu_Click(sender As Object, e As EventArgs) Handles btnBaoCao_DoanhThu.Click
+        If _TableThongKeDoanhThu IsNot Nothing AndAlso _TableThongKeDoanhThu.Rows.Count > 0 Then
+            _TableThongKeDoanhThu.TableName = "TK_DoanhThu"
 
+            _Report = New rptThongKe(_TableThongKeDoanhThu)
+            _Report.Show()
+        End If
     End Sub
 
     '------------------------------------------------------------------------------------------------------------------------------------------------------------------------
