@@ -55,11 +55,11 @@ Public Module Service_Process
     ''' Gửi dữ liệu lên Remote Service
     ''' </summary>
     ''' <param name="Data"></param>
-    Public Function SendData(ByVal Data As String) As Boolean
+    Public Sub SendData(ByVal Data As String)
         _ServerObject.AddData(Data)
         '' For manager only
         _Logging += DateTime.Now.ToString() + " $" + Data + "^"
-    End Function
+    End Sub
     ''' <summary>
     ''' Lọc dữ liệu cho từng loại 
     ''' </summary>
