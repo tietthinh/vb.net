@@ -13,6 +13,7 @@ Public Module Service_Process
     Private _Thread As Thread
     Private _Data As String = ""
     Private _Logging As String = ""
+    Private _ConnectStatus As Boolean = False
     ''' <summary>
     ''' Kết nối đến tên miền. Thiêt lập tên miền trong App.config.
     ''' </summary>
@@ -25,17 +26,16 @@ Public Module Service_Process
     ''' </summary>
     ''' <param name="_ThreadStart">Hàm lắng nghe cú pháp "(New ThreadStart(Sub() [Hàm_lắng_nghe]()))"</param>
     Public Sub StartService(_ThreadStart As ThreadStart)
+        ''Initiate connection
         Try
-            ''Initiate connection
             Dim _Channel As New HttpChannel
             RegisterChannel(_Channel, True)
             InitializeRemoteServer()
             _ServerObject = New ServerObject
-            ''Start thread listening
             _Thread = New Thread(_ThreadStart)
             _Thread.Start()
+            _ConnectStatus = True
         Catch ex As Exception
-            MessageBox.Show(ex.Message)
             MessageBox.Show("Kết nối thất bại!", "Lỗi")
         End Try
     End Sub
@@ -44,9 +44,10 @@ Public Module Service_Process
     ''' </summary>
     ''' <returns></returns>
     Public Function GetData() As String
+        Dim _ReceiveData As String = ""
         Dim _Text As String = _ServerObject.GetHolder()
         Dim _Length As Integer = _Data.Length
-        Dim _ReceiveData As String = _Text.Substring(_Length)
+        _ReceiveData = _Text.Substring(_Length)
         _Data = _Text
         Return _ReceiveData
     End Function
@@ -54,11 +55,11 @@ Public Module Service_Process
     ''' Gửi dữ liệu lên Remote Service
     ''' </summary>
     ''' <param name="Data"></param>
-    Public Sub SendData(ByVal Data As String)
+    Public Function SendData(ByVal Data As String) As Boolean
         _ServerObject.AddData(Data)
         '' For manager only
         _Logging += DateTime.Now.ToString() + " $" + Data + "^"
-    End Sub
+    End Function
     ''' <summary>
     ''' Lọc dữ liệu cho từng loại 
     ''' </summary>
@@ -83,99 +84,41 @@ Public Module Service_Process
         Next
         Return _ReturnArray
     End Function
-
-    'Service listener for Chef. (Unique)
-    'Private Sub ChefListener(ByVal Inteval As Integer, ByVal SleepTime As Integer)
-    '    Dim _Timer = New Timers.Timer
-    '    _Timer.Start()
-    '    While (True)
-    '        If (Me.IsDisposed = False) Then
-    '            Thread.Sleep(0)
-    '            Try
-    '                Me.Invoke(New MethodInvoker(Sub()
-    '                                                Dim _ReceiveData As String = GetData()
-    '                                                If (_ReceiveData <> "" And _ReceiveData.Length > 2) Then
-    '                                                    CheckWaitorToChefBartender(_ReceiveData)
-    '                                                    CheckWaitorToChefBartenderConfirm(_ReceiveData)
-    '                                                    CheckWarehouseToChefBartenderConfirm(_ReceiveData)
-    '                                                End If
-    '                                                If (_Timer.Interval >= Inteval) Then
-    '                                                    Thread.Sleep(SleepTime)
-    '                                                    _Timer.Interval = 0
-    '                                                    _Timer.Start()
-    '                                                End If
-    '                                            End Sub
-    '                            ))
-    '            Catch e As Exception
-    '                Exit While
-    '            End Try
-    '        Else
-    '            Exit While
-    '        End If
-    '    End While
-    'End Sub
+    ''' <summary>
+    ''' Ghi lại dữ liệu đã gửi/nhận
+    ''' </summary>
     Public Sub Logging()
-        Try
-            ''Initiate connection
-            Dim _Channel As New HttpChannel()
-            RegisterChannel(_Channel, True)
-            InitializeRemoteServer()
-            _ServerObject = New ServerObject()
-        Catch ex As Exception
-            MessageBox.Show(ex.Message)
-            MessageBox.Show("Kết nối thất bại!", "Lỗi")
-        End Try
-        'For Manager logging all service. Only add To Manager
         Dim file As IO.StreamWriter
         Dim _LogData As String = ""
         Dim _Data() As String = Nothing
         _Data = _Logging.Split("^")
-        For i As ULong = 0 To _Data.Length - 2 Step 1
-            Select Case (_Data(i).Split("$")(1).Substring(0, 2))
-                Case "1+"
-                    _LogData += "Waitor => ThuNgan " + _Data(i).Substring(2)
-                    _LogData = _LogData.Replace("$1+", " ")
-                Case "2+"
-                    _LogData += "Waitor => Bep/PhaChe " + _Data(i).Substring(2)
-                    _LogData = _LogData.Replace("$2+", " ")
-                Case "3+"
-                    _LogData += "QuanLy => Waitor " + _Data(i).Substring(2)
-                    _LogData = _LogData.Replace("$3+", " ")
-                Case "4+"
-                    _LogData += "Bep/PhaChe => Waitor " + _Data(i).Substring(2)
-                    _LogData = _LogData.Replace("$4+", " ")
-                Case "5+"
-                    _LogData += "Bep/PhaChe => ThuKho" + _Data(i).Substring(2)
-                    _LogData = _LogData.Replace("$5+", " ")
-                Case "6+"
-                    _LogData += "ThuKho => Bep/PhaChe " + _Data(i).Substring(2)
-                    _LogData = _LogData.Replace("$6+", " ")
-            End Select
-        Next
+        If (_Data.Length > 2) Then
+            For i As ULong = 0 To _Data.Length - 2 Step 1
+                Select Case (_Data(i).Split("$")(1).Substring(0, 2))
+                    Case "1+"
+                        _LogData += "Waitor => ThuNgan " + _Data(i).Substring(2)
+                        _LogData = _LogData.Replace("$1+", " ")
+                    Case "2+"
+                        _LogData += "Waitor => Bep/PhaChe " + _Data(i).Substring(2)
+                        _LogData = _LogData.Replace("$2+", " ")
+                    Case "3+"
+                        _LogData += "QuanLy => Waitor " + _Data(i).Substring(2)
+                        _LogData = _LogData.Replace("$3+", " ")
+                    Case "4+"
+                        _LogData += "Bep/PhaChe => Waitor " + _Data(i).Substring(2)
+                        _LogData = _LogData.Replace("$4+", " ")
+                    Case "5+"
+                        _LogData += "Bep/PhaChe => ThuKho" + _Data(i).Substring(2)
+                        _LogData = _LogData.Replace("$5+", " ")
+                    Case "6+"
+                        _LogData += "ThuKho => Bep/PhaChe " + _Data(i).Substring(2)
+                        _LogData = _LogData.Replace("$6+", " ")
+                End Select
+            Next
+        End If
         _LogData = _LogData.Replace("*", vbCrLf)
         file = My.Computer.FileSystem.OpenTextFileWriter("Path", True)
         file.Write(_LogData)
         file.Close()
     End Sub
-    Private Sub CheckWaitorToCashierSignal(ByVal Data As String)
-        Dim _DataArray As List(Of String) = DataFilter(Data, 1)
-        ''TODO your code here
-    End Sub
-    Private Sub CheckWaitorToChefBartender(ByVal Data As String)
-        Dim _DataArray As List(Of String) = DataFilter(Data, 2)
-        ''TODO your code from here
-    End Sub
-    Private Sub CheckWaitorToChefBartenderConfirm(ByVal Data As String)
-        Dim _DataArray As List(Of String) = DataFilter(Data, 3)
-        ''TODO your code from here
-    End Sub
-    Private Sub CheckChefBartenderToWarehouseSignal(ByVal Data As String)
-        Dim _DataArray As List(Of String) = DataFilter(Data, 6)
-        ''TODO your code here
-    End Sub
-    Private Sub CheckWarehouseToChefBartenderConfirm(ByVal Data As String)
-        Dim _DataArray As List(Of String) = DataFilter(Data, 7)
-        ''TODO your code from here
-    End Sub
-
 End Module

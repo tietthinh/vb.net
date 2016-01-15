@@ -1,6 +1,8 @@
 ﻿Public Class Table
     Private _TableOrder As New List(Of Order)
     Private _TableNumber As New Integer
+    Public _IsPaid As Boolean = False
+    Public _IsCommitted As Boolean = False
     Public Property TableNumber() As Integer
         Get
             Return Me._TableNumber
@@ -24,4 +26,7 @@
     Public Function GetLength() As Integer
         Return _TableOrder.Count
     End Function
+    Public Sub SetCommit(ByVal _Status As Boolean)
+        Me._IsCommitted = _Status
+    End Sub
 End Class
