@@ -76,31 +76,15 @@ Public Class FrmQLPhieuNhap
         End If
         If txtSoLuong.Text = "" Then
             errPhieuNhap.SetError(txtSoLuong, "Nhập số lượng!")
-        Else
-            If IsNumeric(txtSoLuong.Text) = False Then
-                errPhieuNhap.SetError(txtSoLuong, "Chỉ được nhập số!")
-            End If
-        End If
-        If cboDonVi.Text = "" Then
-            errPhieuNhap.SetError(cboDonVi, "Chọn đơn vị!")
         End If
         If txtDonGia.Text = "" Then
             errPhieuNhap.SetError(txtDonGia, "Nhập đơn giá!")
-        Else
-            If IsNumeric(txtDonGia.Text) = False Then
-                errPhieuNhap.SetError(txtDonGia, "Chỉ được nhập số!")
-            End If
         End If
         If txtThanhTien.Text = "" Then
             errPhieuNhap.SetError(txtThanhTien, "Nhập tổng tiền!")
-        Else
-            If IsNumeric(txtThanhTien.Text) = False Then
-                errPhieuNhap.SetError(txtThanhTien, "Chỉ được nhập số!")
-            End If
         End If
 
-        If errPhieuNhap.GetError(txtTenSP) = "" And errPhieuNhap.GetError(txtSoLuong) = "" And errPhieuNhap.GetError(cboDonVi) = "" And
-           errPhieuNhap.GetError(txtDonGia) = "" And errPhieuNhap.GetError(txtThanhTien) = "" Then
+        If errPhieuNhap.GetError(txtTenSP) = "" And errPhieuNhap.GetError(txtSoLuong) = "" And errPhieuNhap.GetError(txtDonGia) = "" And errPhieuNhap.GetError(txtThanhTien) = "" Then
             Dim _ReturnValue As SqlParameter = New SqlParameter
             Dim _Name() As String = New String() {"@MaPN", "@MaSP", "@SoLuong", "@MaDV", "@DonGia", "@ThanhTien"}
             Dim _Value() As String = New String() {dgvDSPhieuNhap.SelectedRows(0).Cells("colMaPN").Value(), lstTimKiem.SelectedItems(0).Text, txtSoLuong.Text, cboDonVi.SelectedValue(), txtDonGia.Text, txtThanhTien.Text}
@@ -117,6 +101,8 @@ Public Class FrmQLPhieuNhap
     End Sub
 
     Private Sub btnTimLB_Click(sender As Object, e As EventArgs) Handles btnTimLB.Click
+        errPhieuNhap.Clear()
+
         If txtTimLB.Text = "" Then
             errPhieuNhap.SetError(txtTimLB, "Nhập sản phẩm cần tìm!")
         End If
@@ -180,7 +166,7 @@ Public Class FrmQLPhieuNhap
     Dim lstTrue As New List(Of ListViewItem)
     Private Sub loadDSSanPham()
         Dim dt As New DataTable
-        dt = Connection.Query("Select MaSP, TenSP, SoLuongTon From SanPham")
+        dt = Connection.Query("Select s.MaSP, s.TenSP, s.SoLuongTon, l.MaDV, l.TenDV  From SanPham s, LoaiDonViTinh l Where s.MaDV = l.MaDV")
         For Each row As DataRow In dt.Rows
             Dim lst As New ListViewItem
             lst = lstTimKiem.Items.Add(row(0))
@@ -207,6 +193,8 @@ Public Class FrmQLPhieuNhap
     End Sub
 
     Private Sub btnXoaPN_Click(sender As Object, e As EventArgs) Handles btnXoaPN.Click
+        errPhieuNhap.Clear()
+
         If (MessageBox.Show("Bạn muốn xóa thông tin phiếu nhập này?", "Thông báo", MessageBoxButtons.OKCancel) = DialogResult.OK) Then
             Dim _Name() As String = New String() {"@MaPN"}
             Dim _Value() As Object = New Object() {dgvDSPhieuNhap.SelectedRows(0).Cells("colMaPN").Value()}
@@ -222,10 +210,6 @@ Public Class FrmQLPhieuNhap
         End If
         If txtTongTien.Text = "" Then
             errPhieuNhap.SetError(txtTongTien, "Nhập tổng tiền")
-        Else
-            If IsNumeric(txtTongTien.Text) = False Then
-                errPhieuNhap.SetError(txtTongTien, "Chỉ được nhập số")
-            End If
         End If
         If dtpNgayGiao.Value < dtpNgayLap.Value Then
             errPhieuNhap.SetError(dtpNgayGiao, "Ngày giao không hợp lệ!")
@@ -265,9 +249,12 @@ Public Class FrmQLPhieuNhap
         errPhieuNhap.Clear()
         txtTimLB.Text = lstTimKiem.SelectedItems(0).SubItems(1).Text
         txtTenSP.Text = lstTimKiem.SelectedItems(0).SubItems(1).Text
+        cboDonVi.SelectedValue = lstTimKiem.SelectedItems(0).SubItems(3).Text
     End Sub
 
     Private Sub btnXoaCT_Click(sender As Object, e As EventArgs) Handles btnXoaCT.Click
+        errPhieuNhap.Clear()
+
         If MessageBox.Show("Bạn muốn xóa chi tiết này?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) = DialogResult.OK Then
             Dim _ReturnXoa As SqlParameter = New SqlParameter
             Dim _Name() As String = New String() {"@MaPN", "@MaSP"}
@@ -288,27 +275,15 @@ Public Class FrmQLPhieuNhap
         End If
         If txtSoLuong.Text = "" Then
             errPhieuNhap.SetError(txtSoLuong, "Nhập số lượng!")
-        Else
-            If IsNumeric(txtSoLuong.Text) = False Then
-                errPhieuNhap.SetError(txtSoLuong, "Chỉ được nhập số!")
-            End If
         End If
         If cboDonVi.Text = "" Then
             errPhieuNhap.SetError(cboDonVi, "Chọn đơn vị!")
         End If
         If txtDonGia.Text = "" Then
             errPhieuNhap.SetError(txtDonGia, "Nhập đơn giá!")
-        Else
-            If IsNumeric(txtDonGia.Text) = False Then
-                errPhieuNhap.SetError(txtDonGia, "Chỉ được nhập số!")
-            End If
         End If
         If txtThanhTien.Text = "" Then
             errPhieuNhap.SetError(txtThanhTien, "Nhập tổng tiền!")
-        Else
-            If IsNumeric(txtThanhTien.Text) = False Then
-                errPhieuNhap.SetError(txtThanhTien, "Chỉ được nhập số!")
-            End If
         End If
         If errPhieuNhap.GetError(txtTenSP) = "" And errPhieuNhap.GetError(txtSoLuong) = "" And errPhieuNhap.GetError(cboDonVi) = "" And
            errPhieuNhap.GetError(txtDonGia) = "" And errPhieuNhap.GetError(txtThanhTien) = "" Then
@@ -325,6 +300,8 @@ Public Class FrmQLPhieuNhap
     End Sub
 
     Private Sub cboSL_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles cboSL.SelectionChangeCommitted
+        errPhieuNhap.Clear()
+
         If cboSL.Text = "Khác" Then
             txtSL.ReadOnly = False
         Else
@@ -334,24 +311,50 @@ Public Class FrmQLPhieuNhap
     End Sub
 
     Private Sub txtSL_TextChanged(sender As Object, e As EventArgs) Handles txtSL.TextChanged
-        If IsNumeric(txtSL.Text) = False Then
-            errPhieuNhap.SetError(txtSL, "Chỉ được nhập số!")
-        End If
-        If errPhieuNhap.GetError(txtSL) = "" Then
-            Dim _Name() As String = New String() {"@DinhMuc"}
-            Dim _Value() As String = New String() {txtSL.Text}
-            Dim _lstHetHang As DataTable
-            _lstHetHang = Connection.Query("usp_XemSanPhamDinhMuc", Connection.CreateParameter(_Name, _Value))
-            lstTimKiem.Items.Clear()
+        errPhieuNhap.Clear()
+        Dim _Name() As String = New String() {"@DinhMuc"}
+        Dim _Value() As String = New String() {txtSL.Text}
+        Dim _lstHetHang As DataTable
+        _lstHetHang = Connection.Query("usp_XemSanPhamDinhMuc", Connection.CreateParameter(_Name, _Value))
+        lstTimKiem.Items.Clear()
 
-            For Each row As DataRow In _lstHetHang.Rows
-                Dim lst As New ListViewItem
-                lst = lstTimKiem.Items.Add(row(0))
-                For i As Integer = 1 To _lstHetHang.Columns.Count - 1
-                    lst.SubItems.Add(row(i))
-                Next
-                lstTrue.Add(lst)
+        For Each row As DataRow In _lstHetHang.Rows
+            Dim lst As New ListViewItem
+            lst = lstTimKiem.Items.Add(row(0))
+            For i As Integer = 1 To _lstHetHang.Columns.Count - 1
+                lst.SubItems.Add(row(i))
             Next
+            lstTrue.Add(lst)
+        Next
+    End Sub
+
+    Private Sub txtTongTien_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtTongTien.KeyPress
+        If (Not Char.IsControl(e.KeyChar) And Not Char.IsDigit(e.KeyChar) And e.KeyChar <> ".") Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub txtSoLuong_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtSoLuong.KeyPress
+        If (Not Char.IsControl(e.KeyChar) And Not Char.IsDigit(e.KeyChar) And e.KeyChar <> ".") Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub txtThanhTien_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtThanhTien.KeyPress
+        If (Not Char.IsControl(e.KeyChar) And Not Char.IsDigit(e.KeyChar) And e.KeyChar <> ".") Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub txtDonGia_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtDonGia.KeyPress
+        If (Not Char.IsControl(e.KeyChar) And Not Char.IsDigit(e.KeyChar) And e.KeyChar <> ".") Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub txtSL_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtSL.KeyPress
+        If (Not Char.IsControl(e.KeyChar) And Not Char.IsDigit(e.KeyChar) And e.KeyChar <> ".") Then
+            e.Handled = True
         End If
     End Sub
 End Class

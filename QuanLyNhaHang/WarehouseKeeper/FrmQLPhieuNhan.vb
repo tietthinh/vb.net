@@ -225,4 +225,16 @@ Public Class FrmQLPhieuNhan
             loadDSPhieuNhan()
         End If
     End Sub
+
+    Private Sub txtTongTien_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtTongTien.KeyPress
+        If (Not Char.IsControl(e.KeyChar) And Not Char.IsDigit(e.KeyChar) And e.KeyChar <> ".") Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub txtSoLuong_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtSoLuong.KeyPress
+        If (Not Char.IsControl(e.KeyChar) And Not Char.IsDigit(e.KeyChar) And e.KeyChar <> ".") Then
+            e.Handled = True
+        End If
+    End Sub
 End Class

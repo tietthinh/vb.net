@@ -22,19 +22,22 @@ Partial Class frmChiTietMon
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.dgvChiTietMon = New System.Windows.Forms.DataGridView()
-        Me.lstGui = New System.Windows.Forms.ListView()
-        Me.colMaMon = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.btnSend = New System.Windows.Forms.Button()
-        Me.cboDinhMuc = New System.Windows.Forms.ComboBox()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.colMaSP = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colTenSP = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colSoLuongTon = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colMaDV = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colTenDV = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.lstGui = New System.Windows.Forms.ListView()
+        Me.colMaMon = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.btnSend = New System.Windows.Forms.Button()
+        Me.cboDinhMuc = New System.Windows.Forms.ComboBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.txtDinhMuc = New System.Windows.Forms.TextBox()
+        Me.errChiTiet = New System.Windows.Forms.ErrorProvider(Me.components)
         CType(Me.dgvChiTietMon, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.errChiTiet, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'dgvChiTietMon
@@ -44,55 +47,12 @@ Partial Class frmChiTietMon
         Me.dgvChiTietMon.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvChiTietMon.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colMaSP, Me.colTenSP, Me.colSoLuongTon, Me.colMaDV, Me.colTenDV})
         Me.dgvChiTietMon.GridColor = System.Drawing.SystemColors.InactiveCaption
-        Me.dgvChiTietMon.Location = New System.Drawing.Point(151, 98)
+        Me.dgvChiTietMon.Location = New System.Drawing.Point(151, 82)
         Me.dgvChiTietMon.Name = "dgvChiTietMon"
         Me.dgvChiTietMon.RowHeadersVisible = False
-        Me.dgvChiTietMon.Size = New System.Drawing.Size(542, 271)
+        Me.dgvChiTietMon.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvChiTietMon.Size = New System.Drawing.Size(542, 287)
         Me.dgvChiTietMon.TabIndex = 0
-        '
-        'lstGui
-        '
-        Me.lstGui.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.colMaMon})
-        Me.lstGui.Location = New System.Drawing.Point(12, 9)
-        Me.lstGui.Name = "lstGui"
-        Me.lstGui.Size = New System.Drawing.Size(133, 360)
-        Me.lstGui.TabIndex = 114
-        Me.lstGui.UseCompatibleStateImageBehavior = False
-        Me.lstGui.View = System.Windows.Forms.View.Details
-        '
-        'colMaMon
-        '
-        Me.colMaMon.Text = "Mã món"
-        Me.colMaMon.Width = 52
-        '
-        'btnSend
-        '
-        Me.btnSend.Font = New System.Drawing.Font("Roboto", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnSend.Location = New System.Drawing.Point(155, 55)
-        Me.btnSend.Name = "btnSend"
-        Me.btnSend.Size = New System.Drawing.Size(92, 37)
-        Me.btnSend.TabIndex = 115
-        Me.btnSend.Text = "Gửi"
-        Me.btnSend.UseVisualStyleBackColor = True
-        '
-        'cboDinhMuc
-        '
-        Me.cboDinhMuc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboDinhMuc.FormattingEnabled = True
-        Me.cboDinhMuc.Location = New System.Drawing.Point(257, 12)
-        Me.cboDinhMuc.Name = "cboDinhMuc"
-        Me.cboDinhMuc.Size = New System.Drawing.Size(121, 21)
-        Me.cboDinhMuc.TabIndex = 116
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Roboto", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(151, 13)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(100, 20)
-        Me.Label1.TabIndex = 117
-        Me.Label1.Text = "Số lượng tồn"
         '
         'colMaSP
         '
@@ -129,13 +89,61 @@ Partial Class frmChiTietMon
         Me.colTenDV.HeaderText = "Tên đơn vị"
         Me.colTenDV.Name = "colTenDV"
         '
+        'lstGui
+        '
+        Me.lstGui.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.colMaMon})
+        Me.lstGui.Location = New System.Drawing.Point(12, 13)
+        Me.lstGui.Name = "lstGui"
+        Me.lstGui.Size = New System.Drawing.Size(133, 360)
+        Me.lstGui.TabIndex = 114
+        Me.lstGui.UseCompatibleStateImageBehavior = False
+        Me.lstGui.View = System.Windows.Forms.View.Details
+        '
+        'colMaMon
+        '
+        Me.colMaMon.Text = "Mã món"
+        Me.colMaMon.Width = 132
+        '
+        'btnSend
+        '
+        Me.btnSend.Font = New System.Drawing.Font("Roboto", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnSend.Location = New System.Drawing.Point(512, 12)
+        Me.btnSend.Name = "btnSend"
+        Me.btnSend.Size = New System.Drawing.Size(162, 64)
+        Me.btnSend.TabIndex = 115
+        Me.btnSend.Text = "Gửi"
+        Me.btnSend.UseVisualStyleBackColor = True
+        '
+        'cboDinhMuc
+        '
+        Me.cboDinhMuc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboDinhMuc.FormattingEnabled = True
+        Me.cboDinhMuc.Location = New System.Drawing.Point(292, 13)
+        Me.cboDinhMuc.Name = "cboDinhMuc"
+        Me.cboDinhMuc.Size = New System.Drawing.Size(197, 21)
+        Me.cboDinhMuc.TabIndex = 116
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Roboto", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(186, 13)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(100, 20)
+        Me.Label1.TabIndex = 117
+        Me.Label1.Text = "Số lượng tồn"
+        '
         'txtDinhMuc
         '
-        Me.txtDinhMuc.Location = New System.Drawing.Point(257, 39)
+        Me.txtDinhMuc.Location = New System.Drawing.Point(292, 56)
         Me.txtDinhMuc.Name = "txtDinhMuc"
         Me.txtDinhMuc.ReadOnly = True
-        Me.txtDinhMuc.Size = New System.Drawing.Size(121, 20)
+        Me.txtDinhMuc.Size = New System.Drawing.Size(197, 20)
         Me.txtDinhMuc.TabIndex = 118
+        '
+        'errChiTiet
+        '
+        Me.errChiTiet.ContainerControl = Me
         '
         'frmChiTietMon
         '
@@ -151,6 +159,7 @@ Partial Class frmChiTietMon
         Me.Name = "frmChiTietMon"
         Me.Text = "Chi tiết món"
         CType(Me.dgvChiTietMon, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.errChiTiet, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -168,4 +177,5 @@ Partial Class frmChiTietMon
     Friend WithEvents colMaDV As DataGridViewTextBoxColumn
     Friend WithEvents colTenDV As DataGridViewTextBoxColumn
     Friend WithEvents txtDinhMuc As TextBox
+    Friend WithEvents errChiTiet As ErrorProvider
 End Class

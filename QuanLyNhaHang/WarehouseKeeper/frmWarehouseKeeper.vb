@@ -37,10 +37,6 @@ Public Class frmWarehouseKeeper
         End If
         If txtSoLuong.Text = "" Then
             errMain.SetError(txtSoLuong, "Nhập số lượng!")
-        Else
-            If IsNumeric(txtSoLuong.Text) = False Then
-                errMain.SetError(txtSoLuong, "Chỉ được nhập số!")
-            End If
         End If
         If cboDonVi.Text = "" Then
             errMain.SetError(cboDonVi, "Chọn đơn vị!")
@@ -85,14 +81,19 @@ Public Class frmWarehouseKeeper
 
     Private Sub btnThemNCC_Click(sender As Object, e As EventArgs) Handles btnThemNCC.Click
         errMain.Clear()
+        Dim _test As Double = 0
         If txtTenNCC.Text = "" Then
             errMain.SetError(txtTenNCC, "Tên nhà cung cấp khác rỗng!")
         End If
         If txtChietKhau.Text = "" Then
             errMain.SetError(txtChietKhau, "Chọn chiết khấu!")
         Else
-            If txtChietKhau.Text > 10 Then
-                errMain.SetError(txtChietKhau, "Chiết khấu bé hơn hoặc bằng 10!")
+            If Double.TryParse(txtChietKhau.Text, _test) = False Then
+                errMain.SetError(txtChietKhau, "Chỉ được nhập số!")
+            Else
+                If txtChietKhau.Text > 10 Then
+                    errMain.SetError(txtChietKhau, "Chiết khấu bé hơn hoặc bằng 10!")
+                End If
             End If
         End If
         If txtDiaChi.Text = "" Then
@@ -108,6 +109,8 @@ Public Class frmWarehouseKeeper
     End Sub
 
     Private Sub btnXoaNCC_Click(sender As Object, e As EventArgs) Handles btnXoaNCC.Click
+        errMain.Clear()
+
         If (MessageBox.Show("Bạn chắc rằng muốn xóa thông tin nhà cung cấp này?", "Thông báo", MessageBoxButtons.OKCancel) = DialogResult.OK) Then
             Dim _Name() As String = {"@MaNCC"}
             Dim _Value() As Object = {dgvDSNhaCungCap.SelectedRows(0).Cells(0).Value.ToString.Trim}
@@ -169,18 +172,18 @@ Public Class frmWarehouseKeeper
     End Sub
 
     Private Sub frmWarehouseKeeper_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'Dim _Login As New frmLogin(EmployeeType.WarehouseKeeper)
-        '_Login.ShowDialog()
-        '_CurrentUser = DatabaseConnection._User
-        'If (_Login.DialogResult = 1) Then
-        StartService(New ThreadStart(Sub() Listener()))
+        Dim _Login As New frmLogin(EmployeeType.WarehouseKeeper)
+        _Login.ShowDialog()
+        _CurrentUser = DatabaseConnection._User
+        If (_Login.DialogResult = DialogResult.OK) Then
+            StartService(New ThreadStart(Sub() Listener()))
             loadDSSanPham()
-        listArray = New List(Of String)
-        txtTenSanPham.Text = dgvDSSanPham.SelectedRows(0).Cells("colTenSP").Value.ToString
+            listArray = New List(Of String)
+            txtTenSanPham.Text = dgvDSSanPham.SelectedRows(0).Cells("colTenSP").Value.ToString
             txtSoLuong.Text = dgvDSSanPham.SelectedRows(0).Cells("colSoLuongTon").Value.ToString
             cboDonVi.Text = dgvDSSanPham.SelectedRows(0).Cells("colTenDV").Value.ToString
 
-        loadDSNCC()
+            loadDSNCC()
 
             txtTenNCC.Text = dgvDSNhaCungCap.SelectedRows(0).Cells("colTenNCC").Value().ToString
             txtChietKhau.Text = dgvDSNhaCungCap.SelectedRows(0).Cells("colChietKhau").Value().ToString
@@ -203,9 +206,9 @@ Public Class frmWarehouseKeeper
 
             tslMaNV.Text = _CurrentUser.Identity
             tslTenNV.Text = _CurrentUser.EmployeeName
-        'Else
-        '    Me.Close()
-        'End If
+        Else
+            Me.Close()
+        End If
     End Sub
     '
     'btnCong1's Events:
@@ -214,6 +217,8 @@ Public Class frmWarehouseKeeper
     '
     Private Sub btnCong1_Click(sender As Object, e As EventArgs) Handles btnCong1.Click
         'If txtTenNCC's Text is not null then show the frmEmail with Supplier's name in that form.
+        errMain.Clear()
+
         If txtTenNCC.Text <> "" Then
             frmEmail = New frmContact(Data)
             frmEmail._SupplierName = txtTenNCC.Text
@@ -229,6 +234,8 @@ Public Class frmWarehouseKeeper
     End Sub
 
     Private Sub btnCong2_Click(sender As Object, e As EventArgs) Handles btnCong2.Click
+        errMain.Clear()
+
         If txtTenNCC.Text <> "" Then
             frmDienThoai = New frmContact(Data)
             frmDienThoai._SupplierName = txtTenNCC.Text
@@ -287,10 +294,6 @@ Public Class frmWarehouseKeeper
         End If
         If txtSoLuong.Text = "" Then
             errMain.SetError(txtSoLuong, "Nhập số lượng!")
-        Else
-            If IsNumeric(txtSoLuong.Text) = False Then
-                errMain.SetError(txtSoLuong, "Chỉ được nhập số!")
-            End If
         End If
         If cboDonVi.Text = "" Then
             errMain.SetError(cboDonVi, "Chọn đơn vị!")
@@ -307,6 +310,8 @@ Public Class frmWarehouseKeeper
     End Sub
 
     Public Sub dgvDSSanPham_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDSSanPham.CellClick
+        errMain.Clear()
+
         If dgvDSSanPham.SelectedRows(0).Cells("colMaSP").Value.ToString <> "" Then
             txtTenSanPham.Text = dgvDSSanPham.SelectedRows(0).Cells("colTenSP").Value.ToString
             txtSoLuong.Text = dgvDSSanPham.SelectedRows(0).Cells("colSoLuongTon").Value.ToString
@@ -319,6 +324,8 @@ Public Class frmWarehouseKeeper
     End Sub
 
     Private Sub btnXoaSP_Click(sender As Object, e As EventArgs) Handles btnXoaSP.Click
+        errMain.Clear()
+
         If (MessageBox.Show("Bạn chắc rằng muốn xóa sản phẩm này?", "Thông báo", MessageBoxButtons.OKCancel) = DialogResult.OK) Then
             Dim _Query As String = "spSanPhamDelete"
             Dim _Name() As String = {"@MaSP"}
@@ -345,10 +352,12 @@ Public Class frmWarehouseKeeper
     End Function
 
     Private Sub txtTimSP_TextChanged(sender As Object, e As EventArgs) Handles txtTimSP.TextChanged
+        errMain.Clear()
         loadDSSanPham()
     End Sub
 
     Private Sub dgvDSNhaCungCap_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDSNhaCungCap.CellClick
+        errMain.Clear()
         lblChietKhau.Text = "Chiết khấu"
         txtChietKhau.Text = ""
         btnHoanTat.Visible = False
@@ -408,6 +417,8 @@ Public Class frmWarehouseKeeper
     End Sub
 
     Private Sub btnXoaEmail_Click(sender As Object, e As EventArgs) Handles btnXoaEmail.Click
+        errMain.Clear()
+
         If (MessageBox.Show("Bạn chắc rằng muốn xóa email này?", "Thông báo", MessageBoxButtons.OKCancel) = DialogResult.OK) Then
             Dim _Name() As String = {"@MaNCC", "@Email"}
             Dim _Value() As Object = {dgvDSNhaCungCap.SelectedRows(0).Cells("colMaNCC").Value.ToString.Trim, cboEmail.SelectedValue}
@@ -437,6 +448,7 @@ Public Class frmWarehouseKeeper
     End Sub
 
     Private Sub btnHoanTat_Click(sender As Object, e As EventArgs) Handles btnHoanTat.Click
+        errMain.Clear()
         If lblChietKhau.Text = "Email mới" Then
             Dim _returnSuaMail As SqlParameter = New SqlParameter
             Dim _Name() As String = New String() {"@MaNCC", "@EmailCu", "@EmailMoi"}
@@ -510,6 +522,7 @@ Public Class frmWarehouseKeeper
     End Sub
 
     Private Sub btnXoaSDT_Click(sender As Object, e As EventArgs) Handles btnXoaSDT.Click
+        errMain.Clear()
         If (MessageBox.Show("Bạn chắc rằng muốn xóa số điện thoại này?", "Thông báo", MessageBoxButtons.OKCancel) = DialogResult.OK) Then
             Dim _Name() As String = {"@MaNCC", "@SDT"}
             Dim _Value() As Object = {dgvDSNhaCungCap.SelectedRows(0).Cells("colMaNCC").Value.ToString.Trim, cboEmail.SelectedValue}
@@ -560,5 +573,15 @@ Public Class frmWarehouseKeeper
 
     Private Sub Label10_Click(sender As Object, e As EventArgs) Handles Label10.Click
         SendData("6+DA0001*")
+    End Sub
+
+    Private Sub txtSoLuong_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtSoLuong.KeyPress
+        If (Not Char.IsControl(e.KeyChar) And Not Char.IsDigit(e.KeyChar) And e.KeyChar <> ".") Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub dgvDSNhaCungCap_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvDSNhaCungCap.ColumnHeaderMouseClick
+
     End Sub
 End Class
