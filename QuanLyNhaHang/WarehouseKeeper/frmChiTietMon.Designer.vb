@@ -106,7 +106,7 @@ Partial Class frmChiTietMon
         '
         'btnSend
         '
-        Me.btnSend.Font = New System.Drawing.Font("Roboto", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnSend.Font = New System.Drawing.Font("Roboto", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSend.Location = New System.Drawing.Point(512, 12)
         Me.btnSend.Name = "btnSend"
         Me.btnSend.Size = New System.Drawing.Size(162, 64)

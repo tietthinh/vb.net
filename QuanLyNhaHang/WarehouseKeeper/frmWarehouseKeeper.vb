@@ -22,12 +22,12 @@ Public Class frmWarehouseKeeper
 
     Private Sub btnPhieuNhan_Click(sender As Object, e As EventArgs) Handles btnPhieuNhan.Click
         Dim f = New FrmQLPhieuNhan()
-        f.Show()
+        f.ShowDialog()
     End Sub
 
     Private Sub btnPhieuNhap_Click(sender As Object, e As EventArgs) Handles btnPhieuNhap.Click
         Dim f = New FrmQLPhieuNhap()
-        f.Show()
+        f.ShowDialog()
     End Sub
 
     Private Sub btnThemSP_Click(sender As Object, e As EventArgs) Handles btnThemSP.Click
