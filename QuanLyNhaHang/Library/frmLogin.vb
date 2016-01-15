@@ -222,9 +222,11 @@ Public Class frmLogin
     'Click: Occur when btnCancel is clicked
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         'Sets this form's dialog by Dialog Cancel
-        Me.DialogResult = Windows.Forms.DialogResult.Cancel
-        db.Dispose()
-        db = Nothing
+        If _FormID <> EmployeeType.Manager Then
+            Me.DialogResult = Windows.Forms.DialogResult.Cancel
+            db.Dispose()
+            db = Nothing
+        End If
     End Sub
     '
     'txtSubID's Events
