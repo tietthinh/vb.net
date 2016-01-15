@@ -581,7 +581,4 @@ Public Class frmWarehouseKeeper
         End If
     End Sub
 
-    Private Sub dgvDSNhaCungCap_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvDSNhaCungCap.ColumnHeaderMouseClick
-
-    End Sub
 End Class
